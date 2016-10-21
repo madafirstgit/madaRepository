@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IProductStockRelationMapper">
+
+<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+	id  
+	,product_id 
+	,product_info_id 
+	,stock_rule_id 
+	,flag 
+	</sql>
+	
+<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.product.ProductStockRelation">
+	     <id column="id" property="id" jdbcType="BIGINT" />
+		<result column="product_id" jdbcType="BIGINT" property="productId" />
+		<result column="product_info_id" jdbcType="BIGINT" property="productInfoId" />
+		<result column="stock_rule_id" jdbcType="BIGINT" property="stockRuleId" />
+		<result column="flag" jdbcType="BIT" property="flag" />
+	</resultMap>
+
+<!-- 主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select  <include refid="Base_Column_List" />
+		from product_stock_relation
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+<!-- 删除 -->	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product_stock_relation where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+<!-- 通用查询条件 -->
+	<sql id="sql_of_where">
+		WHERE 1=1 
+		<if test="bParam != null" >
+			<if test="bParam.id != null"> AND id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.productId != null"> AND product_id = #{bParam.productId,jdbcType=BIGINT} </if>
+			<if test="bParam.productInfoId != null"> AND product_info_id = #{bParam.productInfoId,jdbcType=BIGINT} </if>
+			<if test="bParam.stockRuleId != null"> AND stock_rule_id = #{bParam.stockRuleId,jdbcType=BIGINT} </if>
+			<if test="bParam.flag != null"> AND flag = #{bParam.flag,jdbcType=BIT} </if>
+			<if test="bParam.productIds != null and bParam.productIds.size > 0">
+				AND product_id in
+				<foreach collection="bParam.productIds" item="item"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+		  </if>
+		  <if test="bParam.productInfoIds != null and bParam.productInfoIds.size > 0">
+				AND product_info_id in
+				<foreach collection="bParam.productInfoIds" item="item"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+		  </if>
+		  <if test="bParam.stockRuleIds != null and bParam.stockRuleIds.size > 0">
+				AND stock_rule_id in
+				<foreach collection="bParam.stockRuleIds" item="item"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+		  </if>
+		</if>
+	</sql>
+	
+<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from product_stock_relation
+		<include refid="sql_of_where" />
+		<if test="pParam != null">
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(id) from product_stock_relation
+		<include refid="sql_of_where" />
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.pzj.base.entity.product.ProductStockRelation" useGeneratedKeys="true" keyProperty="id">
+		insert into product_stock_relation 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				id, 
+			<if test="productId != null">
+			    product_id,
+			</if>
+			<if test="productInfoId != null">
+			    product_info_id,
+			</if>
+			<if test="stockRuleId != null">
+			    stock_rule_id,
+			</if>
+			<if test="flag != null">
+			    flag,
+			</if> 
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			     #{id,jdbcType=BIGINT}, 
+			<if test="productId != null">
+			    #{productId,jdbcType=BIGINT},
+			</if>
+			<if test="productInfoId != null">
+			    #{productInfoId,jdbcType=BIGINT},
+			</if>
+			<if test="stockRuleId != null">
+			    #{stockRuleId,jdbcType=BIGINT},
+			</if>
+			<if test="flag != null">
+			    #{flag,jdbcType=BIT},
+			</if>
+		</trim>
+	</insert>
+	
+<!-- 批量插入 请根据业务修改默认值-->	
+    <insert id="insertBatch"  parameterType="java.util.List">
+		insert into product_stock_relation 
+		(id  
+		,product_id 
+		,product_info_id 
+		,stock_rule_id 
+		,flag  
+		) 
+		values
+		<foreach collection="list" item="item" separator=",">
+		(#{item.id,jdbcType=BIGINT}  
+			<choose>  
+				<when test="item.productId != null">,#{item.productId ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.productInfoId != null">,#{item.productInfoId ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.stockRuleId != null">,#{item.stockRuleId ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.flag != null">,#{item.flag ,jdbcType=BIT}</when>
+				<otherwise>,0</otherwise>
+			</choose> 
+		)
+		</foreach>
+	</insert>
+
+<!-- 更新 -->
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.product.ProductStockRelation">
+		update product_stock_relation
+		<set>
+			<if test="productId != null" >
+             product_id = #{productId,jdbcType=BIGINT},
+            </if>
+			<if test="productInfoId != null" >
+             product_info_id = #{productInfoId,jdbcType=BIGINT},
+            </if>
+			<if test="stockId != null" >
+             stock_rule_id = #{stockRuleId,jdbcType=BIGINT},
+            </if>
+			<if test="flag != null" >
+             flag = #{flag,jdbcType=BIT},
+            </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+		<update id="updateAllByPrimaryKey" parameterType="com.pzj.base.entity.product.ProductStockRelation">
+		update product_stock_relation
+		<set>	
+     product_id = #{productId,jdbcType=BIGINT},        
+     product_info_id = #{productInfoId,jdbcType=BIGINT},        
+     stock_rule_id = #{stockRuleId,jdbcType=BIGINT},        
+     flag = #{flag,jdbcType=BIT},        
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+<!-- 批量更新 -->
+	<update id="updateBatchByPrimaryKey"  parameterType="java.util.List">
+	     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update product_stock_relation 
+                <set>
+                  <if test="item.productId != null" >
+                    product_id = #{item.productId,jdbcType=BIGINT},
+                  </if>
+                  <if test="item.productInfoId != null" >
+                    product_info_id = #{item.productInfoId,jdbcType=BIGINT},
+                  </if>
+                  <if test="item.stockId != null" >
+                    stock_rule_id = #{item.stockRuleId,jdbcType=BIGINT},
+                  </if>
+                  <if test="item.flag != null" >
+                    flag = #{item.flag,jdbcType=BIT},
+                  </if>
+                </set>
+                where id = #{item.id,jdbcType=BIGINT}
+         </foreach>
+	</update>
+</mapper>

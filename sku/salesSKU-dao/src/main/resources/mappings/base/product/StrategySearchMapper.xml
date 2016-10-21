@@ -1,0 +1,464 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IStrategySearchMapper">
+	<!-- start  根据（渠道产品）关系表对象的相关信息查询对象列表 -->
+	<resultMap id="labelRelationResultMap" type="com.pzj.base.entity.SysLabelRelationKey">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="obj_id" jdbcType="BIGINT" property="objId" />
+		<result column="rel_id" jdbcType="BIGINT" property="relId" />
+		<result column="rel_type" jdbcType="VARCHAR" property="relType" />
+		<result column="s_id" jdbcType="BIGINT" property="sId" />
+	</resultMap>
+    <sql id="label_relation_column">
+		k.id
+		,k.obj_id
+		,k.rel_id
+		,k.rel_type
+		,k.s_id
+	</sql>
+	<select id="selectLabelRelationByParam" parameterType="java.util.Map" resultMap="labelRelationResultMap">
+		select <include refid="label_relation_column"/>
+		from sys_label_relation k
+		<where>
+		<if test="bParam != null">
+			<if test="bParam.id != null"> AND k.id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.objId != null"> AND k.obj_id = #{bParam.objId,jdbcType=BIGINT} </if>
+			<if test="bParam.relId != null"> AND k.rel_id = #{bParam.relId,jdbcType=BIGINT} </if>
+			<if test="bParam.relType != null"> AND k.rel_type = #{bParam.relType,jdbcType=VARCHAR} </if>
+			<if test="bParam.sId != null"> AND k.s_id = #{bParam.sId,jdbcType=BIGINT} </if>
+			<if test="bParam.queryObjIds != null and bParam.queryObjIds.size > 0">
+				and k.obj_id in
+				<foreach collection="bParam.queryObjIds" item="item" open="(" separator=","
+					close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="bParam.queryRelIds != null and bParam.queryRelIds.size > 0">
+				and k.rel_id in
+				<foreach collection="bParam.queryRelIds" item="item" open="(" separator=","
+					close=")">
+					#{item}
+				</foreach>
+			</if>
+			or 1=2
+		</if>
+		</where>
+	</select>
+	<!-- end  根据（渠道产品）关系表对象的相关信息查询对象列表 -->
+	
+	<!-- start 根据渠道查询参数查询渠道集合 -->
+	<resultMap id="channelResultMap" type="com.pzj.base.entity.SysChannel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="channel_principal" jdbcType="VARCHAR" property="channelPrincipal" />
+		<result column="city" jdbcType="VARCHAR" property="city" />
+		<result column="county" jdbcType="VARCHAR" property="county" />
+		<result column="province" jdbcType="VARCHAR" property="province" />
+		<result column="spell" jdbcType="VARCHAR" property="spell" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="del_flag" jdbcType="CHAR" property="delFlag" />
+		<result column="sort" jdbcType="INTEGER" property="sort" />
+		<result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+		<result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+		<result column="create_by" jdbcType="VARCHAR" property="createBy" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="channel_type" jdbcType="CHAR" property="channelType" />
+		<result column="channel_category" jdbcType="VARCHAR" property="channelCategory" />
+		<result column="data_source" jdbcType="VARCHAR" property="dataSource" />
+		<result column="supplier_id" jdbcType="BIGINT" property="supplierId" />
+	</resultMap>
+	<sql id="channel_column">
+		channel.id
+		,channel.name
+		,channel.channel_principal
+		,channel.city
+		,channel.county
+		,channel.province
+		,channel.spell
+		,channel.create_date
+		,channel.del_flag
+		,channel.sort
+		,channel.update_date
+		,channel.update_by
+		,channel.create_by
+		,channel.remark
+		,channel.channel_type
+		,channel.channel_category
+		,channel.data_source
+		,channel.supplier_id
+	</sql>
+	<select id="selectChannelByParam" parameterType="java.util.Map"
+		resultMap="channelResultMap">
+		select
+		<include refid="channel_column" />
+		from sys_channel channel
+		<where>
+            1=1
+			<if test="bParam.id != null"> AND channel.id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.name != null"> AND channel.name like #{bParam.name,jdbcType=VARCHAR} </if>
+			<if test="bParam.channelPrincipal != null"> AND channel.channel_principal like
+				#{bParam.channelPrincipal,jdbcType=VARCHAR} </if>
+			<if test="bParam.city != null"> AND channel.city = #{bParam.city,jdbcType=VARCHAR} </if>
+			<if test="bParam.county != null"> AND channel.county = #{bParam.county,jdbcType=VARCHAR} </if>
+			<if test="bParam.province != null"> AND channel.province = #{bParam.province,jdbcType=VARCHAR} </if>
+			<if test="bParam.spell != null"> AND channel.spell = #{bParam.spell,jdbcType=VARCHAR} </if>
+			<if test="bParam.delFlag != null"> AND channel.del_flag = #{bParam.delFlag,jdbcType=CHAR} </if>
+			<if test="bParam.delFlag == null">AND channel.del_flag = '1'</if>
+			<if test="bParam.sort != null"> AND channel.sort = #{bParam.sort,jdbcType=INTEGER} </if>
+			<if test="bParam.updateBy != null"> AND channel.update_by = #{bParam.updateBy,jdbcType=VARCHAR} </if>
+			<if test="bParam.createBy != null"> AND channel.create_by = #{bParam.createBy,jdbcType=VARCHAR} </if>
+			<if test="bParam.remark != null"> AND channel.remark = #{bParam.remark,jdbcType=VARCHAR} </if>
+			<if test="bParam.channelType != null"> AND channel.channel_type = #{bParam.channelType,jdbcType=CHAR}
+			</if>
+			<if test="bParam.channelCategory != null"> AND channel.channel_category =
+				#{bParam.channelCategory,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.dataSource != null"> AND channel.data_source =
+				#{bParam.dataSource,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.supplierId != null"> AND channel.supplier_id =
+				#{bParam.supplierId,jdbcType=BIGINT}
+			</if>
+			<if test="bParam.queryIds != null and bParam.queryIds.size > 0">
+				AND channel.id in
+				<foreach collection="bParam.queryIds" item="item" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</select>	
+	<!-- end 根据渠道查询参数查询渠道集合 -->
+	
+	<!-- start 根据政策查询参数查询政策集合 -->
+	 <resultMap id="strategyResultMap" type="com.pzj.base.entity.SysChannelStrategy">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="price" jdbcType="DOUBLE" property="price"/>
+        <result column="quantity" jdbcType="INTEGER" property="quantity"/>
+        <result column="begin_date" jdbcType="TIMESTAMP" property="beginDate"/>
+        <result column="end_date" jdbcType="TIMESTAMP" property="endDate"/>
+        <result column="pre_sale" jdbcType="INTEGER" property="preSale"/>
+        <result column="pre_sale_mode" jdbcType="BIT" property="preSaleMode"/>
+        <result column="expire" jdbcType="INTEGER" property="expire"/>
+        <result column="expire_mode" jdbcType="BIT" property="expireMode"/>
+        <result column="scope" jdbcType="VARCHAR" property="scope"/>
+        <result column="status" jdbcType="BIT" property="status"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="type" jdbcType="CHAR" property="type"/>
+        <result column="del_flag" jdbcType="CHAR" property="delFlag"/>
+        <result column="publish_date" jdbcType="TIMESTAMP" property="publishDate"/>
+        <result column="data_source" jdbcType="VARCHAR" property="dataSource"/>
+        <result column="publish_by" jdbcType="VARCHAR" property="publishBy"/>
+        <result column="publish_status" jdbcType="BIT" property="publishStatus"/>
+        <result column="dict_value" jdbcType="VARCHAR" property="dictValue"/>
+        <result column="is_open_multi_rebate" jdbcType="BIT" property="isOpenMultiRebate"/>
+        <result column="supplier_id" jdbcType="BIGINT" property="supplierId"/>
+        <result column="sub_product_id" jdbcType="BIGINT" property="subProductId"/>
+        <result column="strategy_expire_type" jdbcType="INTEGER" property="strategyExpireType"/>
+        <result column="checkin_expire_type" jdbcType="INTEGER" property="checkinExpireType"/>
+        <result column="checkin_expire_num" jdbcType="INTEGER" property="checkinExpireNum"/>
+        <result column="checkin_expire_unit" jdbcType="INTEGER" property="checkinExpireUnit"/>
+        <result column="settlement_price" jdbcType="DOUBLE" property="settlementPrice"/>
+        <result column="ticket_varie" jdbcType="VARCHAR" property="ticketVarie"/>
+        <result column="sales_type" jdbcType="VARCHAR" property="salesType"/>
+        <result column="audit_status" jdbcType="INTEGER" property="auditStatus"/>
+        <result column="isMF" jdbcType="INTEGER" property="isMF"/>
+        <result column="refuse_reason" jdbcType="VARCHAR" property="refuseReason"/>
+        <result column="rebate_rate" jdbcType="DOUBLE" property="rebateRate"/>
+        <result column="not_total_settlement_type" jdbcType="INTEGER" property="notTotalSettlementType"/>
+        <result column="reduce_settlement_money" jdbcType="DOUBLE" property="reduceSettlementMoney"/>
+        <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+        <result column="market_price" jdbcType="DOUBLE" property="marketPrice"/>
+        <result column="advice_price" jdbcType="DOUBLE" property="advicePrice"/>
+        <result column="is_limit_advance_due" jdbcType="INTEGER" property="isLimitAdvanceDue"/>
+        <result column="advance_due_days" jdbcType="INTEGER" property="advanceDueDays"/>
+        <result column="advance_due_hour" jdbcType="INTEGER" property="advanceDueHour"/>
+        <result column="advance_due_minute" jdbcType="INTEGER" property="advanceDueMinute"/>
+        <result column="is_limit_delay_consume" jdbcType="INTEGER" property="isLimitDelayConsume"/>
+        <result column="delay_consume_hour" jdbcType="INTEGER" property="delayConsumeHour"/>
+        <result column="least_perdue_number" jdbcType="INTEGER" property="leastPerdueNumber"/>
+        <result column="most_perdue_number" jdbcType="INTEGER" property="mostPerdueNumber"/>
+        <result column="advance_due_unit" jdbcType="INTEGER" property="advanceDueUnit"/>
+        <result column="product_id" jdbcType="BIGINT" property="productId"/>
+    </resultMap>
+	<sql id="strategy_column">
+        strategy.id
+        ,strategy.name
+        ,strategy.remark
+        ,strategy.price
+        ,strategy.quantity
+        ,strategy.begin_date
+        ,strategy.end_date
+        ,strategy.pre_sale
+        ,strategy.pre_sale_mode
+        ,strategy.expire
+        ,strategy.expire_mode
+        ,strategy.scope
+        ,strategy.status
+        ,strategy.create_date
+        ,strategy.create_by
+        ,strategy.update_date
+        ,strategy.update_by
+        ,strategy.type
+        ,strategy.del_flag
+        ,strategy.publish_date
+        ,strategy.data_source
+        ,strategy.publish_by
+        ,strategy.publish_status
+        ,strategy.dict_value
+        ,strategy.is_open_multi_rebate
+        ,strategy.supplier_id
+        ,strategy.sub_product_id
+        ,strategy_expire_type
+        ,strategy.checkin_expire_type
+        ,strategy.checkin_expire_num
+        ,strategy.checkin_expire_unit
+        ,strategy.settlement_price
+        ,strategy.ticket_varie
+        ,strategy.sales_type
+        ,strategy.audit_status
+        ,strategy.isMF
+        ,strategy.refuse_reason
+        ,strategy.rebate_rate
+        ,strategy.not_total_settlement_type
+        ,strategy.reduce_settlement_money
+        ,strategy.parent_id
+        ,strategy.market_price
+        ,strategy.advice_price
+        ,strategy.is_limit_advance_due
+        ,strategy.advance_due_days
+        ,strategy.advance_due_hour
+        ,strategy.advance_due_minute
+        ,strategy.is_limit_delay_consume
+        ,strategy.delay_consume_hour
+        ,strategy.least_perdue_number
+        ,strategy.most_perdue_number
+        ,strategy.advance_due_unit
+        ,strategy.product_id
+    </sql>
+    <sql id="sql_of_where">
+        <if test="bParam != null">
+            <if test="bParam.id != null">AND strategy.id = #{bParam.id,jdbcType=BIGINT}</if>
+            <if test="bParam.ids != null">
+                AND strategy.id in
+                <foreach collection="bParam.ids" item="_id" open="(" separator="," close=")">
+                    #{_id,jdbcType=BIGINT}
+                </foreach>
+            </if>
+            <if test="bParam.productIds != null">
+                AND strategy.product_id in
+                <foreach collection="bParam.productIds" item="_id" open="(" separator="," close=")">
+                    #{_id,jdbcType=BIGINT}
+                </foreach>
+            </if>
+
+            <if test="bParam.name != null">AND strategy.name like #{bParam.name,jdbcType=VARCHAR}</if>
+            <if test="bParam.remark != null">AND strategy.remark = #{bParam.remark,jdbcType=VARCHAR}</if>
+            <if test="bParam.price != null">AND strategy.price = #{bParam.price,jdbcType=DOUBLE}</if>
+            <if test="bParam.quantity != null">AND strategy.quantity = #{bParam.quantity,jdbcType=INTEGER}
+            </if>
+            <if test="bParam.beginDate != null">AND strategy.begin_date =
+                #{bParam.beginDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="bParam.endDate != null">AND strategy.end_date = #{bParam.endDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="bParam.preSale != null">AND strategy.pre_sale = #{bParam.preSale,jdbcType=INTEGER}</if>
+            <if test="bParam.preSaleMode != null">AND strategy.pre_sale_mode = #{bParam.preSaleMode,jdbcType=BIT}
+            </if>
+            <if test="bParam.expire != null">AND strategy.expire = #{bParam.expire,jdbcType=INTEGER}</if>
+            <if test="bParam.expireMode != null">AND strategy.expire_mode = #{bParam.expireMode,jdbcType=BIT}
+            </if>
+            <if test="bParam.scope != null">AND strategy.scope = #{bParam.scope,jdbcType=VARCHAR}</if>
+            <if test="bParam.status != null">AND strategy.status = #{bParam.status,jdbcType=BIT}</if>
+            <if test="bParam.createDate != null">AND strategy.create_date =
+                #{bParam.createDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="bParam.createBy != null">AND strategy.create_by = #{bParam.createBy,jdbcType=VARCHAR}
+            </if>
+            <if test="bParam.updateDate != null">AND strategy.update_date =
+                #{bParam.updateDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="bParam.updateBy != null">AND strategy.update_by = #{bParam.updateBy,jdbcType=VARCHAR}
+            </if>
+            <if test="bParam.type != null">AND strategy.type = #{bParam.type,jdbcType=CHAR}</if>
+            <if test="bParam.delFlag != null">AND strategy.del_flag = #{bParam.delFlag,jdbcType=CHAR}</if>
+            <if test="bParam.delFlag == null">AND strategy.del_flag = '1'</if>
+            <if test="bParam.publishDate != null">AND strategy.publish_date =
+                #{bParam.publishDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="bParam.dataSource != null">AND strategy.data_source =
+                #{bParam.dataSource,jdbcType=VARCHAR}
+            </if>
+            <if test="bParam.publishBy != null">AND strategy.publish_by =
+                #{bParam.publishBy,jdbcType=VARCHAR}
+            </if>
+            <if test="bParam.publishStatus != null">AND strategy.publish_status = #{bParam.publishStatus,jdbcType=BIT}</if>
+            <if test="bParam.dictValue != null">AND strategy.dict_value like
+                #{bParam.dictValue,jdbcType=VARCHAR}
+            </if>
+            <if test="bParam.isOpenMultiRebate != null">AND strategy.is_open_multi_rebate =
+                #{bParam.isOpenMultiRebate,jdbcType=BIT}
+            </if>
+            <if test="bParam.supplierId != null">AND strategy.supplier_id = #{bParam.supplierId,jdbcType=BIGINT}</if>
+
+            <if test="bParam.subProductId != null">AND strategy.sub_product_id = #{bParam.subProductId,jdbcType=BIGINT}</if>
+
+            <if test="bParam.strategyExpireType != null">AND strategy.strategy_expire_type = #{bParam.strategyExpireType,jdbcType=INTEGER}</if>
+            <if test="bParam.checkinExpireType != null">AND strategy.checkin_expire_type = #{bParam.checkinExpireType,jdbcType=INTEGER}</if>
+            <if test="bParam.checkinExpireNum != null">AND strategy.checkin_expire_num = #{bParam.checkinExpireNum,jdbcType=INTEGER}</if>
+            <if test="bParam.checkinExpireUnit != null">AND strategy.checkin_expire_unit = #{bParam.checkinExpireUnit,jdbcType=INTEGER}</if>
+            <if test="bParam.settlementPrice != null">AND strategy.settlement_price = #{bParam.settlementPrice,jdbcType=DOUBLE}</if>
+            <if test="bParam.ticketVarie != null">AND strategy.ticket_varie = #{bParam.ticketVarie,jdbcType=VARCHAR}</if>
+            <if test="bParam.salesType != null">AND strategy.sales_type like #{bParam.salesType,jdbcType=VARCHAR}</if>
+            <if test="bParam.auditStatus != null">AND strategy.audit_status = #{bParam.auditStatus,jdbcType=INTEGER}</if>
+            <if test="bParam.isMF != null">AND strategy.isMF = #{bParam.isMF,jdbcType=INTEGER}</if>
+            <if test="bParam.rebateRate != null">AND strategy.rebate_rate = #{bParam.rebateRate,jdbcType=DOUBLE}</if>
+            <if test="bParam.refuseReason != null">AND strategy.refuse_reason = #{bParam.refuseReason,jdbcType=VARCHAR}</if>
+            <if test="bParam.notTotalSettlementType != null">AND strategy.not_total_settlement_type = #{bParam.notTotalSettlementType,jdbcType=INTEGER}</if>
+            <if test="bParam.reduceSettlementMoney != null">AND strategy.reduce_settlement_money = #{bParam.reduceSettlementMoney,jdbcType=DOUBLE}</if>
+
+            <if test="bParam.marketPrice != null">AND strategy.market_price = #{bParam.marketPrice,jdbcType=DOUBLE}</if>
+            <if test="bParam.advicePrice != null">AND strategy.advice_price = #{bParam.advicePrice,jdbcType=DOUBLE}</if>
+
+            <if test="bParam.parentId != null">AND strategy.parent_id = #{bParam.parentId,jdbcType=BIGINT}</if>
+
+            <if test="bParam.isLimitAdvanceDue != null">AND strategy.is_limit_advance_due = #{bParam.isLimitAdvanceDue,jdbcType=INTEGER}</if>
+            <if test="bParam.advanceDueDays != null">AND strategy.advance_due_days = #{bParam.advanceDueDays,jdbcType=INTEGER}</if>
+            <if test="bParam.advanceDueHour != null">AND strategy.advance_due_hour = #{bParam.advanceDueHour,jdbcType=INTEGER}</if>
+            <if test="bParam.advanceDueMinute != null">AND strategy.advance_due_minute = #{bParam.advanceDueMinute,jdbcType=INTEGER}</if>
+            <if test="bParam.isLimitDelayConsume != null">AND strategy.is_limit_delay_consume = #{bParam.isLimitDelayConsume,jdbcType=INTEGER}</if>
+            <if test="bParam.delayConsumeHour != null">AND strategy.delay_consume_hour = #{bParam.delayConsumeHour,jdbcType=INTEGER}</if>
+            <if test="bParam.leastPerdueNumber != null">AND strategy.least_perdue_number = #{bParam.leastPerdueNumber,jdbcType=INTEGER}</if>
+            <if test="bParam.mostPerdueNumber != null">AND strategy.most_perdue_number = #{bParam.mostPerdueNumber,jdbcType=INTEGER}</if>
+            <if test="bParam.advanceDueUnit != null">AND strategy.advance_due_unit = #{bParam.advanceDueUnit,jdbcType=INTEGER}</if>
+            <if test="bParam.productId != null">AND strategy.product_id = #{bParam.productId,jdbcType=BIGINT}</if>
+
+            <if test="bParam.queryDateList != null">
+                <foreach collection="bParam.queryDateList" item="item">
+                    <if test="item.queryFieldName == 'beginDate'">
+                        <if test="item.startDate != null">
+                            and strategy.begin_date &gt;= #{item.startDate}
+                        </if>
+                        <if test="item.endDate != null">
+                            and strategy.begin_date &lt;= #{item.endDate}
+                        </if>
+
+                    </if>
+                    <if test="item.queryFieldName == 'endDate'">
+
+                        <if test="item.startDate != null">
+                            and strategy.end_date &gt;= #{item.startDate}
+                        </if>
+                        <if test="item.endDate != null">
+                            and strategy.end_date &lt;= #{item.endDate}
+                        </if>
+
+                    </if>
+                    <if test="item.queryFieldName == 'createDate'">
+
+                        <if test="item.startDate != null">
+                            and strategy.create_date &gt;= #{item.startDate}
+                        </if>
+                        <if test="item.endDate != null">
+                            and strategy.create_date &lt;= #{item.endDate}
+                        </if>
+
+                    </if>
+                    <if test="item.queryFieldName == 'updateDate'">
+
+                        <if test="item.startDate != null">
+                            and strategy.update_date &gt;= #{item.startDate}
+                        </if>
+                        <if test="item.endDate != null">
+                            and strategy.update_date &lt;= #{item.endDate}
+                        </if>
+
+                    </if>
+                    <if test="item.queryFieldName == 'publishDate'">
+
+                        <if test="item.startDate != null">
+                            and strategy.publish_date &gt;= #{item.startDate}
+                        </if>
+                        <if test="item.endDate != null">
+                            and strategy.publish_date &lt;= #{item.endDate}
+                        </if>
+
+                    </if>
+                </foreach>
+            </if>
+        </if>
+    </sql>
+	<select id="selectStratgyByParam" parameterType="java.util.Map"
+		resultMap="strategyResultMap">
+		select
+		<include refid="strategy_column" />
+		from sys_channel_strategy strategy
+
+		<where>
+            1=1
+          <include refid="sql_of_where"/>
+       </where>
+	</select>	
+	<!-- end 根据政策查询参数查询政策集合 -->
+	
+	<!-- start查询产品渠道政策关系 -->
+    <resultMap id="spcreResultMap" type="com.pzj.base.entity.SysSpcreRelationKey">
+		<result column="strategy_id" jdbcType="BIGINT" property="strategyId" />
+		<result column="product_id" jdbcType="BIGINT" property="productId" />
+		<result column="channel_id" jdbcType="BIGINT" property="channelId" />
+	</resultMap>
+
+    <sql id="sql_of_space_where">
+        <if test="space != null">
+            <if test="space.strategyId != null"> AND space.strategy_id = #{space.strategyId,jdbcType=BIGINT} </if>
+            <if test="space.productId != null"> AND space.product_id = #{space.productId,jdbcType=BIGINT} </if>
+            <if test="space.channelId != null"> AND space.channel_id = #{space.channelId,jdbcType=BIGINT} </if>
+            <if test="space.queryStrategyIds != null and space.queryStrategyIds.size > 0">
+                and space.strategy_id in
+                <foreach collection="space.queryStrategyIds" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="space.queryProductIds != null and space.queryProductIds.size > 0">
+                and space.product_id in
+                <foreach collection="space.queryProductIds" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="space.queryChannelIds != null and space.queryChannelIds.size > 0">
+                and space.channel_id in
+                <foreach collection="space.queryChannelIds" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            or 1=2
+        </if>
+    </sql>
+	
+	<select id="selectSpcreByParam" parameterType="java.util.Map"
+		resultMap="spcreResultMap">
+		select space.strategy_id,space.product_id,space.channel_id from sys_spcre_relation space
+		<where>
+		  <include refid="sql_of_space_where"/>
+		</where>
+		group by space.strategy_id,space.product_id,space.channel_id
+	</select>
+
+    <!-- end查询产品渠道政策关系 -->
+
+    <select id="selectStratgyBySpace" resultMap="strategyResultMap">
+        select <include refid="strategy_column" />
+        from sys_channel_strategy strategy
+        inner join sys_spcre_relation space on strategy.id = space.strategy_id
+        <where>
+            <include refid="sql_of_where"/>
+            <include refid="sql_of_space_where"/>
+        </where>
+        group by strategy.id
+    </select>
+</mapper>

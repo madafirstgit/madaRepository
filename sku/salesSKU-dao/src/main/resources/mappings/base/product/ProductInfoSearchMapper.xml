@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IProductInfoSearchMapper">
+
+    <!-- 所有字段 -->
+    <sql id="Base_Column_List">
+        <include refid="com.pzj.base.product.IProductInfoMapper.Base_Column_List"/>
+    </sql>
+
+    <!-- 字段映射 -->
+    <resultMap id="BaseResultMap" type="com.pzj.base.entity.product.ProductInfo" extends="com.pzj.base.product.IProductInfoMapper.BaseResultMap">
+    </resultMap>
+    
+    <!-- 通用查询条件 -->
+    <sql id="sql_of_where">
+        <if test="info != null">
+            <if test="info.id != null">AND info.id = #{info.id,jdbcType=BIGINT}</if>
+            <if test="info.ids != null and info.ids.size > 0">
+                AND info.id in
+                <foreach collection="info.ids" item="_id" open="(" separator="," close=")">
+                    #{_id}
+                </foreach>
+            </if>           
+            <if test="info.name != null">AND info.name like #{info.name,jdbcType=VARCHAR}</if>
+            <if test="info.productType != null">AND info.product_type = #{info.productType,jdbcType=INTEGER}</if>
+            <if test="info.releaseThurl != null">AND info.release_thurl = #{info.releaseThurl,jdbcType=VARCHAR}</if>
+            <if test="info.startTime != null">AND info.start_time = #{info.startTime,jdbcType=VARCHAR}</if>
+            <if test="info.endTime != null">AND info.end_time = #{info.endTime,jdbcType=VARCHAR}</if>
+            <if test="info.productNo != null">AND info.product_no = #{info.productNo,jdbcType=VARCHAR}</if>
+            <if test="info.minutesNode != null">AND info.minutes_node = #{info.minutesNode,jdbcType=INTEGER}</if>
+            <if test="info.hourNode != null">AND info.hour_node = #{info.hourNode,jdbcType=INTEGER}</if>
+            <if test="info.productSumRepertory != null">AND info.product_sum_repertory =
+                #{info.productSumRepertory,jdbcType=INTEGER}
+            </if>
+            <if test="info.productUsableRepertory != null">AND info.product_usable_repertory =
+                #{info.productUsableRepertory,jdbcType=INTEGER}
+            </if>
+            <if test="info.createBy != null">AND info.create_by = #{info.createBy,jdbcType=VARCHAR}</if>
+            <if test="info.createDate != null">AND info.create_date = #{info.createDate,jdbcType=TIMESTAMP}</if>
+            <if test="info.updateBy != null">AND info.update_by = #{info.updateBy,jdbcType=VARCHAR}</if>
+            <if test="info.updateDate != null">AND info.update_date = #{info.updateDate,jdbcType=TIMESTAMP}</if>
+            <if test="info.sort != null">AND info.sort = #{info.sort,jdbcType=INTEGER}</if>
+            <if test="info.flag != null">AND info.flag = #{info.flag,jdbcType=CHAR}</if>
+            <if test="info.remarks != null">AND info.remarks = #{info.remarks,jdbcType=VARCHAR}</if>
+            <if test="info.combinationName != null">AND info.combination_name =
+                #{info.combinationName,jdbcType=VARCHAR}
+            </if>
+            <if test="info.combinationCode != null">AND info.combination_code =
+                #{info.combinationCode,jdbcType=VARCHAR}
+            </if>
+            <if test="info.reeaseMessage != null">AND info.reease_message = #{info.reeaseMessage,jdbcType=VARCHAR}</if>
+            <if test="info.reeaseInfo != null">AND info.reease_info = #{info.reeaseInfo,jdbcType=VARCHAR}</if>
+            <if test="info.supplierId != null">AND info.supplier_id = #{info.supplierId,jdbcType=VARCHAR}</if>
+            <if test="info.playtimeMode != null">AND info.playtimeMode = #{info.playtimeMode,jdbcType=INTEGER}</if>
+            <if test="info.playtimeValue != null">AND info.playtimeValue = #{info.playtimeValue,jdbcType=INTEGER}</if>
+            <if test="info.playtimeUnit != null">AND info.playtimeUnit = #{info.playtimeUnit,jdbcType=INTEGER}</if>
+            <if test="info.gainType != null">AND info.gainType = #{info.gainType,jdbcType=INTEGER}</if>
+            <if test="info.gainPeopleNum != null">AND info.gainPeopleNum = #{info.gainPeopleNum,jdbcType=INTEGER}</if>
+            <if test="info.gainPeopleTimeLimitUnit != null">AND info.gainPeopleTimeLimitUnit = #{info.gainPeopleTimeLimitUnit,jdbcType=INTEGER}</if>
+            <if test="info.gainPeopleTimeLimitValue != null">AND info.gainPeopleTimeLimitValue = #{info.gainPeopleTimeLimitValue,jdbcType=INTEGER}</if>
+            <if test="info.gainPeopleTimePurchaseNum != null">AND info.gainPeopleTimePurchaseNum = #{info.gainPeopleTimePurchaseNum,jdbcType=INTEGER}</if>
+
+            <if test="info.isNeedScenic != null">AND info.is_need_scenic = #{info.isNeedScenic,jdbcType=INTEGER}</if>
+            <if test="info.rondaName != null">AND info.ronda_name = #{info.rondaName,jdbcType=VARCHAR}</if>
+            <if test="info.checkInType != null">AND info.checkIn_type = #{info.checkInType,jdbcType=INTEGER}</if>
+            <if test="info.checkinAddress != null">AND info.checkin_address = #{info.checkinAddress,jdbcType=VARCHAR}</if>
+            <if test="info.saleStartDate != null">AND info.sale_start_date = #{info.saleStartDate,jdbcType=DATE}</if>
+            <if test="info.saleEndDate != null">AND info.sale_end_date = #{info.saleEndDate,jdbcType=DATE}</if>
+            <if test="info.isNeedPlaytime != null">AND info.is_need_playtime = #{info.isNeedPlaytime,jdbcType=INTEGER}</if>
+            <if test="info.noPlaytimeOrdertimeType != null">AND info.no_playtime_ordertime_type = #{info.noPlaytimeOrdertimeType,jdbcType=INTEGER}</if>
+            <if test="info.ordertimeValue != null">AND info.ordertime_value = #{info.ordertimeValue,jdbcType=INTEGER}</if>
+            <if test="info.ordertimeUnit != null">AND info.ordertime_unit = #{info.ordertimeUnit,jdbcType=INTEGER}</if>
+            <if test="info.oneWordFeature != null">AND info.one_word_feature = #{info.oneWordFeature,jdbcType=VARCHAR}</if>
+            <if test="info.productInfoDetail != null">AND info.product_info_detail = #{info.productInfoDetail,jdbcType=VARCHAR}</if>
+            <if test="info.orderInfo != null">AND info.order_info = #{info.orderInfo,jdbcType=VARCHAR}</if>
+            <if test="info.expenseInfo != null">AND info.expense_info = #{info.expenseInfo,jdbcType=VARCHAR}</if>
+            <if test="info.salesmanship != null">AND info.salesmanship = #{info.salesmanship,jdbcType=VARCHAR}</if>
+            <if test="info.importantClause != null">AND info.important_clause = #{info.importantClause,jdbcType=VARCHAR}</if>
+            <if test="info.attentions != null">AND info.attentions = #{info.attentions,jdbcType=VARCHAR}</if>
+            <if test="info.useMethod != null">AND info.use_method = #{info.useMethod,jdbcType=VARCHAR}</if>
+            <if test="info.startDate != null">AND info.start_date = #{info.startDate,jdbcType=DATE}</if>
+            <if test="info.endDate != null">AND info.end_date = #{info.endDate,jdbcType=DATE}</if>
+            <if test="info.photoinfoId != null">AND info.photoinfo_id = #{info.photoinfoId,jdbcType=VARCHAR}</if>
+            <if test="info.skuGrouping != null">AND info.sku_grouping = #{info.skuGrouping,jdbcType=INTEGER}</if>
+            <if test="info.moreInfoUrl != null">AND info.more_info_url = #{info.moreInfoUrl,jdbcType=VARCHAR}</if>
+            <if test="info.province != null">AND info.province = #{info.province,jdbcType=VARCHAR}</if>
+            <if test="info.city != null">AND info.city = #{info.city,jdbcType=VARCHAR}</if>
+            <if test="info.county != null">AND info.county = #{info.county,jdbcType=VARCHAR}</if>
+            <if test="info.saleDateQuery != null and (info.saleDateQuery.startDate != null or info.saleDateQuery.endDate != null)">
+                <trim prefix="and ( " prefixOverrides="and|or" suffix=" )">
+                    <if test="info.saleDateQuery.startDate != null and info.saleDateQuery.endDate != null">
+                        or ( info.sale_start_date &lt;= #{info.saleDateQuery.endDate}
+                        and info.sale_end_date &gt;= #{info.saleDateQuery.startDate})
+                    </if>
+                    <if test="info.saleDateQuery.startDate != null and info.saleDateQuery.endDate == null">
+                        or ( info.sale_start_date &lt;= #{info.saleDateQuery.startDate}
+                        and info.sale_end_date &gt;= #{info.saleDateQuery.startDate})
+                    </if>
+                    <if test="info.saleDateQuery.startDate == null and info.saleDateQuery.endDate != null">
+                        or ( info.sale_start_date &lt;= #{info.saleDateQuery.endDate}
+                        and info.sale_end_date &gt;= #{info.saleDateQuery.endDate})
+                    </if>
+                </trim>
+            </if>
+            <if test="info.availableDateQuery != null and (info.availableDateQuery.startDate != null or info.availableDateQuery.endDate != null)">
+                <trim prefix="and ( " prefixOverrides="and|or" suffix=" )">
+                    <if test="info.availableDateQuery.startDate != null and info.availableDateQuery.endDate != null">
+                        or ( info.start_date &lt;= #{info.availableDateQuery.endDate}
+                        and info.end_date &gt;= #{info.availableDateQuery.startDate} )
+                    </if>
+                    <if test="info.availableDateQuery.startDate != null and info.availableDateQuery.endDate == null">
+                        or ( info.start_date &lt;= #{info.availableDateQuery.startDate}
+                        and info.end_date &gt;= #{info.availableDateQuery.startDate} )
+                    </if>
+                    <if test="info.availableDateQuery.startDate == null and info.availableDateQuery.endDate != null">
+                        or ( info.start_date &lt;= #{info.availableDateQuery.endDate}
+                        and info.end_date &gt;= #{info.availableDateQuery.endDate}  )
+                    </if>
+                </trim>
+            </if>
+
+            <if test="info.productTypes != null and info.productTypes.size > 0">
+                and info.product_type in
+                <foreach collection="info.productTypes" item="_type" open="(" separator="," close=")">
+                    #{_type, jdbcType=INTEGER}
+                </foreach>
+            </if>
+        </if>
+    </sql>
+
+    <!-- 通用分页查询 -->
+    <select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product_info info
+        <where>
+        <include refid="sql_of_where"/>
+       
+        
+        </where>
+        <if test="pParam != null">
+            <if test="pParam.orderByClause == null">order by info.id desc</if>
+            <if test="pParam.orderByClause != null">order by ${pParam.orderByClause}</if>
+            <if test="pParam.startIndex != null and pParam.pageSize != null">
+                limit #{pParam.startIndex} , #{pParam.pageSize}
+            </if>
+        </if>
+    </select>
+
+    <!-- 通用分页查询记录总数 -->
+    <select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(info.id) from product_info info
+        <include refid="sql_of_where"/>
+    </select>
+
+    <select id="selectProductInfoByAppSearchKey" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List"/> from product_info info
+        <where>
+            <include refid="sql_of_where"/>
+             <if test="info != null and info.searchKey != null">
+            AND (
+                info.name like "%"#{info.searchKey}"%"
+                or info.province like "%"#{info.searchKey}"%"
+                or info.city like "%"#{info.searchKey}"%"
+                or info.county like "%"#{info.searchKey}"%"
+                )
+            </if>
+        </where>
+        <if test="pParam != null">
+            <if test="pParam.orderByClause == null">order by info.is_need_scenic,info.create_date desc</if>
+            <if test="pParam.orderByClause != null">order by ${pParam.orderByClause}</if>
+            <if test="pParam.startIndex != null and pParam.pageSize != null">
+                limit #{pParam.startIndex} , #{pParam.pageSize}
+            </if>
+        </if>
+    </select>
+    <select id="countProductInfoByAppSearchKey" resultType="int">
+        select count(info.id) from product_info info
+        <where>
+            <include refid="sql_of_where"/>
+             <if test="info != null and info.searchKey != null">
+            AND (
+                info.name like "%"#{info.searchKey}"%"
+                or info.province like "%"#{info.searchKey}"%"
+                or info.city like "%"#{info.searchKey}"%"
+                or info.county like "%"#{info.searchKey}"%"
+                )
+            </if>
+        </where>
+    </select>
+    <select id="selectIdBySkuIdForUpdate" resultType="java.lang.Long" parameterType="java.lang.Long">
+        select
+        info.id
+        from product_info info
+        where info.sku_id = #{skuId,jdbcType=BIGINT}
+        and info.flag = '1'
+        for update
+    </select>
+    
+    <select id="selectHashCodeForUpdate" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select
+        info.hash_code
+        from product_info info
+        where info.hash_code = #{hashCode,jdbcType=INTEGER}
+        for update
+    </select>
+
+    <select id="selectSpuproductForSupplier" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> from product_info info , product_release releasee
+        <where>
+            info.id = releasee.product_id
+            <include refid="sql_of_where"/>
+            <include refid="com.pzj.base.product.IProductReleaseMapper.sql_of_frontProduct"/>
+        </where>
+        GROUP BY info.id
+        <if test="pParam != null">
+            <if test="pParam.orderByClause == null">order by info.id desc</if>
+            <if test="pParam.orderByClause != null">order by ${pParam.orderByClause}</if>
+            <if test="pParam.startIndex != null and pParam.pageSize != null">
+                limit #{pParam.startIndex} , #{pParam.pageSize}
+            </if>
+        </if>
+    </select>
+    <select id="countSpuproductForSupplier" resultType="int">
+        SELECT count(id) FROM (
+            select info.id from product_info info , product_release releasee
+            <where>
+                info.id = releasee.product_id
+                <include refid="sql_of_where"/>
+                <include refid="com.pzj.base.product.IProductReleaseMapper.sql_of_frontProduct"/>
+            </where>
+            GROUP BY info.id
+        ) aa
+    </select>
+    
+    <select id="selectAddressByProductId" resultMap="BaseResultMap">
+	select a.id,a.province,a.city
+	from product_info a
+	inner join product_release b on a.id = b.product_id and a.flag = '1' 
+	<if test="productIds != null and productIds.size > 0">
+	  and b.id in
+		<foreach collection="productIds" item="item" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+	</if>
+	group by a.province,a.city	
+	</select>
+	
+	<!-- 查询app端按照景区关键字查询的产品组列表 -->
+   <select id="selectByScenicAppSearchKey" resultMap="BaseResultMap">
+	select <include refid="Base_Column_List"/> from product_info info	
+	<if test="scenicIds != null and scenicIds.size > 0">
+		inner join product_relation b on info.id = b.obj_id and b.obj_type = 'proInfo' and b.rel_type = 'scenic'
+		    and b.rel_id in
+		<foreach collection="scenicIds" item="item" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+	</if>
+	<where>
+	   <if test="infoIds != null and infoIds.size > 0">
+	 	   info.id in
+	 	   <foreach collection="infoIds" item="item" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+	   </if>
+	   or 1=2
+	</where>
+	
+	<if test="scenicIds == null or scenicIds.size == 0">
+	
+	</if>
+	group by info.id
+ </select>
+</mapper>

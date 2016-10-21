@@ -1,0 +1,38 @@
+<assembly xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 
+           http://maven.apache.org/xsd/assembly-1.1.2.xsd 
+           http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 ">
+	<id>salesSKU-service-assembly</id>
+	<formats>
+		<!--<format>tar.gz</format>-->
+		<format>dir</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<fileSets>
+		<fileSet>
+			<directory>src/main/resources/${package.environment}</directory>
+			<outputDirectory>conf/</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<useDefaultExcludes>false</useDefaultExcludes>
+			<directory>src/main/bin</directory>
+			<outputDirectory>bin/</outputDirectory>
+			<fileMode>0755</fileMode>
+		</fileSet>
+
+	</fileSets>
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>lib</outputDirectory>
+			<!--<includes>
+				<include>com.pzj:salesSKU-dao</include>
+				<include>com.pzj:salesSKU-engine</include>
+				<include>com.pzj:salesSKU-facade</include>
+				<include>com.pzj:salesSKU-service</include>
+			</includes>-->
+			<scope>runtime</scope>
+			<unpack>false</unpack>
+		</dependencySet>
+	</dependencySets>
+</assembly>

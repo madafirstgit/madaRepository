@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pzj.base.sku.mapper.XzSkuPriceEventMapper">
+  <resultMap id="BaseResultMap" type="com.pzj.base.sku.entity.XzSkuPriceEvent">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BOSSID" jdbcType="INTEGER" property="bossid" />
+    <result column="EVENT_NAME" jdbcType="VARCHAR" property="eventName" />
+    <result column="EVENT_TYPE" jdbcType="VARCHAR" property="eventType" />
+    <result column="PRICE_TYPE" jdbcType="VARCHAR" property="priceType" />
+    <result column="START_DATE" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="END_DATE" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="APPLICABLE_DAYS" jdbcType="INTEGER" property="applicableDays" />
+    <result column="APPLICABLE_TIME" jdbcType="VARCHAR" property="applicableTime" />
+    <result column="DYNAMIC_PRICE_TYPE" jdbcType="VARCHAR" property="dynamicPriceType" />
+    <result column="DYNAMIC_PRICE_VALUE" jdbcType="VARCHAR" property="dynamicPriceValue" />
+    <result column="RULESET" jdbcType="INTEGER" property="ruleset" />
+    <result column="INVENTORY_STATUS" jdbcType="BIT" property="inventoryStatus" />
+    <result column="RECURRENCE" jdbcType="VARCHAR" property="recurrence" />
+    <result column="APPLY_ALL" jdbcType="BIT" property="applyAll" />
+    <result column="PRICE" jdbcType="DOUBLE" property="PRICE" />
+    <result column="WEIGHT" jdbcType="DOUBLE" property="WEIGHT" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid and criteria.criteria.size > 0">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue and criterion.value.size > 0">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, BOSSID, EVENT_NAME, EVENT_TYPE, PRICE_TYPE, START_DATE, END_DATE, APPLICABLE_DAYS, 
+    APPLICABLE_TIME, DYNAMIC_PRICE_TYPE, DYNAMIC_PRICE_VALUE, RULESET, INVENTORY_STATUS, 
+    RECURRENCE, APPLY_ALL,PRICE,WEIGHT
+  </sql>
+  <select id="selectByExample" parameterType="com.pzj.base.sku.entity.XzSkuPriceEventExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from XZ_SKU_PRICE_EVENT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="start!=null and start>=0">
+      limit #{start} , #{pageSize}
+    </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from XZ_SKU_PRICE_EVENT
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+   <sql id="Event_Column_List">
+    e.ID, e.BOSSID, e.EVENT_NAME, e.EVENT_TYPE, e.PRICE_TYPE, e.START_DATE, e.END_DATE, e.APPLICABLE_DAYS, 
+    e.APPLICABLE_TIME, e.DYNAMIC_PRICE_TYPE, e.DYNAMIC_PRICE_VALUE, e.RULESET, e.INVENTORY_STATUS, 
+    e.RECURRENCE, e.APPLY_ALL, e.PRICE, e.WEIGHT
+  </sql>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <if test="_parameter != null ">
+    delete from XZ_SKU_PRICE_EVENT
+    where ID = #{id,jdbcType=INTEGER}
+    </if>
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pzj.base.sku.entity.XzSkuPriceEventExample">
+    delete from XZ_SKU_PRICE_EVENT
+    <if test="_parameter != null ">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert"   parameterType="com.pzj.base.sku.entity.XzSkuPriceEvent">
+    insert into XZ_SKU_PRICE_EVENT (ID, BOSSID, EVENT_NAME, 
+      EVENT_TYPE, PRICE_TYPE, START_DATE, 
+      END_DATE, APPLICABLE_DAYS, APPLICABLE_TIME, 
+      DYNAMIC_PRICE_TYPE, DYNAMIC_PRICE_VALUE, RULESET, 
+      INVENTORY_STATUS, RECURRENCE, APPLY_ALL, PRICE, WEIGHT
+      )
+    values (#{id,jdbcType=INTEGER}, #{bossid,jdbcType=INTEGER}, #{eventName,jdbcType=VARCHAR}, 
+      #{eventType,jdbcType=VARCHAR}, #{priceType,jdbcType=VARCHAR}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{applicableDays,jdbcType=INTEGER}, #{applicableTime,jdbcType=VARCHAR}, 
+      #{dynamicPriceType,jdbcType=VARCHAR}, #{dynamicPriceValue,jdbcType=VARCHAR}, #{ruleset,jdbcType=INTEGER}, 
+      #{inventoryStatus,jdbcType=BIT}, #{recurrence,jdbcType=VARCHAR}, #{applyAll,jdbcType=BIT},
+      #{price,jdbcType=DOUBLE},
+      #{weight,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective"   parameterType="com.pzj.base.sku.entity.XzSkuPriceEvent">
+    insert into XZ_SKU_PRICE_EVENT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="bossid != null">
+        BOSSID,
+      </if>
+      <if test="eventName != null">
+        EVENT_NAME,
+      </if>
+      <if test="eventType != null">
+        EVENT_TYPE,
+      </if>
+      <if test="priceType != null">
+        PRICE_TYPE,
+      </if>
+      <if test="startDate != null">
+        START_DATE,
+      </if>
+      <if test="endDate != null">
+        END_DATE,
+      </if>
+      <if test="applicableDays != null">
+        APPLICABLE_DAYS,
+      </if>
+      <if test="applicableTime != null">
+        APPLICABLE_TIME,
+      </if>
+      <if test="dynamicPriceType != null">
+        DYNAMIC_PRICE_TYPE,
+      </if>
+      <if test="dynamicPriceValue != null">
+        DYNAMIC_PRICE_VALUE,
+      </if>
+      <if test="ruleset != null">
+        RULESET,
+      </if>
+      <if test="inventoryStatus != null">
+        INVENTORY_STATUS,
+      </if>
+      <if test="recurrence != null">
+        RECURRENCE,
+      </if>
+      <if test="applyAll != null">
+        APPLY_ALL,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="weight != null">
+        WEIGHT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bossid != null">
+        #{bossid,jdbcType=INTEGER},
+      </if>
+      <if test="eventName != null">
+        #{eventName,jdbcType=VARCHAR},
+      </if>
+      <if test="eventType != null">
+        #{eventType,jdbcType=VARCHAR},
+      </if>
+      <if test="priceType != null">
+        #{priceType,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applicableDays != null">
+        #{applicableDays,jdbcType=INTEGER},
+      </if>
+      <if test="applicableTime != null">
+        #{applicableTime,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamicPriceType != null">
+        #{dynamicPriceType,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamicPriceValue != null">
+        #{dynamicPriceValue,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleset != null">
+        #{ruleset,jdbcType=INTEGER},
+      </if>
+      <if test="inventoryStatus != null">
+        #{inventoryStatus,jdbcType=BIT},
+      </if>
+      <if test="recurrence != null">
+        #{recurrence,jdbcType=VARCHAR},
+      </if>
+      <if test="applyAll != null">
+        #{applyAll,jdbcType=BIT},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pzj.base.sku.entity.XzSkuPriceEventExample" resultType="java.lang.Integer">
+    select count(*) from XZ_SKU_PRICE_EVENT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update XZ_SKU_PRICE_EVENT
+    <set>
+      <if test="record.eventName != null">
+        EVENT_NAME = #{record.eventName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eventType != null">
+        EVENT_TYPE = #{record.eventType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priceType != null">
+        PRICE_TYPE = #{record.priceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startDate != null">
+        START_DATE = #{record.startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endDate != null">
+        END_DATE = #{record.endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.applicableDays != null">
+        APPLICABLE_DAYS = #{record.applicableDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.applicableTime != null">
+        APPLICABLE_TIME = #{record.applicableTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dynamicPriceType != null">
+        DYNAMIC_PRICE_TYPE = #{record.dynamicPriceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dynamicPriceValue != null">
+        DYNAMIC_PRICE_VALUE = #{record.dynamicPriceValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ruleset != null">
+        RULESET = #{record.ruleset,jdbcType=INTEGER},
+      </if>
+      <if test="record.inventoryStatus != null">
+        INVENTORY_STATUS = #{record.inventoryStatus,jdbcType=BIT},
+      </if>
+      <if test="record.recurrence != null">
+        RECURRENCE = #{record.recurrence,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyAll != null">
+        APPLY_ALL = #{record.applyAll,jdbcType=BIT},
+      </if>
+      <if test="record.price != null">
+        PRICE = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.weight != null">
+        WEIGHT = #{record.weight,jdbcType=INTEGER}
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update XZ_SKU_PRICE_EVENT
+    set ID = #{record.id,jdbcType=INTEGER},
+      EVENT_NAME = #{record.eventName,jdbcType=VARCHAR},
+      EVENT_TYPE = #{record.eventType,jdbcType=VARCHAR},
+      PRICE_TYPE = #{record.priceType,jdbcType=VARCHAR},
+      START_DATE = #{record.startDate,jdbcType=TIMESTAMP},
+      END_DATE = #{record.endDate,jdbcType=TIMESTAMP},
+      APPLICABLE_DAYS = #{record.applicableDays,jdbcType=INTEGER},
+      APPLICABLE_TIME = #{record.applicableTime,jdbcType=VARCHAR},
+      DYNAMIC_PRICE_TYPE = #{record.dynamicPriceType,jdbcType=VARCHAR},
+      DYNAMIC_PRICE_VALUE = #{record.dynamicPriceValue,jdbcType=VARCHAR},
+      RULESET = #{record.ruleset,jdbcType=INTEGER},
+      INVENTORY_STATUS = #{record.inventoryStatus,jdbcType=BIT},
+      RECURRENCE = #{record.recurrence,jdbcType=VARCHAR},
+      APPLY_ALL = #{record.applyAll,jdbcType=BIT},
+      PRICE = #{record.price,jdbcType=DOUBLE},
+      WEIGHT = #{record.weight,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pzj.base.sku.entity.XzSkuPriceEvent">
+    update XZ_SKU_PRICE_EVENT
+    <set>
+      <if test="eventName != null">
+        EVENT_NAME = #{eventName,jdbcType=VARCHAR},
+      </if>
+      <if test="eventType != null">
+        EVENT_TYPE = #{eventType,jdbcType=VARCHAR},
+      </if>
+      <if test="priceType != null">
+        PRICE_TYPE = #{priceType,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applicableDays != null">
+        APPLICABLE_DAYS = #{applicableDays,jdbcType=INTEGER},
+      </if>
+      <if test="applicableTime != null">
+        APPLICABLE_TIME = #{applicableTime,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamicPriceType != null">
+        DYNAMIC_PRICE_TYPE = #{dynamicPriceType,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamicPriceValue != null">
+        DYNAMIC_PRICE_VALUE = #{dynamicPriceValue,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleset != null">
+        RULESET = #{ruleset,jdbcType=INTEGER},
+      </if>
+      <if test="inventoryStatus != null">
+        INVENTORY_STATUS = #{inventoryStatus,jdbcType=BIT},
+      </if>
+      <if test="recurrence != null">
+        RECURRENCE = #{recurrence,jdbcType=VARCHAR},
+      </if>
+      <if test="applyAll != null">
+        APPLY_ALL = #{applyAll,jdbcType=BIT},
+      </if>
+      <if test="price != null">
+        PRICE = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null">
+        WEIGHT = #{weight,jdbcType=INTEGER}
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER} and  BOSSID = #{bossid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyAndBossId" parameterType="com.pzj.base.sku.entity.XzSkuPriceEvent">
+    update XZ_SKU_PRICE_EVENT
+    set
+      EVENT_NAME = #{eventName,jdbcType=VARCHAR},
+      EVENT_TYPE = #{eventType,jdbcType=VARCHAR},
+      PRICE_TYPE = #{priceType,jdbcType=VARCHAR},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      APPLICABLE_DAYS = #{applicableDays,jdbcType=INTEGER},
+      APPLICABLE_TIME = #{applicableTime,jdbcType=VARCHAR},
+      DYNAMIC_PRICE_TYPE = #{dynamicPriceType,jdbcType=VARCHAR},
+      DYNAMIC_PRICE_VALUE = #{dynamicPriceValue,jdbcType=VARCHAR},
+      RULESET = #{ruleset,jdbcType=INTEGER},
+      INVENTORY_STATUS = #{inventoryStatus,jdbcType=BIT},
+      RECURRENCE = #{recurrence,jdbcType=VARCHAR},
+      APPLY_ALL = #{applyAll,jdbcType=BIT},
+      PRICE = #{price,jdbcType=DOUBLE},
+	  WEIGHT = #{weight,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER} and  BOSSID = #{bossid,jdbcType=INTEGER}
+  </update>
+  	<insert id="insertBatch" parameterType="java.util.List">
+		insert into XZ_SKU_PRICE_EVENT values
+		<trim  suffixOverrides=",">
+			<foreach collection="list" item="sku" open="" close=""
+				separator=",">
+				(
+				#{sku.id,jdbcType=INTEGER}, 
+				#{sku.bossid,jdbcType=INTEGER},
+				#{sku.eventName,jdbcType=VARCHAR},
+				#{sku.eventType,jdbcType=VARCHAR}, 
+				#{sku.priceType,jdbcType=VARCHAR}, 
+				#{sku.startDate,jdbcType=TIMESTAMP},
+				#{sku.endDate,jdbcType=TIMESTAMP}, 
+				#{sku.applicableDays,jdbcType=INTEGER},
+				#{sku.applicableTime,jdbcType=VARCHAR},
+				#{sku.dynamicPriceType,jdbcType=VARCHAR},
+				#{sku.dynamicPriceValue,jdbcType=VARCHAR}, 
+				#{sku.ruleset,jdbcType=INTEGER},
+				#{sku.inventoryStatus,jdbcType=BIT}, 
+				#{sku.recurrence,jdbcType=VARCHAR},
+				#{sku.applyAll,jdbcType=BIT},
+				#{sku.price,jdbcType=DOUBLE},
+				#{sku.weight,jdbcType=INTEGER}
+				)
+			</foreach>
+		</trim>
+	</insert>
+</mapper>

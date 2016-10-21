@@ -1,0 +1,2876 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IProductReleaseMapper">
+
+	<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+		<include refid="com.pzj.base.product.IProductReleaseMapper.cud_Column_List" />
+	</sql>
+
+	<sql id="user_column">
+		u.id u_id, u.name u_name, u.check_status u_check_status,
+		u.account_state u_account_state, u.update_date u_update_date,
+		u.notify_update_state u_notify_update_state, u.reason_rejection
+		u_reason_rejection, u.hotelType u_hotelType,u.other_file u_other_file
+	</sql>
+
+	<sql id="Alias_Column_List_0">
+		a.id
+		,a.name
+		,a.product_id
+		,a.roduct_no
+		,a.product_code
+		,a.product_price
+		,a.product_type
+		,a.product_kind
+		,a.product_classify
+		,a.product_channel
+		,a.region
+		,a.ronda
+		,a.create_by
+		,a.create_date
+		,a.update_by
+		,a.update_date
+		,a.sort
+		,a.flag
+		,a.remarks
+		,a.auditStatus
+		,a.pro_category
+		,a.reason
+		,a.supplier_id
+		,a.package_status
+		,a.checkIn_type
+		,a.retail_price
+		,a.mf_price
+		,a.is_composed
+		,a.compose_mark
+		,a.theater_id
+
+		,a.floor
+		,a.area
+		,a.head_count
+		,a.windows
+		,a.facilities
+		,a.intro
+		,a.photos
+		,a.notify_update_state
+		,a.room_type
+		,a.reasonRejection
+		,a.newMfPrice
+		,a.bedNum
+		,a.ticketNumber
+	</sql>
+
+	<sql id="Alias_Column_List">
+		<include refid="Alias_Column_List_0" />
+		,a.sku_id
+		,a.category_id
+		,a.inventory
+		,a.stock_rule_id
+		,a.unlimited_inventory
+		,a.is_simple
+		,a.allocation
+		,a.visibility
+		,a.maintenance_time
+		,a.price_per
+		,a.sku_grouping
+		,a.location
+		,a.marker_title
+		,a.marker_description
+		,a.marker_link_text
+		,a.map_zoom
+		,a.email_notification
+		,a.more_info_url
+		,a.video_url
+		,a.video_start_time
+		,a.details
+		,a.photoinfo_id
+		,a.dync_prop_id
+		,a.pkg_id
+		,a.pkg_name
+		,a.time_slots_id
+		,a.sku_start_time
+		,a.sku_end_time
+		,a.time_length
+		,a.time_unit
+		,a.attr_info_id
+		,a.default_value
+		,a.has_price
+		,a.is_display_range
+		,a.is_required
+		,a.sku_params_name
+		,a.param_is_group
+		,a.min_number
+		,a.max_number
+		,a.schedule_id
+		,a.schedule_name
+		,a.week_available
+		,a.weights
+		,a.start_date
+		,a.end_date
+		,a.original_price
+		,a.sku_pkg_id
+		,a.package_type
+		,a.package_discount
+		,a.twice_sure
+		,a.latest_preset
+		,a.latest_preset_days
+		,a.latest_preset_time
+		,a.province
+		,a.city
+		,a.county
+
+		,a.is_Need_Take_Order
+		,a.verification_Rule_Type
+		,a.fixed_Verification_Unit
+		,a.fixed_Verification_Time
+		,a.is_manual_Verification
+		,a.Refund_date_type
+		,a.prerefund_days
+		,a.prerefund_hour
+		,a.prerefund_minute
+		,a.prerefund_supplier_feetype
+		,a.prerefund_supplier_feevalue
+		,a.prerefund_distributor_feetype
+		,a.prerefund_distributor_feevalue
+		,a.prorefund_days
+		,a.prorefund_hour
+		,a.prorefund_minute
+		,a.prorefund_supplier_feetype
+		,a.prorefund_supplier_feevalue
+		,a.prorefund_distributor_feetype
+		,a.prorefund_distributor_feevalue
+		,a.check_date
+		,a.publish_date
+
+		,a.overdue_verification_datetype
+		,a.overdue_verification_unit
+		,a.overdue_verification_time
+		,a.overdue_verification_feetype
+		,a.overdue_verification_feevalue
+		,a.consumer_card_type
+		,a.is_one_vote
+		,a.is_select_seat
+	 ,a.is_need_prerefund
+            ,a.prerefund_quantity_type
+		,a.is_need_prorefund
+		,a.prorefund_quantity_type
+	</sql>
+
+
+	<sql id="Base_Column_List2">
+		<include refid="Alias_Column_List" />
+		,min(a.mf_price) as minPrice
+		,s.id as u_id
+		,s.login_name as u_login_name
+		,s.login_passwd as u_login_passwd
+		,s.sys_code as u_sys_code
+		,s.user_type as u_user_type
+		,s.identifyType as u_identifyType
+		,s.oper_charger_mobile as u_oper_charger_mobile
+		,s.oper_charger_phone
+		as u_oper_charger_phone
+		,s.oper_charger_fax as u_oper_charger_fax
+		,s.oper_charger_email as u_oper_charger_email
+		,s.last_login_time as
+		u_last_login_time
+		,s.last_login_ip as u_last_login_ip
+		,s.defaultLoginAddress as u_defaultLoginAddress
+		,s.account_state as
+		u_account_state
+		,s.create_date as u_create_date
+		,s.office_id as
+		u_office_id
+		,s.company_id as u_company_id
+		,s.parent_id as u_parent_id
+		,s.wx_openid as u_wx_openid
+		,s.login_source as u_login_source
+		,s.name as
+		u_name
+		,s.reseller_type as u_reseller_type
+		,s.is_buygroup as
+		u_is_buygroup
+		,s.is_buysingle as u_is_buysingle
+		,s.reseller_level as
+		u_reseller_level
+		,s.province as u_province
+		,s.city as u_city
+		,s.county as
+		u_county
+		,s.corporater as u_corporater
+		,s.credentials_type as
+		u_credentials_type
+		,s.corporater_credentials as
+		u_corporater_credentials
+		,s.corporater_mobile as u_corporater_mobile
+		,s.corporater_phone as u_corporater_phone
+		,s.corporater_email as
+		u_corporater_email
+		,s.business_certificate as u_business_certificate
+		,s.guideCertificate as u_guideCertificate
+		,s.directCompany as
+		u_directCompany
+		,s.directTime as u_directTime
+		,s.business_license as
+		u_business_license
+		,s.business_qualification as
+		u_business_qualification
+		,s.org_code_certificate as
+		u_org_code_certificate
+		,s.tax_certificate as u_tax_certificate
+		,s.other_files as u_other_files
+		,s.resellerId as u_resellerId
+		,s.address as u_address
+		,s.reseller_state as u_reseller_state
+		,s.request_date as u_request_date
+		,s.approve_date as u_approve_date
+		,s.approve_result as u_approve_result
+		,s.contract_num as u_contract_num
+		,s.description as u_description
+		,s.wx_open_flag as u_wx_open_flag
+		,s.isCReseller as u_isCReseller
+		,s.about_us as u_about_us
+		,s.contact_way as u_contact_way
+		,s.reseller_phonetic_shorthand as
+		u_reseller_phonetic_shorthand
+		,s.supplier_level as u_supplier_level
+		,s.is_manage as u_is_manage
+		,s.other_file as u_other_file
+		,s.other_file2 as u_other_file2
+		,s.supplierPk as u_supplierPk
+		,s.supplier_address as u_supplier_address
+		,s.supplier_state as
+		u_supplier_state
+		,s.supplier_description as u_supplier_description
+		,s.supplier_py as u_supplier_py
+		,s.supplier_normal as u_supplier_normal
+		,s.supplier_discount_value as u_supplier_discount_value
+		,s.from_date as
+		u_from_date
+		,s.period as u_period
+		,s.settle_date as u_settle_date
+		,s.contract_remarks as u_contract_remarks
+		,s.contract_notes as
+		u_contract_notes
+		,s.verification_codes as u_verification_codes
+		,s.user_source as u_user_source
+		,s.create_by as u_create_by
+		,s.update_by as u_update_by
+		,s.update_date as u_update_date
+		,s.sort as
+		u_sort
+		,s.leader_flag as u_leader_flag
+		,s.ticket_rule as u_ticket_rule
+		,s.check_status as u_check_status
+		,s.check_user_id as check_user_id
+		,s.check_user_name as u_check_user_name
+		,s.check_date as u_check_date
+		,s.reason_rejection as u_reason_rejection
+		,s.supplier_id as
+		u_supplier_id
+		,s.is_root as u_is_root
+		,s.belongScenicId as
+		u_belongScenicId
+		,s.hotelType as u_hotelType
+		,s.hotel_map_longitude as
+		u_hotel_map_longitude
+		,s.hotel_map_latitude as u_hotel_map_latitude
+		,s.region as u_region
+		,s.scenic_info as u_scenic_info
+		,s.hotel_start_date as u_hotel_start_date
+		,s.hotel_end_date as
+		u_hotel_end_date
+		,s.hotel_num as u_hotel_num
+		,s.treat_people_num as
+		u_treat_people_num
+		,s.hotel_facility as u_hotel_facility
+		,s.hotel_feature as u_hotel_feature
+		,s.hotel_pirture as u_hotel_pirture
+		,s.boss_story as u_boss_story
+		,s.boss_pirture as u_boss_pirture
+		,s.notify_update_state as u_notify_update_state
+	</sql>
+
+	<sql id="Info_Column_List">
+		,b.hour_node
+		,b.minutes_node
+		,b.start_time
+		,b.end_time
+		,b.playtimeMode
+		,b.playtimeValue
+		,b.playtimeUnit
+		,b.gainType
+		,b.gainPeopleNum
+		,b.gainPeopleTimeLimitUnit
+		,b.gainPeopleTimeLimitValue
+		,b.gainPeopleTimePurchaseNum
+		,b.minPurchaseNumInOrder
+		,b.reease_info
+		,b.release_thurl
+	</sql>
+
+
+	<sql id="FrontProduct_Column_List">
+		releasee.id
+		,releasee.name
+		,releasee.product_id
+		,releasee.roduct_no
+		,releasee.product_code
+		,releasee.product_price
+		,releasee.product_type
+		,releasee.product_kind
+		,releasee.product_classify
+		,releasee.product_channel
+		,releasee.region
+		,releasee.ronda
+		,releasee.create_by
+		,releasee.create_date
+		,releasee.update_by
+		,releasee.update_date
+		,releasee.sort
+		,releasee.flag
+		,releasee.remarks
+		,releasee.auditStatus
+		,releasee.pro_category
+		,releasee.reason
+		,releasee.supplier_id
+		,releasee.package_status
+		,releasee.checkIn_type
+		,releasee.retail_price
+		,releasee.mf_price
+		,releasee.is_composed
+		,releasee.compose_mark
+		,releasee.theater_id
+		<!-- pms -->
+		,releasee.floor
+		,releasee.area
+		,releasee.head_count
+		,releasee.windows
+		,releasee.facilities
+		,releasee.intro
+		,releasee.photos
+		,releasee.notify_update_state
+		,releasee.room_type
+		,releasee.reasonRejection
+		,releasee.newMfPrice
+		,releasee.bedNum
+		<!-- pms -->
+		<!-- sku-start -->
+		,releasee.sku_id
+		,releasee.category_id
+		,releasee.inventory
+		,releasee.stock_rule_id
+		,releasee.unlimited_inventory
+		,releasee.is_simple
+		,releasee.allocation
+		,releasee.visibility
+		,releasee.maintenance_time
+		,releasee.price_per
+		,releasee.sku_grouping
+		,releasee.location
+		,releasee.marker_title
+		,releasee.marker_description
+		,releasee.marker_link_text
+		,releasee.map_zoom
+		,releasee.email_notification
+		,releasee.more_info_url
+		,releasee.video_url
+		,releasee.video_start_time
+		,releasee.details
+		,releasee.photoinfo_id
+		,releasee.dync_prop_id
+		,releasee.pkg_id
+		,releasee.pkg_name
+		,releasee.time_slots_id
+		,releasee.sku_start_time
+		,releasee.sku_end_time
+		,releasee.time_length
+		,releasee.time_unit
+		,releasee.attr_info_id
+		,releasee.default_value
+		,releasee.has_price
+		,releasee.is_display_range
+		,releasee.is_required
+		,releasee.sku_params_name
+		,releasee.param_is_group
+		,releasee.min_number
+		,releasee.max_number
+		,releasee.schedule_id
+		,releasee.schedule_name
+		,releasee.week_available
+		,releasee.weights
+		,releasee.start_date
+		,releasee.end_date
+		,releasee.original_price
+		,releasee.sku_pkg_id
+		,releasee.package_type
+		,releasee.package_discount
+		,releasee.twice_sure
+		,releasee.latest_preset
+		,releasee.latest_preset_days
+		,releasee.latest_preset_time
+		,releasee.province
+		,releasee.city
+		,releasee.county
+		<!-- sku-end -->
+		,releasee.ticketNumber
+
+		,releasee.is_Need_Take_Order
+		,releasee.verification_Rule_Type
+		,releasee.fixed_Verification_Unit
+		,releasee.fixed_Verification_Time
+		,releasee.is_manual_Verification
+		,releasee.Refund_date_type
+		,releasee.prerefund_days
+		,releasee.prerefund_hour
+		,releasee.prerefund_minute
+		,releasee.prerefund_supplier_feetype
+		,releasee.prerefund_supplier_feevalue
+		,releasee.prerefund_distributor_feetype
+		,releasee.prerefund_distributor_feevalue
+		,releasee.prorefund_days
+		,releasee.prorefund_hour
+		,releasee.prorefund_minute
+		,releasee.prorefund_supplier_feetype
+		,releasee.prorefund_supplier_feevalue
+		,releasee.prorefund_distributor_feetype
+		,releasee.prorefund_distributor_feevalue
+		,releasee.check_date
+		,releasee.publish_date
+
+		,releasee.overdue_verification_datetype
+		,releasee.overdue_verification_unit
+		,releasee.overdue_verification_time
+		,releasee.overdue_verification_feetype
+		,releasee.overdue_verification_feevalue
+		,releasee.consumer_card_type
+		,releasee.is_one_vote
+		,releasee.is_select_seat
+		,releasee.is_need_prerefund
+            ,releasee.prerefund_quantity_type
+		,releasee.is_need_prorefund
+		,releasee.prorefund_quantity_type
+	</sql>
+
+	<sql id="AliasProduct_Column_List">
+		releasee.id as releasee_id
+		,releasee.name as releasee_name
+		,releasee.product_id as releasee_product_id
+		,releasee.roduct_no as
+		releasee_roduct_no
+		,releasee.product_code as releasee_product_code
+		,releasee.product_price as releasee_product_price
+		,releasee.product_type as releasee_product_type
+		,releasee.product_kind
+		as releasee_product_kind
+		,releasee.product_classify as
+		releasee_product_classify
+		,releasee.product_channel as
+		releasee_product_channel
+		,releasee.region as releasee_region
+		,releasee.ronda as releasee_ronda
+		,releasee.create_by as
+		releasee_create_by
+		,releasee.create_date as releasee_create_date
+		,releasee.update_by as releasee_update_by
+		,releasee.update_date as
+		releasee_update_date
+		,releasee.sort as releasee_sort
+		,releasee.flag as
+		releasee_flag
+		,releasee.remarks as releasee_remarks
+		,releasee.auditStatus as releasee_auditStatus
+		,releasee.pro_category as
+		releasee_pro_category
+		,releasee.reason as releasee_reason
+		,releasee.supplier_id as releasee_supplier_id
+		,releasee.package_status
+		as releasee_package_status
+		,releasee.checkIn_type as
+		releasee_checkIn_type
+		,releasee.retail_price as releasee_retail_price
+		,releasee.mf_price as releasee_mf_price
+		,releasee.is_composed as
+		releasee_is_composed
+		,releasee.compose_mark as releasee_compose_mark
+		,releasee.theater_id as releasee_theater_id
+		<!-- pms -->
+		,releasee.floor as releasee_floor
+		,releasee.area as releasee_area
+		,releasee.head_count as releasee_head_count
+		,releasee.windows as
+		releasee_windows
+		,releasee.facilities as releasee_facilities
+		,releasee.intro as releasee_intro
+		,releasee.photos as releasee_photos
+		,releasee.notify_update_state as releasee_notify_update_state
+		,releasee.room_type as releasee_room_type
+		,releasee.reasonRejection as
+		releasee_reasonRejection
+		,releasee.newMfPrice as releasee_newMfPrice
+		,releasee.bedNum as releasee_bedNum
+		<!-- pms -->
+		,releasee.ticketNumber as releasee_ticketNumber
+		,releasee.reduceSettlementMoney as releasee_reduceSettlementMoney
+		,releasee.notTotalSettlementType as releasee_notTotalSettlementType
+		,releasee.reduceSettlementMoney2nd as
+		releasee_reduceSettlementMoney2nd
+		,releasee.notTotalSettlementType2nd
+		as releasee_notTotalSettlementType2nd
+
+		,releasee.overdue_verification_datetype as
+		releasee_overdue_verification_datetype
+		,releasee.overdue_verification_unit as
+		releasee_overdue_verification_unit
+		,releasee.overdue_verification_time
+		as releasee_overdue_verification_time
+		,releasee.overdue_verification_feetype as
+		releasee_overdue_verification_feetype
+		,releasee.overdue_verification_feevalue as
+		releasee_overdue_verification_feevalue
+		,releasee.consumer_card_type as
+		releasee_consumer_card_type
+		,releasee.is_one_vote as
+		releasee_is_one_vote
+		,releasee.is_select_seat as
+		releasee_is_select_seat
+		,releasee.is_need_prerefund as releasee_is_need_prerefund
+		,releasee.prerefund_quantity_type as releasee_prerefund_quantity_type
+		,releasee.is_need_prorefund as releasee_is_need_prorefund
+		,releasee.prorefund_quantity_type as releasee_prorefund_quantity_type
+	</sql>
+
+	<sql id="AliasProduct_Column_List2">
+		relproduct.id as relproduct_id
+		,relproduct.name as relproduct_name
+		,relproduct.product_id as relproduct_product_id
+		,relproduct.roduct_no
+		as relproduct_roduct_no
+		,relproduct.product_code as
+		relproduct_product_code
+		,relproduct.product_price as
+		relproduct_product_price
+		,relproduct.product_type as
+		relproduct_product_type
+		,relproduct.product_kind as
+		relproduct_product_kind
+		,relproduct.product_classify as
+		relproduct_product_classify
+		,relproduct.product_channel as
+		relproduct_product_channel
+		,relproduct.region as relproduct_region
+		,relproduct.ronda as relproduct_ronda
+		,relproduct.create_by as
+		relproduct_create_by
+		,relproduct.create_date as relproduct_create_date
+		,relproduct.update_by as relproduct_update_by
+		,relproduct.update_date
+		as relproduct_update_date
+		,relproduct.sort as relproduct_sort
+		,relproduct.flag as relproduct_flag
+		,relproduct.remarks as
+		relproduct_remarks
+		,relproduct.auditStatus as relproduct_auditStatus
+		,relproduct.pro_category as relproduct_pro_category
+		,relproduct.reason
+		as relproduct_reason
+		,relproduct.supplier_id as relproduct_supplier_id
+		,relproduct.package_status as relproduct_package_status
+		,relproduct.checkIn_type as relproduct_checkIn_type
+		,relproduct.retail_price as relproduct_retail_price
+		,relproduct.mf_price as relproduct_mf_price
+		,relproduct.is_composed as
+		relproduct_is_composed
+		,relproduct.compose_mark as
+		relproduct_compose_mark
+		,relproduct.theater_id as relproduct_theater_id
+		<!-- pms -->
+		,relproduct.floor as relproduct_floor
+		,relproduct.area as
+		relproduct_area
+		,relproduct.head_count as relproduct_head_count
+		,relproduct.windows as relproduct_windows
+		,relproduct.facilities as
+		relproduct_facilities
+		,relproduct.intro as relproduct_intro
+		,relproduct.photos as relproduct_photos
+		,relproduct.notify_update_state as relproduct_notify_update_state
+		,relproduct.room_type as relproduct_room_type
+		,relproduct.reasonRejection as
+		relproduct_reasonRejection
+		,relproduct.newMfPrice as
+		relproduct_newMfPrice
+		,relproduct.bedNum as
+		relproduct_bedNum
+		<!-- pms -->
+		,relproduct.ticketNumber as relproduct_ticketNumber
+		,relproduct.reduceSettlementMoney as relproduct_reduceSettlementMoney
+		,relproduct.notTotalSettlementType as
+		relproduct_notTotalSettlementType
+		,relproduct.reduceSettlementMoney2nd
+		as relproduct_reduceSettlementMoney2nd
+		,relproduct.notTotalSettlementType2nd as
+		relproduct_notTotalSettlementType2nd
+
+		,relproduct.overdue_verification_datetype as
+		relproduct_overdue_verification_datetype
+		,relproduct.overdue_verification_unit as
+		relproduct_overdue_verification_unit
+		,relproduct.overdue_verification_time as
+		relproduct_overdue_verification_time
+		,relproduct.overdue_verification_feetype as
+		relproduct_overdue_verification_feetype
+		,relproduct.overdue_verification_feevalue as
+		relproduct_overdue_verification_feevalue
+		,relproduct.consumer_card_type as relproduct_consumer_card_type
+		,relproduct.is_one_vote as relproduct_is_one_vote
+		,relproduct.is_select_seat as relproduct_is_select_seat
+		,relproduct.is_need_prerefund as relproduct_is_need_prerefund
+		,relproduct.prerefund_quantity_type as
+		relproduct_prerefund_quantity_type
+		,relproduct.is_need_prorefund as relproduct_is_need_prorefund
+		,relproduct.prorefund_quantity_type as relproduct_prorefund_quantity_type
+	</sql>
+
+	<!-- 联合product_info表的字段 -->
+	<sql id="FrontProduct_Column_List_join">
+		<include refid="FrontProduct_Column_List" />
+		,info.hour_node
+		,info.minutes_node
+		,info.start_time
+		,info.end_time
+		,info.playtimeMode
+		,info.playtimeValue
+		,info.playtimeUnit
+		,info.gainType
+		,info.gainPeopleNum
+		,info.gainPeopleTimeLimitUnit
+		,info.gainPeopleTimeLimitValue
+		,info.gainPeopleTimePurchaseNum
+		,info.minPurchaseNumInOrder
+	</sql>
+
+	<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.product.ProductRelease">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="product_id" jdbcType="BIGINT" property="productId" />
+		<result column="roduct_no" jdbcType="VARCHAR" property="roductNo" />
+		<result column="product_code" jdbcType="VARCHAR" property="productCode" />
+		<result column="product_price" jdbcType="DOUBLE" property="productPrice" />
+		<result column="product_type" jdbcType="VARCHAR" property="productType" />
+		<result column="product_kind" jdbcType="VARCHAR" property="productKind" />
+		<result column="product_classify" jdbcType="VARCHAR" property="productClassify" />
+		<result column="product_channel" jdbcType="VARCHAR" property="productChannel" />
+		<result column="region" jdbcType="VARCHAR" property="region" />
+		<result column="ronda" jdbcType="VARCHAR" property="ronda" />
+		<result column="create_by" jdbcType="VARCHAR" property="createBy" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+		<result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+		<result column="sort" jdbcType="INTEGER" property="sort" />
+		<result column="flag" jdbcType="CHAR" property="flag" />
+		<result column="remarks" jdbcType="VARCHAR" property="remarks" />
+		<result column="auditStatus" jdbcType="VARCHAR" property="auditStatus" />
+		<result column="pro_category" jdbcType="VARCHAR" property="proCategory" />
+		<result column="reason" jdbcType="VARCHAR" property="reason" />
+		<result column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+		<result column="package_status" jdbcType="VARCHAR" property="packageStatus" />
+		<result column="checkIn_type" jdbcType="VARCHAR" property="checkInType" />
+		<result column="retail_price" jdbcType="DOUBLE" property="retailPrice" />
+		<result column="mf_price" jdbcType="DOUBLE" property="mfPrice" />
+		<result column="is_composed" jdbcType="TINYINT" property="isComposed"
+			javaType="boolean" />
+		<result column="compose_mark" jdbcType="VARCHAR" property="composeMark" />
+		<result column="theater_id" jdbcType="BIGINT" property="theaterId" />
+		<!-- pms -->
+		<result column="floor" jdbcType="VARCHAR" property="floor" />
+		<result column="area" jdbcType="VARCHAR" property="area" />
+		<result column="head_count" jdbcType="VARCHAR" property="headCount" />
+		<result column="windows" jdbcType="VARCHAR" property="windows" />
+		<result column="facilities" jdbcType="VARCHAR" property="facilities" />
+		<result column="intro" jdbcType="VARCHAR" property="intro" />
+		<result column="photos" jdbcType="VARCHAR" property="photos" />
+		<result column="notify_update_state" jdbcType="VARCHAR"
+			property="notifyUpdateState" />
+		<result column="room_type" jdbcType="VARCHAR" property="roomType" />
+		<result column="reasonRejection" jdbcType="VARCHAR" property="reasonRejection" />
+		<result column="newMfPrice" jdbcType="DOUBLE" property="newMfPrice" />
+		<result column="bedNum" jdbcType="SMALLINT" property="bedNum" />
+		<!-- pms -->
+		<result column="ticketNumber" jdbcType="INTEGER" property="ticketNumber" />
+
+		<!-- sku start -->
+		<result column="sku_id" jdbcType="VARCHAR" property="skuId" />
+		<result column="category_id" jdbcType="VARCHAR" property="categoryId" />
+		<result column="inventory" jdbcType="INTEGER" property="inventory" />
+		<result column="stock_rule_id" jdbcType="BIGINT" property="stockRuleId" />
+		<result column="unlimited_inventory" jdbcType="BIT"
+			property="unlimitedInventory" />
+		<result column="is_simple" jdbcType="BIT" property="isSimple" />
+		<result column="allocation" jdbcType="VARCHAR" property="allocation" />
+		<result column="visibility" jdbcType="VARCHAR" property="visibility" />
+		<result column="maintenance_time" jdbcType="INTEGER" property="maintenanceTime" />
+		<result column="price_per" jdbcType="VARCHAR" property="pricePer" />
+		<result column="sku_grouping" jdbcType="VARCHAR" property="skuGrouping" />
+		<result column="location" jdbcType="VARCHAR" property="location" />
+		<result column="marker_title" jdbcType="VARCHAR" property="markerTitle" />
+		<result column="marker_description" jdbcType="VARCHAR"
+			property="markerDescription" />
+		<result column="marker_link_text" jdbcType="VARCHAR" property="markerLinkText" />
+		<result column="map_zoom" jdbcType="INTEGER" property="mapZoom" />
+		<result column="email_notification" jdbcType="VARCHAR"
+			property="emailNotification" />
+		<result column="more_info_url" jdbcType="VARCHAR" property="moreInfoUrl" />
+		<result column="video_url" jdbcType="VARCHAR" property="videoUrl" />
+		<result column="video_start_time" jdbcType="VARCHAR" property="videoStartTime" />
+		<result column="details" jdbcType="LONGVARCHAR" property="details" />
+		<result column="photoinfo_id" jdbcType="VARCHAR" property="photoinfoId" />
+		<result column="dync_prop_id" jdbcType="VARCHAR" property="dyncPropId" />
+		<result column="pkg_id" jdbcType="VARCHAR" property="pkgId" />
+		<result column="pkg_name" jdbcType="VARCHAR" property="pkgName" />
+		<result column="time_slots_id" jdbcType="VARCHAR" property="timeSlotsId" />
+		<result column="sku_start_time" jdbcType="VARCHAR" property="skuStartTime" />
+		<result column="sku_end_time" jdbcType="VARCHAR" property="skuEndTime" />
+		<result column="time_length" jdbcType="DOUBLE" property="timeLength" />
+		<result column="time_unit" jdbcType="VARCHAR" property="timeUnit" />
+		<result column="attr_info_id" jdbcType="VARCHAR" property="attrInfoId" />
+		<result column="default_value" jdbcType="INTEGER" property="defaultValue" />
+		<result column="has_price" jdbcType="BIT" property="hasPrice" />
+		<result column="is_display_range" jdbcType="BIT" property="isDisplayRange" />
+		<result column="is_required" jdbcType="BIT" property="isRequired" />
+		<result column="sku_params_name" jdbcType="VARCHAR" property="skuParamsName" />
+		<result column="param_is_group" jdbcType="BIT" property="paramIsGroup" />
+		<result column="min_number" jdbcType="INTEGER" property="minNumber" />
+		<result column="max_number" jdbcType="INTEGER" property="maxNumber" />
+		<result column="schedule_id" jdbcType="VARCHAR" property="scheduleId" />
+		<result column="schedule_name" jdbcType="VARCHAR" property="scheduleName" />
+		<result column="week_available" jdbcType="VARCHAR" property="weekAvailable" />
+		<result column="weights" jdbcType="INTEGER" property="weights" />
+		<result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+		<result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+		<result column="original_price" jdbcType="DOUBLE" property="originalPrice" />
+		<result column="sku_pkg_id" jdbcType="VARCHAR" property="skuPkgId" />
+		<result column="package_type" jdbcType="VARCHAR" property="packageType" />
+		<result column="package_discount" jdbcType="DOUBLE" property="packageDiscount" />
+		<result column="twice_sure" jdbcType="VARCHAR" property="twiceSure" />
+		<result column="latest_preset" jdbcType="VARCHAR" property="latestPreset" />
+		<result column="latest_preset_days" jdbcType="INTEGER"
+			property="latestPresetDays" />
+		<result column="latest_preset_time" jdbcType="VARCHAR"
+			property="latestPresetTime" />
+		<result column="province" jdbcType="VARCHAR" property="province" />
+		<result column="city" jdbcType="VARCHAR" property="city" />
+		<result column="county" jdbcType="VARCHAR" property="county" />
+
+		<result column="hour_node" property="hourNode" />
+		<result column="minutes_node" property="minutesNode" />
+		<result column="start_time" property="startTime" />
+		<result column="end_time" property="endTime" />
+
+		<result column="is_Need_Take_Order" jdbcType="INTEGER"
+			property="isNeedTakeOrder" />
+		<result column="verification_Rule_Type" jdbcType="INTEGER"
+			property="verificationRuleType" />
+		<result column="fixed_Verification_Unit" jdbcType="INTEGER"
+			property="fixedVerificationUnit" />
+		<result column="fixed_Verification_Time" jdbcType="INTEGER"
+			property="fixedVerificationTime" />
+		<result column="is_manual_Verification" jdbcType="INTEGER"
+			property="isManualVerification" />
+		<result column="Refund_date_type" jdbcType="INTEGER" property="refundDateType" />
+		<result column="prerefund_days" jdbcType="INTEGER" property="prerefundDays" />
+		<result column="prerefund_hour" jdbcType="INTEGER" property="prerefundHour" />
+		<result column="prerefund_minute" jdbcType="INTEGER" property="prerefundMinute" />
+		<result column="prerefund_supplier_feetype" jdbcType="INTEGER"
+			property="prerefundSupplierFeetype" />
+		<result column="prerefund_supplier_feevalue" jdbcType="DOUBLE"
+			property="prerefundSupplierFeevalue" />
+		<result column="prerefund_distributor_feetype" jdbcType="INTEGER"
+			property="prerefundDistributorFeetype" />
+		<result column="prerefund_distributor_feevalue" jdbcType="DOUBLE"
+			property="prerefundDistributorFeevalue" />
+		<result column="prorefund_days" jdbcType="INTEGER" property="prorefundDays" />
+		<result column="prorefund_hour" jdbcType="INTEGER" property="prorefundHour" />
+		<result column="prorefund_minute" jdbcType="INTEGER" property="prorefundMinute" />
+		<result column="prorefund_supplier_feetype" jdbcType="INTEGER"
+			property="prorefundSupplierFeetype" />
+		<result column="prorefund_supplier_feevalue" jdbcType="INTEGER"
+			property="prorefundSupplierFeevalue" />
+		<result column="prorefund_distributor_feetype" jdbcType="VARCHAR"
+			property="prorefundDistributorFeetype" />
+		<result column="prorefund_distributor_feevalue" jdbcType="DOUBLE"
+			property="prorefundDistributorFeevalue" />
+		<result column="check_date" jdbcType="TIMESTAMP" property="checkDate" />
+		<result column="publish_date" jdbcType="TIMESTAMP" property="publishDate" />
+
+		<result column="overdue_verification_datetype" jdbcType="TINYINT"
+			property="overdueVerificationDatetype" />
+		<result column="overdue_verification_unit" jdbcType="TINYINT"
+			property="overdueVerificationUnit" />
+		<result column="overdue_verification_time" jdbcType="INTEGER"
+			property="overdueVerificationTime" />
+		<result column="overdue_verification_feetype" jdbcType="TINYINT"
+			property="overdueVerificationFeetype" />
+		<result column="overdue_verification_feevalue" jdbcType="DECIMAL"
+			property="overdueVerificationFeevalue" />
+		<result column="consumer_card_type" jdbcType="TINYINT"
+			property="consumerCardType" /> 
+		<result column="is_one_vote" jdbcType="TINYINT" property="isOneVote" />
+		<result column="is_select_seat" jdbcType="TINYINT" property="isSelectSeat" />
+		<result column="is_need_prerefund" jdbcType="TINYINT" property="isNeedPrerefund" />
+		<result column="prerefund_quantity_type" jdbcType="TINYINT"
+			property="prerefundQuantityType" />
+		<result column="is_need_prorefund" jdbcType="TINYINT"
+			property="isNeedProrefund" />
+		<result column="prorefund_quantity_type" jdbcType="TINYINT"
+			property="prorefundQuantityType" />
+
+		<association property="productInfo"
+			javaType="com.pzj.base.entity.product.ProductInfo">
+			<id column="product_id" property="id" jdbcType="BIGINT" />
+			<result column="hour_node" property="hourNode" />
+			<result column="minutes_node" property="minutesNode" />
+			<result column="start_time" property="startTime" />
+			<result column="end_time" property="endTime" />
+			<result column="playtimeMode" property="playtimeMode" />
+			<result column="playtimeValue" property="playtimeValue" />
+			<result column="playtimeUnit" property="playtimeUnit" />
+			<result column="gainType" property="gainType" />
+			<result column="gainPeopleNum" property="gainPeopleNum" />
+			<result column="gainPeopleTimeLimitUnit" jdbcType="INTEGER"
+				property="gainPeopleTimeLimitUnit" />
+			<result column="gainPeopleTimeLimitValue" jdbcType="INTEGER"
+				property="gainPeopleTimeLimitValue" />
+			<result column="gainPeopleTimePurchaseNum" jdbcType="INTEGER"
+				property="gainPeopleTimePurchaseNum" />
+			<result column="minPurchaseNumInOrder" jdbcType="INTEGER"
+				property="minPurchaseNumInOrder" />
+			<result column="reease_info" jdbcType="VARCHAR" property="reeaseInfo" />
+			<result column="release_thurl" jdbcType="VARCHAR" property="releaseThurl" />
+		</association>
+	</resultMap>
+
+	<resultMap id="InfoResultMap" type="com.pzj.base.entity.product.ProductRelease"
+		extends="BaseResultMap">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<association property="productInfo"
+			resultMap="com.pzj.base.product.IProductInfoMapper.BaseResultMap"
+			columnPrefix="info_" />
+	</resultMap>
+
+	<!-- 字段映射 -->
+	<resultMap id="RelationResultMap" type="com.pzj.base.entity.product.ProductRelease"
+		extends="BaseResultMap">
+	</resultMap>
+
+	<resultMap id="UserWithProductMap" type="com.pzj.base.entity.query.ProductUser">
+		<id column="u_id" />
+		<association property="user" columnPrefix="u_"
+			javaType="com.pzj.base.entity.SysUser">
+			<id property="id" column="id" jdbcType="BIGINT" />
+			<result property="name" column="name" jdbcType="VARCHAR" />
+			<result property="checkStatus" column="check_status" jdbcType="VARCHAR" />
+			<result property="accountState" column="account_state"
+				jdbcType="VARCHAR" />
+			<result property="reasonRejection" column="reason_rejection"
+				jdbcType="VARCHAR" />
+			<result property="notifyUpdateState" column="notify_update_state"
+				jdbcType="VARCHAR" />
+			<result property="reasonRejection" column="reason_rejection"
+				jdbcType="VARCHAR" />
+			<result property="hotelType" column="hotelType" jdbcType="VARCHAR" />
+			<result property="updateDate" column="update_date" jdbcType="TIMESTAMP" />
+			<result property="otherFile" column="other_file" jdbcType="VARCHAR" />
+		</association>
+		<collection property="productReleaseList"
+			ofType="com.pzj.base.entity.product.ProductRelease" resultMap="RelationResultMap" />
+	</resultMap>
+
+	<resultMap id="BaseResultMap2" type="com.pzj.base.entity.product.ProductRelease"
+		extends="BaseResultMap">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<!-- 增加min函数，去mf_price的最小价格 -->
+		<result column="minPrice" jdbcType="DOUBLE" property="minPrice" />
+		<association property="sysUser" columnPrefix="u_"
+			resultMap="SysUserBaseResultMap" />
+	</resultMap>
+
+	<!-- 字段映射 -->
+	<resultMap id="SysUserBaseResultMap" type="com.pzj.base.entity.SysUser">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="login_name" jdbcType="VARCHAR" property="loginName" />
+		<result column="login_passwd" jdbcType="VARCHAR" property="loginPasswd" />
+		<result column="sys_code" jdbcType="VARCHAR" property="sysCode" />
+		<result column="user_type" jdbcType="VARCHAR" property="userType" />
+		<result column="identifyType" jdbcType="VARCHAR" property="identifyType" />
+		<result column="oper_charger_mobile" jdbcType="VARCHAR"
+			property="operChargerMobile" />
+		<result column="oper_charger_phone" jdbcType="VARCHAR"
+			property="operChargerPhone" />
+		<result column="oper_charger_fax" jdbcType="VARCHAR" property="operChargerFax" />
+		<result column="oper_charger_email" jdbcType="VARCHAR"
+			property="operChargerEmail" />
+		<result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+		<result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
+		<result column="defaultLoginAddress" jdbcType="VARCHAR"
+			property="defaultLoginAddress" />
+		<result column="account_state" jdbcType="INTEGER" property="accountState" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="office_id" jdbcType="CHAR" property="officeId" />
+		<result column="company_id" jdbcType="BIGINT" property="companyId" />
+		<result column="parent_id" jdbcType="BIGINT" property="parentId" />
+		<result column="wx_openid" jdbcType="VARCHAR" property="wxOpenid" />
+		<result column="login_source" jdbcType="INTEGER" property="loginSource" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="reseller_type" jdbcType="VARCHAR" property="resellerType" />
+		<result column="is_buygroup" jdbcType="INTEGER" property="isBuygroup" />
+		<result column="is_buysingle" jdbcType="INTEGER" property="isBuysingle" />
+		<result column="reseller_level" jdbcType="INTEGER" property="resellerLevel" />
+		<result column="province" jdbcType="VARCHAR" property="province" />
+		<result column="city" jdbcType="VARCHAR" property="city" />
+		<result column="county" jdbcType="VARCHAR" property="county" />
+		<result column="corporater" jdbcType="VARCHAR" property="corporater" />
+		<result column="credentials_type" jdbcType="INTEGER" property="credentialsType" />
+		<result column="corporater_credentials" jdbcType="VARCHAR"
+			property="corporaterCredentials" />
+		<result column="corporater_mobile" jdbcType="VARCHAR" property="corporaterMobile" />
+		<result column="corporater_phone" jdbcType="VARCHAR" property="corporaterPhone" />
+		<result column="corporater_email" jdbcType="VARCHAR" property="corporaterEmail" />
+		<result column="business_certificate" jdbcType="VARCHAR"
+			property="businessCertificate" />
+		<result column="guideCertificate" jdbcType="VARCHAR" property="guideCertificate" />
+		<result column="directCompany" jdbcType="VARCHAR" property="directCompany" />
+		<result column="directTime" jdbcType="TIMESTAMP" property="directTime" />
+		<result column="business_license" jdbcType="VARCHAR" property="businessLicense" />
+		<result column="business_qualification" jdbcType="VARCHAR"
+			property="businessQualification" />
+		<result column="org_code_certificate" jdbcType="VARCHAR"
+			property="orgCodeCertificate" />
+		<result column="tax_certificate" jdbcType="VARCHAR" property="taxCertificate" />
+		<result column="other_files" jdbcType="VARCHAR" property="otherFiles" />
+		<result column="resellerId" jdbcType="BIGINT" property="resellerId" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="reseller_state" jdbcType="INTEGER" property="resellerState" />
+		<result column="request_date" jdbcType="TIMESTAMP" property="requestDate" />
+		<result column="approve_date" jdbcType="TIMESTAMP" property="approveDate" />
+		<result column="approve_result" jdbcType="VARCHAR" property="approveResult" />
+		<result column="contract_num" jdbcType="VARCHAR" property="contractNum" />
+		<result column="description" jdbcType="VARCHAR" property="description" />
+		<result column="wx_open_flag" jdbcType="INTEGER" property="wxOpenFlag" />
+		<result column="isCReseller" jdbcType="INTEGER" property="iscreseller" />
+		<result column="about_us" jdbcType="VARCHAR" property="aboutUs" />
+		<result column="contact_way" jdbcType="VARCHAR" property="contactWay" />
+		<result column="reseller_phonetic_shorthand" jdbcType="VARCHAR"
+			property="resellerPhoneticShorthand" />
+		<result column="supplier_level" jdbcType="VARCHAR" property="supplierLevel" />
+		<result column="is_manage" jdbcType="INTEGER" property="isManage" />
+		<result column="other_file" jdbcType="VARCHAR" property="otherFile" />
+		<result column="other_file2" jdbcType="VARCHAR" property="otherFile2" />
+		<result column="supplierPk" jdbcType="BIGINT" property="supplierPk" />
+		<result column="supplier_address" jdbcType="VARCHAR" property="supplierAddress" />
+		<result column="supplier_state" jdbcType="INTEGER" property="supplierState" />
+		<result column="supplier_description" jdbcType="VARCHAR"
+			property="supplierDescription" />
+		<result column="supplier_py" jdbcType="VARCHAR" property="supplierPy" />
+		<result column="supplier_normal" jdbcType="VARCHAR" property="supplierNormal" />
+		<result column="supplier_discount_value" jdbcType="DOUBLE"
+			property="supplierDiscountValue" />
+		<result column="from_date" jdbcType="TIMESTAMP" property="fromDate" />
+		<result column="period" jdbcType="INTEGER" property="period" />
+		<result column="settle_date" jdbcType="TIMESTAMP" property="settleDate" />
+		<result column="contract_remarks" jdbcType="VARCHAR" property="contractRemarks" />
+		<result column="contract_notes" jdbcType="VARCHAR" property="contractNotes" />
+		<result column="verification_codes" jdbcType="VARCHAR"
+			property="verificationCodes" />
+		<result column="user_source" jdbcType="VARCHAR" property="userSource" />
+		<result column="create_by" jdbcType="VARCHAR" property="createBy" />
+		<result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+		<result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+		<result column="sort" jdbcType="INTEGER" property="sort" />
+		<result column="leader_flag" jdbcType="INTEGER" property="leaderFlag" />
+		<result column="ticket_rule" jdbcType="VARCHAR" property="ticketRule" />
+		<result column="check_status" jdbcType="VARCHAR" property="checkStatus" />
+		<result column="check_user_id" jdbcType="BIGINT" property="checkUserId" />
+		<result column="check_user_name" jdbcType="VARCHAR" property="checkUserName" />
+		<result column="check_date" jdbcType="TIMESTAMP" property="checkDate" />
+		<result column="reason_rejection" jdbcType="VARCHAR" property="reasonRejection" />
+		<result column="supplier_id" jdbcType="BIGINT" property="supplierId" />
+		<result column="is_root" jdbcType="CHAR" property="isRoot" />
+		<result column="belongScenicId" jdbcType="BIGINT" property="belongScenicId" />
+		<result column="hotelType" jdbcType="INTEGER" property="hotelType" />
+		<result column="hotel_map_longitude" jdbcType="DOUBLE"
+			property="hotelMapLongitude" />
+		<result column="hotel_map_latitude" jdbcType="DOUBLE" property="hotelMapLatitude" />
+		<result column="region" jdbcType="VARCHAR" property="region" />
+		<result column="scenic_info" jdbcType="VARCHAR" property="scenicInfo" />
+		<result column="hotel_start_date" jdbcType="VARCHAR" property="hotelStartDate" />
+		<result column="hotel_end_date" jdbcType="VARCHAR" property="hotelEndDate" />
+		<result column="hotel_num" jdbcType="INTEGER" property="hotelNum" />
+		<result column="treat_people_num" jdbcType="INTEGER" property="treatPeopelNum" />
+		<result column="hotel_facility" jdbcType="VARCHAR" property="hotelFacility" />
+		<result column="hotel_feature" jdbcType="VARCHAR" property="hotelFeature" />
+		<result column="hotel_pirture" jdbcType="VARCHAR" property="hotelPirture" />
+		<result column="boss_story" jdbcType="VARCHAR" property="bossStory" />
+		<result column="boss_pirture" jdbcType="VARCHAR" property="bossPirture" />
+		<result column="notify_update_state" jdbcType="VARCHAR"
+			property="notifyUpdateState" />
+	</resultMap>
+
+	<!-- 通用查询条件 -->
+	<sql id="sql_of_where">
+		<if test="bParam != null">
+			<if test="bParam.id != null"> AND a.id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.ids != null and bParam.ids.size > 0">
+				AND a.id in
+				<foreach collection="bParam.ids" item="_id" open="("
+					separator="," close=")">
+					#{_id}
+				</foreach>
+			</if>
+			<if test="bParam.name != null"> AND a.name like #{bParam.name} </if>
+			<if test="bParam.productId != null"> AND a.product_id = #{bParam.productId,jdbcType=BIGINT}
+			</if>
+			<if test="bParam.productIds != null and bParam.productIds.size > 0">
+				AND a.product_id in
+				<foreach collection="bParam.productIds" item="_productId"
+					open="(" separator="," close=")">
+					#{_productId}
+				</foreach>
+			</if>
+			<if test="bParam.roductNo != null"> AND a.roduct_no = #{bParam.roductNo,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.productCode != null"> AND a.product_code =
+				#{bParam.productCode,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.productPrice != null"> AND a.product_price =
+				#{bParam.productPrice,jdbcType=DOUBLE}
+			</if>
+			<if test="bParam.productType != null"> AND a.product_type =
+				#{bParam.productType,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.productKind != null"> AND a.product_kind =
+				#{bParam.productKind,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.productClassify != null"> AND a.product_classify =
+				#{bParam.productClassify,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.productChannel != null"> AND a.product_channel =
+				#{bParam.productChannel,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.region != null"> AND a.region = #{bParam.region,jdbcType=VARCHAR} </if>
+			<if test="bParam.ronda != null"> AND a.ronda = #{bParam.ronda,jdbcType=VARCHAR} </if>
+			<if test="bParam.createBy != null"> AND a.create_by = #{bParam.createBy,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.createDate != null"> AND a.create_date =
+				#{bParam.createDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="bParam.updateBy != null"> AND a.update_by = #{bParam.updateBy,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.updateDate != null"> AND a.update_date =
+				#{bParam.updateDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="bParam.sort != null"> AND a.sort = #{bParam.sort,jdbcType=INTEGER} </if>
+			<if test="bParam.flag != null"> AND a.flag = #{bParam.flag,jdbcType=CHAR} </if>
+			<if test="bParam.remarks != null"> AND a.remarks = #{bParam.remarks,jdbcType=VARCHAR} </if>
+			<if test="bParam.auditStatus != null"> AND a.auditStatus =
+				#{bParam.auditStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.reasonRejection != null"> AND a.reasonRejection like
+				#{bParam.reasonRejection,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.checkInType != null"> AND a.checkIn_type =
+				#{bParam.checkInType,jdbcType=VARCHAR}
+			</if>
+			<if
+				test="bParam.auditStatusList != null and bParam.auditStatusList.size > 0">
+				AND a.auditStatus in
+				<foreach collection="bParam.auditStatusList" item="_auditStatus"
+					open="(" separator="," close=")">
+					#{_auditStatus}
+				</foreach>
+			</if>
+			<if test="bParam.proCategory != null"> AND a.pro_category =
+				#{bParam.proCategory,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.proCategorys != null and bParam.proCategorys.size > 0">
+				AND a.pro_category in
+				<foreach collection="bParam.proCategorys" item="_proCategory"
+					open="(" separator="," close=")">
+					#{_proCategory}
+				</foreach>
+			</if>
+			<if test="bParam.reason != null"> AND a.reason = #{bParam.reason,jdbcType=VARCHAR} </if>
+			<if test="bParam.supplierId != null"> AND a.supplier_id =
+				#{bParam.supplierId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.exSupplierId != null"> AND a.supplier_id !=
+				#{bParam.exSupplierId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.packageStatus != null"> AND a.package_status =
+				#{bParam.packageStatus,jdbcType=VARCHAR}
+			</if>
+
+			<if test="bParam.notEqual != null"> and concat(a.product_kind,a.product_classify) !=
+				#{bParam.notEqual,jdbcType=VARCHAR}
+			</if>
+			<if
+				test="bParam.supplierIdList != null and bParam.supplierIdList.size > 0">
+				AND a.supplier_id in
+				<foreach collection="bParam.supplierIdList" item="_supplierId"
+					open="(" separator="," close=")">
+					#{_supplierId}
+				</foreach>
+			</if>
+			<if test="bParam.isComposed != null"> AND a.is_composed = #{bParam.isComposed,jdbcType=BIGINT}
+			</if>
+			<if test="bParam.composeMark != null"> AND a.compose_mark =
+				#{bParam.composeMark,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.theaterId != null"> AND a.theater_id = #{bParam.theaterId,jdbcType=BIGINT}
+			</if>
+
+			<if test="bParam.floor != null"> AND a.floor = #{bParam.floor,jdbcType=VARCHAR} </if>
+			<if test="bParam.area != null"> AND a.area = #{bParam.area,jdbcType=VARCHAR} </if>
+			<if test="bParam.headCount != null"> AND a.head_count = #{bParam.headCount,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.windows != null"> AND a.windows = #{bParam.windows,jdbcType=VARCHAR} </if>
+			<if test="bParam.facilities != null"> AND a.facilities = #{bParam.facilities,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.intro != null"> AND a.intro = #{bParam.intro,jdbcType=VARCHAR} </if>
+			<if test="bParam.photos != null"> AND a.photos = #{bParam.photos,jdbcType=VARCHAR} </if>
+			<if test="bParam.notifyUpdateState != null"> AND a.notify_update_state =
+				#{bParam.notifyUpdateState,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.roomType != null"> AND a.room_type = #{bParam.roomType,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.newMfPrice != null"> AND a.newMfPrice = #{bParam.newMfPrice,jdbcType=DOUBLE}
+			</if>
+			<if test="bParam.bedNum != null"> AND a.bedNum = #{bParam.bedNum,jdbcType=SMALLINT} </if>
+
+			<if test="bParam.skuId != null"> AND a.sku_id = #{bParam.skuId,jdbcType=VARCHAR} </if>
+			<if test="bParam.categoryId != null"> AND a.category_id =
+				#{bParam.categoryId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.inventory != null"> AND a.inventory = #{bParam.inventory,jdbcType=INTEGER}
+			</if>
+			<if test="bParam.stockRuleId != null"> AND a.stock_rule_id =
+				#{bParam.stockRuleId,jdbcType=BIGINT}
+			</if>
+			<if test="bParam.unlimitedInventory != null"> AND a.unlimited_inventory =
+				#{bParam.unlimitedInventory,jdbcType=BIT}
+			</if>
+			<if test="bParam.isSimple != null"> AND a.is_simple = #{bParam.isSimple,jdbcType=BIT} </if>
+			<if test="bParam.allocation != null"> AND a.allocation = #{bParam.allocation,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.visibility != null"> AND a.visibility = #{bParam.visibility,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.maintenanceTime != null"> AND a.maintenance_time =
+				#{bParam.maintenanceTime,jdbcType=INTEGER}
+			</if>
+			<if test="bParam.pricePer != null"> AND a.price_per = #{bParam.pricePer,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.skuGrouping != null"> AND a.sku_grouping =
+				#{bParam.skuGrouping,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.location != null"> AND a.location = #{bParam.location,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.markerTitle != null"> AND a.marker_title =
+				#{bParam.markerTitle,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.markerDescription != null"> AND a.marker_description =
+				#{bParam.markerDescription,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.markerLinkText != null"> AND a.marker_link_text =
+				#{bParam.markerLinkText,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.mapZoom != null"> AND a.map_zoom = #{bParam.mapZoom,jdbcType=INTEGER}</if>
+			<if test="bParam.emailNotification != null"> AND a.email_notification =
+				#{bParam.emailNotification,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.moreInfoUrl != null"> AND a.more_info_url =
+				#{bParam.moreInfoUrl,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.videoUrl != null"> AND a.video_url = #{bParam.videoUrl,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.videoStartTime != null"> AND a.video_start_time =
+				#{bParam.videoStartTime,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.details != null"> AND a.details = #{bParam.details,jdbcType=LONGVARCHAR}
+			</if>
+			<if test="bParam.photoinfoId != null"> AND a.photoinfo_id =
+				#{bParam.photoinfoId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.dyncPropId != null"> AND a.dync_prop_id =
+				#{bParam.dyncPropId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.pkgId != null"> AND a.pkg_id = #{bParam.pkgId,jdbcType=VARCHAR} </if>
+			<if test="bParam.pkgName != null"> AND a.pkg_name = #{bParam.pkgName,jdbcType=VARCHAR} </if>
+			<if test="bParam.timeSlotsId != null"> AND a.time_slots_id =
+				#{bParam.timeSlotsId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.skuStartTime != null"> AND a.sku_start_time =
+				#{bParam.skuStartTime,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.skuEndTime != null"> AND a.sku_end_time =
+				#{bParam.skuEndTime,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.timeLength != null"> AND a.time_length = #{bParam.timeLength,jdbcType=DOUBLE}
+			</if>
+			<if test="bParam.timeUnit != null"> AND a.time_unit = #{bParam.timeUnit,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.attrInfoId != null"> AND a.attr_info_id =
+				#{bParam.attrInfoId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.defaultValue != null"> AND a.default_value =
+				#{bParam.defaultValue,jdbcType=INTEGER}
+			</if>
+			<if test="bParam.hasPrice != null"> AND a.has_price = #{bParam.hasPrice,jdbcType=BIT} </if>
+			<if test="bParam.isDisplayRange != null"> AND a.is_display_range =
+				#{bParam.isDisplayRange,jdbcType=BIT}
+			</if>
+			<if test="bParam.isRequired != null"> AND a.is_required = #{bParam.isRequired,jdbcType=BIT}
+			</if>
+			<if test="bParam.skuParamsName != null"> AND a.sku_params_name =
+				#{bParam.skuParamsName,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.paramIsGroup != null"> AND a.param_is_group =
+				#{bParam.paramIsGroup,jdbcType=BIT}
+			</if>
+			<if test="bParam.minNumber != null"> AND a.min_number = #{bParam.minNumber,jdbcType=INTEGER}
+			</if>
+			<if test="bParam.maxNumber != null"> AND a.max_number = #{bParam.maxNumber,jdbcType=INTEGER}
+			</if>
+			<if test="bParam.scheduleId != null"> AND a.schedule_id =
+				#{bParam.scheduleId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.scheduleName != null"> AND a.schedule_name =
+				#{bParam.scheduleName,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.weekAvailable != null"> AND a.week_available =
+				#{bParam.weekAvailable,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.weights != null"> AND a.weights = #{bParam.weights,jdbcType=INTEGER} </if>
+			<if test="bParam.startDate != null"> AND a.start_date =
+				#{bParam.startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="bParam.endDate != null"> AND a.end_date = #{bParam.endDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="bParam.originalPrice != null"> AND a.original_price =
+				#{bParam.originalPrice,jdbcType=DOUBLE}
+			</if>
+			<if test="bParam.skuPkgId != null"> AND a.sku_pkg_id = #{bParam.skuPkgId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.packageType != null"> AND a.package_type =
+				#{bParam.packageType,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.packageDiscount != null"> AND a.package_discount =
+				#{bParam.packageDiscount,jdbcType=DOUBLE}
+			</if>
+
+			<if test="bParam.twiceSure != null"> AND a.twice_sure = #{bParam.twiceSure,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.latestPreset != null"> AND a.latest_preset =
+				#{bParam.latestPreset,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.latestPresetDays != null"> AND a.latest_preset_days =
+				#{bParam.latestPresetDays,jdbcType=INTEGER}
+			</if>
+			<if test="bParam.latestPresetTime != null"> AND a.latest_preset_time =
+				#{bParam.latestPresetTime,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.province != null"> AND a.province = #{bParam.province,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.city != null"> AND a.city = #{bParam.city,jdbcType=VARCHAR} </if>
+			<if test="bParam.county != null"> AND a.county = #{bParam.county,jdbcType=VARCHAR} </if>
+
+			<if test="bParam.isNeedTakeOrder != null"> AND a.is_Need_Take_Order = #{bParam.isNeedTakeOrder,
+				jdbcType=INTEGER}
+			</if>
+			<if test="bParam.verificationRuleType != null"> AND a.verification_Rule_Type =
+				#{bParam.verificationRuleType, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.fixedVerificationUnit != null"> AND a.fixed_Verification_Unit =
+				#{bParam.fixedVerificationUnit, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.fixedVerificationTime != null"> AND a.fixed_Verification_Time =
+				#{bParam.fixedVerificationTime, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.isManualVerification != null"> AND a.is_manual_Verification =
+				#{bParam.isManualVerification, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.refundDateType != null"> AND a.Refund_date_type = #{bParam.refundDateType,
+				jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prerefundDays != null"> AND a.prerefund_days = #{bParam.prerefundDays,
+				jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prerefundHour != null"> AND a.prerefund_hour = #{bParam.prerefundHour,
+				jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prerefundMinute != null"> AND a.prerefund_minute = #{bParam.prerefundMinute,
+				jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prerefundSupplierFeetype != null"> AND a.prerefund_supplier_feetype =
+				#{bParam.prerefundSupplierFeetype, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prerefundSupplierFeevalue != null"> AND a.prerefund_supplier_feevalue =
+				#{bParam.prerefundSupplierFeevalue, jdbcType=DOUBLE}
+			</if>
+			<if test="bParam.prerefundDistributorFeetype != null"> AND a.prerefund_distributor_feetype =
+				#{bParam.prerefundDistributorFeetype, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prerefundDistributorFeevalue != null"> AND a.prerefund_distributor_feevalue =
+				#{bParam.prerefundDistributorFeevalue, jdbcType=DOUBLE}
+			</if>
+			<if test="bParam.prorefundDays != null"> AND a.prorefund_days = #{bParam.prorefundDays,
+				jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prorefundHour != null"> AND a.prorefund_hour = #{bParam.prorefundHour,
+				jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prorefundMinute != null"> AND a.prorefund_minute = #{bParam.prorefundMinute,
+				jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prorefundSupplierFeetype != null"> AND a.prorefund_supplier_feetype =
+				#{bParam.prorefundSupplierFeetype, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prorefundSupplierFeevalue != null"> AND a.prorefund_supplier_feevalue =
+				#{bParam.prorefundSupplierFeevalue, jdbcType=DOUBLE}
+			</if>
+			<if test="bParam.prorefundDistributorFeetype != null"> AND a.prorefund_distributor_feetype =
+				#{bParam.prorefundDistributorFeetype, jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.prorefundDistributorFeevalue != null"> AND a.prorefund_distributor_feevalue =
+				#{bParam.prorefundDistributorFeevalue, jdbcType=DOUBLE}
+			</if>
+			<if test="bParam.checkDate != null"> AND a.check_date = #{bParam.checkDate,
+				jdbcType=TIMESTAMP}
+			</if>
+			<if test="bParam.publishDate != null"> AND a.publish_date = #{bParam.publishDate,
+				jdbcType=TIMESTAMP}
+			</if>
+			<if test="bParam.checkDateParam != null">
+				<if test="bParam.checkDateParam.startDate != null"> AND a.check_date &gt;=
+					#{bParam.checkDateParam.startDate, jdbcType=TIMESTAMP}
+				</if>
+				<if test="bParam.checkDateParam.endDate != null"> AND a.check_date &lt;= #{bParam.checkDateParam.endDate,
+					jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="bParam.publishDateParam != null">
+				<if test="bParam.publishDateParam.startDate != null"> AND a.publish_date &gt;=
+					#{bParam.publishDateParam.startDate, jdbcType=TIMESTAMP}
+				</if>
+				<if test="bParam.publishDateParam.endDate != null"> AND a.publish_date &lt;=
+					#{bParam.publishDateParam.endDate, jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="bParam.roomTypes != null and bParam.roomTypes.size > 0">
+				AND a.room_type in
+				<foreach collection="bParam.roomTypes" item="_roomType"
+					open="(" separator="," close=")">
+					#{_roomType}
+				</foreach>
+			</if>
+
+			<if test="bParam.overdueVerificationDatetype != null"> AND a.overdue_verification_datetype =
+				#{bParam.overdueVerificationDatetype,jdbcType=TINYINT}
+			</if>
+			<if test="bParam.overdueVerificationUnit != null"> AND a.overdue_verification_unit =
+				#{bParam.overdueVerificationUnit,jdbcType=TINYINT}
+			</if>
+			<if test="bParam.overdueVerificationTime != null"> AND a.overdue_verification_time =
+				#{bParam.overdueVerificationTime,jdbcType=INTEGER}
+			</if>
+			<if test="bParam.overdueVerificationFeetype != null"> AND a.overdue_verification_feetype =
+				#{bParam.overdueVerificationFeetype,jdbcType=TINYINT}
+			</if>
+			<if test="bParam.overdueVerificationFeevalue != null"> AND a.overdue_verification_feevalue =
+				#{bParam.overdueVerificationFeevalue,jdbcType=DECIMAL}
+			</if>
+			<if test="bParam.consumerCardType != null"> AND a.consumer_card_type =
+				#{bParam.consumerCardType,jdbcType=TINYINT}
+			</if>
+			<if test="bParam.isNeedPrerefund != null"> AND a.is_need_prerefund =
+				#{bParam.isNeedPrerefund,jdbcType=TINYINT} </if>
+			<if test="bParam.prerefundQuantityType != null"> AND a.prerefund_quantity_type =
+				#{bParam.prerefundQuantityType,jdbcType=TINYINT} </if>
+			<if test="bParam.isNeedProrefund != null"> AND a.is_need_prorefund =
+				#{bParam.isNeedProrefund,jdbcType=TINYINT} </if>
+			<if test="bParam.prorefundQuantityType != null"> AND a.prorefund_quantity_type =
+				#{bParam.prorefundQuantityType,jdbcType=TINYINT} </if>
+
+
+		</if>
+	</sql>
+
+	<!-- 通用查询条件 -->
+	<sql id="sql_of_where_join">
+		<include refid="sql_of_where" />
+		<if test="bParam != null">
+			<if test="bParam.startDateQuery != null ">
+				<if test="bParam.startDateQuery.startDate != null">
+					and a.start_date &gt;=
+					#{bParam.startDateQuery.startDate}
+				</if>
+				<if test="bParam.startDateQuery.endDate != null">
+					and a.start_date &lt;= #{bParam.startDateQuery.endDate}
+				</if>
+			</if>
+			<if test="bParam.endDateQuery != null ">
+				<if test="bParam.endDateQuery.startDate != null">
+					and a.end_date &gt;= #{bParam.endDateQuery.startDate}
+				</if>
+				<if test="bParam.endDateQuery.endDate != null">
+					and a.end_date &lt;= #{bParam.endDateQuery.endDate}
+				</if>
+			</if>
+			<if
+				test="bParam.dateQuery != null and (bParam.dateQuery.startDate != null or bParam.dateQuery.endDate != null)">
+				and ( 1 = 2
+				<if
+					test="bParam.dateQuery.startDate != null and bParam.dateQuery.endDate != null">
+					or ( a.start_date &lt;= #{bParam.dateQuery.endDate}
+					and
+					a.end_date &gt;= #{bParam.dateQuery.startDate} )
+				</if>
+				<if
+					test="bParam.dateQuery.startDate != null and bParam.dateQuery.endDate == null">
+					or ( a.start_date &lt;= #{bParam.dateQuery.startDate}
+					and
+					a.end_date &gt;= #{bParam.dateQuery.startDate} )
+				</if>
+				<if
+					test="bParam.dateQuery.startDate == null and bParam.dateQuery.endDate != null">
+					or ( a.start_date &lt;= #{bParam.dateQuery.endDate}
+					and
+					a.end_date &gt;= #{bParam.dateQuery.endDate} )
+				</if>
+				)
+			</if>
+
+			<if test="bParam.popularName != null"> AND b.name like #{bParam.popularName} </if>
+		</if>
+	</sql>
+
+	<!-- 通用查询条件 -->
+	<sql id="sql_of_frontProduct">
+		<if test="bParam != null">
+			<if test="bParam.id != null"> AND releasee.id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.ids != null and bParam.ids.size > 0">
+				AND releasee.id in
+				<foreach collection="bParam.ids" item="_id" open="("
+					separator="," close=")">
+					#{_id}
+				</foreach>
+			</if>
+			<if test="bParam.name != null"> AND releasee.name like #{bParam.name} </if>
+			<if test="bParam.productId != null"> AND releasee.product_id =
+				#{bParam.productId,jdbcType=BIGINT}
+			</if>
+			<if test="bParam.productIds != null and bParam.productIds.size > 0">
+				AND releasee.product_id in
+				<foreach collection="bParam.productIds" item="_productId"
+					open="(" separator="," close=")">
+					#{_productId}
+				</foreach>
+			</if>
+			<if test="bParam.roductNo != null"> AND releasee.roduct_no =
+				#{bParam.roductNo,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.productCode != null"> AND releasee.product_code =
+				#{bParam.productCode,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.productPrice != null"> AND releasee.product_price =
+				#{bParam.productPrice,jdbcType=DOUBLE}
+			</if>
+			<if test="bParam.productType != null"> AND releasee.product_type =
+				#{bParam.productType,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.productKind != null"> AND releasee.product_kind =
+				#{bParam.productKind,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.productClassify != null"> AND releasee.product_classify =
+				#{bParam.productClassify,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.productChannel != null"> AND releasee.product_channel =
+				#{bParam.productChannel,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.region != null"> AND releasee.region = #{bParam.region,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.ronda != null"> AND releasee.ronda = #{bParam.ronda,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.createBy != null"> AND releasee.create_by =
+				#{bParam.createBy,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.createDate != null"> AND releasee.create_date =
+				#{bParam.createDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="bParam.updateBy != null"> AND releasee.update_by =
+				#{bParam.updateBy,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.updateDate != null"> AND releasee.update_date =
+				#{bParam.updateDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="bParam.sort != null"> AND releasee.sort = #{bParam.sort,jdbcType=INTEGER} </if>
+			<if test="bParam.flag != null"> AND releasee.flag = #{bParam.flag,jdbcType=CHAR} </if>
+			<if test="bParam.remarks != null"> AND releasee.remarks =
+				#{bParam.remarks,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.auditStatus != null"> AND releasee.auditStatus =
+				#{bParam.auditStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.reasonRejection != null"> AND releasee.reasonRejection like
+				#{bParam.reasonRejection,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.checkInType != null"> AND releasee.checkIn_type =
+				#{bParam.checkInType,jdbcType=VARCHAR}
+			</if>
+			<if
+				test="bParam.auditStatusList != null and bParam.auditStatusList.size > 0">
+				AND releasee.auditStatus in
+				<foreach collection="bParam.auditStatusList" item="_auditStatus"
+					open="(" separator="," close=")">
+					#{_auditStatus}
+				</foreach>
+			</if>
+			<if test="bParam.proCategory != null"> AND releasee.pro_category =
+				#{bParam.proCategory,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.proCategorys != null and bParam.proCategorys.size > 0">
+				AND releasee.pro_category in
+				<foreach collection="bParam.proCategorys" item="_proCategory"
+					open="(" separator="," close=")">
+					#{_proCategory}
+				</foreach>
+			</if>
+			<if test="bParam.reason != null"> AND releasee.reason = #{bParam.reason,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.supplierId != null"> AND releasee.supplier_id =
+				#{bParam.supplierId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.exSupplierId != null"> AND releasee.supplier_id !=
+				#{bParam.exSupplierId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.packageStatus != null"> AND releasee.package_status =
+				#{bParam.packageStatus,jdbcType=VARCHAR}
+			</if>
+
+			<if test="bParam.notEqual != null"> and
+				concat(releasee.product_kind,releasee.product_classify) !=
+				#{bParam.notEqual,jdbcType=VARCHAR}
+			</if>
+			<if
+				test="bParam.supplierIdList != null and bParam.supplierIdList.size > 0">
+				AND releasee.supplier_id in
+				<foreach collection="bParam.supplierIdList" item="_supplierId"
+					open="(" separator="," close=")">
+					#{_supplierId}
+				</foreach>
+			</if>
+			<if test="bParam.isComposed != null"> AND releasee.is_composed =
+				#{bParam.isComposed,jdbcType=BIGINT}
+			</if>
+			<if test="bParam.composeMark != null"> AND releasee.compose_mark =
+				#{bParam.composeMark,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.theaterId != null"> AND releasee.theater_id =
+				#{bParam.theaterId,jdbcType=BIGINT}
+			</if>
+
+			<if test="bParam.floor != null"> AND releasee.floor = #{bParam.floor,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.area != null"> AND releasee.area = #{bParam.area,jdbcType=VARCHAR} </if>
+			<if test="bParam.headCount != null"> AND releasee.head_count =
+				#{bParam.headCount,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.windows != null"> AND releasee.windows =
+				#{bParam.windows,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.facilities != null"> AND releasee.facilities =
+				#{bParam.facilities,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.intro != null"> AND releasee.intro = #{bParam.intro,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.photos != null"> AND releasee.photos = #{bParam.photos,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.notifyUpdateState != null"> AND releasee.notify_update_state =
+				#{bParam.notifyUpdateState,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.roomType != null"> AND releasee.room_type =
+				#{bParam.roomType,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.newMfPrice != null"> AND releasee.newMfPrice =
+				#{bParam.newMfPrice,jdbcType=DOUBLE}
+			</if>
+			<if test="bParam.bedNum != null"> AND releasee.bedNum = #{bParam.bedNum,jdbcType=SMALLINT}
+			</if>
+
+			<if test="bParam.skuId != null"> AND releasee.sku_id = #{bParam.skuId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.categoryId != null"> AND releasee.category_id =
+				#{bParam.categoryId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.inventory != null"> AND releasee.inventory =
+				#{bParam.inventory,jdbcType=INTEGER}
+			</if>
+			<if test="bParam.stockRuleId != null"> AND releasee.stock_rule_id =
+				#{bParam.stockRuleId,jdbcType=BIGINT}
+			</if>
+			<if test="bParam.unlimitedInventory != null"> AND releasee.unlimited_inventory =
+				#{bParam.unlimitedInventory,jdbcType=BIT}
+			</if>
+			<if test="bParam.isSimple != null"> AND releasee.is_simple = #{bParam.isSimple,jdbcType=BIT}
+			</if>
+			<if test="bParam.allocation != null"> AND releasee.allocation =
+				#{bParam.allocation,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.visibility != null"> AND releasee.visibility =
+				#{bParam.visibility,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.maintenanceTime != null"> AND releasee.maintenance_time =
+				#{bParam.maintenanceTime,jdbcType=INTEGER}
+			</if>
+			<if test="bParam.pricePer != null"> AND releasee.price_per =
+				#{bParam.pricePer,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.skuGrouping != null"> AND releasee.sku_grouping =
+				#{bParam.skuGrouping,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.location != null"> AND releasee.location =
+				#{bParam.location,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.markerTitle != null"> AND releasee.marker_title =
+				#{bParam.markerTitle,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.markerDescription != null"> AND releasee.marker_description =
+				#{bParam.markerDescription,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.markerLinkText != null"> AND releasee.marker_link_text =
+				#{bParam.markerLinkText,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.mapZoom != null"> AND releasee.map_zoom =
+				#{bParam.mapZoom,jdbcType=INTEGER}
+			</if>
+			<if test="bParam.emailNotification != null"> AND releasee.email_notification =
+				#{bParam.emailNotification,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.moreInfoUrl != null"> AND releasee.more_info_url =
+				#{bParam.moreInfoUrl,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.videoUrl != null"> AND releasee.video_url =
+				#{bParam.videoUrl,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.videoStartTime != null"> AND releasee.video_start_time =
+				#{bParam.videoStartTime,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.details != null"> AND releasee.details =
+				#{bParam.details,jdbcType=LONGVARCHAR}
+			</if>
+			<if test="bParam.photoinfoId != null"> AND releasee.photoinfo_id =
+				#{bParam.photoinfoId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.dyncPropId != null"> AND releasee.dync_prop_id =
+				#{bParam.dyncPropId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.pkgId != null"> AND releasee.pkg_id = #{bParam.pkgId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.pkgName != null"> AND releasee.pkg_name =
+				#{bParam.pkgName,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.timeSlotsId != null"> AND releasee.time_slots_id =
+				#{bParam.timeSlotsId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.skuStartTime != null"> AND releasee.sku_start_time =
+				#{bParam.skuStartTime,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.skuEndTime != null"> AND releasee.sku_end_time =
+				#{bParam.skuEndTime,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.timeLength != null"> AND releasee.time_length =
+				#{bParam.timeLength,jdbcType=DOUBLE}
+			</if>
+			<if test="bParam.timeUnit != null"> AND releasee.time_unit =
+				#{bParam.timeUnit,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.attrInfoId != null"> AND releasee.attr_info_id =
+				#{bParam.attrInfoId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.defaultValue != null"> AND releasee.default_value =
+				#{bParam.defaultValue,jdbcType=INTEGER}
+			</if>
+			<if test="bParam.hasPrice != null"> AND releasee.has_price = #{bParam.hasPrice,jdbcType=BIT}
+			</if>
+			<if test="bParam.isDisplayRange != null"> AND releasee.is_display_range =
+				#{bParam.isDisplayRange,jdbcType=BIT}
+			</if>
+			<if test="bParam.isRequired != null"> AND releasee.is_required =
+				#{bParam.isRequired,jdbcType=BIT}
+			</if>
+			<if test="bParam.skuParamsName != null"> AND releasee.sku_params_name =
+				#{bParam.skuParamsName,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.paramIsGroup != null"> AND releasee.param_is_group =
+				#{bParam.paramIsGroup,jdbcType=BIT}
+			</if>
+			<if test="bParam.minNumber != null"> AND releasee.min_number =
+				#{bParam.minNumber,jdbcType=INTEGER}
+			</if>
+			<if test="bParam.maxNumber != null"> AND releasee.max_number =
+				#{bParam.maxNumber,jdbcType=INTEGER}
+			</if>
+			<if test="bParam.scheduleId != null"> AND releasee.schedule_id =
+				#{bParam.scheduleId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.scheduleName != null"> AND releasee.schedule_name =
+				#{bParam.scheduleName,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.weekAvailable != null"> AND releasee.week_available =
+				#{bParam.weekAvailable,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.weights != null"> AND releasee.weights =
+				#{bParam.weights,jdbcType=INTEGER}
+			</if>
+			<if test="bParam.startDate != null"> AND releasee.start_date =
+				#{bParam.startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="bParam.endDate != null"> AND releasee.end_date =
+				#{bParam.endDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="bParam.originalPrice != null"> AND releasee.original_price =
+				#{bParam.originalPrice,jdbcType=DOUBLE}
+			</if>
+			<if test="bParam.skuPkgId != null"> AND releasee.sku_pkg_id =
+				#{bParam.skuPkgId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.packageType != null"> AND releasee.package_type =
+				#{bParam.packageType,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.packageDiscount != null"> AND releasee.package_discount =
+				#{bParam.packageDiscount,jdbcType=DOUBLE}
+			</if>
+
+			<if test="bParam.twiceSure != null"> AND releasee.twice_sure =
+				#{bParam.twiceSure,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.latestPreset != null"> AND releasee.latest_preset =
+				#{bParam.latestPreset,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.latestPresetDays != null"> AND releasee.latest_preset_days =
+				#{bParam.latestPresetDays,jdbcType=INTEGER}
+			</if>
+			<if test="bParam.latestPresetTime != null"> AND releasee.latest_preset_time =
+				#{bParam.latestPresetTime,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.province != null"> AND releasee.province =
+				#{bParam.province,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.city != null"> AND releasee.city = #{bParam.city,jdbcType=VARCHAR} </if>
+			<if test="bParam.county != null"> AND releasee.county = #{bParam.county,jdbcType=VARCHAR}
+			</if>
+
+			<if test="bParam.isNeedTakeOrder != null"> AND releasee.is_Need_Take_Order =
+				#{bParam.isNeedTakeOrder, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.verificationRuleType != null"> AND releasee.verification_Rule_Type =
+				#{bParam.verificationRuleType, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.fixedVerificationUnit != null"> AND releasee.fixed_Verification_Unit =
+				#{bParam.fixedVerificationUnit, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.fixedVerificationTime != null"> AND releasee.fixed_Verification_Time =
+				#{bParam.fixedVerificationTime, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.isManualVerification != null"> AND releasee.is_manual_Verification =
+				#{bParam.isManualVerification, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.refundDateType != null"> AND releasee.Refund_date_type = #{bParam.refundDateType,
+				jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prerefundDays != null"> AND releasee.prerefund_days = #{bParam.prerefundDays,
+				jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prerefundHour != null"> AND releasee.prerefund_hour = #{bParam.prerefundHour,
+				jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prerefundMinute != null"> AND releasee.prerefund_minute =
+				#{bParam.prerefundMinute, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prerefundSupplierFeetype != null"> AND releasee.prerefund_supplier_feetype =
+				#{bParam.prerefundSupplierFeetype, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prerefundSupplierFeevalue != null"> AND releasee.prerefund_supplier_feevalue =
+				#{bParam.prerefundSupplierFeevalue, jdbcType=DOUBLE}
+			</if>
+			<if test="bParam.prerefundDistributorFeetype != null"> AND releasee.prerefund_distributor_feetype =
+				#{bParam.prerefundDistributorFeetype, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prerefundDistributorFeevalue != null"> AND releasee.prerefund_distributor_feevalue =
+				#{bParam.prerefundDistributorFeevalue, jdbcType=DOUBLE}
+			</if>
+			<if test="bParam.prorefundDays != null"> AND releasee.prorefund_days = #{bParam.prorefundDays,
+				jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prorefundHour != null"> AND releasee.prorefund_hour = #{bParam.prorefundHour,
+				jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prorefundMinute != null"> AND releasee.prorefund_minute =
+				#{bParam.prorefundMinute, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prorefundSupplierFeetype != null"> AND releasee.prorefund_supplier_feetype =
+				#{bParam.prorefundSupplierFeetype, jdbcType=INTEGER}
+			</if>
+			<if test="bParam.prorefundSupplierFeevalue != null"> AND releasee.prorefund_supplier_feevalue =
+				#{bParam.prorefundSupplierFeevalue, jdbcType=DOUBLE}
+			</if>
+			<if test="bParam.prorefundDistributorFeetype != null"> AND releasee.prorefund_distributor_feetype =
+				#{bParam.prorefundDistributorFeetype, jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.prorefundDistributorFeevalue != null"> AND releasee.prorefund_distributor_feevalue =
+				#{bParam.prorefundDistributorFeevalue, jdbcType=DOUBLE}
+			</if>
+			<if test="bParam.checkDate != null"> AND releasee.check_date = #{bParam.checkDate,
+				jdbcType=TIMESTAMP}
+			</if>
+			<if test="bParam.publishDate != null"> AND releasee.publish_date = #{bParam.publishDate,
+				jdbcType=TIMESTAMP}
+			</if>
+			<if test="bParam.checkDateParam != null">
+				<if test="bParam.checkDateParam.startDate != null"> AND releasee.check_date &gt;=
+					#{bParam.checkDateParam.startDate, jdbcType=TIMESTAMP}
+				</if>
+				<if test="bParam.checkDateParam.endDate != null"> AND releasee.check_date &lt;=
+					#{bParam.checkDateParam.endDate, jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="bParam.publishDateParam != null">
+				<if test="bParam.publishDateParam.startDate != null"> AND releasee.publish_date &gt;=
+					#{bParam.publishDateParam.startDate, jdbcType=TIMESTAMP}
+				</if>
+				<if test="bParam.publishDateParam.endDate != null"> AND releasee.publish_date &lt;=
+					#{bParam.publishDateParam.endDate, jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="bParam.roomTypes != null and bParam.roomTypes.size > 0">
+				AND releasee.room_type in
+				<foreach collection="bParam.roomTypes" item="_roomType"
+					open="(" separator="," close=")">
+					#{_roomType}
+				</foreach>
+			</if>
+
+			<if test="bParam.overdueVerificationDatetype != null"> AND releasee.overdue_verification_datetype =
+				#{bParam.overdueVerificationDatetype,jdbcType=TINYINT}
+			</if>
+			<if test="bParam.overdueVerificationUnit != null"> AND releasee.overdue_verification_unit =
+				#{bParam.overdueVerificationUnit,jdbcType=TINYINT}
+			</if>
+			<if test="bParam.overdueVerificationTime != null"> AND releasee.overdue_verification_time =
+				#{bParam.overdueVerificationTime,jdbcType=INTEGER}
+			</if>
+			<if test="bParam.overdueVerificationFeetype != null"> AND releasee.overdue_verification_feetype =
+				#{bParam.overdueVerificationFeetype,jdbcType=TINYINT}
+			</if>
+			<if test="bParam.overdueVerificationFeevalue != null"> AND releasee.overdue_verification_feevalue =
+				#{bParam.overdueVerificationFeevalue,jdbcType=DECIMAL}
+			</if>
+			<if test="bParam.consumerCardType != null"> AND releasee.consumer_card_type =
+				#{bParam.consumerCardType,jdbcType=TINYINT}
+			</if>
+			<if test="bParam.isNeedPrerefund != null"> AND releasee.is_need_prerefund =
+				#{bParam.isNeedPrerefund,jdbcType=TINYINT} </if>
+			<if test="bParam.prerefundQuantityType != null"> AND releasee.prerefund_quantity_type =
+				#{bParam.prerefundQuantityType,jdbcType=TINYINT} </if>
+			<if test="bParam.isNeedProrefund != null"> AND releasee.is_need_prorefund =
+				#{bParam.isNeedProrefund,jdbcType=TINYINT} </if>
+			<if test="bParam.prorefundQuantityType != null"> AND releasee.prorefund_quantity_type =
+				#{bParam.prorefundQuantityType,jdbcType=TINYINT} </if>
+		</if>
+	</sql>
+
+	<sql id="where_of_spcre">
+		<if test="bParam != null">
+			<if test="bParam.channelIds != null and bParam.channelIds.size > 0">
+				AND spcre.channel_id in
+				<foreach collection="bParam.channelIds" item="_channelId"
+					open="(" separator="," close=")">
+					#{_channelId, jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="bParam.strategyIds != null and bParam.strategyIds.size > 0">
+				AND spcre.strategy_id in
+				<foreach collection="bParam.strategyIds" item="_strategyId"
+					open="(" separator="," close=")">
+					#{_strategyId, jdbcType=VARCHAR}
+				</foreach>
+			</if>
+		</if>
+	</sql>
+
+
+	<!-- 根据供应商查询通用条件 -->
+	<sql id="sql_of_where_with_relation">
+		<include refid="sql_of_where" />
+		<if test="bParam != null">
+			<if test="bParam.scenicId != null">AND c.rel_type='scenic' AND
+				c.rel_id=#{bParam.scenicId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.supplierId != null">AND b.rel_user_id = #{bParam.supplierId,jdbcType=VARCHAR}
+			</if>
+			<if test="bParam.targetSupplierId != null">AND b.user_id =
+				#{bParam.targetSupplierId,jdbcType=VARCHAR}
+			</if>
+		</if>
+	</sql>
+
+	<sql id="queryPage_if_sql">
+		<if test=" item != null">
+			<trim prefixOverrides="and">
+				<where>
+					<include refid="sql_of_where" />
+				</where>
+			</trim>
+			group by a.sku_id, a.schedule_id
+		</if>
+	</sql>
+
+	<sql id="pms_Product_AllQuery_condition">
+		<if test="bParam != null">
+			<if test="bParam.queryBed != null">
+				inner join product_bed b on b.product_release_id = p.id
+				<if test="bParam.queryBed.id != null"> AND b.id = #{bParam.id,jdbcType=BIGINT} </if>
+				<if test="bParam.queryBed.productReleaseId != null"> AND b.product_release_id =
+					#{bParam.productReleaseId,jdbcType=BIGINT}
+				</if>
+				<if test="bParam.queryBed.bedType != null"> AND b.bed_type = #{bParam.bedType,jdbcType=VARCHAR}
+				</if>
+				<if test="bParam.queryBed.bedNums != null"> AND b.bed_nums = #{bParam.bedNums,jdbcType=INTEGER}
+				</if>
+				<if test="bParam.queryBed.bedSizes != null"> AND b.bed_sizes = #{bParam.bedSizes,jdbcType=VARCHAR}
+				</if>
+				<if
+					test="bParam.queryBed.queryIdList != null and bParam.queryBed.queryIdList.size > 0">
+					AND b.id in
+					<foreach collection="bParam.queryBed.queryIdList" item="item"
+						open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				<if
+					test="bParam.queryBed.queryParentIdList != null and bParam.queryBed.queryParentIdList.size > 0">
+					AND b.product_id in
+					<foreach collection="bParam.queryBed.queryParentIdList"
+						item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				and 1=2
+			</if>
+			<if test="bParam.queryPriceRule != null">
+				inner join product_price_rule r on r.product_id = p.id
+				<if test="bParam.queryPriceRule.id != null"> AND r.id = #{bParam.queryPriceRule.id,jdbcType=BIGINT}
+				</if>
+				<if test="bParam.queryPriceRule.priority != null"> AND r.priority =
+					#{bParam.queryPriceRule.priority,jdbcType=INTEGER}
+				</if>
+				<if test="bParam.queryPriceRule.type != null"> AND r.type =
+					#{bParam.queryPriceRule.type,jdbcType=VARCHAR}
+				</if>
+				<if test="bParam.queryPriceRule.startDate != null"> AND r.start_date =
+					#{bParam.queryPriceRule.startDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="bParam.queryPriceRule.endDate != null"> AND r.end_date =
+					#{bParam.queryPriceRule.endDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="bParam.queryPriceRule.weekday != null"> AND r.weekday =
+					#{bParam.queryPriceRule.weekday,jdbcType=INTEGER}
+				</if>
+				<if test="bParam.queryPriceRule.marketPrice != null"> AND r.market_price =
+					#{bParam.queryPriceRule.marketPrice,jdbcType=DOUBLE}
+				</if>
+				<if test="bParam.queryPriceRule.productId != null"> AND r.product_id =
+					#{bParam.queryPriceRule.productId,jdbcType=BIGINT}
+				</if>
+				<if test="bParam.queryPriceRule.supplierId != null"> AND r.supplier_id =
+					#{bParam.queryPriceRule.supplierId,jdbcType=VARCHAR}
+				</if>
+				<if test="bParam.queryPriceRule.retailPrice != null"> AND r.retail_price =
+					#{bParam.queryPriceRule.retailPrice,jdbcType=DOUBLE}
+				</if>
+				<if test="bParam.queryPriceRule.mfPrice != null"> AND r.mf_price =
+					#{bParam.queryPriceRule.mfPrice,jdbcType=DOUBLE}
+				</if>
+				<if
+					test="bParam.queryPriceRule.queryIdList != null and bParam.queryPriceRule.queryIdList.size > 0">
+					AND r.id in
+					<foreach collection="bParam.queryPriceRule.queryIdList"
+						item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				<if
+					test="bParam.queryPriceRule.queryParentIdList != null and bParam.queryPriceRule.queryParentIdList.size > 0">
+					AND r.product_id in
+					<foreach collection="bParam.queryPriceRule.queryParentIdList"
+						item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				and 1=2
+			</if>
+			<if test="bParam.queryPenalty != null">
+				inner join product_penalty pe on pe.product_id = p.id
+				<if test="bParam.queryPenalty.id != null"> AND pe.id = #{bParam.queryPenalty.id,jdbcType=BIGINT}
+				</if>
+				<if test="bParam.queryPenalty.category != null"> AND pe.category =
+					#{bParam.queryPenalty.category,jdbcType=INTEGER}
+				</if>
+				<if test="bParam.queryPenalty.penaltyCancel != null"> AND pe.penalty_type =
+					#{bParam.queryPenalty.penaltyCancel,jdbcType=INTEGER}
+				</if>
+				<if test="bParam.queryPenalty.penaltyCollectType != null"> AND pe.penalty_collect_type =
+					#{bParam.queryPenalty.penaltyCollectType,jdbcType=INTEGER}
+				</if>
+				<if test="bParam.queryPenalty.cancelTimeType != null"> AND pe.cancel_time_type =
+					#{bParam.queryPenalty.cancelTimeType,jdbcType=VARCHAR}
+				</if>
+				<if test="bParam.queryPenalty.penaltyCollectMoney != null"> AND pe.penalty_collect_money =
+					#{bParam.queryPenalty.penaltyCollectMoney,jdbcType=DOUBLE}
+				</if>
+				<if test="bParam.queryPenalty.productId != null"> AND pe.product_id =
+					#{bParam.queryPenalty.productId,jdbcType=BIGINT}
+				</if>
+				<if
+					test="bParam.queryPenalty.queryIdList != null and bParam.queryPenalty.queryIdList.size > 0">
+					AND pe.id in
+					<foreach collection="bParam.queryPenalty.queryIdList" item="item"
+						open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				<if
+					test="bParam.queryPenalty.queryParentIdList != null and bParam.queryPenalty.queryParentIdList.size > 0">
+					AND pe.product_id in
+					<foreach collection="bParam.queryPenalty.queryParentIdList"
+						item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				and 1=2
+			</if>
+			<where>
+				<include refid="sql_of_frontProduct" />
+			</where>
+			group by releasee.id
+		</if>
+	</sql>
+
+	<!-- 主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from product_release
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Alias_Column_List" />
+		<include refid="Info_Column_List" />
+		from product_release a
+		left join product_info b on a.product_id = b.id
+		<where>
+			<include refid="sql_of_where_join" />
+		</where>
+		group by a.id
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null"> order by id desc</if>
+			<if test="pParam.orderByClause != null"> order by
+				${pParam.orderByClause}
+			</if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null">
+				limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(z.id) from (
+		select a.id from product_release a
+		left join
+		product_info b on a.product_id = b.id
+		<where>
+			<include refid="sql_of_where_join" />
+		</where>
+		group by a.id
+		) z
+	</select>
+
+	<!-- * 根据产品ID，查询被关联的供应商的产品信息。 * * 本查询用于加点返产品关联模块。 * * 业务上，本企业的加点返产品能与多个前置供应商的多个产品关联， 
+		* 所以本查询查的就是被关联的产品信息。 * * productId指的是业务是本企业的产品ID，返回的是前置供应商的产品。 -->
+	<select id="selectFrontProductOfRebate" parameterType="com.pzj.base.entity.product.ProductRebateRule"
+		resultMap="BaseResultMap">
+		select
+		<include refid="FrontProduct_Column_List" />
+		from product_rebate_rule as product
+		left join
+		product_rebate_rule_relation as relation
+		on relation.rebate_rule_id =
+		product.id and product.product_id = #{productId,jdbcType=BIGINT}
+		inner
+		join product_release as releasee
+		on relation.preposition_product_id =
+		releasee.id
+		<where>
+			<if test="flag != null">
+				product.flag = #{flag,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<select id="queryByUserRelation" parameterType="java.util.Map"
+		resultMap="RelationResultMap">
+		select
+		<include refid="Alias_Column_List" />
+		from product_release a
+		join sys_user_relation b on
+		a.supplier_id=b.user_id and b.rel_type='1'
+		join product_relation c on
+		a.id=c.obj_id and c.obj_type='proRelease'
+		<where>
+			<include refid="sql_of_where_with_relation" />
+		</where>
+		group by a.id
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null"> order by a.id desc</if>
+			<if test="pParam.orderByClause != null"> order by
+				a.${pParam.orderByClause}
+			</if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null">
+				limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	<select id="countByUserRelation" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(z.id) from (
+		select
+		a.id
+		from product_release a join
+		sys_user_relation b on a.supplier_id=b.user_id
+		and b.rel_type='1'
+		join
+		product_relation c on a.id=c.obj_id and c.obj_type='proRelease'
+		<where>
+			<include refid="sql_of_where_with_relation" />
+		</where>
+		group by a.id
+		) z
+	</select>
+
+	<select id="queryRelateProductList" parameterType="java.util.Map"
+		resultMap="RelationResultMap">
+		select
+		<include refid="Alias_Column_List" />
+		from product_release a
+		join product_relation b on a.id = b.obj_id and
+		b.obj_type = 'proRelease' and a.pro_category in (4,5) and
+		b.rel_type='scenic' and b.rel_id in (
+		select d.rel_id from
+		product_release a join product_package b on a.id = b.product_id and
+		a.pro_category in (4,5)
+		<if test="bParam != null">
+			<if test="bParam.id != null"> AND a.id = #{bParam.id,jdbcType=BIGINT} </if>
+		</if>
+		join product_package_sub c on b.id = c.package_id
+		join product_relation
+		d on c.id = d.obj_id and d.obj_type = 'package_sub'
+		and
+		d.rel_type='scenic' group by d.rel_id
+		) group by a.id
+	</select>
+
+	<select id="countRelateProductList" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(z.id) from
+		(select
+		a.id as id
+		from
+		product_release a join product_relation b on a.id = b.obj_id and
+		b.obj_type = 'proRelease' and a.pro_category in (4,5) and
+		b.rel_type='scenic' and b.rel_id in
+		(
+		select d.rel_id from
+		product_release a join product_package b on a.id =
+		b.product_id and
+		a.pro_category in (4,5) and a.id
+		=#{id,jdbcType=BIGINT}
+		join
+		product_package_sub c on b.id = c.package_id
+		join product_relation d on
+		c.id = d.obj_id and d.obj_type = 'package_sub'
+		and d.rel_type='scenic'
+		group by d.rel_id
+		) group by a.id) z
+	</select>
+
+	<!-- 查询有魔方渠道的产品集合 -->
+	<select id="selectProductIdWithChannelMF" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="FrontProduct_Column_List_join" />
+		from sys_label_relation a
+		inner join sys_label_relation b on a.obj_id =
+		b.obj_id and b.rel_type = 'strategyProduct'
+		<if test="channelIds != null">
+			and a.rel_type = 'strategyChannel' and a.rel_id in
+			<foreach collection="channelIds" item="_id" open="( "
+				separator="," close=" )">
+				#{_id, jdbcType=BIGINT}
+			</foreach>
+		</if>
+		<if test="strategy != null">
+			inner join sys_channel_strategy s on s.id = b.obj_id
+			<if test="strategy.publishStatus != null">
+				and s.publish_status = #{strategy.publishStatus,
+				jdbcType=INTEGER}
+			</if>
+			<if test="strategy.status != null">
+				and s.status = #{strategy.status, jdbcType=INTEGER}
+			</if>
+		</if>
+		inner join product_release releasee on b.rel_id = releasee.id
+		inner
+		join product_info info on releasee.product_id = info.id
+		<where>
+			<include refid="sql_of_frontProduct" />
+		</where>
+		group by releasee.id
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null"> order by releasee.id desc
+			</if>
+			<if test="pParam.orderByClause != null"> order by
+				releasee.${pParam.orderByClause}
+			</if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null">
+				limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+
+	<!-- 查询有魔方渠道的产品总数 -->
+	<select id="countProductIdWithChannelMF" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(z.id) from (select
+		releasee.id
+		from sys_label_relation a
+		inner join sys_label_relation b
+		on a.obj_id = b.obj_id and b.rel_type =
+		'strategyProduct'
+		<if test="channelIds != null">
+			and a.rel_type = 'strategyChannel' and a.rel_id in
+			<foreach collection="channelIds" item="_id" open="( "
+				separator="," close=" )">
+				#{_id, jdbcType=BIGINT}
+			</foreach>
+		</if>
+		<if test="strategy != null">
+			inner join sys_channel_strategy s on s.id = b.obj_id
+			<if test="strategy.publishStatus != null">
+				and s.publish_status = #{strategy.publishStatus,
+				jdbcType=INTEGER}
+			</if>
+			<if test="strategy.status != null">
+				and s.status = #{strategy.status,
+				jdbcType=INTEGER}
+			</if>
+		</if>
+		inner join product_release releasee on b.rel_id = releasee.id
+		inner
+		join product_info info on releasee.product_id = info.id
+		<where>
+			<include refid="sql_of_frontProduct" />
+		</where>
+		group by releasee.id) z
+	</select>
+
+	<!-- 查询有魔方渠道的产品集合 -->
+	<select id="selectProductIdWithStrategy" resultMap="BaseResultMap">
+		select
+		<include refid="FrontProduct_Column_List_join" />
+		from sys_label_relation a join sys_label_relation b
+		on a.obj_id =
+		b.obj_id and b.rel_type = 'strategyProduct'
+		<if test="mf != null">
+			and a.rel_id = #{mf} and a.rel_type =
+			'strategyChannel'
+		</if>
+		join product_release releasee on b.rel_id = releasee.id
+		join
+		product_info info on releasee.product_id = info.id
+		<where>
+			<include refid="sql_of_frontProduct" />
+		</where>
+		group by releasee.id
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null"> order by releasee.id desc
+			</if>
+			<if test="pParam.orderByClause != null"> order by
+				releasee.${pParam.orderByClause}
+			</if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null">
+				limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+
+
+	<!-- 根据联票产品查询可进行组合的产品列表 -->
+	<select id="selectRelateProduct" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="FrontProduct_Column_List" />
+		from product_package a join product_package_sub b on a.id =
+		b.package_id
+		<if test="bParam.id= null">
+			and a.product_id =#{bParam.id}
+		</if>
+		join product_relation c on b.id = c.obj_id and
+		c.obj_type='package_sub' and c.rel_type='scenic' join product_relation
+		d on c.rel_id = d.rel_id and d.rel_type='scenic' and
+		d.obj_type='proRelease'
+		join product_release releasee on
+		d.obj_id=releasee.id group by releasee.id
+		<if test="pParam != null">
+			<if test="pParam.orderByClause != null"> order by
+				releasee.${pParam.orderByClause}
+			</if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null">
+				limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+
+	<!-- 根据联票产品查询可进行组合的产品列表 -->
+	<select id="countRelateProduct" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(z.id) from(
+		select releasee.id
+		from product_package a join
+		product_package_sub b on a.id = b.package_id
+		<if test="bParam.id= null">
+			and a.product_id =#{bParam.id}
+		</if>
+		join product_relation c on b.id = c.obj_id and
+		c.obj_type='package_sub' and c.rel_type='scenic' join product_relation
+		d on c.rel_id = d.rel_id and d.rel_type='scenic' and
+		d.obj_type='proRelease'
+		join product_release releasee on
+		d.obj_id=releasee.id group by
+		releasee.id) z
+	</select>
+
+	<select id="findProductByIntegralId" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="FrontProduct_Column_List" />
+		from product_release releasee join product_relation b on
+		releasee.id=b.rel_id and b.obj_type='proDict'
+		and
+		b.obj_id=#{id,jdbcType=BIGINT}
+		group by releasee.id order by
+		releasee.id
+	</select>
+
+	<select id="selectReleaseAndInfoByParams" resultMap="InfoResultMap">
+		select releasee.*,
+		<include refid="com.pzj.base.product.IProductInfoMapper.Alias_Column_List" />
+		from (
+		select
+		<include refid="Base_Column_List" />
+		from product_release a
+		<where>
+			<include refid="sql_of_where" />
+		</where>
+		<if test="page != null">
+			<if test="page.orderByClause == null"> order by a.id desc</if>
+			<if test="page.orderByClause != null"> order by
+				${page.orderByClause}
+			</if>
+			<if test="page.startIndex != null and page.pageSize != null">
+				limit #{page.startIndex} , #{page.pageSize}
+			</if>
+		</if>
+		) as releasee
+		left join product_info info on releasee.product_id =
+		info.id
+	</select>
+
+	<select id="selectComposeAndGeneralProduct" resultMap="BaseResultMap">
+		select * from (
+		SELECT
+		<include refid="FrontProduct_Column_List" />
+		FROM product_release releasee
+		inner join product_combine_relation rela
+		on rela.product_id = releasee.id
+		inner join product_release subpro on
+		rela.sub_product_id = subpro.id
+		<where>
+			<if test="bParam.proCategorys != null and bParam.proCategorys.size > 0">
+				AND subpro.pro_category in
+				<foreach collection="bParam.proCategorys" item="_proCategory"
+					open="( " separator="," close=" )">
+					#{_proCategory}
+				</foreach>
+			</if>
+			<if test="bParam.supplierId != null">
+				and subpro.supplier_id = #{bParam.supplierId,
+				jdbcType=VARCHAR}
+			</if>
+		</where>
+		group by releasee.id
+
+		union all
+
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM product_release
+		<where>
+			<if test="bParam.proCategorys2 == null or bParam.proCategorys2.size == 0">
+				pro_category = 1
+			</if>
+			<if test="bParam.proCategorys2 != null and bParam.proCategorys2.size > 0">
+				AND pro_category in
+				<foreach collection="bParam.proCategorys2" item="_proCategory"
+					open="( " separator="," close=" )">
+					#{_proCategory}
+				</foreach>
+			</if>
+			<if test="bParam.supplierId != null">
+				and supplier_id = #{bParam.supplierId, jdbcType=VARCHAR}
+			</if>
+		</where>
+		) a
+		<where>
+			<include refid="sql_of_where" />
+		</where>
+		<if test="page != null">
+			<if test="page.orderByClause == null"> order by a.id desc</if>
+			<if test="page.orderByClause != null"> order by
+				${page.orderByClause}
+			</if>
+			<if test="page.startIndex != null and page.pageSize != null">
+				limit #{page.startIndex} , #{page.pageSize}
+			</if>
+		</if>
+	</select>
+
+
+	<select id="countComposeAndGeneralProduct" resultType="int">
+		select count(id) from (
+		SELECT
+		<include refid="FrontProduct_Column_List" />
+		FROM product_release releasee
+		inner join product_combine_relation rela
+		on rela.product_id = releasee.id
+		inner join product_release subpro on
+		rela.sub_product_id = subpro.id
+		<where>
+			<if test="bParam.proCategorys != null and bParam.proCategorys.size > 0">
+				AND subpro.pro_category in
+				<foreach collection="bParam.proCategorys" item="_proCategory"
+					open="( " separator="," close=" )">
+					#{_proCategory}
+				</foreach>
+			</if>
+			<if test="bParam.supplierId != null">
+				and subpro.supplier_id = #{bParam.supplierId,
+				jdbcType=VARCHAR}
+			</if>
+		</where>
+		group by releasee.id
+
+		union all
+
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM product_release
+		<where>
+			<if test="bParam.proCategorys2 == null or bParam.proCategorys2.size == 0">
+				pro_category = 1
+			</if>
+			<if test="bParam.proCategorys2 != null and bParam.proCategorys2.size > 0">
+				AND pro_category in
+				<foreach collection="bParam.proCategorys2" item="_proCategory"
+					open="( " separator="," close=" )">
+					#{_proCategory}
+				</foreach>
+			</if>
+			<if test="bParam.supplierId != null">
+				and supplier_id = #{bParam.supplierId, jdbcType=VARCHAR}
+			</if>
+		</where>
+		) a
+		<where>
+			<include refid="sql_of_where" />
+		</where>
+	</select>
+
+	<select id="selectProductByScenic" resultMap="BaseResultMap">
+		select
+		<include refid="FrontProduct_Column_List" />
+		from product_release releasee
+		inner join product_relation rela on
+		releasee.id = rela.obj_id and obj_type = 'proRelease'
+		inner join
+		product_scenic scenic on scenic.id = rela.rel_id and rel_type =
+		'scenic'
+		<where>
+			<include refid="sql_of_frontProduct" />
+			<if test="scenic != null">
+				<if test="scenic.name != null">
+					AND scenic.NAME LIKE #{scenic.name, jdbcType=VARCHAR}
+				</if>
+			</if>
+		</where>
+		group by releasee.id
+		<if test="page != null">
+			<if test="page.orderByClause == null"> order by releasee.id desc
+			</if>
+			<if test="page.orderByClause != null"> order by
+				${page.orderByClause}
+			</if>
+			<if test="page.startIndex != null and page.pageSize != null">
+				limit #{page.startIndex} , #{page.pageSize}
+			</if>
+		</if>
+	</select>
+
+
+	<select id="countProductByScenic" resultType="int">
+		SELECT count(id) FROM (
+		select
+		releasee.id
+		from product_release releasee
+		inner join product_relation rela on releasee.id = rela.obj_id and
+		obj_type
+		= 'proRelease'
+		inner join product_scenic scenic on scenic.id =
+		rela.rel_id and rel_type =
+		'scenic'
+		<where>
+			<include refid="sql_of_frontProduct" />
+			<if test="scenic != null">
+				<if test="scenic.name != null">
+					AND scenic.NAME LIKE #{scenic.name, jdbcType=VARCHAR}
+				</if>
+			</if>
+		</where>
+		group by releasee.id
+		order by releasee.id
+		) aa
+	</select>
+
+	<select id="selectDisableExpiredProducts" resultType="com.pzj.base.entity.product.ProductRelease">
+		select
+		releasee.id, releasee.flag from product_release releasee
+		inner join
+		product_info info on releasee.product_id = info.id
+		where (
+		date_format(#{date, jdbcType=TIMESTAMP},'%m%d') NOT BETWEEN
+		info.start_time AND info.end_time)
+		and releasee.flag != '0'
+		group by
+		releasee.id
+		limit #{page.startIndex} , #{page.pageSize}
+	</select>
+
+
+	<select id="selectDisableAllProducts" resultType="com.pzj.base.entity.product.ProductRelease">
+		select id, product_type, product_id, flag from product_release
+		where
+		(product_id, product_type) in
+		<foreach collection="releaseList" item="_rele" open="("
+			separator="," close=")">
+			<if test="_rele.productId != null and _rele.productType">
+				(#{_rele.productId, jdbcType=BIGINT},
+				#{_rele.productType, jdbcType=VARCHAR})
+			</if>
+		</foreach>
+	</select>
+
+	<!-- ***************************************************pms的所有接口********************************************************** -->
+
+	<select id="selectListByAllParam" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Alias_Column_List_0" />
+		from product_release releasee
+		<where>
+			<include refid="pms_Product_AllQuery_condition" />
+		</where>
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null"> order by releasee.id desc</if>
+			<if test="pParam.orderByClause != null"> order by
+				${pParam.orderByClause}
+			</if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null">
+				limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	<select id="countByAllParam" resultType="java.lang.Integer"
+		parameterType="map">
+		select count(z.id) from (
+		select
+		p.id
+		from product_release releasee
+		<where>
+			<include refid="pms_Product_AllQuery_condition" />
+		</where>
+		) z
+	</select>
+
+	<select id="selectPorductWithCustomerForPmsManager" resultMap="UserWithProductMap">
+		SELECT
+		<include refid="user_column" />
+		,
+		<include refid="FrontProduct_Column_List" />
+		FROM sys_user u
+		INNER JOIN (
+		select u.id from
+		(
+		SELECT DISTINCT
+		supplier_id FROM product_release ree
+		WHERE ree.pro_category = 9 AND ((
+		auditStatus = 3 AND notify_update_state =
+		1 ) or notify_update_state
+		=2)
+		) ff , sys_user u where ff.supplier_id = u.id
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null"> order by u.update_date
+				desc
+			</if>
+			<if test="pParam.orderByClause != null"> order by
+				${pParam.orderByClause}
+			</if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null">
+				limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+		) bb ON u.id = bb.id
+		LEFT JOIN product_release releasee ON u.id =
+		releasee.supplier_id
+		WHERE releasee.pro_category = 9 AND
+		((releasee.auditStatus = 3 AND releasee.notify_update_state = 1 ) or
+		releasee.notify_update_state =2)
+	</select>
+
+	<select id="countPorductWithCustomerForPmsManager" resultType="int">
+		SELECT count(DISTINCT supplier_id) FROM product_release
+		WHERE
+		pro_category = 9 AND (( auditStatus = 3 AND notify_update_state = 1 )
+		or notify_update_state =2)
+	</select>
+
+	<select id="selectPorductWithCustomerForPmsCheck" resultMap="UserWithProductMap">
+		SELECT
+		<include refid="user_column" />
+		,
+		<include refid="FrontProduct_Column_List" />
+		FROM sys_user u
+		INNER JOIN (SELECT DISTINCT id FROM (
+		SELECT id,
+		update_date FROM sys_user WHERE ((check_status = 5 ) OR ( check_status
+		= 3 AND notify_update_state = 2))
+		UNION ALL
+		select u.id, u.update_date
+		from
+		(
+		SELECT supplier_id FROM product_release ree
+		WHERE ree.pro_category
+		= 9 AND ((ree.auditStatus = 5 ) OR ( auditStatus = 3 AND
+		notify_update_state = 2 )) group by supplier_id
+		) ff , sys_user u where
+		ff.supplier_id = u.id
+		) aa
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null"> order by aa.update_date
+				desc
+			</if>
+			<if test="pParam.orderByClause != null"> order by
+				${pParam.orderByClause}
+			</if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null">
+				limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+		) bb ON u.id = bb.id
+		LEFT JOIN product_release releasee ON u.id =
+		releasee.supplier_id
+		WHERE releasee.pro_category = 9 AND
+		((releasee.auditStatus = 5 ) OR (releasee.notify_update_state = 2 ))
+	</select>
+	<select id="countPorductWithCustomerForPmsCheck" resultType="int">
+		SELECT count(DISTINCT id) FROM (
+		SELECT id, update_date FROM sys_user
+		WHERE ((check_status = 5 ) OR (
+		check_status = 3 AND
+		notify_update_state = 2))
+		UNION ALL
+		select u.id, u.update_date from
+		(
+		SELECT supplier_id FROM product_release ree
+		WHERE ree.pro_category = 9
+		AND ((ree.auditStatus = 5 ) OR ( auditStatus = 3
+		AND
+		notify_update_state = 2 )) group by supplier_id
+		) ff , sys_user u where
+		ff.supplier_id = u.id
+		) aa
+	</select>
+	<!-- 根据 ProductRelease 分页查询，单表通用分页计数 -->
+	<select id="countPage" parameterType="com.pzj.base.entity.product.ProductRelease"
+		resultType="int">
+		select count(z.id) from (select id from product_release a
+		<include refid="queryPage_if_sql" />
+		) z
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="selectPage" parameterType="map" resultMap="BaseResultMap2">
+		select
+		<include refid="Base_Column_List2" />
+		from product_release a left join sys_user s on a.supplier_id =
+		s.supplier_id
+		<include refid="queryPage_if_sql" />
+		<if test=" page != null">
+			limit #{page.startIndex} , #{page.pageSize}
+		</if>
+	</select>
+
+	<!-- ***************************************************pms的所有接口********************************************************** -->
+
+	<!-- app分页查询 根据景区id和票型查询产品列表 -->
+	<select id="queryByScenic" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="FrontProduct_Column_List" />
+		from product_release releasee
+		<if test="bParam != null and bParam.scenicId != null">
+			inner join product_relation rela on releasee.id =
+			rela.obj_id and
+			rela.obj_type = 'proRelease' and rela.rel_type
+			='scenic' and
+			rela.rel_id = #{bParam.scenicId}
+		</if>
+		<if test="ticketVarie != null">
+			inner join sys_label_relation sp on sp.rel_id =
+			releasee.id and
+			sp.rel_type = 'strategyProduct'
+			inner join
+			sys_channel_strategy s on s.id = sp.obj_id and s.del_flag = '1'
+			and
+			s.audit_status = '1' and s.ticket_varie = #{ticketVarie}
+		</if>
+		<where>
+			<include refid="sql_of_frontProduct" />
+		</where>
+		group by releasee.id
+		<if test="page != null">
+			<if test="page.orderByClause == null"> order by releasee.id desc
+			</if>
+			<if test="page.orderByClause != null"> order by
+				${page.orderByClause}
+			</if>
+			<if test="page.startIndex != null and page.pageSize != null">
+				limit #{page.startIndex} , #{page.pageSize}
+			</if>
+		</if>
+
+	</select>
+
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByScenic" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(releasee.id) from product_release releasee
+		<if test="bParam != null and bParam.scenicId != null">
+			inner join product_relation rela on
+			releasee.id =
+			rela.obj_id and rela.obj_type = 'proRelease' and rela.rel_type
+			='scenic' and rela.rel_id = #{bParam.scenicId}
+		</if>
+		<if test="ticketVarie != null">
+			inner join sys_label_relation sp on sp.rel_id =
+			releasee.id and
+			sp.rel_type = 'strategyProduct'
+			inner join
+			sys_channel_strategy s on s.id = sp.obj_id and s.del_flag = '1'
+			and
+			s.audit_status = '1' and s.ticket_varie = #{ticketVarie}
+		</if>
+		<where>
+			<include refid="sql_of_frontProduct" />
+		</where>
+	</select>
+
+	<select id="selectReleaseAndInfoByInfoParams" resultMap="InfoResultMap">
+		select
+		<include refid="FrontProduct_Column_List" />
+		,
+		<include refid="com.pzj.base.product.IProductInfoMapper.Alias_Column_List" />
+		from product_release releasee
+		left join product_info info on
+		releasee.product_id = info.id
+		<if test="bParam != null">
+			<if
+				test="(bParam.channelIds != null and bParam.channelIds.size > 0)
+				or (bParam.strategyIds != null and bParam.strategyIds.size > 0)">
+				inner join sys_spcre_relation spcre on spcre.product_id =
+				releasee.id
+			</if>
+		</if>
+		<where>
+			<include refid="sql_of_frontProduct" />
+			<include refid="com.pzj.base.product.IProductInfoMapper.sql_of_where" />
+			<include refid="where_of_spcre" />
+		</where>
+		group by releasee.id
+		<if test="page != null">
+			<if test="page.orderByClause == null"> order by id desc</if>
+			<if test="page.orderByClause != null"> order by
+				${page.orderByClause}
+			</if>
+			<if test="page.startIndex != null and page.pageSize != null">
+				limit #{page.startIndex} , #{page.pageSize}
+			</if>
+		</if>
+	</select>
+
+	<select id="countReleaseAndInfoByInfoParams" resultType="int">
+		select count(id) from (
+		select releasee.id
+		from product_release releasee
+		left join product_info info on releasee.product_id = info.id
+		<if test="bParam != null">
+			<if
+				test="(bParam.channelIds != null and bParam.channelIds.size > 0)
+					or (bParam.strategyIds != null and bParam.strategyIds.size > 0)">
+				inner join sys_spcre_relation spcre on spcre.product_id =
+				releasee.id
+			</if>
+		</if>
+		<where>
+			<include refid="sql_of_frontProduct" />
+			<include refid="com.pzj.base.product.IProductInfoMapper.sql_of_where" />
+			<include refid="where_of_spcre" />
+		</where>
+		group by releasee.id ) aa
+	</select>
+</mapper>

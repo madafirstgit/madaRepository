@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pzj.base.sku.mapper.XzSkuPriceEventRulesMapper">
+  <resultMap id="BaseResultMap" type="com.pzj.base.sku.entity.XzSkuPriceEventRules">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BOSSID" jdbcType="INTEGER" property="bossid" />
+    <result column="RULES_NAME" jdbcType="VARCHAR" property="rulesName" />
+    <result column="MAX_DURATION" jdbcType="INTEGER" property="maxDuration" />
+    <result column="MIN_DURATION" jdbcType="INTEGER" property="minDuration" />
+    <result column="MAX_BOOKING" jdbcType="INTEGER" property="maxBooking" />
+    <result column="MIN_BOOKING" jdbcType="INTEGER" property="minBooking" />
+    <result column="DAY_OF_WEEK" jdbcType="INTEGER" property="dayOfWeek" />
+    <result column="CUTOFF" jdbcType="INTEGER" property="cutoff" />
+    <result column="OVERBOOKING_ALLOWANCE" jdbcType="INTEGER" property="overbookingAllowance" />
+    <result column="FORWARD_BOOKING_WINDOW" jdbcType="INTEGER" property="forwardBookingWindow" />
+    <result column="PAST_BOOKING_WINDOW" jdbcType="INTEGER" property="pastBookingWindow" />
+    <result column="MAX_MEONY" jdbcType="VARCHAR" property="maxMeony" />
+    <result column="MIN_MONEY" jdbcType="VARCHAR" property="minMoney" />
+    <result column="MAX_DURATION_APPLY_TO" jdbcType="VARCHAR" property="maxDurationApplyTo" />
+    <result column="MIN_DURATION_APPLY_TO" jdbcType="VARCHAR" property="minDurationApplyTo" />
+    <result column="MAX_BOOKING_APPLY_TO" jdbcType="VARCHAR" property="maxBookingApplyTo" />
+    <result column="MIN_BOOKING_APPLY_TO" jdbcType="VARCHAR" property="minBookingApplyTo" />
+    <result column="DAY_OF_WEEK_APPLY_TO" jdbcType="VARCHAR" property="dayOfWeekApplyTo" />
+    <result column="CUTOFF_APPLY_TO" jdbcType="VARCHAR" property="cutoffApplyTo" />
+    <result column="OVERBOOKING_ALLOWANCE_APPLY_TO" jdbcType="VARCHAR" property="overbookingAllowanceApplyTo" />
+    <result column="FORWARD_BOOKING_WINDOW_APPLY_TO" jdbcType="VARCHAR" property="forwardBookingWindowApplyTo" />
+    <result column="PAST_BOOKING_WINDOW_APPLY_TO" jdbcType="VARCHAR" property="pastBookingWindowApplyTo" />
+    <result column="MAX_MEONY_APPLY_TO" jdbcType="VARCHAR" property="maxMeonyApplyTo" />
+    <result column="MIN_MONEY_APPLY_TO" jdbcType="VARCHAR" property="minMoneyApplyTo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, BOSSID, RULES_NAME, MAX_DURATION, MIN_DURATION, MAX_BOOKING, MIN_BOOKING, DAY_OF_WEEK, 
+    CUTOFF, OVERBOOKING_ALLOWANCE, FORWARD_BOOKING_WINDOW, PAST_BOOKING_WINDOW, MAX_MEONY, 
+    MIN_MONEY, MAX_DURATION_APPLY_TO, MIN_DURATION_APPLY_TO, MAX_BOOKING_APPLY_TO, MIN_BOOKING_APPLY_TO, 
+    DAY_OF_WEEK_APPLY_TO, CUTOFF_APPLY_TO, OVERBOOKING_ALLOWANCE_APPLY_TO, FORWARD_BOOKING_WINDOW_APPLY_TO, 
+    PAST_BOOKING_WINDOW_APPLY_TO, MAX_MEONY_APPLY_TO, MIN_MONEY_APPLY_TO
+  </sql>
+  <select id="selectByExample" parameterType="com.pzj.base.sku.entity.XzSkuPriceEventRulesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from XZ_SKU_PRICE_EVENT_RULES
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="start!=null and start>=0">
+      limit #{start} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from XZ_SKU_PRICE_EVENT_RULES
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+     <!-- 根据公司id查询事件规则 -->
+	<select id="selectListPriceEventRulesByBossId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/>
+		from XZ_SKU_PRICE_EVENT_RULES 
+		where BOSSID = #{bossid}
+	</select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from XZ_SKU_PRICE_EVENT_RULES
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pzj.base.sku.entity.XzSkuPriceEventRulesExample">
+    delete from XZ_SKU_PRICE_EVENT_RULES
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert"   parameterType="com.pzj.base.sku.entity.XzSkuPriceEventRules">
+    insert into XZ_SKU_PRICE_EVENT_RULES (ID, BOSSID, RULES_NAME, 
+      MAX_DURATION, MIN_DURATION, MAX_BOOKING, 
+      MIN_BOOKING, DAY_OF_WEEK, CUTOFF, 
+      OVERBOOKING_ALLOWANCE, FORWARD_BOOKING_WINDOW, 
+      PAST_BOOKING_WINDOW, MAX_MEONY, MIN_MONEY, 
+      MAX_DURATION_APPLY_TO, MIN_DURATION_APPLY_TO, 
+      MAX_BOOKING_APPLY_TO, MIN_BOOKING_APPLY_TO, DAY_OF_WEEK_APPLY_TO, 
+      CUTOFF_APPLY_TO, OVERBOOKING_ALLOWANCE_APPLY_TO, 
+      FORWARD_BOOKING_WINDOW_APPLY_TO, PAST_BOOKING_WINDOW_APPLY_TO, 
+      MAX_MEONY_APPLY_TO, MIN_MONEY_APPLY_TO)
+    values (#{id,jdbcType=INTEGER}, #{bossid,jdbcType=INTEGER}, #{rulesName,jdbcType=VARCHAR}, 
+      #{maxDuration,jdbcType=INTEGER}, #{minDuration,jdbcType=INTEGER}, #{maxBooking,jdbcType=INTEGER}, 
+      #{minBooking,jdbcType=INTEGER}, #{dayOfWeek,jdbcType=INTEGER}, #{cutoff,jdbcType=INTEGER}, 
+      #{overbookingAllowance,jdbcType=INTEGER}, #{forwardBookingWindow,jdbcType=INTEGER}, 
+      #{pastBookingWindow,jdbcType=INTEGER}, #{maxMeony,jdbcType=VARCHAR}, #{minMoney,jdbcType=VARCHAR}, 
+      #{maxDurationApplyTo,jdbcType=VARCHAR}, #{minDurationApplyTo,jdbcType=VARCHAR}, 
+      #{maxBookingApplyTo,jdbcType=VARCHAR}, #{minBookingApplyTo,jdbcType=VARCHAR}, #{dayOfWeekApplyTo,jdbcType=VARCHAR}, 
+      #{cutoffApplyTo,jdbcType=VARCHAR}, #{overbookingAllowanceApplyTo,jdbcType=VARCHAR}, 
+      #{forwardBookingWindowApplyTo,jdbcType=VARCHAR}, #{pastBookingWindowApplyTo,jdbcType=VARCHAR}, 
+      #{maxMeonyApplyTo,jdbcType=VARCHAR}, #{minMoneyApplyTo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective"   parameterType="com.pzj.base.sku.entity.XzSkuPriceEventRules">
+    insert into XZ_SKU_PRICE_EVENT_RULES
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="bossid != null">
+        BOSSID,
+      </if>
+      <if test="rulesName != null">
+        RULES_NAME,
+      </if>
+      <if test="maxDuration != null">
+        MAX_DURATION,
+      </if>
+      <if test="minDuration != null">
+        MIN_DURATION,
+      </if>
+      <if test="maxBooking != null">
+        MAX_BOOKING,
+      </if>
+      <if test="minBooking != null">
+        MIN_BOOKING,
+      </if>
+      <if test="dayOfWeek != null">
+        DAY_OF_WEEK,
+      </if>
+      <if test="cutoff != null">
+        CUTOFF,
+      </if>
+      <if test="overbookingAllowance != null">
+        OVERBOOKING_ALLOWANCE,
+      </if>
+      <if test="forwardBookingWindow != null">
+        FORWARD_BOOKING_WINDOW,
+      </if>
+      <if test="pastBookingWindow != null">
+        PAST_BOOKING_WINDOW,
+      </if>
+      <if test="maxMeony != null">
+        MAX_MEONY,
+      </if>
+      <if test="minMoney != null">
+        MIN_MONEY,
+      </if>
+      <if test="maxDurationApplyTo != null">
+        MAX_DURATION_APPLY_TO,
+      </if>
+      <if test="minDurationApplyTo != null">
+        MIN_DURATION_APPLY_TO,
+      </if>
+      <if test="maxBookingApplyTo != null">
+        MAX_BOOKING_APPLY_TO,
+      </if>
+      <if test="minBookingApplyTo != null">
+        MIN_BOOKING_APPLY_TO,
+      </if>
+      <if test="dayOfWeekApplyTo != null">
+        DAY_OF_WEEK_APPLY_TO,
+      </if>
+      <if test="cutoffApplyTo != null">
+        CUTOFF_APPLY_TO,
+      </if>
+      <if test="overbookingAllowanceApplyTo != null">
+        OVERBOOKING_ALLOWANCE_APPLY_TO,
+      </if>
+      <if test="forwardBookingWindowApplyTo != null">
+        FORWARD_BOOKING_WINDOW_APPLY_TO,
+      </if>
+      <if test="pastBookingWindowApplyTo != null">
+        PAST_BOOKING_WINDOW_APPLY_TO,
+      </if>
+      <if test="maxMeonyApplyTo != null">
+        MAX_MEONY_APPLY_TO,
+      </if>
+      <if test="minMoneyApplyTo != null">
+        MIN_MONEY_APPLY_TO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bossid != null">
+        #{bossid,jdbcType=INTEGER},
+      </if>
+      <if test="rulesName != null">
+        #{rulesName,jdbcType=VARCHAR},
+      </if>
+      <if test="maxDuration != null">
+        #{maxDuration,jdbcType=INTEGER},
+      </if>
+      <if test="minDuration != null">
+        #{minDuration,jdbcType=INTEGER},
+      </if>
+      <if test="maxBooking != null">
+        #{maxBooking,jdbcType=INTEGER},
+      </if>
+      <if test="minBooking != null">
+        #{minBooking,jdbcType=INTEGER},
+      </if>
+      <if test="dayOfWeek != null">
+        #{dayOfWeek,jdbcType=INTEGER},
+      </if>
+      <if test="cutoff != null">
+        #{cutoff,jdbcType=INTEGER},
+      </if>
+      <if test="overbookingAllowance != null">
+        #{overbookingAllowance,jdbcType=INTEGER},
+      </if>
+      <if test="forwardBookingWindow != null">
+        #{forwardBookingWindow,jdbcType=INTEGER},
+      </if>
+      <if test="pastBookingWindow != null">
+        #{pastBookingWindow,jdbcType=INTEGER},
+      </if>
+      <if test="maxMeony != null">
+        #{maxMeony,jdbcType=VARCHAR},
+      </if>
+      <if test="minMoney != null">
+        #{minMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="maxDurationApplyTo != null">
+        #{maxDurationApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="minDurationApplyTo != null">
+        #{minDurationApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="maxBookingApplyTo != null">
+        #{maxBookingApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="minBookingApplyTo != null">
+        #{minBookingApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="dayOfWeekApplyTo != null">
+        #{dayOfWeekApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="cutoffApplyTo != null">
+        #{cutoffApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="overbookingAllowanceApplyTo != null">
+        #{overbookingAllowanceApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="forwardBookingWindowApplyTo != null">
+        #{forwardBookingWindowApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="pastBookingWindowApplyTo != null">
+        #{pastBookingWindowApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="maxMeonyApplyTo != null">
+        #{maxMeonyApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="minMoneyApplyTo != null">
+        #{minMoneyApplyTo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pzj.base.sku.entity.XzSkuPriceEventRulesExample" resultType="java.lang.Integer">
+    select count(*) from XZ_SKU_PRICE_EVENT_RULES
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update XZ_SKU_PRICE_EVENT_RULES
+    <set>
+      <if test="record.rulesName != null">
+        RULES_NAME = #{record.rulesName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maxDuration != null">
+        MAX_DURATION = #{record.maxDuration,jdbcType=INTEGER},
+      </if>
+      <if test="record.minDuration != null">
+        MIN_DURATION = #{record.minDuration,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxBooking != null">
+        MAX_BOOKING = #{record.maxBooking,jdbcType=INTEGER},
+      </if>
+      <if test="record.minBooking != null">
+        MIN_BOOKING = #{record.minBooking,jdbcType=INTEGER},
+      </if>
+      <if test="record.dayOfWeek != null">
+        DAY_OF_WEEK = #{record.dayOfWeek,jdbcType=INTEGER},
+      </if>
+      <if test="record.cutoff != null">
+        CUTOFF = #{record.cutoff,jdbcType=INTEGER},
+      </if>
+      <if test="record.overbookingAllowance != null">
+        OVERBOOKING_ALLOWANCE = #{record.overbookingAllowance,jdbcType=INTEGER},
+      </if>
+      <if test="record.forwardBookingWindow != null">
+        FORWARD_BOOKING_WINDOW = #{record.forwardBookingWindow,jdbcType=INTEGER},
+      </if>
+      <if test="record.pastBookingWindow != null">
+        PAST_BOOKING_WINDOW = #{record.pastBookingWindow,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxMeony != null">
+        MAX_MEONY = #{record.maxMeony,jdbcType=VARCHAR},
+      </if>
+      <if test="record.minMoney != null">
+        MIN_MONEY = #{record.minMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maxDurationApplyTo != null">
+        MAX_DURATION_APPLY_TO = #{record.maxDurationApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.minDurationApplyTo != null">
+        MIN_DURATION_APPLY_TO = #{record.minDurationApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maxBookingApplyTo != null">
+        MAX_BOOKING_APPLY_TO = #{record.maxBookingApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.minBookingApplyTo != null">
+        MIN_BOOKING_APPLY_TO = #{record.minBookingApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dayOfWeekApplyTo != null">
+        DAY_OF_WEEK_APPLY_TO = #{record.dayOfWeekApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cutoffApplyTo != null">
+        CUTOFF_APPLY_TO = #{record.cutoffApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overbookingAllowanceApplyTo != null">
+        OVERBOOKING_ALLOWANCE_APPLY_TO = #{record.overbookingAllowanceApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.forwardBookingWindowApplyTo != null">
+        FORWARD_BOOKING_WINDOW_APPLY_TO = #{record.forwardBookingWindowApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pastBookingWindowApplyTo != null">
+        PAST_BOOKING_WINDOW_APPLY_TO = #{record.pastBookingWindowApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maxMeonyApplyTo != null">
+        MAX_MEONY_APPLY_TO = #{record.maxMeonyApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.minMoneyApplyTo != null">
+        MIN_MONEY_APPLY_TO = #{record.minMoneyApplyTo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update XZ_SKU_PRICE_EVENT_RULES
+    set ID = #{record.id,jdbcType=INTEGER},
+      RULES_NAME = #{record.rulesName,jdbcType=VARCHAR},
+      MAX_DURATION = #{record.maxDuration,jdbcType=INTEGER},
+      MIN_DURATION = #{record.minDuration,jdbcType=INTEGER},
+      MAX_BOOKING = #{record.maxBooking,jdbcType=INTEGER},
+      MIN_BOOKING = #{record.minBooking,jdbcType=INTEGER},
+      DAY_OF_WEEK = #{record.dayOfWeek,jdbcType=INTEGER},
+      CUTOFF = #{record.cutoff,jdbcType=INTEGER},
+      OVERBOOKING_ALLOWANCE = #{record.overbookingAllowance,jdbcType=INTEGER},
+      FORWARD_BOOKING_WINDOW = #{record.forwardBookingWindow,jdbcType=INTEGER},
+      PAST_BOOKING_WINDOW = #{record.pastBookingWindow,jdbcType=INTEGER},
+      MAX_MEONY = #{record.maxMeony,jdbcType=VARCHAR},
+      MIN_MONEY = #{record.minMoney,jdbcType=VARCHAR},
+      MAX_DURATION_APPLY_TO = #{record.maxDurationApplyTo,jdbcType=VARCHAR},
+      MIN_DURATION_APPLY_TO = #{record.minDurationApplyTo,jdbcType=VARCHAR},
+      MAX_BOOKING_APPLY_TO = #{record.maxBookingApplyTo,jdbcType=VARCHAR},
+      MIN_BOOKING_APPLY_TO = #{record.minBookingApplyTo,jdbcType=VARCHAR},
+      DAY_OF_WEEK_APPLY_TO = #{record.dayOfWeekApplyTo,jdbcType=VARCHAR},
+      CUTOFF_APPLY_TO = #{record.cutoffApplyTo,jdbcType=VARCHAR},
+      OVERBOOKING_ALLOWANCE_APPLY_TO = #{record.overbookingAllowanceApplyTo,jdbcType=VARCHAR},
+      FORWARD_BOOKING_WINDOW_APPLY_TO = #{record.forwardBookingWindowApplyTo,jdbcType=VARCHAR},
+      PAST_BOOKING_WINDOW_APPLY_TO = #{record.pastBookingWindowApplyTo,jdbcType=VARCHAR},
+      MAX_MEONY_APPLY_TO = #{record.maxMeonyApplyTo,jdbcType=VARCHAR},
+      MIN_MONEY_APPLY_TO = #{record.minMoneyApplyTo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pzj.base.sku.entity.XzSkuPriceEventRules">
+    update XZ_SKU_PRICE_EVENT_RULES
+    <set>
+
+      <if test="rulesName != null">
+        RULES_NAME = #{rulesName,jdbcType=VARCHAR},
+      </if>
+      <if test="maxDuration != null">
+        MAX_DURATION = #{maxDuration,jdbcType=INTEGER},
+      </if>
+      <if test="minDuration != null">
+        MIN_DURATION = #{minDuration,jdbcType=INTEGER},
+      </if>
+      <if test="maxBooking != null">
+        MAX_BOOKING = #{maxBooking,jdbcType=INTEGER},
+      </if>
+      <if test="minBooking != null">
+        MIN_BOOKING = #{minBooking,jdbcType=INTEGER},
+      </if>
+      <if test="dayOfWeek != null">
+        DAY_OF_WEEK = #{dayOfWeek,jdbcType=INTEGER},
+      </if>
+      <if test="cutoff != null">
+        CUTOFF = #{cutoff,jdbcType=INTEGER},
+      </if>
+      <if test="overbookingAllowance != null">
+        OVERBOOKING_ALLOWANCE = #{overbookingAllowance,jdbcType=INTEGER},
+      </if>
+      <if test="forwardBookingWindow != null">
+        FORWARD_BOOKING_WINDOW = #{forwardBookingWindow,jdbcType=INTEGER},
+      </if>
+      <if test="pastBookingWindow != null">
+        PAST_BOOKING_WINDOW = #{pastBookingWindow,jdbcType=INTEGER},
+      </if>
+      <if test="maxMeony != null">
+        MAX_MEONY = #{maxMeony,jdbcType=VARCHAR},
+      </if>
+      <if test="minMoney != null">
+        MIN_MONEY = #{minMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="maxDurationApplyTo != null">
+        MAX_DURATION_APPLY_TO = #{maxDurationApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="minDurationApplyTo != null">
+        MIN_DURATION_APPLY_TO = #{minDurationApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="maxBookingApplyTo != null">
+        MAX_BOOKING_APPLY_TO = #{maxBookingApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="minBookingApplyTo != null">
+        MIN_BOOKING_APPLY_TO = #{minBookingApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="dayOfWeekApplyTo != null">
+        DAY_OF_WEEK_APPLY_TO = #{dayOfWeekApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="cutoffApplyTo != null">
+        CUTOFF_APPLY_TO = #{cutoffApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="overbookingAllowanceApplyTo != null">
+        OVERBOOKING_ALLOWANCE_APPLY_TO = #{overbookingAllowanceApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="forwardBookingWindowApplyTo != null">
+        FORWARD_BOOKING_WINDOW_APPLY_TO = #{forwardBookingWindowApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="pastBookingWindowApplyTo != null">
+        PAST_BOOKING_WINDOW_APPLY_TO = #{pastBookingWindowApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="maxMeonyApplyTo != null">
+        MAX_MEONY_APPLY_TO = #{maxMeonyApplyTo,jdbcType=VARCHAR},
+      </if>
+      <if test="minMoneyApplyTo != null">
+        MIN_MONEY_APPLY_TO = #{minMoneyApplyTo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER} and  BOSSID = #{bossid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyAndBossId" parameterType="com.pzj.base.sku.entity.XzSkuPriceEventRules">
+    update XZ_SKU_PRICE_EVENT_RULES
+    set
+      RULES_NAME = #{rulesName,jdbcType=VARCHAR},
+      MAX_DURATION = #{maxDuration,jdbcType=INTEGER},
+      MIN_DURATION = #{minDuration,jdbcType=INTEGER},
+      MAX_BOOKING = #{maxBooking,jdbcType=INTEGER},
+      MIN_BOOKING = #{minBooking,jdbcType=INTEGER},
+      DAY_OF_WEEK = #{dayOfWeek,jdbcType=INTEGER},
+      CUTOFF = #{cutoff,jdbcType=INTEGER},
+      OVERBOOKING_ALLOWANCE = #{overbookingAllowance,jdbcType=INTEGER},
+      FORWARD_BOOKING_WINDOW = #{forwardBookingWindow,jdbcType=INTEGER},
+      PAST_BOOKING_WINDOW = #{pastBookingWindow,jdbcType=INTEGER},
+      MAX_MEONY = #{maxMeony,jdbcType=VARCHAR},
+      MIN_MONEY = #{minMoney,jdbcType=VARCHAR},
+      MAX_DURATION_APPLY_TO = #{maxDurationApplyTo,jdbcType=VARCHAR},
+      MIN_DURATION_APPLY_TO = #{minDurationApplyTo,jdbcType=VARCHAR},
+      MAX_BOOKING_APPLY_TO = #{maxBookingApplyTo,jdbcType=VARCHAR},
+      MIN_BOOKING_APPLY_TO = #{minBookingApplyTo,jdbcType=VARCHAR},
+      DAY_OF_WEEK_APPLY_TO = #{dayOfWeekApplyTo,jdbcType=VARCHAR},
+      CUTOFF_APPLY_TO = #{cutoffApplyTo,jdbcType=VARCHAR},
+      OVERBOOKING_ALLOWANCE_APPLY_TO = #{overbookingAllowanceApplyTo,jdbcType=VARCHAR},
+      FORWARD_BOOKING_WINDOW_APPLY_TO = #{forwardBookingWindowApplyTo,jdbcType=VARCHAR},
+      PAST_BOOKING_WINDOW_APPLY_TO = #{pastBookingWindowApplyTo,jdbcType=VARCHAR},
+      MAX_MEONY_APPLY_TO = #{maxMeonyApplyTo,jdbcType=VARCHAR},
+      MIN_MONEY_APPLY_TO = #{minMoneyApplyTo,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER} and  BOSSID = #{bossid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://code.alibabatech.com/schema/dubbo
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- 产品接口 -->
+	<dubbo:service interface="com.pzj.product.service.ISkuProductService"
+		ref="skuProductServiceImpl" />
+		
+	<!-- 产品景区接口 -->
+	<dubbo:service interface="com.pzj.product.service.ISkuScenicService"
+		ref="skuScenicServiceImpl" />	
+		
+   <!-- 产品库存接口 -->
+   <dubbo:service interface="com.pzj.core.stock.service.ISkuStockService"
+		ref="skuStockServiceImpl" version="1.0"/>
+		
+	<!-- 产品时间关闭事件接口 -->
+	<dubbo:service interface="com.pzj.product.service.ICloseTimeSlotService"
+		ref="productCloseTimeslotServiceImpl" />
+		
+	<!-- 供应商接口暴露接口 -->
+	<dubbo:service interface="com.pzj.base.service.product.IProductDictService"
+		ref="productDictServiceImpl" />
+	<!-- 点位信息接口暴露接口 -->
+	<dubbo:service interface="com.pzj.base.service.product.IProductSiteDataService"
+		ref="productSiteDataServiceImpl" />
+	<!-- 点位信息关系 -->
+	<dubbo:service interface="com.pzj.base.service.product.IProductRelationService"
+		ref="productRelationServiceImpl" />
+	<!-- 直销工具 -->
+	<dubbo:service interface="com.pzj.base.service.product.IProductSalesToolService"
+		ref="productSalesToolServiceImpl" />
+	<!-- 景区 -->
+	<dubbo:service interface="com.pzj.base.service.product.IProductScenicService"
+		ref="productScenicServiceImpl" />
+	<!-- 联票子票主 -->
+	<dubbo:service interface="com.pzj.base.service.product.IProductPackageService"
+		ref="productPackageServiceImpl" />
+	<!-- 联票子票从 -->
+	<dubbo:service interface="com.pzj.base.service.product.IProductPackageSubService"
+		ref="productPackageSubServiceImpl" />
+	<!-- 景区关系 -->
+	<dubbo:service
+		interface="com.pzj.base.service.product.IProductScenicRelationService"
+		ref="productScenicRelationServiceImpl" />
+	<!-- 产品暴露接口 -->
+	<dubbo:service interface="com.pzj.base.service.product.IProductInfoService"
+		ref="productInfoServiceImpl" />
+	<!-- 产品暴露接口 -->
+	<dubbo:service interface="com.pzj.base.service.product.IProductReleaseService"
+		ref="productReleaseServiceImpl" />
+	<!--退换票规则接口 -->
+	<dubbo:service
+		interface="com.pzj.base.service.product.IProductExchangeRelationService"
+		ref="productExchangeRelationServiceImpl" />
+	<!--退换票规则接口 -->
+	<dubbo:service
+		interface="com.pzj.base.service.product.IProductExchangeStrategyService"
+		ref="productExchangeStrategyServiceImpl" />
+	<!--区域接口 -->
+	<dubbo:service interface="com.pzj.base.service.product.ISysAreaService"
+		ref="sysAreaServiceImpl" />
+	<!--产品加点返利接口 -->
+	<dubbo:service interface="com.pzj.base.service.product.IProductRebateRuleService"
+		ref="productRebateRuleServiceImpl" />
+	<!--产品加点返利关联接口 -->
+	<dubbo:service
+		interface="com.pzj.base.service.product.IProductRebateRuleRelationService"
+		ref="productRebateRuleRelationServiceImpl" />
+	<!--产品组合关系接口 -->
+	<dubbo:service
+		interface="com.pzj.base.service.product.IProductCombineRelationService"
+		ref="productCombineRelationServiceImpl" />
+	<!-- 房型房间接口 -->
+	<dubbo:service interface="com.pzj.base.service.product.IProductBedService"
+		ref="productBedServiceImpl" />
+	<!-- 房型价格接口 -->
+	<dubbo:service interface="com.pzj.base.service.product.IProductPriceRuleService"
+		ref="productPriceRuleServiceImpl" />
+	<!-- 房型违约金接口 -->
+	<dubbo:service interface="com.pzj.base.service.product.IProductPenaltyService"
+		ref="productPenaltyServiceImpl" />
+	<!-- 退换票规则 -->
+	<dubbo:service interface="com.pzj.base.service.product.ITicketRuleService"
+		ref="ticketRuleService" />
+		
+    <!-- 产品区域场次 -->
+	<dubbo:service interface="com.pzj.product.service.ProductActingService"
+		ref="productActingServiceImpl" />
+</beans>

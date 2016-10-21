@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IProductExchangeStrategyMapper">
+
+<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+	id  
+	,name 
+	,before_expire 
+	,expire_unit 
+	,return_type 
+	,return_deduct_type 
+	,return_deduct_quantity 
+	,change_type 
+	,change_deduct_type 
+	,change_deduct_quantity 
+	,flag 
+	,supplier_id 
+	</sql>
+	
+<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.product.ProductExchangeStrategy">
+	    <id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="before_expire" jdbcType="INTEGER" property="beforeExpire" />
+		<result column="expire_unit" jdbcType="VARCHAR" property="expireUnit" />
+		<result column="return_type" jdbcType="VARCHAR" property="returnType" />
+		<result column="return_deduct_type" jdbcType="VARCHAR" property="returnDeductType" />
+		<result column="return_deduct_quantity" jdbcType="INTEGER" property="returnDeductQuantity" />
+		<result column="change_type" jdbcType="VARCHAR" property="changeType" />
+		<result column="change_deduct_type" jdbcType="VARCHAR" property="changeDeductType" />
+		<result column="change_deduct_quantity" jdbcType="INTEGER" property="changeDeductQuantity" />
+		<result column="flag" jdbcType="VARCHAR" property="flag" />
+		<result column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+	</resultMap>
+
+<!-- 主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select  <include refid="Base_Column_List" />
+		from product_exchange_strategy
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+<!-- 删除 -->	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product_exchange_strategy where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+<!-- 通用查询条件 -->
+	<sql id="sql_of_where">
+		WHERE 1=1 
+		<if test="bParam != null" >
+			<if test="bParam.id != null"> AND id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.ids != null and bParam.ids.size > 0 ">
+			 AND id in
+				 <foreach collection="bParam.ids" item="_id" open="(" separator="," close=")">
+					  #{_id} 
+				 </foreach>
+			 </if>
+			<if test="bParam.name != null"> AND name = #{bParam.name,jdbcType=VARCHAR} </if>
+			<if test="bParam.beforeExpire != null"> AND before_expire = #{bParam.beforeExpire,jdbcType=INTEGER} </if>
+			<if test="bParam.expireUnit != null"> AND expire_unit = #{bParam.expireUnit,jdbcType=VARCHAR} </if>
+			<if test="bParam.returnType != null"> AND return_type = #{bParam.returnType,jdbcType=VARCHAR} </if>
+			<if test="bParam.returnDeductType != null"> AND return_deduct_type = #{bParam.returnDeductType,jdbcType=VARCHAR} </if>
+			<if test="bParam.returnDeductQuantity != null"> AND return_deduct_quantity = #{bParam.returnDeductQuantity,jdbcType=INTEGER} </if>
+			<if test="bParam.changeType != null"> AND change_type = #{bParam.changeType,jdbcType=VARCHAR} </if>
+			<if test="bParam.changeDeductType != null"> AND change_deduct_type = #{bParam.changeDeductType,jdbcType=VARCHAR} </if>
+			<if test="bParam.changeDeductQuantity != null"> AND change_deduct_quantity = #{bParam.changeDeductQuantity,jdbcType=INTEGER} </if>
+			<if test="bParam.flag != null"> AND flag = #{bParam.flag,jdbcType=VARCHAR} </if>
+			<if test="bParam.supplierId != null"> AND supplier_id = #{bParam.supplierId,jdbcType=VARCHAR} </if>
+		</if>
+	</sql>
+	
+<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from product_exchange_strategy
+		<include refid="sql_of_where" />
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null" > order by id desc</if>
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(id) from product_exchange_strategy
+		<include refid="sql_of_where" />
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.pzj.base.entity.product.ProductExchangeStrategy" useGeneratedKeys="true" keyProperty="id">
+		insert into product_exchange_strategy 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				id, 
+			<if test="name != null">
+			    name,
+			</if>
+			<if test="beforeExpire != null">
+			    before_expire,
+			</if>
+			<if test="expireUnit != null">
+			    expire_unit,
+			</if>
+			<if test="returnType != null">
+			    return_type,
+			</if>
+			<if test="returnDeductType != null">
+			    return_deduct_type,
+			</if>
+			<if test="returnDeductQuantity != null">
+			    return_deduct_quantity,
+			</if>
+			<if test="changeType != null">
+			    change_type,
+			</if>
+			<if test="changeDeductType != null">
+			    change_deduct_type,
+			</if>
+			<if test="changeDeductQuantity != null">
+			    change_deduct_quantity,
+			</if>
+			<if test="flag != null">
+			    flag,
+			</if>
+			<if test="supplierId != null">
+			    supplier_id,
+			</if> 
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			     #{id,jdbcType=BIGINT}, 
+			<if test="name != null">
+			    #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="beforeExpire != null">
+			    #{beforeExpire,jdbcType=INTEGER},
+			</if>
+			<if test="expireUnit != null">
+			    #{expireUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="returnType != null">
+			    #{returnType,jdbcType=VARCHAR},
+			</if>
+			<if test="returnDeductType != null">
+			    #{returnDeductType,jdbcType=VARCHAR},
+			</if>
+			<if test="returnDeductQuantity != null">
+			    #{returnDeductQuantity,jdbcType=INTEGER},
+			</if>
+			<if test="changeType != null">
+			    #{changeType,jdbcType=VARCHAR},
+			</if>
+			<if test="changeDeductType != null">
+			    #{changeDeductType,jdbcType=VARCHAR},
+			</if>
+			<if test="changeDeductQuantity != null">
+			    #{changeDeductQuantity,jdbcType=INTEGER},
+			</if>
+			<if test="flag != null">
+			    #{flag,jdbcType=VARCHAR},
+			</if>
+			<if test="supplierId != null">
+			    #{supplierId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+<!-- 批量插入 请根据业务修改默认值-->	
+    <insert id="insertBatch"  parameterType="java.util.List">
+		insert into product_exchange_strategy 
+		(id  
+		,name 
+		,before_expire 
+		,expire_unit 
+		,return_type 
+		,return_deduct_type 
+		,return_deduct_quantity 
+		,change_type 
+		,change_deduct_type 
+		,change_deduct_quantity 
+		,flag 
+		,supplier_id  
+		) 
+		values
+		<foreach collection="list" item="item" separator=",">
+		(#{item.id,jdbcType=BIGINT}  
+			<choose>  
+				<when test="item.name != null">,#{item.name ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.beforeExpire != null">,#{item.beforeExpire ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.expireUnit != null">,#{item.expireUnit ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.returnType != null">,#{item.returnType ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.returnDeductType != null">,#{item.returnDeductType ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.returnDeductQuantity != null">,#{item.returnDeductQuantity ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.changeType != null">,#{item.changeType ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.changeDeductType != null">,#{item.changeDeductType ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.changeDeductQuantity != null">,#{item.changeDeductQuantity ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.flag != null">,#{item.flag ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.supplierId != null">,#{item.supplierId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose> 
+		)
+		</foreach>
+	</insert>
+
+<!-- 更新 -->
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.product.ProductExchangeStrategy">
+		update product_exchange_strategy
+		<set>
+			<if test="name != null" >
+             name = #{name,jdbcType=VARCHAR},
+            </if>
+			<if test="beforeExpire != null" >
+             before_expire = #{beforeExpire,jdbcType=INTEGER},
+            </if>
+			<if test="expireUnit != null" >
+             expire_unit = #{expireUnit,jdbcType=VARCHAR},
+            </if>
+			<if test="returnType != null" >
+             return_type = #{returnType,jdbcType=VARCHAR},
+            </if>
+			<if test="returnDeductType != null" >
+             return_deduct_type = #{returnDeductType,jdbcType=VARCHAR},
+            </if>
+			<if test="returnDeductQuantity != null" >
+             return_deduct_quantity = #{returnDeductQuantity,jdbcType=INTEGER},
+            </if>
+			<if test="changeType != null" >
+             change_type = #{changeType,jdbcType=VARCHAR},
+            </if>
+			<if test="changeDeductType != null" >
+             change_deduct_type = #{changeDeductType,jdbcType=VARCHAR},
+            </if>
+			<if test="changeDeductQuantity != null" >
+             change_deduct_quantity = #{changeDeductQuantity,jdbcType=INTEGER},
+            </if>
+			<if test="flag != null" >
+             flag = #{flag,jdbcType=VARCHAR},
+            </if>
+			<if test="supplierId != null" >
+             supplier_id = #{supplierId,jdbcType=VARCHAR},
+            </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+<!-- 批量更新 -->
+	<update id="updateBatchByPrimaryKey"  parameterType="java.util.List">
+	     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update product_exchange_strategy 
+                <set>
+                  <if test="item.name != null" >
+                    name = #{item.name,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.beforeExpire != null" >
+                    before_expire = #{item.beforeExpire,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.expireUnit != null" >
+                    expire_unit = #{item.expireUnit,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.returnType != null" >
+                    return_type = #{item.returnType,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.returnDeductType != null" >
+                    return_deduct_type = #{item.returnDeductType,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.returnDeductQuantity != null" >
+                    return_deduct_quantity = #{item.returnDeductQuantity,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.changeType != null" >
+                    change_type = #{item.changeType,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.changeDeductType != null" >
+                    change_deduct_type = #{item.changeDeductType,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.changeDeductQuantity != null" >
+                    change_deduct_quantity = #{item.changeDeductQuantity,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.flag != null" >
+                    flag = #{item.flag,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.supplierId != null" >
+                    supplier_id = #{item.supplierId,jdbcType=VARCHAR},
+                  </if>
+                </set>
+                where id = #{item.id,jdbcType=BIGINT}
+         </foreach>
+	</update>
+</mapper>

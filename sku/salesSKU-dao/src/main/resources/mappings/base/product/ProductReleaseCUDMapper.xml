@@ -1,0 +1,1329 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IProductReleaseMapper">
+
+	<!-- 所有字段 -->
+	<sql id="cud_Column_List">
+		id
+		,name
+		,product_id
+		,roduct_no
+		,product_code
+		,product_price
+		,product_type
+		,product_kind
+		,product_classify
+		,product_channel
+		,region
+		,ronda
+		,create_by
+		,create_date
+		,update_by
+		,update_date
+		,sort
+		,flag
+		,remarks
+		,auditStatus
+		,pro_category
+		,reason
+		,supplier_id
+		,package_status
+		,checkIn_type
+		,retail_price
+		,mf_price
+		,is_composed
+		,compose_mark
+		,theater_id
+		<!-- pms -->
+		,photos
+		<!-- pms -->
+		,ticketNumber
+		,reasonRejection
+		<!-- sku-start -->
+		,sku_id
+		,category_id
+		,inventory
+		,stock_rule_id
+		,unlimited_inventory
+		,is_simple
+		,allocation
+		,visibility
+		,maintenance_time
+		,price_per
+		,sku_grouping
+		,location
+		,marker_title
+		,marker_description
+		,marker_link_text
+		,map_zoom
+		,email_notification
+		,more_info_url
+		,video_url
+		,video_start_time
+		,details
+		,photoinfo_id
+		,dync_prop_id
+		,pkg_id
+		,pkg_name
+		,time_slots_id
+		,sku_start_time
+		,sku_end_time
+		,time_length
+		,time_unit
+		,attr_info_id
+		,default_value
+		,has_price
+		,is_display_range
+		,is_required
+		,sku_params_name
+		,param_is_group
+		,min_number
+		,max_number
+		,schedule_id
+		,schedule_name
+		,week_available
+		,weights
+		,start_date
+		,end_date
+		,original_price
+		,sku_pkg_id
+		,package_type
+		,package_discount
+		,twice_sure
+		,latest_preset
+		,latest_preset_days
+		,latest_preset_time
+		,province
+		,city
+		,county
+		<!-- sku-end -->
+		,is_Need_Take_Order
+		,verification_Rule_Type
+		,fixed_Verification_Unit
+		,fixed_Verification_Time
+		,is_manual_Verification
+		,Refund_date_type
+		,prerefund_days
+		,prerefund_hour
+		,prerefund_minute
+		,prerefund_supplier_feetype
+		,prerefund_supplier_feevalue
+		,prerefund_distributor_feetype
+		,prerefund_distributor_feevalue
+		,prorefund_days
+		,prorefund_hour
+		,prorefund_minute
+		,prorefund_supplier_feetype
+		,prorefund_supplier_feevalue
+		,prorefund_distributor_feetype
+		,prorefund_distributor_feevalue
+		,check_date
+		,publish_date
+
+		,overdue_verification_datetype
+		,overdue_verification_unit
+		,overdue_verification_time
+		,overdue_verification_feetype
+		,overdue_verification_feevalue
+		,consumer_card_type
+		,is_one_vote
+		,is_select_seat
+		,is_need_prerefund
+		,prerefund_quantity_type
+		,is_need_prorefund
+		,prorefund_quantity_type
+	</sql>
+
+	<!-- 删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		product_release where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<!-- 插入 -->
+	<insert id="insert" keyProperty="id"
+		parameterType="com.pzj.base.entity.product.ProductRelease">
+		insert into product_release
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			id,
+			<if test="name != null">name,</if>
+			<if test="productId != null">product_id,</if>
+			<if test="roductNo != null">roduct_no,</if>
+			<if test="productCode != null">product_code,</if>
+			<if test="productPrice != null">product_price,</if>
+			<if test="productType != null">product_type,</if>
+			<if test="productKind != null">product_kind,</if>
+			<if test="productClassify != null">product_classify,</if>
+			<if test="productChannel != null">product_channel,</if>
+			<if test="region != null">region,</if>
+			<if test="ronda != null">ronda,</if>
+			<if test="createBy != null">create_by,</if>
+			<if test="createDate != null">create_date,</if>
+			<if test="updateBy != null">update_by,</if>
+			<if test="updateDate != null">update_date,</if>
+			<if test="sort != null">sort,</if>
+			<if test="flag != null">flag,</if>
+			<if test="remarks != null">remarks,</if>
+			<if test="auditStatus != null">auditStatus,</if>
+			<if test="proCategory != null">pro_category,</if>
+			<if test="reason != null">reason,</if>
+			<if test="supplierId != null">supplier_id,</if>
+			<if test="packageStatus != null">package_status,</if>
+			<if test="checkInType != null">checkIn_type,</if>
+			<if test="retailPrice != null">retail_price,</if>
+			<if test="mfPrice != null">mf_price,</if>
+			<if test="isComposed != null">is_composed,</if>
+			<if test="composeMark != null">compose_mark,</if>
+			<if test="theaterId != null">theater_id,</if>
+			<!-- pms -->
+			<if test="photos != null">photos,</if>
+			<!-- pms -->
+			<if test="ticketNumber != null">ticketNumber,</if>
+			<!-- sku start -->
+			<if test="skuId != null">sku_id,</if>
+			<if test="categoryId != null">category_id,</if>
+			<if test="inventory != null">inventory,</if>
+			<if test="stockRuleId != null">stock_rule_id,</if>
+			<if test="unlimitedInventory != null">unlimited_inventory,</if>
+			<if test="isSimple != null">is_simple,</if>
+			<if test="allocation != null">allocation,</if>
+			<if test="visibility != null">visibility,</if>
+			<if test="maintenanceTime != null">maintenance_time,</if>
+			<if test="pricePer != null">price_per,</if>
+			<if test="skuGrouping != null">sku_grouping,</if>
+			<if test="location != null">location,</if>
+			<if test="markerTitle != null">marker_title,</if>
+			<if test="markerDescription != null">marker_description,</if>
+			<if test="markerLinkText != null">marker_link_text,</if>
+			<if test="mapZoom != null">map_zoom,</if>
+			<if test="emailNotification != null">email_notification,</if>
+			<if test="moreInfoUrl != null">more_info_url,</if>
+			<if test="videoUrl != null">video_url,</if>
+			<if test="videoStartTime != null">video_start_time,</if>
+			<if test="details != null">details,</if>
+			<if test="photoinfoId != null">photoinfo_id,</if>
+			<if test="dyncPropId != null">dync_prop_id,</if>
+			<if test="pkgId != null">pkg_id,</if>
+			<if test="pkgName != null">pkg_name,</if>
+			<if test="timeSlotsId != null">time_slots_id,</if>
+			<if test="skuStartTime != null">sku_start_time,</if>
+			<if test="skuEndTime != null">sku_end_time,</if>
+			<if test="timeLength != null">time_length,</if>
+			<if test="timeUnit != null">time_unit,</if>
+			<if test="attrInfoId != null">attr_info_id,</if>
+			<if test="defaultValue != null">default_value,</if>
+			<if test="hasPrice != null">has_price,</if>
+			<if test="isDisplayRange != null">is_display_range,</if>
+			<if test="isRequired != null">is_required,</if>
+			<if test="skuParamsName != null">sku_params_name,</if>
+			<if test="paramIsGroup != null">param_is_group,</if>
+			<if test="minNumber != null">min_number,</if>
+			<if test="maxNumber != null">max_number,</if>
+			<if test="scheduleId != null">schedule_id,</if>
+			<if test="scheduleName != null">schedule_name,</if>
+			<if test="weekAvailable != null">week_available,</if>
+			<if test="weights != null">weights,</if>
+			<if test="startDate != null">start_date,</if>
+			<if test="endDate != null">end_date,</if>
+			<if test="originalPrice != null">original_price,</if>
+			<if test="skuPkgId != null">sku_pkg_id,</if>
+			<if test="packageType != null">package_type,</if>
+			<if test="packageDiscount != null">package_discount,</if>
+			<if test="twiceSure != null">twice_sure,</if>
+			<if test="latestPreset != null">latest_preset,</if>
+			<if test="latestPresetDays != null">latest_preset_days,</if>
+			<if test="latestPresetTime != null">latest_preset_time,</if>
+			<if test="province != null">province,</if>
+			<if test="city != null">city,</if>
+			<if test="county != null">county,</if>
+			<!-- sku end -->
+			<if test="isNeedTakeOrder != null">is_Need_Take_Order,</if>
+			<if test="verificationRuleType != null">verification_Rule_Type,</if>
+			<if test="fixedVerificationUnit != null">fixed_Verification_Unit,</if>
+			<if test="fixedVerificationTime != null">fixed_Verification_Time,</if>
+			<if test="isManualVerification != null">is_manual_Verification,</if>
+			<if test="refundDateType != null">Refund_date_type,</if>
+			<if test="prerefundDays != null">prerefund_days,</if>
+			<if test="prerefundHour != null">prerefund_hour,</if>
+			<if test="prerefundMinute != null">prerefund_minute,</if>
+			<if test="prerefundSupplierFeetype != null">prerefund_supplier_feetype,</if>
+			<if test="prerefundSupplierFeevalue != null">prerefund_supplier_feevalue,</if>
+			<if test="prerefundDistributorFeetype != null">prerefund_distributor_feetype,</if>
+			<if test="prerefundDistributorFeevalue != null">prerefund_distributor_feevalue,</if>
+			<if test="prorefundDays != null">prorefund_days,</if>
+			<if test="prorefundHour != null">prorefund_hour,</if>
+			<if test="prorefundMinute != null">prorefund_minute,</if>
+			<if test="prorefundSupplierFeetype != null">prorefund_supplier_feetype,</if>
+			<if test="prorefundSupplierFeevalue != null">prorefund_supplier_feevalue,</if>
+			<if test="prorefundDistributorFeetype != null">prorefund_distributor_feetype,</if>
+			<if test="prorefundDistributorFeevalue != null">prorefund_distributor_feevalue,</if>
+			<if test="checkDate != null">check_date,</if>
+			<if test="publishDate != null">publish_date,</if>
+
+			<if test="overdueVerificationDatetype != null">overdue_verification_datetype,</if>
+			<if test="overdueVerificationUnit != null">overdue_verification_unit,</if>
+			<if test="overdueVerificationTime != null">overdue_verification_time,</if>
+			<if test="overdueVerificationFeetype != null">overdue_verification_feetype,</if>
+			<if test="overdueVerificationFeevalue != null">overdue_verification_feevalue,</if>
+			<if test="consumerCardType != null">consumer_card_type,</if>
+			<if test="isOneVote != null">is_one_vote,</if>
+			<if test="isSelectSeat != null">is_select_seat,</if>
+			<if test="isNeedPrerefund != null">is_need_prerefund,</if>
+			<if test="prerefundQuantityType != null">prerefund_quantity_type,</if>
+			<if test="isNeedProrefund != null">is_need_prorefund,</if>
+			<if test="prorefundQuantityType != null">prorefund_quantity_type,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{id,jdbcType=BIGINT},
+			<if test="name != null">#{name,jdbcType=VARCHAR},</if>
+			<if test="productId != null">#{productId,jdbcType=BIGINT},</if>
+			<if test="roductNo != null">#{roductNo,jdbcType=VARCHAR},</if>
+			<if test="productCode != null">#{productCode,jdbcType=VARCHAR},</if>
+			<if test="productPrice != null">#{productPrice,jdbcType=DOUBLE},</if>
+			<if test="productType != null">#{productType,jdbcType=VARCHAR},</if>
+			<if test="productKind != null">#{productKind,jdbcType=VARCHAR},</if>
+			<if test="productClassify != null">#{productClassify,jdbcType=VARCHAR},</if>
+			<if test="productChannel != null">#{productChannel,jdbcType=VARCHAR},</if>
+			<if test="region != null">#{region,jdbcType=VARCHAR},</if>
+			<if test="ronda != null">#{ronda,jdbcType=VARCHAR},</if>
+			<if test="createBy != null">#{createBy,jdbcType=VARCHAR},</if>
+			<if test="createDate != null">#{createDate,jdbcType=TIMESTAMP},</if>
+			<if test="updateBy != null">#{updateBy,jdbcType=VARCHAR},</if>
+			<if test="updateDate != null">#{updateDate,jdbcType=TIMESTAMP},</if>
+			<if test="sort != null">#{sort,jdbcType=INTEGER},</if>
+			<if test="flag != null">#{flag,jdbcType=CHAR},</if>
+			<if test="remarks != null">#{remarks,jdbcType=VARCHAR},</if>
+			<if test="auditStatus != null">#{auditStatus,jdbcType=VARCHAR},</if>
+			<if test="proCategory != null">#{proCategory,jdbcType=VARCHAR},</if>
+			<if test="reason != null">#{reason,jdbcType=VARCHAR},</if>
+			<if test="supplierId != null">#{supplierId,jdbcType=VARCHAR},</if>
+			<if test="packageStatus != null">#{packageStatus,jdbcType=VARCHAR},</if>
+			<if test="checkInType != null">#{checkInType,jdbcType=VARCHAR},</if>
+			<if test="retailPrice != null">#{retailPrice,jdbcType=DOUBLE},</if>
+			<if test="mfPrice != null">#{mfPrice,jdbcType=DOUBLE},</if>
+			<if test="isComposed != null">#{isComposed,jdbcType=BIGINT},</if>
+			<if test="composeMark != null">#{composeMark,jdbcType=VARCHAR},</if>
+			<if test="theaterId != null">#{theaterId,jdbcType=BIGINT},</if>
+			<!-- pms -->
+			<if test="photos != null">#{photos,jdbcType=VARCHAR},</if>
+			<!-- pms -->
+			<if test="ticketNumber != null">#{ticketNumber,jdbcType=INTEGER},</if>
+			<!-- sku start -->
+			<if test="skuId != null">#{skuId,jdbcType=VARCHAR},</if>
+			<if test="categoryId != null">#{categoryId,jdbcType=VARCHAR},</if>
+			<if test="inventory != null">#{inventory,jdbcType=INTEGER},</if>
+			<if test="stockRuleId != null">#{stockRuleId,jdbcType=BIGINT},</if>
+			<if test="unlimitedInventory != null">#{unlimitedInventory,jdbcType=BIT},</if>
+			<if test="isSimple != null">#{isSimple,jdbcType=BIT},</if>
+			<if test="allocation != null">#{allocation,jdbcType=VARCHAR},</if>
+			<if test="visibility != null">#{visibility,jdbcType=VARCHAR},</if>
+			<if test="maintenanceTime != null">#{maintenanceTime,jdbcType=INTEGER},</if>
+			<if test="pricePer != null">#{pricePer,jdbcType=VARCHAR},</if>
+			<if test="skuGrouping != null">#{skuGrouping,jdbcType=VARCHAR},</if>
+			<if test="location != null">#{location,jdbcType=VARCHAR},</if>
+			<if test="markerTitle != null">#{markerTitle,jdbcType=VARCHAR},</if>
+			<if test="markerDescription != null">#{markerDescription,jdbcType=VARCHAR},</if>
+			<if test="markerLinkText != null">#{markerLinkText,jdbcType=VARCHAR},</if>
+			<if test="mapZoom != null">#{mapZoom,jdbcType=INTEGER},</if>
+			<if test="emailNotification != null">#{emailNotification,jdbcType=VARCHAR},</if>
+			<if test="moreInfoUrl != null">#{moreInfoUrl,jdbcType=VARCHAR},</if>
+			<if test="videoUrl != null">#{videoUrl,jdbcType=VARCHAR},</if>
+			<if test="videoStartTime != null">#{videoStartTime,jdbcType=VARCHAR},</if>
+			<if test="details != null">#{details,jdbcType=LONGVARCHAR},</if>
+			<if test="photoinfoId != null">#{photoinfoId,jdbcType=VARCHAR},</if>
+			<if test="dyncPropId != null">#{dyncPropId,jdbcType=VARCHAR},</if>
+			<if test="pkgId != null">#{pkgId,jdbcType=VARCHAR},</if>
+			<if test="pkgName != null">#{pkgName,jdbcType=VARCHAR},</if>
+			<if test="timeSlotsId != null">#{timeSlotsId,jdbcType=VARCHAR},</if>
+			<if test="skuStartTime != null">#{skuStartTime,jdbcType=VARCHAR},</if>
+			<if test="skuEndTime != null">#{skuEndTime,jdbcType=VARCHAR},</if>
+			<if test="timeLength != null">#{timeLength,jdbcType=DOUBLE},</if>
+			<if test="timeUnit != null">#{timeUnit,jdbcType=VARCHAR},</if>
+			<if test="attrInfoId != null">#{attrInfoId,jdbcType=VARCHAR},</if>
+			<if test="defaultValue != null">#{defaultValue,jdbcType=INTEGER},</if>
+			<if test="hasPrice != null">#{hasPrice,jdbcType=BIT},</if>
+			<if test="isDisplayRange != null">#{isDisplayRange,jdbcType=BIT},</if>
+			<if test="isRequired != null">#{isRequired,jdbcType=BIT},</if>
+			<if test="skuParamsName != null">#{skuParamsName,jdbcType=VARCHAR},</if>
+			<if test="paramIsGroup != null">#{paramIsGroup,jdbcType=BIT},</if>
+			<if test="minNumber != null">#{minNumber,jdbcType=INTEGER},</if>
+			<if test="maxNumber != null">#{maxNumber,jdbcType=INTEGER},</if>
+			<if test="scheduleId != null">#{scheduleId,jdbcType=VARCHAR},</if>
+			<if test="scheduleName != null">#{scheduleName,jdbcType=VARCHAR},</if>
+			<if test="weekAvailable != null">#{weekAvailable,jdbcType=VARCHAR},</if>
+			<if test="weights != null">#{weights,jdbcType=INTEGER},</if>
+			<if test="startDate != null">#{startDate,jdbcType=TIMESTAMP},</if>
+			<if test="endDate != null">#{endDate,jdbcType=TIMESTAMP},</if>
+			<if test="originalPrice != null">#{originalPrice,jdbcType=DOUBLE},</if>
+			<if test="skuPkgId != null">#{skuPkgId,jdbcType=VARCHAR},</if>
+			<if test="packageType != null">#{packageType,jdbcType=VARCHAR},</if>
+			<if test="packageDiscount != null">#{packageDiscount,jdbcType=DOUBLE},</if>
+			<if test="twiceSure != null">#{twiceSure,jdbcType=VARCHAR},</if>
+			<if test="latestPreset != null">#{latestPreset,jdbcType=VARCHAR},</if>
+			<if test="latestPresetDays != null">#{latestPresetDays,jdbcType=INTEGER},</if>
+			<if test="latestPresetTime != null">#{latestPresetTime,jdbcType=VARCHAR},</if>
+			<if test="province != null">#{province,jdbcType=VARCHAR},</if>
+			<if test="city != null">#{city,jdbcType=VARCHAR},</if>
+			<if test="county != null">#{county,jdbcType=VARCHAR},</if>
+			<!-- sku end -->
+			<if test="isNeedTakeOrder != null">#{isNeedTakeOrder, jdbcType=INTEGER},</if>
+			<if test="verificationRuleType != null">#{verificationRuleType, jdbcType=INTEGER},</if>
+			<if test="fixedVerificationUnit != null">#{fixedVerificationUnit, jdbcType=INTEGER},</if>
+			<if test="fixedVerificationTime != null">#{fixedVerificationTime, jdbcType=INTEGER},</if>
+			<if test="isManualVerification != null">#{isManualVerification, jdbcType=INTEGER},</if>
+			<if test="refundDateType != null">#{refundDateType, jdbcType=INTEGER},</if>
+			<if test="prerefundDays != null">#{prerefundDays, jdbcType=INTEGER},</if>
+			<if test="prerefundHour != null">#{prerefundHour, jdbcType=INTEGER},</if>
+			<if test="prerefundMinute != null">#{prerefundMinute, jdbcType=INTEGER},</if>
+			<if test="prerefundSupplierFeetype != null">#{prerefundSupplierFeetype, jdbcType=INTEGER},</if>
+			<if test="prerefundSupplierFeevalue != null">#{prerefundSupplierFeevalue, jdbcType=DOUBLE},</if>
+			<if test="prerefundDistributorFeetype != null">#{prerefundDistributorFeetype, jdbcType=INTEGER},</if>
+			<if test="prerefundDistributorFeevalue != null">#{prerefundDistributorFeevalue, jdbcType=DOUBLE},</if>
+			<if test="prorefundDays != null">#{prorefundDays, jdbcType=INTEGER},</if>
+			<if test="prorefundHour != null">#{prorefundHour, jdbcType=INTEGER},</if>
+			<if test="prorefundMinute != null">#{prorefundMinute, jdbcType=INTEGER},</if>
+			<if test="prorefundSupplierFeetype != null">#{prorefundSupplierFeetype, jdbcType=INTEGER},</if>
+			<if test="prorefundSupplierFeevalue != null">#{prorefundSupplierFeevalue, jdbcType=DOUBLE},</if>
+			<if test="prorefundDistributorFeetype != null">#{prorefundDistributorFeetype, jdbcType=INTEGER},</if>
+			<if test="prorefundDistributorFeevalue != null">#{prorefundDistributorFeevalue, jdbcType=DOUBLE},</if>
+			<if test="checkDate != null">#{checkDate, jdbcType=TIMESTAMP},</if>
+			<if test="publishDate != null">#{publishDate, jdbcType=TIMESTAMP},</if>
+
+			<if test="overdueVerificationDatetype != null">#{overdueVerificationDatetype, jdbcType=TINYINT},</if>
+			<if test="overdueVerificationUnit != null">#{overdueVerificationUnit, jdbcType=TINYINT},</if>
+			<if test="overdueVerificationTime != null">#{overdueVerificationTime, jdbcType=INTEGER},</if>
+			<if test="overdueVerificationFeetype != null">#{overdueVerificationFeetype, jdbcType=TINYINT},</if>
+			<if test="overdueVerificationFeevalue != null">#{overdueVerificationFeevalue, jdbcType=DECIMAL},</if>
+			<if test="consumerCardType != null">#{consumerCardType, jdbcType=TINYINT},</if>
+			<if test="isOneVote != null">#{isOneVote, jdbcType=TINYINT},</if>
+			<if test="isSelectSeat != null">#{isSelectSeat, jdbcType=TINYINT},</if>
+			<if test="isNeedPrerefund != null">#{isNeedPrerefund, jdbcType=TINYINT},</if>
+			<if test="prerefundQuantityType != null">#{prerefundQuantityType, jdbcType=TINYINT},</if>
+			<if test="isNeedProrefund != null">#{isNeedProrefund, jdbcType=TINYINT},</if>
+			<if test="prorefundQuantityType != null">#{prorefundQuantityType, jdbcType=TINYINT},</if>
+		</trim>
+	</insert>
+
+	<!-- 批量插入 请根据业务修改默认值 -->
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into product_release (
+		<include refid="cud_Column_List" />
+		) values
+		<foreach collection="list" item="item" separator=",">
+			(#{item.id,jdbcType=BIGINT}
+			<choose>
+				<when test="item.name != null">,#{item.name ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.productId != null">,#{item.productId ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.roductNo != null">,#{item.roductNo ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.productCode != null">,#{item.productCode ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.productPrice != null">,#{item.productPrice ,jdbcType=DOUBLE}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.productType != null">,#{item.productType ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.productKind != null">,#{item.productKind ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.productClassify != null">,#{item.productClassify ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.productChannel != null">,#{item.productChannel ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.region != null">,#{item.region ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.ronda != null">,#{item.ronda ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.createBy != null">,#{item.createBy ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.createDate != null">,#{item.createDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.updateBy != null">,#{item.updateBy ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.updateDate != null">,#{item.updateDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.sort != null">,#{item.sort ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.flag != null">,#{item.flag ,jdbcType=CHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.remarks != null">,#{item.remarks ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.auditStatus != null">,#{item.auditStatus ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.proCategory != null">,#{item.proCategory ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.reason != null">,#{item.reason ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.supplierId != null">,#{item.supplierId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.packageStatus != null">,#{item.packageStatus ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.checkInType != null">,#{item.checkInType ,jdbcType=VARCHAR}</when>
+				<otherwise>,'2'</otherwise>
+			</choose>
+			<choose>
+				<when test="item.retailPrice != null">,#{item.retailPrice ,jdbcType=DOUBLE}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.mfPrice != null">,#{item.mfPrice ,jdbcType=DOUBLE}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.isComposed != null">,#{item.isComposed ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.composeMark != null">,#{item.composeMark ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.theaterId != null">,#{item.theaterId ,jdbcType=BIGINT}</when>
+				<otherwise>,null</otherwise>
+			</choose>
+			<!-- pms -->
+			<choose>
+				<when test="item.photos != null">,#{item.photos ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<!-- pms -->
+			<choose>
+				<when test="item.ticketNumber != null">,#{item.ticketNumber ,jdbcType=INTEGER}</when>
+				<otherwise>,null</otherwise>
+			</choose>
+			<choose>
+				<when test="item.reasonRejection != null">,#{item.reasonRejection ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<!-- sku start -->
+			<choose>
+				<when test="item.skuId != null">,#{item.skuId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.categoryId != null">,#{item.categoryId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.inventory != null">,#{item.inventory ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.stockRuleId != null">,#{item.stockRuleId ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.unlimitedInventory != null">,#{item.unlimitedInventory ,jdbcType=BIT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.isSimple != null">,#{item.isSimple ,jdbcType=BIT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.allocation != null">,#{item.allocation ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.visibility != null">,#{item.visibility ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.maintenanceTime != null">,#{item.maintenanceTime ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.pricePer != null">,#{item.pricePer ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.skuGrouping != null">,#{item.skuGrouping ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.location != null">,#{item.location ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.markerTitle != null">,#{item.markerTitle ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.markerDescription != null">,#{item.markerDescription ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.markerLinkText != null">,#{item.markerLinkText ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.mapZoom != null">,#{item.mapZoom ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.emailNotification != null">,#{item.emailNotification ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.moreInfoUrl != null">,#{item.moreInfoUrl ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.videoUrl != null">,#{item.videoUrl ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.videoStartTime != null">,#{item.videoStartTime ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.details != null">,#{item.details ,jdbcType=LONGVARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.photoinfoId != null">,#{item.photoinfoId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.dyncPropId != null">,#{item.dyncPropId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.pkgId != null">,#{item.pkgId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.pkgName != null">,#{item.pkgName ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.timeSlotsId != null">,#{item.timeSlotsId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.startTime != null">,#{item.startTime ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.endTime != null">,#{item.endTime ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.timeLength != null">,#{item.timeLength ,jdbcType=DOUBLE}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.timeUnit != null">,#{item.timeUnit ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.attrInfoId != null">,#{item.attrInfoId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.defaultValue != null">,#{item.defaultValue ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.hasPrice != null">,#{item.hasPrice ,jdbcType=BIT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.isDisplayRange != null">,#{item.isDisplayRange ,jdbcType=BIT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.isRequired != null">,#{item.isRequired ,jdbcType=BIT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.skuParamsName != null">,#{item.skuParamsName ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.paramIsGroup != null">,#{item.paramIsGroup ,jdbcType=BIT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.minNumber != null">,#{item.minNumber ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.maxNumber != null">,#{item.maxNumber ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.scheduleId != null">,#{item.scheduleId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.scheduleName != null">,#{item.scheduleName ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.weekAvailable != null">,#{item.weekAvailable ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.weights != null">,#{item.weights ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.startDate != null">,#{item.startDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.endDate != null">,#{item.endDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.originalPrice != null">,#{item.originalPrice ,jdbcType=DOUBLE}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.skuPkgId != null">,#{item.skuPkgId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.packageType != null">,#{item.packageType ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.packageDiscount != null">,#{item.packageDiscount ,jdbcType=DOUBLE}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.twiceSure != null">,#{item.twiceSure ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.latestPreset != null">,#{item.latestPreset ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.latestPresetDays != null">,#{item.latestPresetDays ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.latestPresetTime != null">,#{item.latestPresetTime ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.province != null">,#{item.province ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.city != null">,#{item.city ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>
+				<when test="item.county != null">,#{item.county ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<!-- sku end -->
+			<choose>
+				<when test="item.isNeedTakeOrder != null">, #{item.isNeedTakeOrder, jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.verificationRuleType != null">, #{item.verificationRuleType, jdbcType=INTEGER}
+				</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.fixedVerificationUnit != null">, #{item.fixedVerificationUnit, jdbcType=INTEGER}
+				</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.fixedVerificationTime != null">, #{item.fixedVerificationTime, jdbcType=INTEGER}
+				</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.isManualVerification != null">, #{item.isManualVerification, jdbcType=INTEGER}
+				</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.refundDateType != null">, #{item.refundDateType, jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.prerefundDays != null">, #{item.prerefundDays, jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.prerefundHour != null">, #{item.prerefundHour, jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.prerefundMinute != null">, #{item.prerefundMinute, jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.prerefundSupplierFeetype != null">, #{item.prerefundSupplierFeetype, jdbcType=INTEGER}
+				</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.prerefundSupplierFeevalue != null">, #{item.prerefundSupplierFeevalue, jdbcType=DOUBLE}
+				</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.prerefundDistributorFeetype != null">, #{item.prerefundDistributorFeetype,
+					jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.prerefundDistributorFeevalue != null">, #{item.prerefundDistributorFeevalue,
+					jdbcType=DOUBLE}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.prorefundDays != null">, #{item.prorefundDays, jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.prorefundHour != null">, #{item.prorefundHour, jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.prorefundMinute != null">, #{item.prorefundMinute, jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.prorefundSupplierFeetype != null">, #{item.prorefundSupplierFeetype, jdbcType=INTEGER}
+				</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.prorefundSupplierFeevalue != null">, #{item.prorefundSupplierFeevalue, jdbcType=DOUBLE}
+				</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.prorefundDistributorFeetype != null">, #{item.prorefundDistributorFeetype,
+					jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.prorefundDistributorFeevalue != null">, #{item.prorefundDistributorFeevalue,
+					jdbcType=DOUBLE}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.checkDate != null">, #{item.checkDate, jdbcType=DATE}</when>
+				<otherwise>,null</otherwise>
+			</choose>
+			<choose>
+				<when test="item.publishDate != null">, #{item.publishDate, jdbcType=TIMESTAMP}</when>
+				<otherwise>,null</otherwise>
+			</choose>
+
+			<choose>
+				<when test="item.overdueVerificationDatetype != null">, #{item.overdueVerificationDatetype,
+					jdbcType=TINYINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.overdueVerificationUnit != null">, #{item.overdueVerificationUnit, jdbcType=TINYINT}
+				</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.overdueVerificationTime != null">, #{item.overdueVerificationTime, jdbcType=INTEGER}
+				</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.overdueVerificationFeetype != null">, #{item.overdueVerificationFeetype,
+					jdbcType=TINYINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.overdueVerificationFeevalue != null">, #{item.overdueVerificationFeevalue,
+					jdbcType=DECIMAL}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.consumerCardType != null">, #{item.consumerCardType, jdbcType=TINYINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.isOneVote != null">, #{item.isOneVote, jdbcType=TINYINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.isSelectSeat != null">, #{item.isSelectSeat, jdbcType=TINYINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			
+			<choose>
+				<when test="item.isNeedPrerefund != null">, #{item.isNeedPrerefund, jdbcType=TINYINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.prerefundQuantityType != null">, #{item.prerefundQuantityType, jdbcType=TINYINT}
+				</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.isNeedProrefund != null">, #{item.isNeedProrefund, jdbcType=TINYINT}
+				</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>
+				<when test="item.prorefundQuantityType != null">, #{item.prorefundQuantityType, jdbcType=TINYINT}
+				</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			)
+			
+
+		</foreach>
+	</insert>
+
+	<!-- 更新 -->
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.product.ProductRelease">
+		update product_release
+		<set>
+			<if test="name != null">name = #{name,jdbcType=VARCHAR},</if>
+			<if test="productId != null">product_id = #{productId,jdbcType=BIGINT},</if>
+			<if test="roductNo != null">roduct_no = #{roductNo,jdbcType=VARCHAR},</if>
+			<if test="productCode != null">product_code = #{productCode,jdbcType=VARCHAR},</if>
+			<if test="productPrice != null">product_price = #{productPrice,jdbcType=DOUBLE},</if>
+			<if test="productType != null">product_type = #{productType,jdbcType=VARCHAR},</if>
+			<if test="productKind != null">product_kind = #{productKind,jdbcType=VARCHAR},</if>
+			<if test="productClassify != null">product_classify = #{productClassify,jdbcType=VARCHAR},
+			</if>
+			<if test="productChannel != null">product_channel = #{productChannel,jdbcType=VARCHAR},
+			</if>
+			<if test="region != null">region = #{region,jdbcType=VARCHAR},</if>
+			<if test="ronda != null">ronda = #{ronda,jdbcType=VARCHAR},</if>
+			<if test="createBy != null">create_by = #{createBy,jdbcType=VARCHAR},</if>
+			<if test="createDate != null">create_date = #{createDate,jdbcType=TIMESTAMP},</if>
+			<if test="updateBy != null">update_by = #{updateBy,jdbcType=VARCHAR},</if>
+			<if test="updateDate != null">update_date = #{updateDate,jdbcType=TIMESTAMP},</if>
+			<if test="sort != null">sort = #{sort,jdbcType=INTEGER},</if>
+			<if test="flag != null">flag = #{flag,jdbcType=CHAR},</if>
+			<if test="remarks != null">remarks = #{remarks,jdbcType=VARCHAR},</if>
+			<if test="auditStatus != null">auditStatus = #{auditStatus,jdbcType=VARCHAR},</if>
+			<if test="proCategory != null">pro_category = #{proCategory,jdbcType=VARCHAR},</if>
+			<if test="reason != null">reason = #{reason,jdbcType=VARCHAR},</if>
+			<if test="supplierId != null">supplier_id = #{supplierId,jdbcType=VARCHAR},</if>
+			<if test="packageStatus != null">package_status = #{packageStatus,jdbcType=VARCHAR},</if>
+			<if test="checkInType != null">checkIn_type = #{checkInType,jdbcType=VARCHAR},</if>
+			<if test="retailPrice != null">retail_price = #{retailPrice,jdbcType=DOUBLE},</if>
+			<if test="mfPrice != null">mf_price = #{mfPrice,jdbcType=DOUBLE},</if>
+			<if test="isComposed != null">is_composed = #{isComposed,jdbcType=BIGINT},</if>
+			<if test="composeMark != null">compose_mark = #{composeMark,jdbcType=VARCHAR},</if>
+			<if test="theaterId != null">theater_id = #{theaterId,jdbcType=BIGINT},</if>
+			<!-- pms -->
+			<if test="photos != null">photos = #{photos,jdbcType=VARCHAR},</if>
+			<!-- pms -->
+			<if test="ticketNumber != null">ticketNumber = #{ticketNumber,jdbcType=INTEGER},</if>
+			<if test="skuId != null">sku_id = #{skuId,jdbcType=VARCHAR},</if>
+			<if test="categoryId != null">category_id = #{categoryId,jdbcType=VARCHAR},</if>
+			<if test="inventory != null">inventory = #{inventory,jdbcType=INTEGER},</if>
+			<if test="stockRuleId != null">stock_rule_id = #{stockRuleId,jdbcType=BIGINT},</if>
+			<if test="unlimitedInventory != null">unlimited_inventory = #{unlimitedInventory,jdbcType=BIT},
+			</if>
+			<if test="isSimple != null">is_simple = #{isSimple,jdbcType=BIT},</if>
+			<if test="allocation != null">allocation = #{allocation,jdbcType=VARCHAR},</if>
+			<if test="visibility != null">visibility = #{visibility,jdbcType=VARCHAR},</if>
+			<if test="maintenanceTime != null">maintenance_time = #{maintenanceTime,jdbcType=INTEGER},
+			</if>
+			<if test="pricePer != null">price_per = #{pricePer,jdbcType=VARCHAR},</if>
+			<if test="skuGrouping != null">sku_grouping = #{skuGrouping,jdbcType=VARCHAR},</if>
+			<if test="location != null">location = #{location,jdbcType=VARCHAR},</if>
+			<if test="markerTitle != null">marker_title = #{markerTitle,jdbcType=VARCHAR},</if>
+			<if test="markerDescription != null">marker_description =
+				#{markerDescription,jdbcType=VARCHAR},</if>
+			<if test="markerLinkText != null">marker_link_text = #{markerLinkText,jdbcType=VARCHAR},
+			</if>
+			<if test="mapZoom != null">map_zoom = #{mapZoom,jdbcType=INTEGER},</if>
+			<if test="emailNotification != null">email_notification =
+				#{emailNotification,jdbcType=VARCHAR},</if>
+			<if test="moreInfoUrl != null">more_info_url = #{moreInfoUrl,jdbcType=VARCHAR},</if>
+			<if test="videoUrl != null">video_url = #{videoUrl,jdbcType=VARCHAR},</if>
+			<if test="videoStartTime != null">video_start_time = #{videoStartTime,jdbcType=VARCHAR},
+			</if>
+			<if test="details != null">details = #{details,jdbcType=LONGVARCHAR},</if>
+			<if test="photoinfoId != null">photoinfo_id = #{photoinfoId,jdbcType=VARCHAR},</if>
+			<if test="dyncPropId != null">dync_prop_id = #{dyncPropId,jdbcType=VARCHAR},</if>
+			<if test="pkgId != null">pkg_id = #{pkgId,jdbcType=VARCHAR},</if>
+			<if test="pkgName != null">pkg_name = #{pkgName,jdbcType=VARCHAR},</if>
+			<if test="timeSlotsId != null">time_slots_id = #{timeSlotsId,jdbcType=VARCHAR},</if>
+			<if test="skuStartTime != null">sku_start_time = #{skuStartTime,jdbcType=VARCHAR},</if>
+			<if test="skuEndTime != null">sku_end_time = #{skuEndTime,jdbcType=VARCHAR},</if>
+			<if test="timeLength != null">time_length = #{timeLength,jdbcType=DOUBLE},</if>
+			<if test="timeUnit != null">time_unit = #{timeUnit,jdbcType=VARCHAR},</if>
+			<if test="attrInfoId != null">attr_info_id = #{attrInfoId,jdbcType=VARCHAR},</if>
+			<if test="defaultValue != null">default_value = #{defaultValue,jdbcType=INTEGER},</if>
+			<if test="hasPrice != null">has_price = #{hasPrice,jdbcType=BIT},</if>
+			<if test="isDisplayRange != null">is_display_range = #{isDisplayRange,jdbcType=BIT},</if>
+			<if test="isRequired != null">is_required = #{isRequired,jdbcType=BIT},</if>
+			<if test="skuParamsName != null">sku_params_name = #{skuParamsName,jdbcType=VARCHAR},</if>
+			<if test="paramIsGroup != null">param_is_group = #{paramIsGroup,jdbcType=BIT},</if>
+			<if test="minNumber != null">min_number = #{minNumber,jdbcType=INTEGER},</if>
+			<if test="maxNumber != null">max_number = #{maxNumber,jdbcType=INTEGER},</if>
+			<if test="scheduleId != null">schedule_id = #{scheduleId,jdbcType=VARCHAR},</if>
+			<if test="scheduleName != null">schedule_name = #{scheduleName,jdbcType=VARCHAR},</if>
+			<if test="weekAvailable != null">week_available = #{weekAvailable,jdbcType=VARCHAR},</if>
+			<if test="weights != null">weights = #{weights,jdbcType=INTEGER},</if>
+			<if test="startDate != null">start_date = #{startDate,jdbcType=TIMESTAMP},</if>
+			<if test="endDate != null">end_date = #{endDate,jdbcType=TIMESTAMP},</if>
+			<if test="originalPrice != null">original_price = #{originalPrice,jdbcType=DOUBLE},</if>
+			<if test="skuPkgId != null">sku_pkg_id = #{skuPkgId,jdbcType=VARCHAR},</if>
+			<if test="packageType != null">package_type = #{packageType,jdbcType=VARCHAR},</if>
+			<if test="packageDiscount != null">package_discount = #{packageDiscount,jdbcType=DOUBLE},
+			</if>
+			<if test="twiceSure != null"> twice_sure =#{twiceSure,jdbcType=VARCHAR} ,</if>
+			<if test="latestPreset != null">latest_preset =#{latestPreset,jdbcType=VARCHAR} ,</if>
+			<if test="latestPresetDays != null"> latest_preset_days
+				=#{latestPresetDays,jdbcType=INTEGER}, </if>
+			<if test="latestPresetTime != null"> latest_preset_time
+				=#{latestPresetTime,jdbcType=VARCHAR}, </if>
+			<if test="province != null">province =#{province,jdbcType=VARCHAR} ,</if>
+			<if test="city != null"> city =#{city,jdbcType=VARCHAR}, </if>
+			<if test="county != null"> county =#{county,jdbcType=VARCHAR} ,</if>
+
+			<if test="isNeedTakeOrder != null">is_Need_Take_Order = #{isNeedTakeOrder,
+				jdbcType=INTEGER},</if>
+			<if test="verificationRuleType != null">verification_Rule_Type = #{verificationRuleType,
+				jdbcType=INTEGER},</if>
+			<if test="fixedVerificationUnit != null">fixed_Verification_Unit = #{fixedVerificationUnit,
+				jdbcType=INTEGER},</if>
+			<if test="fixedVerificationTime != null">fixed_Verification_Time = #{fixedVerificationTime,
+				jdbcType=INTEGER},</if>
+			<if test="isManualVerification != null">is_manual_Verification = #{isManualVerification,
+				jdbcType=INTEGER},</if>
+			<if test="refundDateType != null">Refund_date_type = #{refundDateType, jdbcType=INTEGER},
+			</if>
+			<if test="prerefundDays != null">prerefund_days = #{prerefundDays, jdbcType=INTEGER},</if>
+			<if test="prerefundHour != null">prerefund_hour = #{prerefundHour, jdbcType=INTEGER},</if>
+			<if test="prerefundMinute != null">prerefund_minute = #{prerefundMinute, jdbcType=INTEGER},
+			</if>
+			<if test="prerefundSupplierFeetype != null">prerefund_supplier_feetype = #{prerefundSupplierFeetype,
+				jdbcType=INTEGER},</if>
+			<if test="prerefundSupplierFeevalue != null">prerefund_supplier_feevalue =
+				#{prerefundSupplierFeevalue, jdbcType=DOUBLE},</if>
+			<if test="prerefundDistributorFeetype != null">prerefund_distributor_feetype =
+				#{prerefundDistributorFeetype, jdbcType=INTEGER},</if>
+			<if test="prerefundDistributorFeevalue != null">prerefund_distributor_feevalue =
+				#{prerefundDistributorFeevalue, jdbcType=DOUBLE},</if>
+			<if test="prorefundDays != null">prorefund_days = #{prorefundDays, jdbcType=INTEGER},</if>
+			<if test="prorefundHour != null">prorefund_hour = #{prorefundHour, jdbcType=INTEGER},</if>
+			<if test="prorefundMinute != null">prorefund_minute = #{prorefundMinute, jdbcType=INTEGER},
+			</if>
+			<if test="prorefundSupplierFeetype != null">prorefund_supplier_feetype = #{prorefundSupplierFeetype,
+				jdbcType=INTEGER},</if>
+			<if test="prorefundSupplierFeevalue != null">prorefund_supplier_feevalue =
+				#{prorefundSupplierFeevalue, jdbcType=DOUBLE},</if>
+			<if test="prorefundDistributorFeetype != null">prorefund_distributor_feetype =
+				#{prorefundDistributorFeetype, jdbcType=INTEGER},</if>
+			<if test="prorefundDistributorFeevalue != null">prorefund_distributor_feevalue =
+				#{prorefundDistributorFeevalue, jdbcType=DOUBLE},</if>
+			<if test="checkDate != null">check_date = #{checkDate, jdbcType=TIMESTAMP},</if>
+			<if test="publishDate != null">publish_date = #{publishDate, jdbcType=TIMESTAMP},</if>
+
+			<if test="overdueVerificationDatetype != null">overdue_verification_datetype =
+				#{overdueVerificationDatetype, jdbcType=TINYINT},</if>
+			<if test="overdueVerificationUnit != null">overdue_verification_unit = #{overdueVerificationUnit,
+				jdbcType=TINYINT},</if>
+			<if test="overdueVerificationTime != null">overdue_verification_time = #{overdueVerificationTime,
+				jdbcType=INTEGER},</if>
+			<if test="overdueVerificationFeetype != null">overdue_verification_feetype =
+				#{overdueVerificationFeetype, jdbcType=TINYINT},</if>
+			<if test="overdueVerificationFeevalue != null">overdue_verification_feevalue =
+				#{overdueVerificationFeevalue, jdbcType=DECIMAL},</if>
+			<if test="consumerCardType != null">consumer_card_type = #{consumerCardType,
+				jdbcType=TINYINT},</if>
+			<if test="isOneVote != null">is_one_vote = #{isOneVote, jdbcType=TINYINT},</if>
+			<if test="isSelectSeat != null">is_select_seat = #{isSelectSeat, jdbcType=TINYINT},</if>
+			<if test="isNeedPrerefund != null">is_need_prerefund = #{isNeedPrerefund, jdbcType=TINYINT},
+			</if>
+			<if test="prerefundQuantityType != null">prerefund_quantity_type = #{prerefundQuantityType,
+				jdbcType=TINYINT},</if>
+			<if test="isNeedProrefund != null">is_need_prorefund = #{isNeedProrefund,
+				jdbcType=TINYINT},</if>
+			<if test="prorefundQuantityType != null">prorefund_quantity_type = #{prorefundQuantityType,
+				jdbcType=TINYINT},</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<sql id="updateBatchByPrimaryKey_set">
+		<if test="item.name != null">name = #{item.name,jdbcType=VARCHAR},</if>
+		<if test="item.productId != null">product_id = #{item.productId,jdbcType=BIGINT},</if>
+		<if test="item.roductNo != null">roduct_no = #{item.roductNo,jdbcType=VARCHAR},</if>
+		<if test="item.productCode != null">product_code = #{item.productCode,jdbcType=VARCHAR},</if>
+		<if test="item.productPrice != null">product_price = #{item.productPrice,jdbcType=DOUBLE},</if>
+		<if test="item.productType != null">product_type = #{item.productType,jdbcType=VARCHAR},</if>
+		<if test="item.productKind != null">product_kind = #{item.productKind,jdbcType=VARCHAR},</if>
+		<if test="item.productClassify != null">product_classify =
+			#{item.productClassify,jdbcType=VARCHAR},</if>
+		<if test="item.productChannel != null">product_channel = #{item.productChannel,jdbcType=VARCHAR},
+		</if>
+		<if test="item.region != null">region = #{item.region,jdbcType=VARCHAR},</if>
+		<if test="item.ronda != null">ronda = #{item.ronda,jdbcType=VARCHAR},</if>
+		<if test="item.createBy != null">create_by = #{item.createBy,jdbcType=VARCHAR},</if>
+		<if test="item.createDate != null">create_date = #{item.createDate,jdbcType=TIMESTAMP},</if>
+		<if test="item.updateBy != null">update_by = #{item.updateBy,jdbcType=VARCHAR},</if>
+		<if test="item.updateDate != null">update_date = #{item.updateDate,jdbcType=TIMESTAMP},</if>
+		<if test="item.sort != null">sort = #{item.sort,jdbcType=INTEGER},</if>
+		<if test="item.flag != null">flag = #{item.flag,jdbcType=CHAR},</if>
+		<if test="item.remarks != null">remarks = #{item.remarks,jdbcType=VARCHAR},</if>
+		<if test="item.auditStatus != null">auditStatus = #{item.auditStatus,jdbcType=VARCHAR},</if>
+		<if test="item.proCategory != null">pro_category = #{item.proCategory,jdbcType=VARCHAR},</if>
+		<if test="item.reason != null">reason = #{item.reason,jdbcType=VARCHAR},</if>
+		<if test="item.supplierId != null">supplier_id = #{item.supplierId,jdbcType=VARCHAR},</if>
+		<if test="item.packageStatus != null">package_status = #{item.packageStatus,jdbcType=VARCHAR},
+		</if>
+		<if test="item.checkInType != null">checkIn_type = #{item.checkInType,jdbcType=VARCHAR},</if>
+		<if test="item.retailPrice != null">retail_price = #{item.retailPrice,jdbcType=DOUBLE},</if>
+		<if test="item.mfPrice != null">mf_price = #{item.mfPrice,jdbcType=DOUBLE},</if>
+		<if test="item.isComposed != null">is_composed = #{item.isComposed,jdbcType=BIGINT},</if>
+		<if test="item.composeMark != null">compose_mark = #{item.composeMark,jdbcType=VARCHAR},</if>
+		<if test="item.theaterId != null">theater_id = #{item.theaterId,jdbcType=BIGINT},</if>
+		<!-- pms -->
+		<if test="item.photos != null">photos = #{item.photos,jdbcType=VARCHAR},</if>
+		<!-- pms -->
+		<if test="item.ticketNumber != null">ticketNumber = #{item.ticketNumber,jdbcType=INTEGER},</if>
+		<!-- sku start -->
+		<if test="item.skuId != null">sku_id = #{item.skuId,jdbcType=VARCHAR},</if>
+		<if test="item.categoryId != null">category_id = #{item.categoryId,jdbcType=VARCHAR},</if>
+		<if test="item.inventory != null">inventory = #{item.inventory,jdbcType=INTEGER},</if>
+		<if test="item.stockRuleId != null">stock_rule_id = #{item.stockRuleId,jdbcType=BIGINT},</if>
+		<if test="item.unlimitedInventory != null">unlimited_inventory =
+			#{item.unlimitedInventory,jdbcType=BIT},</if>
+		<if test="item.isSimple != null">is_simple = #{item.isSimple,jdbcType=BIT},</if>
+		<if test="item.allocation != null">allocation = #{item.allocation,jdbcType=VARCHAR},</if>
+		<if test="item.visibility != null">visibility = #{item.visibility,jdbcType=VARCHAR},</if>
+		<if test="item.maintenanceTime != null">maintenance_time =
+			#{item.maintenanceTime,jdbcType=INTEGER},</if>
+		<if test="item.pricePer != null">price_per = #{item.pricePer,jdbcType=VARCHAR},</if>
+		<if test="item.skuGrouping != null">sku_grouping = #{item.skuGrouping,jdbcType=VARCHAR},</if>
+		<if test="item.location != null">location = #{item.location,jdbcType=VARCHAR},</if>
+		<if test="item.markerTitle != null">marker_title = #{item.markerTitle,jdbcType=VARCHAR},</if>
+		<if test="item.markerDescription != null">marker_description =
+			#{item.markerDescription,jdbcType=VARCHAR},</if>
+		<if test="item.markerLinkText != null">marker_link_text =
+			#{item.markerLinkText,jdbcType=VARCHAR},</if>
+		<if test="item.mapZoom != null">map_zoom = #{item.mapZoom,jdbcType=INTEGER},</if>
+		<if test="item.emailNotification != null">email_notification =
+			#{item.emailNotification,jdbcType=VARCHAR},</if>
+		<if test="item.moreInfoUrl != null">more_info_url = #{item.moreInfoUrl,jdbcType=VARCHAR},</if>
+		<if test="item.videoUrl != null">video_url = #{item.videoUrl,jdbcType=VARCHAR},</if>
+		<if test="item.videoStartTime != null">video_start_time =
+			#{item.videoStartTime,jdbcType=VARCHAR},</if>
+		<if test="item.details != null">details = #{item.details,jdbcType=LONGVARCHAR},</if>
+		<if test="item.photoinfoId != null">photoinfo_id = #{item.photoinfoId,jdbcType=VARCHAR},</if>
+		<if test="item.dyncPropId != null">dync_prop_id = #{item.dyncPropId,jdbcType=VARCHAR},</if>
+		<if test="item.pkgId != null">pkg_id = #{item.pkgId,jdbcType=VARCHAR},</if>
+		<if test="item.pkgName != null">pkg_name = #{item.pkgName,jdbcType=VARCHAR},</if>
+		<if test="item.timeSlotsId != null">time_slots_id = #{item.timeSlotsId,jdbcType=VARCHAR},</if>
+		<if test="item.skuStartTime != null">sku_start_time = #{item.skuStartTime,jdbcType=VARCHAR},
+		</if>
+		<if test="item.skuEndTime != null">sku_end_time = #{item.skuEndTime,jdbcType=VARCHAR},</if>
+		<if test="item.timeLength != null">time_length = #{item.timeLength,jdbcType=DOUBLE},</if>
+		<if test="item.timeUnit != null">time_unit = #{item.timeUnit,jdbcType=VARCHAR},</if>
+		<if test="item.attrInfoId != null">attr_info_id = #{item.attrInfoId,jdbcType=VARCHAR},</if>
+		<if test="item.defaultValue != null">default_value = #{item.defaultValue,jdbcType=INTEGER},
+		</if>
+		<if test="item.hasPrice != null">has_price = #{item.hasPrice,jdbcType=BIT},</if>
+		<if test="item.isDisplayRange != null">is_display_range = #{item.isDisplayRange,jdbcType=BIT},
+		</if>
+		<if test="item.isRequired != null">is_required = #{item.isRequired,jdbcType=BIT},</if>
+		<if test="item.skuParamsName != null">sku_params_name = #{item.skuParamsName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.paramIsGroup != null">param_is_group = #{item.paramIsGroup,jdbcType=BIT},</if>
+		<if test="item.minNumber != null">min_number = #{item.minNumber,jdbcType=INTEGER},</if>
+		<if test="item.maxNumber != null">max_number = #{item.maxNumber,jdbcType=INTEGER},</if>
+		<if test="item.scheduleId != null">schedule_id = #{item.scheduleId,jdbcType=VARCHAR},</if>
+		<if test="item.scheduleName != null">schedule_name = #{item.scheduleName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.weekAvailable != null">week_available = #{item.weekAvailable,jdbcType=VARCHAR},
+		</if>
+		<if test="item.weights != null">weights = #{item.weights,jdbcType=INTEGER},</if>
+		<if test="item.startDate != null">start_date = #{item.startDate,jdbcType=TIMESTAMP},</if>
+		<if test="item.endDate != null">end_date = #{item.endDate,jdbcType=TIMESTAMP},</if>
+		<if test="item.originalPrice != null">original_price = #{item.originalPrice,jdbcType=DOUBLE},
+		</if>
+		<if test="item.skuPkgId != null">sku_pkg_id = #{item.skuPkgId,jdbcType=VARCHAR},</if>
+		<if test="item.packageType != null">package_type = #{item.packageType,jdbcType=VARCHAR},</if>
+		<if test="item.packageDiscount != null">package_discount =
+			#{item.packageDiscount,jdbcType=DOUBLE},</if>
+		<if test="item.twiceSure != null">twice_sure =#{item.twiceSure,jdbcType=VARCHAR}, </if>
+		<if test="item.latestPreset != null">latest_preset =#{item.latestPreset,jdbcType=VARCHAR}, </if>
+		<if test="item.latestPresetDays != null">latest_preset_days
+			=#{item.latestPresetDays,jdbcType=INTEGER}, </if>
+		<if test="item.latestPresetTime != null">latest_preset_time
+			=#{item.latestPresetTime,jdbcType=VARCHAR}, </if>
+		<if test="item.province != null">province =#{item.province,jdbcType=VARCHAR},</if>
+		<if test="item.city != null">city =#{item.city,jdbcType=VARCHAR}, </if>
+		<if test="item.county != null">county =#{item.county,jdbcType=VARCHAR} ,</if>
+		<!-- sku end -->
+		<if test="item.isNeedTakeOrder != null">is_Need_Take_Order = #{item.isNeedTakeOrder,
+			jdbcType=INTEGER},</if>
+		<if test="item.verificationRuleType != null">verification_Rule_Type = #{item.verificationRuleType,
+			jdbcType=INTEGER},</if>
+		<if test="item.fixedVerificationUnit != null">fixed_Verification_Unit = #{item.fixedVerificationUnit,
+			jdbcType=INTEGER},</if>
+		<if test="item.fixedVerificationTime != null">fixed_Verification_Time = #{item.fixedVerificationTime,
+			jdbcType=INTEGER},</if>
+		<if test="item.isManualVerification != null">is_manual_Verification = #{item.isManualVerification,
+			jdbcType=INTEGER},</if>
+		<if test="item.refundDateType != null">Refund_date_type = #{item.refundDateType,
+			jdbcType=INTEGER},</if>
+		<if test="item.prerefundDays != null">prerefund_days = #{item.prerefundDays, jdbcType=INTEGER},
+		</if>
+		<if test="item.prerefundHour != null">prerefund_hour = #{item.prerefundHour, jdbcType=INTEGER},
+		</if>
+		<if test="item.prerefundMinute != null">prerefund_minute = #{item.prerefundMinute,
+			jdbcType=INTEGER},</if>
+		<if test="item.prerefundSupplierFeetype != null">prerefund_supplier_feetype =
+			#{item.prerefundSupplierFeetype, jdbcType=INTEGER},</if>
+		<if test="item.prerefundSupplierFeevalue != null">prerefund_supplier_feevalue =
+			#{item.prerefundSupplierFeevalue, jdbcType=DOUBLE},</if>
+		<if test="item.prerefundDistributorFeetype != null">prerefund_distributor_feetype =
+			#{item.prerefundDistributorFeetype, jdbcType=INTEGER},</if>
+		<if test="item.prerefundDistributorFeevalue != null">prerefund_distributor_feevalue =
+			#{item.prerefundDistributorFeevalue, jdbcType=DOUBLE},</if>
+		<if test="item.prorefundDays != null">prorefund_days = #{item.prorefundDays, jdbcType=INTEGER},
+		</if>
+		<if test="item.prorefundHour != null">prorefund_hour = #{item.prorefundHour, jdbcType=INTEGER},
+		</if>
+		<if test="item.prorefundMinute != null">prorefund_minute = #{item.prorefundMinute,
+			jdbcType=INTEGER},</if>
+		<if test="item.prorefundSupplierFeetype != null">prorefund_supplier_feetype =
+			#{item.prorefundSupplierFeetype, jdbcType=INTEGER},</if>
+		<if test="item.prorefundSupplierFeevalue != null">prorefund_supplier_feevalue =
+			#{item.prorefundSupplierFeevalue, jdbcType=DOUBLE},</if>
+		<if test="item.prorefundDistributorFeetype != null">prorefund_distributor_feetype =
+			#{item.prorefundDistributorFeetype, jdbcType=INTEGER},</if>
+		<if test="item.prorefundDistributorFeevalue != null">prorefund_distributor_feevalue =
+			#{item.prorefundDistributorFeevalue, jdbcType=DOUBLE},</if>
+		<if test="item.checkDate != null">check_date = #{item.checkDate, jdbcType=TIMESTAMP},</if>
+		<if test="item.publishDate != null">publish_date = #{item.publishDate, jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.overdueVerificationDatetype != null">overdue_verification_datetype =
+			#{item.overdueVerificationDatetype, jdbcType=TINYINT},</if>
+		<if test="item.overdueVerificationUnit != null">overdue_verification_unit =
+			#{item.overdueVerificationUnit, jdbcType=TINYINT},</if>
+		<if test="item.overdueVerificationTime != null">overdue_verification_time =
+			#{item.overdueVerificationTime, jdbcType=INTEGER},</if>
+		<if test="item.overdueVerificationFeetype != null">overdue_verification_feetype =
+			#{item.overdueVerificationFeetype, jdbcType=TINYINT},</if>
+		<if test="item.overdueVerificationFeevalue != null">overdue_verification_feevalue =
+			#{item.overdueVerificationFeevalue, jdbcType=DECIMAL},</if>
+		<if test="item.consumerCardType != null">consumer_card_type = #{item.consumerCardType,
+			jdbcType=TINYINT},</if>
+		<if test="item.isOneVote != null">is_one_vote = #{item.isOneVote, jdbcType=TINYINT},</if>
+		<if test="item.isSelectSeat != null">is_select_seat = #{item.isSelectSeat, jdbcType=TINYINT},
+		</if>
+		<if test="item.isNeedPrerefund != null">is_need_prerefund = #{item.isNeedPrerefund,
+			jdbcType=TINYINT},</if>
+		<if test="item.prerefundQuantityType != null">prerefund_quantity_type = #{item.prerefundQuantityType,
+			jdbcType=TINYINT},</if>
+		<if test="item.isNeedProrefund != null">is_need_prorefund = #{item.isNeedProrefund,
+			jdbcType=TINYINT},</if>
+		<if test="item.prorefundQuantityType != null">prorefund_quantity_type = #{item.prorefundQuantityType,
+			jdbcType=TINYINT},</if>
+
+
+	</sql>
+
+	<!-- 批量更新 -->
+	<update id="updateBatchByPrimaryKey" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index"
+			separator=";">
+			update product_release
+			<set>
+				<include refid="updateBatchByPrimaryKey_set" />
+			</set>
+			where id = #{item.id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+
+	<!-- 批量更新 -->
+	<update id="updateBatchByInfoId" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index"
+			separator=";">
+			update product_release
+			<set>
+				<include refid="updateBatchByPrimaryKey_set" />
+			</set>
+			where product_id = #{item.productId,jdbcType=BIGINT}
+		</foreach>
+	</update>
+
+
+	<!-- 批量物理删除通用产品，键值：skuId -->
+	<delete id="deleteBatchSkuBySkuId" parameterType="list">
+		<if test="list != null and list.size > 0">
+			<foreach collection="list" item="item" index="index"
+				separator=";">
+				delete from product_release where sku_id = #{item,jdbcType=BIGINT}
+			</foreach>
+		</if>
+	</delete>
+	<!-- 批量逻辑删除通用产品，键值：skuId -->
+	<update id="logicDeletelBatchBySkuId">
+		<if test="list != null and list.size > 0">
+			<foreach collection="list" item="item" index="index"
+				separator=";">
+				update product_release r set r.flag = 0 where r.sku_id =
+				#{item,jdbcType=BIGINT}
+			</foreach>
+		</if>
+	</update>
+</mapper>

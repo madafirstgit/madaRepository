@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IRebateStrategySearchMapper">
+
+<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+	id  
+	,scene_id 
+	,product_id 
+	,product_name 
+	,rebate_price 
+	,rebate_object 
+	,rebate_cycle_type
+	,rebate_cycle 
+	,rebate_cycle_value
+	,rebate_per_month
+	,rebate_settlement
+	,rebate_amount 
+	,rebate_type 
+	,status 
+	,type 
+	,p_version 
+	,supplier_id 
+	,integral_id 
+	,integral_value 
+	,create_by 
+	,create_time 
+	,update_by 
+	,update_date
+    ,is_extra_rebate
+    ,rebate_rate_type
+    ,rebate_rate
+    ,strategy_id
+	</sql>
+	
+<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.SysRebateStrategy">
+	     <id column="id" property="id" jdbcType="BIGINT" />
+		<result column="scene_id" jdbcType="BIGINT" property="sceneId" />
+		<result column="product_id" jdbcType="BIGINT" property="productId" />
+		<result column="product_name" jdbcType="VARCHAR" property="productName" />
+		<result column="rebate_price" jdbcType="DOUBLE" property="rebatePrice" />
+		<result column="rebate_object" jdbcType="VARCHAR" property="rebateObject" />
+		<result column="rebate_cycle_type" jdbcType="INTEGER" property="rebateCycleType" />
+		<result column="rebate_cycle" jdbcType="VARCHAR" property="rebateCycle" />
+		<result column="rebate_cycle_value" jdbcType="INTEGER" property="rebateCycleValue" />
+		<result column="rebate_per_month" jdbcType="INTEGER" property="rebatePerMonth" />
+		<result column="rebate_settlement" jdbcType="INTEGER" property="rebateSettlement" />
+		<result column="rebate_amount" jdbcType="DOUBLE" property="rebateAmount" />
+		<result column="rebate_type" jdbcType="INTEGER" property="rebateType" />
+		<result column="status" jdbcType="INTEGER" property="delFlag" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="p_version" jdbcType="INTEGER" property="dataSource" />
+		<result column="supplier_id" jdbcType="BIGINT" property="supplierId" />
+		<result column="integral_id" jdbcType="BIGINT" property="integralId" />
+		<result column="integral_value" jdbcType="INTEGER" property="integralValue" />
+		<result column="create_by" jdbcType="VARCHAR" property="createBy" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+		<result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+        <result column="is_extra_rebate" jdbcType="INTEGER" property="isExtraRebate" />
+        <result column="rebate_rate_type" jdbcType="INTEGER" property="rebateRateType" />
+        <result column="rebate_rate" jdbcType="DOUBLE" property="rebateRate" />
+		<result column="strategy_id" jdbcType="BIGINT" property="strategyId" />
+	</resultMap>
+
+<!-- 通用查询条件 -->
+	<sql id="sql_of_where">
+		WHERE 1=1 
+		<if test="bParam != null" >
+			<if test="bParam.id != null"> AND id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.ids != null and bParam.ids.size &gt; 0"> 
+				AND id in 
+				<foreach collection="bParam.ids" item="_id" open="( " close=" ) " separator=",">
+				 	#{_id}
+				</foreach>
+			</if>
+			<if test="bParam.sceneId != null"> AND scene_id = #{bParam.sceneId,jdbcType=BIGINT} </if>
+			<if test="bParam.productId != null"> AND product_id = #{bParam.productId,jdbcType=BIGINT} </if>
+			<if test="bParam.productName != null"> AND product_name = #{bParam.productName,jdbcType=VARCHAR} </if>
+			<if test="bParam.rebatePrice != null"> AND rebate_price = #{bParam.rebatePrice,jdbcType=DOUBLE} </if>
+			<if test="bParam.rebateObject != null"> AND rebate_object = #{bParam.rebateObject,jdbcType=VARCHAR} </if>
+			<if test="bParam.rebateCycleType != null"> AND rebate_cycle_type = #{bParam.rebateCycleType,jdbcType=INTEGER} </if>
+			<if test="bParam.rebateCycle != null"> AND rebate_cycle = #{bParam.rebateCycle,jdbcType=VARCHAR} </if>
+			<if test="bParam.rebateCycleValue != null"> AND rebate_cycle_value = #{bParam.rebateCycleValue,jdbcType=INTEGER} </if>
+			<if test="bParam.rebatePerMonth != null"> AND rebate_per_month = #{bParam.rebatePerMonth,jdbcType=INTEGER} </if>
+			<if test="bParam.rebateSettlement != null"> AND rebate_settlement = #{bParam.rebateSettlement,jdbcType=INTEGER} </if>
+			<if test="bParam.rebateAmount != null"> AND rebate_amount = #{bParam.rebateAmount,jdbcType=DOUBLE} </if>
+			<if test="bParam.rebateType != null"> AND rebate_type = #{bParam.rebateType,jdbcType=INTEGER} </if>
+			<if test="bParam.delFlag != null"> AND status = #{bParam.delFlag,jdbcType=INTEGER} </if>
+			<if test="bParam.type != null"> AND type = #{bParam.type,jdbcType=INTEGER} </if>
+			<if test="bParam.dataSource != null"> AND p_version = #{bParam.dataSource,jdbcType=INTEGER} </if>
+			<if test="bParam.supplierId != null"> AND supplier_id = #{bParam.supplierId,jdbcType=BIGINT} </if>
+			<if test="bParam.integralId != null"> AND integral_id = #{bParam.integralId,jdbcType=BIGINT} </if>
+			<if test="bParam.integralValue != null"> AND integral_value = #{bParam.integralValue,jdbcType=INTEGER} </if>
+			<if test="bParam.createBy != null"> AND create_by = #{bParam.createBy,jdbcType=VARCHAR} </if>
+			<if test="bParam.createDate != null"> AND create_time = #{bParam.createDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.updateBy != null"> AND update_by = #{bParam.updateBy,jdbcType=VARCHAR} </if>
+			<if test="bParam.updateDate != null"> AND update_date = #{bParam.updateDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.isExtraRebate != null"> AND is_extra_rebate = #{bParam.isExtraRebate,jdbcType=INTEGER} </if>
+			<if test="bParam.rebateRateType != null"> AND rebate_rate_type = #{bParam.rebateRateType,jdbcType=INTEGER} </if>
+            <if test="bParam.rebateRate != null"> AND rebate_rate = #{bParam.rebateRate,jdbcType=DOUBLE} </if>
+			<if test="bParam.strategyId != null"> AND strategy_id = #{bParam.strategyId,jdbcType=BIGINT} </if>
+			<if test="bParam.strategyIds != null"> AND strategy_id in
+				<foreach collection="bParam.strategyIds" item="_strategyId" open="(" separator="," close=")">
+					#{_strategyId,jdbcType=BIGINT}
+				</foreach>
+			</if>
+		</if>
+	</sql>
+	
+<!-- 通用分页查询 -->
+	<select id="queryByParamMap" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from sys_rebate_strategy
+		<include refid="sql_of_where" />
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null"> order by id desc </if>
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(id) from sys_rebate_strategy
+		<include refid="sql_of_where" />
+	</select>
+</mapper>

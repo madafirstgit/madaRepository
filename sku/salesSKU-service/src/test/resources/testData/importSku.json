@@ -1,0 +1,13 @@
+[{
+ "baseInfo":{
+  "id" :124556,
+  "bossid":123456789,
+  "categoryId":"5000",
+  "skuTitle":"单元测试"
+  } ,
+  "attrInfos":[{
+  "params":"单元测试产品",
+  "price":20.0
+  
+  }]
+  }]

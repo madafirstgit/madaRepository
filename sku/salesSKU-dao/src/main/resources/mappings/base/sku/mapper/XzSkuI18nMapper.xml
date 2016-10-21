@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pzj.base.sku.mapper.XzSkuI18nMapper">
+  <resultMap id="BaseResultMap" type="com.pzj.base.sku.entity.XzSkuI18n">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BOSSID" jdbcType="INTEGER" property="bossid" />
+    <result column="SKU_ID" jdbcType="INTEGER" property="skuId" />
+    <result column="SKU_TITLE" jdbcType="VARCHAR" property="skuTitle" />
+    <result column="SUMMARY" jdbcType="VARCHAR" property="summary" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="MARKER_TITLE" jdbcType="VARCHAR" property="markerTitle" />
+    <result column="MARKER_DESCRIPTION" jdbcType="VARCHAR" property="markerDescription" />
+    <result column="MARKER_LINK_TEXT" jdbcType="VARCHAR" property="markerLinkText" />
+    <result column="MAP_ZOOM" jdbcType="INTEGER" property="mapZoom" />
+    <result column="LANGUAGE" jdbcType="VARCHAR" property="language" />
+    <result column="EMAIL_NOTIFICATION" jdbcType="VARCHAR" property="emailNotification" />
+    <result column="MORE_INFO_URL" jdbcType="VARCHAR" property="moreInfoUrl" />
+    <result column="VIDEO_URL" jdbcType="VARCHAR" property="videoUrl" />
+    <result column="VIDEO_START_TIME" jdbcType="VARCHAR" property="videoStartTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.pzj.base.sku.entity.XzSkuI18n">
+    <result column="DETAILS" jdbcType="LONGVARCHAR" property="details" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, BOSSID, SKU_ID, SKU_TITLE, SUMMARY, LOCATION, MARKER_TITLE, MARKER_DESCRIPTION, 
+    MARKER_LINK_TEXT, MAP_ZOOM, LANGUAGE, EMAIL_NOTIFICATION, MORE_INFO_URL, VIDEO_URL, 
+    VIDEO_START_TIME
+  </sql>
+  <sql id="Blob_Column_List">
+    DETAILS
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.pzj.base.sku.entity.XzSkuI18nExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from XZ_SKU_I18N
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.pzj.base.sku.entity.XzSkuI18nExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from XZ_SKU_I18N
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="start!=null and start>=0">
+      limit #{start} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from XZ_SKU_I18N
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from XZ_SKU_I18N
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pzj.base.sku.entity.XzSkuI18nExample">
+    delete from XZ_SKU_I18N
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert"   parameterType="com.pzj.base.sku.entity.XzSkuI18n">
+    insert into XZ_SKU_I18N (ID, BOSSID, SKU_ID, 
+      SKU_TITLE, SUMMARY, LOCATION, 
+      MARKER_TITLE, MARKER_DESCRIPTION, MARKER_LINK_TEXT, 
+      MAP_ZOOM, LANGUAGE, EMAIL_NOTIFICATION, 
+      MORE_INFO_URL, VIDEO_URL, VIDEO_START_TIME, 
+      DETAILS)
+    values (#{id,jdbcType=INTEGER}, #{bossid,jdbcType=INTEGER}, #{skuId,jdbcType=INTEGER}, 
+      #{skuTitle,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{markerTitle,jdbcType=VARCHAR}, #{markerDescription,jdbcType=VARCHAR}, #{markerLinkText,jdbcType=VARCHAR}, 
+      #{mapZoom,jdbcType=INTEGER}, #{language,jdbcType=VARCHAR}, #{emailNotification,jdbcType=VARCHAR}, 
+      #{moreInfoUrl,jdbcType=VARCHAR}, #{videoUrl,jdbcType=VARCHAR}, #{videoStartTime,jdbcType=VARCHAR}, 
+      #{details,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective"   parameterType="com.pzj.base.sku.entity.XzSkuI18n">
+    insert into XZ_SKU_I18N
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="bossid != null">
+        BOSSID,
+      </if>
+      <if test="skuId != null">
+        SKU_ID,
+      </if>
+      <if test="skuTitle != null">
+        SKU_TITLE,
+      </if>
+      <if test="summary != null">
+        SUMMARY,
+      </if>
+      <if test="location != null">
+        LOCATION,
+      </if>
+      <if test="markerTitle != null">
+        MARKER_TITLE,
+      </if>
+      <if test="markerDescription != null">
+        MARKER_DESCRIPTION,
+      </if>
+      <if test="markerLinkText != null">
+        MARKER_LINK_TEXT,
+      </if>
+      <if test="mapZoom != null">
+        MAP_ZOOM,
+      </if>
+      <if test="language != null">
+        LANGUAGE,
+      </if>
+      <if test="emailNotification != null">
+        EMAIL_NOTIFICATION,
+      </if>
+      <if test="moreInfoUrl != null">
+        MORE_INFO_URL,
+      </if>
+      <if test="videoUrl != null">
+        VIDEO_URL,
+      </if>
+      <if test="videoStartTime != null">
+        VIDEO_START_TIME,
+      </if>
+      <if test="details != null">
+        DETAILS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bossid != null">
+        #{bossid,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="skuTitle != null">
+        #{skuTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="markerTitle != null">
+        #{markerTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="markerDescription != null">
+        #{markerDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="markerLinkText != null">
+        #{markerLinkText,jdbcType=VARCHAR},
+      </if>
+      <if test="mapZoom != null">
+        #{mapZoom,jdbcType=INTEGER},
+      </if>
+      <if test="language != null">
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="emailNotification != null">
+        #{emailNotification,jdbcType=VARCHAR},
+      </if>
+      <if test="moreInfoUrl != null">
+        #{moreInfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null">
+        #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoStartTime != null">
+        #{videoStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null">
+        #{details,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pzj.base.sku.entity.XzSkuI18nExample" resultType="java.lang.Integer">
+    select count(*) from XZ_SKU_I18N
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update XZ_SKU_I18N
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.skuId != null">
+        SKU_ID = #{record.skuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.skuTitle != null">
+        SKU_TITLE = #{record.skuTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.summary != null">
+        SUMMARY = #{record.summary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null">
+        LOCATION = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.markerTitle != null">
+        MARKER_TITLE = #{record.markerTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.markerDescription != null">
+        MARKER_DESCRIPTION = #{record.markerDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.markerLinkText != null">
+        MARKER_LINK_TEXT = #{record.markerLinkText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mapZoom != null">
+        MAP_ZOOM = #{record.mapZoom,jdbcType=INTEGER},
+      </if>
+      <if test="record.language != null">
+        LANGUAGE = #{record.language,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emailNotification != null">
+        EMAIL_NOTIFICATION = #{record.emailNotification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moreInfoUrl != null">
+        MORE_INFO_URL = #{record.moreInfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.videoUrl != null">
+        VIDEO_URL = #{record.videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.videoStartTime != null">
+        VIDEO_START_TIME = #{record.videoStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.details != null">
+        DETAILS = #{record.details,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update XZ_SKU_I18N
+    set ID = #{record.id,jdbcType=INTEGER},
+      SKU_ID = #{record.skuId,jdbcType=INTEGER},
+      SKU_TITLE = #{record.skuTitle,jdbcType=VARCHAR},
+      SUMMARY = #{record.summary,jdbcType=VARCHAR},
+      LOCATION = #{record.location,jdbcType=VARCHAR},
+      MARKER_TITLE = #{record.markerTitle,jdbcType=VARCHAR},
+      MARKER_DESCRIPTION = #{record.markerDescription,jdbcType=VARCHAR},
+      MARKER_LINK_TEXT = #{record.markerLinkText,jdbcType=VARCHAR},
+      MAP_ZOOM = #{record.mapZoom,jdbcType=INTEGER},
+      LANGUAGE = #{record.language,jdbcType=VARCHAR},
+      EMAIL_NOTIFICATION = #{record.emailNotification,jdbcType=VARCHAR},
+      MORE_INFO_URL = #{record.moreInfoUrl,jdbcType=VARCHAR},
+      VIDEO_URL = #{record.videoUrl,jdbcType=VARCHAR},
+      VIDEO_START_TIME = #{record.videoStartTime,jdbcType=VARCHAR},
+      DETAILS = #{record.details,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update XZ_SKU_I18N
+    set ID = #{record.id,jdbcType=INTEGER},
+      SKU_ID = #{record.skuId,jdbcType=INTEGER},
+      SKU_TITLE = #{record.skuTitle,jdbcType=VARCHAR},
+      SUMMARY = #{record.summary,jdbcType=VARCHAR},
+      LOCATION = #{record.location,jdbcType=VARCHAR},
+      MARKER_TITLE = #{record.markerTitle,jdbcType=VARCHAR},
+      MARKER_DESCRIPTION = #{record.markerDescription,jdbcType=VARCHAR},
+      MARKER_LINK_TEXT = #{record.markerLinkText,jdbcType=VARCHAR},
+      MAP_ZOOM = #{record.mapZoom,jdbcType=INTEGER},
+      LANGUAGE = #{record.language,jdbcType=VARCHAR},
+      EMAIL_NOTIFICATION = #{record.emailNotification,jdbcType=VARCHAR},
+      MORE_INFO_URL = #{record.moreInfoUrl,jdbcType=VARCHAR},
+      VIDEO_URL = #{record.videoUrl,jdbcType=VARCHAR},
+      VIDEO_START_TIME = #{record.videoStartTime,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pzj.base.sku.entity.XzSkuI18n">
+    update XZ_SKU_I18N
+    <set>
+
+      <if test="skuId != null">
+        SKU_ID = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="skuTitle != null">
+        SKU_TITLE = #{skuTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        SUMMARY = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="markerTitle != null">
+        MARKER_TITLE = #{markerTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="markerDescription != null">
+        MARKER_DESCRIPTION = #{markerDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="markerLinkText != null">
+        MARKER_LINK_TEXT = #{markerLinkText,jdbcType=VARCHAR},
+      </if>
+      <if test="mapZoom != null">
+        MAP_ZOOM = #{mapZoom,jdbcType=INTEGER},
+      </if>
+      <if test="language != null">
+        LANGUAGE = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="emailNotification != null">
+        EMAIL_NOTIFICATION = #{emailNotification,jdbcType=VARCHAR},
+      </if>
+      <if test="moreInfoUrl != null">
+        MORE_INFO_URL = #{moreInfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null">
+        VIDEO_URL = #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoStartTime != null">
+        VIDEO_START_TIME = #{videoStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null">
+        DETAILS = #{details,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}  and  BOSSID = #{bossid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pzj.base.sku.entity.XzSkuI18n">
+    update XZ_SKU_I18N
+    set
+      SKU_ID = #{skuId,jdbcType=INTEGER},
+      SKU_TITLE = #{skuTitle,jdbcType=VARCHAR},
+      SUMMARY = #{summary,jdbcType=VARCHAR},
+      LOCATION = #{location,jdbcType=VARCHAR},
+      MARKER_TITLE = #{markerTitle,jdbcType=VARCHAR},
+      MARKER_DESCRIPTION = #{markerDescription,jdbcType=VARCHAR},
+      MARKER_LINK_TEXT = #{markerLinkText,jdbcType=VARCHAR},
+      MAP_ZOOM = #{mapZoom,jdbcType=INTEGER},
+      LANGUAGE = #{language,jdbcType=VARCHAR},
+      EMAIL_NOTIFICATION = #{emailNotification,jdbcType=VARCHAR},
+      MORE_INFO_URL = #{moreInfoUrl,jdbcType=VARCHAR},
+      VIDEO_URL = #{videoUrl,jdbcType=VARCHAR},
+      VIDEO_START_TIME = #{videoStartTime,jdbcType=VARCHAR},
+      DETAILS = #{details,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=INTEGER} and  BOSSID = #{bossid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pzj.base.sku.entity.XzSkuI18n">
+    update XZ_SKU_I18N
+    set
+      SKU_ID = #{skuId,jdbcType=INTEGER},
+      SKU_TITLE = #{skuTitle,jdbcType=VARCHAR},
+      SUMMARY = #{summary,jdbcType=VARCHAR},
+      LOCATION = #{location,jdbcType=VARCHAR},
+      MARKER_TITLE = #{markerTitle,jdbcType=VARCHAR},
+      MARKER_DESCRIPTION = #{markerDescription,jdbcType=VARCHAR},
+      MARKER_LINK_TEXT = #{markerLinkText,jdbcType=VARCHAR},
+      MAP_ZOOM = #{mapZoom,jdbcType=INTEGER},
+      LANGUAGE = #{language,jdbcType=VARCHAR},
+      EMAIL_NOTIFICATION = #{emailNotification,jdbcType=VARCHAR},
+      MORE_INFO_URL = #{moreInfoUrl,jdbcType=VARCHAR},
+      VIDEO_URL = #{videoUrl,jdbcType=VARCHAR},
+      VIDEO_START_TIME = #{videoStartTime,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER} and  BOSSID = #{bossid,jdbcType=INTEGER}
+  </update>
+  <insert id="insertBatch"  parameterType="java.util.List">
+  	insert into XZ_SKU_I18N values 
+  	<trim suffixOverrides="," >
+		<foreach collection="list" item="sku" open="" close="" separator=",">
+			(
+			#{sku.id,jdbcType=INTEGER},
+			#{sku.bossid,jdbcType=INTEGER},
+			#{sku.skuId,jdbcType=INTEGER},
+			#{sku.skuTitle,jdbcType=VARCHAR},
+			#{sku.summary,jdbcType=VARCHAR}, 
+			#{sku.location,jdbcType=VARCHAR},
+			#{sku.markerTitle,jdbcType=VARCHAR}, 
+			#{sku.markerDescription,jdbcType=VARCHAR},
+			#{sku.markerLinkText,jdbcType=VARCHAR},
+			#{sku.mapZoom,jdbcType=INTEGER}, 
+			#{sku.language,jdbcType=VARCHAR}, 
+			#{sku.emailNotification,jdbcType=VARCHAR},
+			#{sku.moreInfoUrl,jdbcType=VARCHAR}, 
+			#{sku.videoUrl,jdbcType=VARCHAR},
+			#{sku.videoStartTime,jdbcType=VARCHAR},
+			#{sku.details,jdbcType=LONGVARCHAR}
+			)
+  		</foreach>
+  	</trim>
+  </insert>
+</mapper>

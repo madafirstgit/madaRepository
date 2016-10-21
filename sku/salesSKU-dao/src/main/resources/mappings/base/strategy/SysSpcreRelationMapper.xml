@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.strategy.SysSpcreRelationMapper">
+
+    <!-- 所有字段 -->
+    <sql id="Base_Column_List">
+	space.id
+	,space.strategy_id
+	,space.product_id
+	,space.channel_id
+	,space.rebate_id
+	,space.extra_rebate_id
+	,space.status
+	,space.refuse_reason
+	</sql>
+
+    <!-- 通用查询条件 -->
+    <sql id="sql_of_where">
+        <if test="space != null" >
+            <if test="space.id != null"> AND space.id = #{space.id,jdbcType=BIGINT} </if>
+            <if test="space.strategyId != null"> AND space.strategy_id = #{space.strategyId,jdbcType=VARCHAR} </if>
+            <if test="space.productId != null"> AND space.product_id = #{space.productId,jdbcType=VARCHAR} </if>
+            <if test="space.channelId != null"> AND space.channel_id = #{space.channelId,jdbcType=VARCHAR} </if>
+            <if test="space.rebateId != null"> AND space.rebate_id = #{space.rebateId,jdbcType=VARCHAR} </if>
+            <if test="space.extraRebateId != null"> AND space.extra_rebate_id = #{space.extraRebateId,jdbcType=VARCHAR} </if>
+            <if test="space.status != null"> AND space.status = #{space.status,jdbcType=CHAR} </if>
+            <if test="space.refuseReason != null"> AND space.refuse_reason = #{space.refuseReason,jdbcType=VARCHAR} </if>
+            
+            <if test="space.queryChannelIds != null and space.queryChannelIds.size > 0">
+			  and space.channel_id in
+			  <foreach collection="space.queryChannelIds" item="item" open="(" close=")" separator=",">
+			   #{item} 
+			  </foreach>
+			</if>
+			<if test="space.queryProductIds != null and space.queryProductIds.size > 0">
+			  and space.product_id in
+			  <foreach collection="space.queryProductIds" item="item" open="(" close=")" separator=",">
+			   #{item} 
+			  </foreach>
+			</if>
+			<if test="space.queryStrategyIds != null and space.queryStrategyIds.size > 0">
+			  and space.strategy_id in
+			  <foreach collection="space.queryStrategyIds" item="item" open="(" close=")" separator=",">
+			   #{item} 
+			  </foreach>
+			</if>
+        </if>
+    </sql>
+
+    <!-- 字段映射 -->
+    <resultMap id="BaseResultMap" type="com.pzj.base.entity.SysSpcreRelationKey">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="strategy_id" jdbcType="VARCHAR" property="strategyId"/>
+        <result column="product_id" jdbcType="VARCHAR" property="productId"/>
+        <result column="channel_id" jdbcType="VARCHAR" property="channelId"/>
+        <result column="rebate_id" jdbcType="VARCHAR" property="rebateId"/>
+        <result column="extra_rebate_id" jdbcType="VARCHAR" property="extraRebateId"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="refuse_reason" jdbcType="VARCHAR" property="refuseReason"/>
+    </resultMap>
+
+    <!-- 通用分页查询 -->
+    <select id="selectByParam" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from sys_spcre_relation space
+        <where><include refid="sql_of_where" /></where>
+        <if test="page != null">
+            <if test="page.orderByClause != null" > order by ${page.orderByClause} </if>
+            <if test="page.startIndex != null and page.pageSize != null" >
+                limit #{page.startIndex} , #{page.pageSize}
+            </if>
+        </if>
+    </select>
+
+    <!-- 通用分页查询记录总数 -->
+    <select id="countByParamMap" resultType="java.lang.Integer">
+        select count(space.id) from sys_spcre_relation space
+        <where><include refid="sql_of_where" /></where>
+    </select>
+    
+      <!-- 通用分页查询 -->
+    <select id="queryByParamMap" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from sys_spcre_relation space
+        <where><include refid="sql_of_where" /></where>
+        <if test="page != null">
+            <if test="page.orderByClause != null" > order by ${page.orderByClause} </if>
+            <if test="page.startIndex != null and page.pageSize != null" >
+                limit #{page.startIndex} , #{page.pageSize}
+            </if>
+        </if>
+    </select>
+
+    <!-- 通用分页查询记录总数 -->
+    <select id="countByParam" resultType="java.lang.Integer">
+        select count(space.id) from sys_spcre_relation space
+        <where><include refid="sql_of_where" /></where>
+    </select>
+    
+
+    <select id="selectByChannelAndInfoId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM sys_spcre_relation space
+        INNER JOIN product_release releasee on space.product_id = releasee.id
+        <where>
+            <if test="productInfoId != null">
+                and releasee.product_id = #{productInfoId, jdbcType=VARCHAR}
+            </if>
+            <if test="channelId != null">
+                and space.channel_id = #{channelId, jdbcType=VARCHAR}
+            </if>
+            or 1 = 2
+        </where>
+    </select>
+</mapper>

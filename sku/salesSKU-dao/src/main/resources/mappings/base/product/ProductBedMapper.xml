@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IProductBedMapper">
+
+<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+	id  
+	,product_release_id 
+	,bed_type 
+	,bed_nums 
+	,bed_sizes 
+	</sql>
+	
+<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.product.pms.ProductBed">
+	     <id column="id" property="id" jdbcType="BIGINT" />
+		<result column="product_release_id" jdbcType="BIGINT" property="productReleaseId" />
+		<result column="bed_type" jdbcType="VARCHAR" property="bedType" />
+		<result column="bed_nums" jdbcType="INTEGER" property="bedNums" />
+		<result column="bed_sizes" jdbcType="VARCHAR" property="bedSizes" />
+	</resultMap>
+
+<!-- 主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select  <include refid="Base_Column_List" />
+		from product_bed
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+<!-- 删除 -->	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product_bed where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+<!-- 通用查询条件 -->
+	<sql id="sql_of_where">
+		WHERE 1=1 
+		<if test="bParam != null" >
+			<if test="bParam.id != null"> AND id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.productReleaseId != null"> AND product_release_id = #{bParam.productReleaseId,jdbcType=BIGINT} </if>
+			<if test="bParam.bedType != null"> AND bed_type = #{bParam.bedType,jdbcType=VARCHAR} </if>
+			<if test="bParam.bedNums != null"> AND bed_nums = #{bParam.bedNums,jdbcType=INTEGER} </if>
+			<if test="bParam.bedSizes != null"> AND bed_sizes = #{bParam.bedSizes,jdbcType=VARCHAR} </if>
+			<if test="bParam.queryIdList != null and bParam.queryIdList.size > 0">
+                AND id in
+               <foreach collection="bParam.queryIdList" item="item" open="(" separator=","
+                        close=")">
+                   #{item}
+               </foreach>
+            </if>
+            <if test="bParam.queryParentIdList != null and bParam.queryParentIdList.size > 0">
+                AND product_release_id in
+               <foreach collection="bParam.queryParentIdList" item="item" open="(" separator=","
+                        close=")">
+                   #{item}
+               </foreach>
+            </if>
+		</if>
+	</sql>
+	
+<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from product_bed
+		<include refid="sql_of_where" />
+		<if test="pParam != null">
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(id) from product_bed
+		<include refid="sql_of_where" />
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.pzj.base.entity.product.pms.ProductBed" useGeneratedKeys="true" keyProperty="id">
+		insert into product_bed 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				id, 
+			<if test="productReleaseId != null">
+			    product_release_id,
+			</if>
+			<if test="bedType != null">
+			    bed_type,
+			</if>
+			<if test="bedNums != null">
+			    bed_nums,
+			</if>
+			<if test="bedSizes != null">
+			    bed_sizes,
+			</if> 
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			     #{id,jdbcType=BIGINT}, 
+			<if test="productReleaseId != null">
+			    #{productReleaseId,jdbcType=BIGINT},
+			</if>
+			<if test="bedType != null">
+			    #{bedType,jdbcType=VARCHAR},
+			</if>
+			<if test="bedNums != null">
+			    #{bedNums,jdbcType=INTEGER},
+			</if>
+			<if test="bedSizes != null">
+			    #{bedSizes,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+<!-- 批量插入 请根据业务修改默认值-->	
+    <insert id="insertBatch"  parameterType="java.util.List">
+		insert into product_bed 
+		(id  
+		,product_release_id 
+		,bed_type 
+		,bed_nums 
+		,bed_sizes  
+		) 
+		values
+		<foreach collection="list" item="item" separator=",">
+		(#{item.id,jdbcType=BIGINT}  
+			<choose>  
+				<when test="item.productReleaseId != null">,#{item.productReleaseId ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.bedType != null">,#{item.bedType ,jdbcType=VARCHAR}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.bedNums != null">,#{item.bedNums ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.bedSizes != null">,#{item.bedSizes ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose> 
+		)
+		</foreach>
+	</insert>
+
+<!-- 更新 -->
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.product.pms.ProductBed">
+		update product_bed
+		<set>
+			<if test="productReleaseId != null" >
+             product_release_id = #{productReleaseId,jdbcType=BIGINT},
+            </if>
+			<if test="bedType != null" >
+             bed_type = #{bedType,jdbcType=VARCHAR},
+            </if>
+			<if test="bedNums != null" >
+             bed_nums = #{bedNums,jdbcType=INTEGER},
+            </if>
+			<if test="bedSizes != null" >
+             bed_sizes = #{bedSizes,jdbcType=VARCHAR},
+            </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+<!-- 批量更新 -->
+	<update id="updateBatchByPrimaryKey"  parameterType="java.util.List">
+	     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update product_bed 
+                <set>
+                  <if test="item.productReleaseId != null" >
+                    product_release_id = #{item.productReleaseId,jdbcType=BIGINT},
+                  </if>
+                  <if test="item.bedType != null" >
+                    bed_type = #{item.bedType,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.bedNums != null" >
+                    bed_nums = #{item.bedNums,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.bedSizes != null" >
+                    bed_sizes = #{item.bedSizes,jdbcType=VARCHAR},
+                  </if>
+                </set>
+                where id = #{item.id,jdbcType=BIGINT}
+         </foreach>
+	</update>
+	
+	
+	
+	<!-- 新加（根据id查询） -->
+	 <select id="findByIdList" resultMap="BaseResultMap"
+            parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from product_bed
+        <where>
+            <if test="idList != null">
+                and id in
+                <foreach collection="idList" item="item" open="(" separator=","
+                         close=")">
+                    #{item}
+                </foreach>
+            </if>
+            or 1=2
+        </where>
+        order by id desc
+    </select>
+    <!-- 新加（根据parentId查询） -->
+    <select id="findByParentIdList" resultMap="BaseResultMap"
+            parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from product_bed
+        <where>
+            <if test="parentIdList != null">
+                and product_release_id in
+                <foreach collection="parentIdList" item="item" open="(" separator=","
+                         close=")">
+                    #{item}
+                </foreach>
+            </if>
+            or 1=2
+        </where>
+       order by id desc
+    </select>
+    
+     <!-- 新加批量删除 -->
+    <delete id="deleteBatchByPrimaryKey" parameterType="list">
+        <foreach collection="list" item="item" separator=";">
+        delete from product_bed where id = #{item.id ,jdbcType=BIGINT}
+        </foreach>
+    </delete>
+	
+</mapper>

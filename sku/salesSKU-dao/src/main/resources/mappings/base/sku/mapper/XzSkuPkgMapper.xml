@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pzj.base.sku.mapper.XzSkuPkgMapper">
+  <resultMap id="BaseResultMap" type="com.pzj.base.sku.entity.XzSkuPkg">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BOSSID" jdbcType="INTEGER" property="bossid" />
+    <result column="SKU_ID" jdbcType="INTEGER" property="skuId" />
+    <result column="PACKAGE_TYPE" jdbcType="VARCHAR" property="packageType" />
+    <result column="PACKAGE_SKU_ID" jdbcType="INTEGER" property="packageSkuId" />
+    <result column="PACKAGE_PRICE_PERCENTAGE" jdbcType="INTEGER" property="packagePricePercentage" />
+    <result column="PACKAGE_IN_TYPE" jdbcType="VARCHAR" property="packageInType" />
+    <result column="SKU_TITLE" jdbcType="VARCHAR" property="skuTitle" />
+    <result column="PRICE" jdbcType="DOUBLE" property="price" />
+    <result column="TOGETHERPRICE" jdbcType="DOUBLE" property="togetherPrice" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, BOSSID, SKU_ID, PACKAGE_TYPE, PACKAGE_SKU_ID, PACKAGE_PRICE_PERCENTAGE, PACKAGE_IN_TYPE,SKU_TITLE,PRICE,TOGETHERPRICE
+  </sql>
+  <select id="selectByExample" parameterType="com.pzj.base.sku.entity.XzSkuPkgExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from XZ_SKU_PKG
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="start!=null and start>=0">
+      limit #{start} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from XZ_SKU_PKG
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from XZ_SKU_PKG
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pzj.base.sku.entity.XzSkuPkgExample">
+    delete from XZ_SKU_PKG
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert"   parameterType="com.pzj.base.sku.entity.XzSkuPkg">
+    insert into XZ_SKU_PKG (ID, BOSSID, SKU_ID, 
+      PACKAGE_TYPE, PACKAGE_SKU_ID, PACKAGE_PRICE_PERCENTAGE,
+      PACKAGE_IN_TYPE,SKU_TITLE,PRICE,TOGETHERPRICE)
+    values (#{id,jdbcType=INTEGER}, #{bossid,jdbcType=INTEGER}, #{skuId,jdbcType=INTEGER}, 
+      #{packageType,jdbcType=VARCHAR}, #{packageSkuId,jdbcType=INTEGER}, #{packagePricePercentage,jdbcType=DECIMAL},
+      #{packageInType,jdbcType=VARCHAR}, #{skuTitle,jdbcType=VARCHAR},#{price,jdbcType=DOUBLE},
+				#{togetherPrice,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective"   parameterType="com.pzj.base.sku.entity.XzSkuPkg">
+    insert into XZ_SKU_PKG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="bossid != null">
+        BOSSID,
+      </if>
+      <if test="skuId != null">
+        SKU_ID,
+      </if>
+      <if test="packageType != null">
+        PACKAGE_TYPE,
+      </if>
+      <if test="packageSkuId != null">
+        PACKAGE_SKU_ID,
+      </if>
+      <if test="packagePricePercentage != null">
+        PACKAGE_PRICE_PERCENTAGE,
+      </if>
+      <if test="packageInType != null">
+        PACKAGE_IN_TYPE,
+      </if>
+      <if test="skuTitle != null">
+        SKU_TITLE,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="togetherPrice != null">
+        togetherPrice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bossid != null">
+        #{bossid,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="packageType != null">
+        #{packageType,jdbcType=VARCHAR},
+      </if>
+      <if test="packageSkuId != null">
+        #{packageSkuId,jdbcType=INTEGER},
+      </if>
+      <if test="packagePricePercentage != null">
+        #{packagePricePercentage,jdbcType=DECIMAL},
+      </if>
+      <if test="packageInType != null">
+        #{packageInType,jdbcType=VARCHAR},
+      </if>
+      <if test="skuTitle != null">
+       #{skuTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+       #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="togetherPrice != null">
+       #{togetherPrice,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pzj.base.sku.entity.XzSkuPkgExample" resultType="java.lang.Integer">
+    select count(*) from XZ_SKU_PKG
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update XZ_SKU_PKG
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.bossid != null">
+        BOSSID = #{record.bossid,jdbcType=INTEGER},
+      </if>
+      <if test="record.skuId != null">
+        SKU_ID = #{record.skuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.packageType != null">
+        PACKAGE_TYPE = #{record.packageType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packageSkuId != null">
+        PACKAGE_SKU_ID = #{record.packageSkuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.packagePricePercentage != null">
+        PACKAGE_PRICE_PERCENTAGE = #{record.packagePricePercentage,jdbcType=INTEGER},
+      </if>
+      <if test="record.packageInType != null">
+        PACKAGE_IN_TYPE = #{record.packageInType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skuTitle != null">
+        SKU_TITLE= #{record.skuTitle,jdbcType=VARCHAR}),
+      </if>
+      <if test="record.price != null">
+        price= #{record.price,jdbcType=DOUBLE}),
+      </if>
+      <if test="record.skuTitle != null">
+        togetherPrice= #{record.togetherPrice,jdbcType=DOUBLE}),
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update XZ_SKU_PKG
+    set ID = #{record.id,jdbcType=INTEGER},
+      BOSSID = #{record.bossid,jdbcType=INTEGER},
+      SKU_ID = #{record.skuId,jdbcType=INTEGER},
+      PACKAGE_TYPE = #{record.packageType,jdbcType=VARCHAR},
+      PACKAGE_SKU_ID = #{record.packageSkuId,jdbcType=INTEGER},
+      PACKAGE_PRICE_PERCENTAGE = #{record.packagePricePercentage,jdbcType=INTEGER},
+      PACKAGE_IN_TYPE = #{record.packageInType,jdbcType=VARCHAR},
+      SKU_TITLE= #{PRICE,jdbcType=VARCHAR},
+      PRICE= #{skuTitle,jdbcType=DOUBLE}),
+      togetherPrice= #{togetherPrice,jdbcType=DOUBLE}))
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pzj.base.sku.entity.XzSkuPkg">
+    update XZ_SKU_PKG
+    <set>
+      <if test="bossid != null">
+        BOSSID = #{bossid,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null">
+        SKU_ID = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="packageType != null">
+        PACKAGE_TYPE = #{packageType,jdbcType=VARCHAR},
+      </if>
+      <if test="packageSkuId != null">
+        PACKAGE_SKU_ID = #{packageSkuId,jdbcType=INTEGER},
+      </if>
+      <if test="packagePricePercentage != null">
+        PACKAGE_PRICE_PERCENTAGE = #{packagePricePercentage,jdbcType=INTEGER},
+      </if>
+      <if test="packageInType != null">
+        PACKAGE_IN_TYPE = #{packageInType,jdbcType=VARCHAR},
+      </if>
+      <if test="skuTitle != null">
+        SKU_TITLE= #{skuTitle,jdbcType=VARCHAR}),
+      </if>
+      <if test="price != null">
+        price= #{price,jdbcType=DOUBLE}),
+      </if>
+      <if test="togetherPrice != null">
+        togetherPrice= #{togetherPrice,jdbcType=DOUBLE}),
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pzj.base.sku.entity.XzSkuPkg">
+    update XZ_SKU_PKG
+    set BOSSID = #{bossid,jdbcType=INTEGER},
+      SKU_ID = #{skuId,jdbcType=INTEGER},
+      PACKAGE_TYPE = #{packageType,jdbcType=VARCHAR},
+      PACKAGE_SKU_ID = #{packageSkuId,jdbcType=INTEGER},
+      PACKAGE_PRICE_PERCENTAGE = #{packagePricePercentage,jdbcType=INTEGER},
+      PACKAGE_IN_TYPE = #{packageInType,jdbcType=VARCHAR},
+      SKU_TITLE= #{skuTitle,jdbcType=VARCHAR},
+      price= #{price,jdbcType=DOUBLE},
+      togetherPrice= #{togetherPrice,jdbcType=DOUBLE})
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+    <insert id="insertBatch" parameterType="java.util.List">
+		insert into XZ_SKU_PKG values
+		<trim suffixOverrides=",">
+			<foreach collection="list" item="sku" open="" close=""
+				separator=",">
+				(
+				#{sku.id,jdbcType=INTEGER}, 
+				#{sku.bossid,jdbcType=INTEGER},
+				#{sku.skuId,jdbcType=INTEGER},
+				#{sku.packageType,jdbcType=VARCHAR}, 
+				#{sku.packageSkuId,jdbcType=INTEGER},
+				#{sku.packagePricePercentage,jdbcType=DECIMAL},
+				#{sku.packageInType,jdbcType=VARCHAR}, 
+				#{sku.skuTitle,jdbcType=VARCHAR},
+				#{sku.price,jdbcType=DOUBLE},
+				#{sku.togetherPrice,jdbcType=DOUBLE}
+				)
+			</foreach>
+		</trim>
+	</insert>
+</mapper>

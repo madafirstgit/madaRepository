@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pzj.base.sku.mapper.XzSkuPriceEventNewPriceMapper">
+  <resultMap id="BaseResultMap" type="com.pzj.base.sku.entity.XzSkuPriceEventNewPrice">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BOSSID" jdbcType="INTEGER" property="bossid" />
+    <result column="SKU_ID" jdbcType="INTEGER" property="skuId" />
+    <result column="EVENT_ID" jdbcType="INTEGER" property="eventId" />
+    <result column="PARAMS_ID" jdbcType="INTEGER" property="paramsId" />
+    <result column="EVENT_PRICE" jdbcType="DECIMAL" property="eventPrice" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, BOSSID, SKU_ID, EVENT_ID, PARAMS_ID, EVENT_PRICE
+  </sql>
+  <select id="selectByExample" parameterType="com.pzj.base.sku.entity.XzSkuPriceEventNewPriceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from XZ_SKU_PRICE_EVENT_NEW_PRICE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="start!=null and start>=0">
+      limit #{start} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from XZ_SKU_PRICE_EVENT_NEW_PRICE
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from XZ_SKU_PRICE_EVENT_NEW_PRICE
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pzj.base.sku.entity.XzSkuPriceEventNewPriceExample">
+    delete from XZ_SKU_PRICE_EVENT_NEW_PRICE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert"   parameterType="com.pzj.base.sku.entity.XzSkuPriceEventNewPrice">
+    insert into XZ_SKU_PRICE_EVENT_NEW_PRICE (ID, BOSSID, SKU_ID, 
+      EVENT_ID, PARAMS_ID, EVENT_PRICE
+      )
+    values (#{id,jdbcType=INTEGER}, #{bossid,jdbcType=INTEGER}, #{skuId,jdbcType=INTEGER}, 
+      #{eventId,jdbcType=INTEGER}, #{paramsId,jdbcType=INTEGER}, #{eventPrice,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective"   parameterType="com.pzj.base.sku.entity.XzSkuPriceEventNewPrice">
+    insert into XZ_SKU_PRICE_EVENT_NEW_PRICE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="bossid != null">
+        BOSSID,
+      </if>
+      <if test="skuId != null">
+        SKU_ID,
+      </if>
+      <if test="eventId != null">
+        EVENT_ID,
+      </if>
+      <if test="paramsId != null">
+        PARAMS_ID,
+      </if>
+      <if test="eventPrice != null">
+        EVENT_PRICE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bossid != null">
+        #{bossid,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="eventId != null">
+        #{eventId,jdbcType=INTEGER},
+      </if>
+      <if test="paramsId != null">
+        #{paramsId,jdbcType=INTEGER},
+      </if>
+      <if test="eventPrice != null">
+        #{eventPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pzj.base.sku.entity.XzSkuPriceEventNewPriceExample" resultType="java.lang.Integer">
+    select count(*) from XZ_SKU_PRICE_EVENT_NEW_PRICE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update XZ_SKU_PRICE_EVENT_NEW_PRICE
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.skuId != null">
+        SKU_ID = #{record.skuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.eventId != null">
+        EVENT_ID = #{record.eventId,jdbcType=INTEGER},
+      </if>
+      <if test="record.paramsId != null">
+        PARAMS_ID = #{record.paramsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.eventPrice != null">
+        EVENT_PRICE = #{record.eventPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update XZ_SKU_PRICE_EVENT_NEW_PRICE
+    set ID = #{record.id,jdbcType=INTEGER},
+      SKU_ID = #{record.skuId,jdbcType=INTEGER},
+      EVENT_ID = #{record.eventId,jdbcType=INTEGER},
+      PARAMS_ID = #{record.paramsId,jdbcType=INTEGER},
+      EVENT_PRICE = #{record.eventPrice,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pzj.base.sku.entity.XzSkuPriceEventNewPrice">
+    update XZ_SKU_PRICE_EVENT_NEW_PRICE
+    <set>
+      <if test="skuId != null">
+        SKU_ID = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="eventId != null">
+        EVENT_ID = #{eventId,jdbcType=INTEGER},
+      </if>
+      <if test="paramsId != null">
+        PARAMS_ID = #{paramsId,jdbcType=INTEGER},
+      </if>
+      <if test="eventPrice != null">
+        EVENT_PRICE = #{eventPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER} and  BOSSID = #{bossid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pzj.base.sku.entity.XzSkuPriceEventNewPrice">
+    update XZ_SKU_PRICE_EVENT_NEW_PRICE
+    set
+      SKU_ID = #{skuId,jdbcType=INTEGER},
+      EVENT_ID = #{eventId,jdbcType=INTEGER},
+      PARAMS_ID = #{paramsId,jdbcType=INTEGER},
+      EVENT_PRICE = #{eventPrice,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=INTEGER} and  BOSSID = #{bossid,jdbcType=INTEGER}
+  </update>
+</mapper>

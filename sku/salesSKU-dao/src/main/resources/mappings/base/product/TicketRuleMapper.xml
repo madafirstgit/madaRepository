@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.ITicketRuleMapper">
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.product.TicketRule">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="SUPID" property="supId" jdbcType="BIGINT" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="SORT" property="sort" jdbcType="INTEGER" />
+		<result column="STATUS" property="status" jdbcType="SMALLINT" />
+		<result column="REFUND" property="refund" jdbcType="SMALLINT" />
+		<result column="TIMETYPE" property="timeType" jdbcType="SMALLINT" />
+		<result column="DAYS" property="days" jdbcType="INTEGER" />
+		<result column="HOURS" property="hours" jdbcType="DOUBLE" />
+		<result column="MINUTES" property="minutes" jdbcType="INTEGER" />
+		<result column="REFUNDTYPE" property="refundType" jdbcType="SMALLINT" />
+		<result column="REFUNDVALUE" property="refundValue" jdbcType="DOUBLE" />
+		<result column="EXCHANGETYPE" property="exchangeType" jdbcType="SMALLINT" />
+		<result column="EXCHANGEVALUE" property="exchangeValue"
+			jdbcType="DOUBLE" />
+		<result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="updateDate" property="updateDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, SUPID, NAME, SORT, STATUS, REFUND, TIMETYPE,
+		DAYS,HOURS, MINUTES,REFUNDTYPE,REFUNDVALUE, EXCHANGETYPE,
+		EXCHANGEVALUE,createDate,updateDate
+	</sql>
+
+	<sql id="Base_Column_List_join">
+		t.ID, t.SUPID, t.NAME, t.SORT, t.STATUS, t.REFUND,
+		t.TIMETYPE, t.DAYS,
+		t.HOURS, t.MINUTES,t.REFUNDTYPE,t.REFUNDVALUE,
+		t.EXCHANGETYPE, t.EXCHANGEVALUE,t.createDate,t.updateDate ,r.ID as
+		r_id, r.S_ID as r_s_id, r.P_ID as r_p_id, r.R_ID as r_r_id
+	</sql>
+	<!-- 根据主键删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		TICKETRULE
+		where ID = #{id,jdbcType=BIGINT}
+	</delete>
+	<!-- 插入实体 -->
+	<insert id="insert" parameterType="com.pzj.base.entity.product.TicketRule">
+		insert into TICKETRULE VALUES
+		(
+		#{id,jdbcType=BIGINT},
+		#{supId,jdbcType=BIGINT},
+		#{name,jdbcType=VARCHAR},
+		#{sort,jdbcType=INTEGER},
+		#{status,jdbcType=SMALLINT},
+		#{refund,jdbcType=SMALLINT},
+		#{timeType,jdbcType=SMALLINT},
+		#{days,jdbcType=INTEGER},
+		#{hours,jdbcType=DOUBLE},
+		#{minutes,jdbcType=INTEGER},
+		#{refundType,jdbcType=SMALLINT},
+		#{refundValue,jdbcType=DOUBLE},
+		#{exchangeType,jdbcType=SMALLINT},
+		#{exchangeValue,jdbcType=DOUBLE},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.product.TicketRule">
+		update TICKETRULE
+		<set>
+			<if test="supId != null">
+				SUPID = #{supId,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				SORT = #{sort,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=SMALLINT},
+			</if>
+			<if test="refund != null">
+				REFUND = #{refund,jdbcType=SMALLINT},
+			</if>
+			<if test="timeType != null">
+				TIMETYPE = #{timeType,jdbcType=SMALLINT},
+			</if>
+			<if test="days != null">
+				DAYS = #{days,jdbcType=INTEGER},
+			</if>
+			<if test="hours != null">
+				HOURS = #{hours,jdbcType=DOUBLE},
+			</if>
+			<if test="minutes != null">
+				MINUTES = #{minutes,jdbcType=INTEGER},
+			</if>
+			<if test="refundType != null">
+				REFUNDTYPE = #{refundType,jdbcType=SMALLINT},
+			</if>
+			<if test="refundValue != null">
+				REFUNDVALUE = #{refundValue,jdbcType=DOUBLE},
+			</if>
+			<if test="exchangeType != null">
+				EXCHANGETYPE = #{exchangeType,jdbcType=SMALLINT},
+			</if>
+			<if test="exchangeValue != null">
+				exchangeValue = #{exchangeValue,jdbcType=DOUBLE},
+			</if>
+			<if test=" createDate != null">
+				createDate = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateDate != null">
+				updateDate = #{updateDate,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	<!-- 更新全部 -->
+	<update id="updateAllByPrimaryKey" parameterType="com.pzj.base.entity.product.TicketRule">
+		update
+		TICKETRULE SET
+		SUPID = #{supId,jdbcType=BIGINT},
+		NAME =
+		#{name,jdbcType=VARCHAR},
+		SORT = #{sort,jdbcType=INTEGER},
+		STATUS =
+		#{status,jdbcType=SMALLINT},
+		REFUND = #{refund,jdbcType=SMALLINT},
+		TIMETYPE = #{timeType,jdbcType=SMALLINT},
+		DAYS =
+		#{days,jdbcType=INTEGER},
+		HOURS = #{hours,jdbcType=DOUBLE},
+		MINUTES =
+		#{minutes,jdbcType=INTEGER},
+		REFUNDTYPE =
+		#{refundType,jdbcType=SMALLINT},
+		REFUNDVALUE =
+		#{refundValue,jdbcType=DOUBLE},
+		EXCHANGETYPE =
+		#{exchangeType,jdbcType=SMALLINT},
+		EXCHANGEVALUE =
+		#{exchangevalue,jdbcType=DOUBLE},
+		createDate =
+		#{createDate,jdbcType=TIMESTAMP},
+		updateDate =
+		#{updateDate,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+
+	<resultMap id="BaseResultMap_proID" type="com.pzj.base.entity.product.TicketRule"
+		extends="BaseResultMap">
+		<collection property="rels" columnPrefix="r_"
+			resultMap="com.pzj.base.product.IProductRuleRelMapper.BaseResultMap" />
+	</resultMap>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap_proID"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List_join" />
+		from TICKETRULE t left join PRODUCT_RULE_REL r on t.id = r.R_ID
+		where
+		t.ID = #{id,jdbcType=BIGINT}
+	</select>
+	<!-- 查询所有 -->
+	<select id="selectAllObj" parameterType="com.pzj.base.entity.product.TicketRule"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from TICKETRULE
+		order by createDate desc
+	</select>
+
+	<!-- 通用总纪录数 -->
+	<select id="countByParamMap" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(z.id) from (select t.id from TICKETRULE t left join PRODUCT_RULE_REL r on t.id = r.R_ID
+		<include refid="sql_of_where" />
+		group by t.id)z
+	</select>
+
+	<sql id="sql_of_where">
+		<if
+			test="bParam != null and bParam.proIds != null and bParam.proIds.size > 0">
+			and r.P_ID in
+			<foreach collection="bParam.proIds" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<trim prefixOverrides="and">
+			<where>
+				<if test="bParam != null">
+					<if test="bParam.id != null"> t.id = #{bParam.id,jdbcType=BIGINT} </if>
+					<if test="bParam.name != null"> AND t.name = #{bParam.name,jdbcType=VARCHAR} </if>
+					<if test="bParam.sort != null"> AND t.sort = #{bParam.sort,jdbcType=INTEGER} </if>
+					<if test="bParam.status != null"> AND t.status = #{bParam.status,jdbcType=INTEGER} </if>
+					<if test="bParam.refund != null"> AND t.refund = #{bParam.refund,jdbcType=BOOLEAN} </if>
+					<if test="bParam.timeType != null"> AND t.timeType = #{bParam.timeType,jdbcType=INTEGER}
+					</if>
+					<if test="bParam.days != null"> AND t.days = #{bParam.days,jdbcType=INTEGER} </if>
+					<if test="bParam.hours != null"> AND t.hours = #{bParam.hours,jdbcType=DOUBLE} </if>
+					<if test="bParam.minutes != null"> AND t.minutes = #{bParam.minutes,jdbcType=INTEGER}
+					</if>
+					<if test="bParam.refundType != null"> AND t.refundType =
+						#{bParam.refundType,jdbcType=INTEGER}
+					</if>
+					<if test="bParam.refundValue != null"> AND t.refundValue =
+						#{bParam.refundValue,jdbcType=DOUBLE}
+					</if>
+					<if test="bParam.exchangeType != null"> AND t.exchangeType =
+						#{bParam.exchangeType,jdbcType=INTEGER}
+					</if>
+					<if test="bParam.exchangeValue != null"> AND t.exchangeValue =
+						#{bParam.exchangeValue,jdbcType=DOUBLE}
+					</if>
+					<if test="bParam.ruleIds != null and bParam.ruleIds.size > 0">
+						AND t.id in
+						<foreach collection="bParam.ruleIds" item="item" open="("
+							separator="," close=")">
+							#{item}
+						</foreach>
+					</if>
+				</if>
+			</where>
+		</trim>
+	</sql>
+	<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map"
+		resultMap="BaseResultMap_proID">
+		select
+		<include refid="Base_Column_List_join" />
+		from TICKETRULE t inner join PRODUCT_RULE_REL r on t.id = r.R_ID
+		<include refid="sql_of_where" />
+		order by t.createDate desc
+		<if test="pParam != null">
+			<if test="pParam.orderByClause != null"> order by
+				${pParam.orderByClause}
+			</if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null">
+				limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+
+	<!-- 批量插入 -->
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into TICKETRULE
+		(
+		<include refid="Base_Column_List" />
+		)
+		values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.id,jdbcType=BIGINT},
+			#{item.supId,jdbcType=BIGINT},
+			#{item.name,jdbcType=VARCHAR},
+			#{item.sort,jdbcType=INTEGER},
+			#{item.status,jdbcType=SMALLINT},
+			#{item.refund,jdbcType=SMALLINT},
+			#{item.timeType,jdbcType=SMALLINT},
+			#{item.days,jdbcType=INTEGER},
+			#{item.hours,jdbcType=DOUBLE},
+			#{item.minutes,jdbcType=INTEGER},
+			#{item.refundType,jdbcType=SMALLINT},
+			#{item.refundValue,jdbcType=DOUBLE},
+			#{item.exchangeType,jdbcType=SMALLINT},
+			#{item.exchangeValue,jdbcType=DOUBLE},
+			#{item.createDate,jdbcType=TIMESTAMP},
+			#{item.updateDate,jdbcType=TIMESTAMP}
+			)
+		</foreach>
+	</insert>
+	<!-- 批量更新 -->
+	<update id="updateBatchByPrimaryKey" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open=""
+			close="" separator=";">
+			update TICKETRULE
+			<set>
+				<if test="item.supId != null">
+					SUPID = #{item.supId,jdbcType=BIGINT},
+				</if>
+				<if test="item.name != null">
+					NAME = #{item.name,jdbcType=VARCHAR},
+				</if>
+				<if test="item.sort != null">
+					SORT = #{item.sort,jdbcType=INTEGER},
+				</if>
+				<if test="item.status != null">
+					STATUS = #{item.status,jdbcType=SMALLINT},
+				</if>
+				<if test="item.refund != null">
+					REFUND = #{item.refund,jdbcType=SMALLINT},
+				</if>
+				<if test="item.timeType != null">
+					TIMETYPE = #{item.timeType,jdbcType=SMALLINT},
+				</if>
+				<if test="item.days != null">
+					DAYS = #{item.days,jdbcType=INTEGER},
+				</if>
+				<if test="item.hours != null">
+					HOURS = #{item.hours,jdbcType=DOUBLE},
+				</if>
+				<if test="item.minutes != null">
+					MINUTES = #{item.minutes,jdbcType=INTEGER},
+				</if>
+				<if test="item.refundType != null">
+					REFUNDTYPE = #{item.refundType,jdbcType=SMALLINT},
+				</if>
+				<if test="item.refundValue != null">
+					REFUNDVALUE = #{item.refundValue,jdbcType=DOUBLE},
+				</if>
+				<if test="item.exchangeType != null">
+					EXCHANGETYPE = #{item.exchangeType,jdbcType=SMALLINT},
+				</if>
+				<if test="item.exchangeValue != null">
+					EXCHANGEVALUE = #{item.exchangeValue,jdbcType=DOUBLE},
+				</if>
+				<if test="item.createDate != null">
+					createDate = #{item.createDate,jdbcType=TIMESTAMP},
+				</if>
+				<if test="item.updateDate != null">
+					updateDate = #{item.updateDate,jdbcType=TIMESTAMP}
+				</if>
+			</set>
+			where id = #{item.id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+
+	<!-- 新加（根据id查询） -->
+	<select id="findByIdList" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List_join" />
+		from TICKETRULE t left join PRODUCT_RULE_REL r on t.id = r.R_ID
+		<where>
+			<if test="idList != null and idList.size > 0 ">
+				t.id in
+				<foreach collection="idList" item="item" open="(" separator=","
+					close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+		order by createDate desc
+	</select>
+	<!-- 新加批量删除 -->
+	<delete id="deleteBatchByPrimaryKey" parameterType="java.util.List">
+		<foreach collection="list" item="item" separator=";">
+			delete from
+			TICKETRULE where id = #{item.id ,jdbcType=BIGINT}
+		</foreach>
+	</delete>
+</mapper>

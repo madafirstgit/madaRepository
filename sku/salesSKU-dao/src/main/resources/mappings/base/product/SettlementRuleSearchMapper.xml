@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.ISettlementRuleSearchMapper">
+
+<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+	id  
+	,product_id 
+	,strategy_id 
+	,not_total_settlement_type 
+	,reduce_settlement_money 
+	,parent_product_id 
+	,create_date 
+	,create_by 
+	,update_date 
+	,update_by 
+	,del_flag 
+	,supplier_id 
+	</sql>
+	
+<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.SysSettlementRule">
+	     <id column="id" property="id" jdbcType="BIGINT" />
+		<result column="product_id" jdbcType="BIGINT" property="productId" />
+		<result column="strategy_id" jdbcType="BIGINT" property="strategyId" />
+		<result column="not_total_settlement_type" jdbcType="INTEGER" property="notTotalSettlementType" />
+		<result column="reduce_settlement_money" jdbcType="DOUBLE" property="reduceSettlementMoney" />
+		<result column="parent_product_id" jdbcType="BIGINT" property="parentProductId" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="create_by" jdbcType="VARCHAR" property="createBy" />
+		<result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+		<result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+		<result column="del_flag" jdbcType="CHAR" property="delFlag" />
+		<result column="supplier_id" jdbcType="BIGINT" property="supplierId" />
+	</resultMap>
+
+<!-- 主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select  <include refid="Base_Column_List" />
+		from sys_settlement_rule
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+<!-- 通用查询条件 -->
+	<sql id="sql_of_where">
+		WHERE 1=1 
+		<if test="bParam != null" >
+			<if test="bParam.id != null"> AND id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.productId != null"> AND product_id = #{bParam.productId,jdbcType=BIGINT} </if>
+			<if test="bParam.strategyId != null"> AND strategy_id = #{bParam.strategyId,jdbcType=BIGINT} </if>
+			<if test="bParam.notTotalSettlementType != null"> AND not_total_settlement_type = #{bParam.notTotalSettlementType,jdbcType=INTEGER} </if>
+			<if test="bParam.reduceSettlementMoney != null"> AND reduce_settlement_money = #{bParam.reduceSettlementMoney,jdbcType=DOUBLE} </if>
+			<if test="bParam.parentProductId != null"> AND parent_product_id = #{bParam.parentProductId,jdbcType=BIGINT} </if>
+			<if test="bParam.createDate != null"> AND create_date = #{bParam.createDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.createBy != null"> AND create_by = #{bParam.createBy,jdbcType=VARCHAR} </if>
+			<if test="bParam.updateDate != null"> AND update_date = #{bParam.updateDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.updateBy != null"> AND update_by = #{bParam.updateBy,jdbcType=VARCHAR} </if>
+			<if test="bParam.delFlag != null"> AND del_flag = #{bParam.delFlag,jdbcType=CHAR} </if>
+			<if test="bParam.supplierId != null"> AND supplier_id = #{bParam.supplierId,jdbcType=BIGINT} </if>
+		    <if test="bParam.queryIdList != null and bParam.queryIdList.size > 0">
+                AND id in
+               <foreach collection="bParam.queryIdList" item="item" open="(" separator=","
+                        close=")">
+                   #{item}
+               </foreach>
+            </if>
+            <if test="bParam.queryStartegyIdList != null and bParam.queryStartegyIdList.size > 0">
+                AND strategy_id in
+               <foreach collection="bParam.queryStartegyIdList" item="item" open="(" separator=","
+                        close=")">
+                   #{item}
+               </foreach>
+            </if>
+            <if test="bParam.queryProductIdList != null and bParam.queryProductIdList.size > 0">
+                AND product_id in
+               <foreach collection="bParam.queryProductIdList" item="item" open="(" separator=","
+                        close=")">
+                   #{item}
+               </foreach>
+            </if>
+            <if test="bParam.queryParentProductIdList != null and bParam.queryParentProductIdList.size > 0">
+                AND parent_product_id in
+               <foreach collection="bParam.queryParentProductIdList" item="item" open="(" separator=","
+                        close=")">
+                   #{item}
+               </foreach>
+            </if>
+		</if>
+	</sql>
+	
+<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from sys_settlement_rule
+		<include refid="sql_of_where" />
+		<if test="pParam != null">
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(id) from sys_settlement_rule
+		<include refid="sql_of_where" />
+	</select>
+</mapper>

@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pzj.base.sku.mapper.XzSkuPriceBaseMapper">
+
+ 
+  <resultMap id="BaseResultMap" type="com.pzj.base.sku.entity.XzSkuPriceBase">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BOSSID" jdbcType="INTEGER" property="bossid" />
+    <result column="SKU_ID" jdbcType="INTEGER" property="skuId" />
+    <result column="BOOKING_PRICE_TYPE" jdbcType="VARCHAR" property="bookingPriceType" />
+    <result column="SKU_PARAMS_ID" jdbcType="INTEGER" property="skuParamsId" />
+    <result column="PRICE" jdbcType="DECIMAL" property="price" />
+    <result column="BOOKING_PRICE_UNIT" jdbcType="VARCHAR" property="bookingPriceUnit" />
+    <result column="IS_GROUP" jdbcType="SMALLINT" property="isGroup" />
+    <result column="MIN_NUMBER" jdbcType="INTEGER" property="minNumber" />
+    <result column="MAX_NUMBER" jdbcType="INTEGER" property="maxNumber" />
+  </resultMap>
+  
+   <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  
+  
+  <sql id="sql_of_base">
+  	ID,BOSSID,SKU_ID,BOOKING_PRICE_TYPE,SKU_PARAMS_ID,PRICE,BOOKING_PRICE_UNIT,IS_GROUP,
+  	MIN_NUMBER,MAX_NUMBER
+  </sql>
+   
+   <delete id="deleteByExample" parameterType="com.pzj.base.sku.entity.XzSkuPriceEventApplyToExample">
+    delete from XZ_SKU_PRICE_BASE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+   
+  <select id="selectListPrice" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select <include refid="sql_of_base"/>
+  	from XZ_SKU_PRICE_BASE 
+  	where SKU_ID = #{skuId}
+  </select>
+  
+  <sql id="Event_Column_List">
+    e.ID, e.BOSSID, e.EVENT_NAME, e.EVENT_TYPE, e.PRICE_TYPE, e.START_DATE, e.END_DATE, e.APPLICABLE_DAYS, 
+    e.APPLICABLE_TIME, e.DYNAMIC_PRICE_TYPE, e.DYNAMIC_PRICE_VALUE, e.RULESET, e.INVENTORY_STATUS, 
+    e.RECURRENCE, e.APPLY_ALL
+  </sql>
+   
+  <resultMap id="EventApplyToResultMap" type="com.pzj.base.sku.entity.XzSkuPriceEventApplyTo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BOSSID" jdbcType="INTEGER" property="bossid" />
+    <result column="SKU_ID" jdbcType="INTEGER" property="skuId" />
+    <result column="EVENT_ID" jdbcType="INTEGER" property="eventId" />
+    <result column="TARGET_ID" jdbcType="INTEGER" property="targetId" />
+    <result column="APPLY_TO_TYPE" jdbcType="INTEGER" property="applyToType" />
+  </resultMap>
+  <sql id="EventApplyTo_Column_List">
+    ID, BOSSID, SKU_ID, EVENT_ID, TARGET_ID, APPLY_TO_TYPE
+  </sql>
+
+  <!--
+  <select id="selectXzSkuPriceEventByskuIdAndMediaTable"  resultMap="EventResultMap">
+  	select <include refid="Event_Column_List"/>
+  	from XZ_SKU_PRICE_EVENT e left join XZ_SKU_PRICE_EVENT_APPLY_TO t on e.id = t.EVENT_ID 
+  	where t.SKU_ID = #{skuId} and t.id = #{eventApplyToId}
+  </select>
+--> 
+
+  
+     
+  <!-- 删除产品价格 -->
+  <delete id="skuDeletetAttrPrice" parameterType="com.pzj.base.sku.entity.XzSkuPriceBaseExample">
+    delete from XZ_SKU_PRICE_BASE where
+    <if test="_parameter != null">
+      <include refid="skuDeletetAttrPrice_Where_Clause" />
+    </if>
+  </delete>
+  <sql id="skuDeletetAttrPrice_Where_Clause">
+     <trim prefixOverrides="AND">
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER}
+      </if>
+      <if test="record.bossid != null">
+       AND BOSSID = #{record.bossid,jdbcType=INTEGER}
+      </if>
+      <if test="record.skuId != null">
+       AND SKU_ID = #{record.skuId,jdbcType=INTEGER}
+      </if>
+      <if test="record.bookingPriceType != null">
+       AND BOOKING_PRICE_TYPE = #{record.bookingPriceType,jdbcType=VARCHAR}
+      </if>
+      <if test="record.skuParamsId != null">
+       AND SKU_PARAMS_ID = #{record.skuParamsId,jdbcType=INTEGER}
+      </if>
+      <if test="record.price != null">
+       AND PRICE = #{record.price,jdbcType=DECIMAL}
+      </if>
+      <if test="record.bookingPriceUnit != null">
+        AND BOOKING_PRICE_UNIT = #{record.bookingPriceUnit,jdbcType=VARCHAR}
+      </if>
+      <if test="record.isGroup != null">
+        AND IS_GROUP = #{record.isGroup,jdbcType=SMALLINT}
+      </if>
+      <if test="record.minNumber != null">
+        AND MIN_NUMBER = #{record.minNumber,jdbcType=INTEGER}
+      </if>
+      <if test="record.maxNumber != null">
+        AND MAX_NUMBER = #{record.maxNumber,jdbcType=INTEGER}
+      </if>
+    </trim>
+  </sql>
+  
+  <!-- 原始方法 -->
+  <insert id="insertSelective"   parameterType="com.pzj.base.sku.entity.XzSkuPriceBase">
+    insert into XZ_SKU_PRICE_BASE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="bossid != null">
+        BOSSID,
+      </if>
+      <if test="skuId != null">
+        SKU_ID,
+      </if>
+      <if test="bookingPriceType != null">
+        BOOKING_PRICE_TYPE,
+      </if>
+      <if test="skuParamsId != null">
+        SKU_PARAMS_ID,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="bookingPriceUnit != null">
+        BOOKING_PRICE_UNIT,
+      </if>
+      <if test="isGroup != null">
+        IS_GROUP,
+      </if>
+      <if test="minNumber != null">
+        MIN_NUMBER,
+      </if>
+      <if test="maxNumber != null">
+        MAX_NUMBER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bossid != null">
+        #{bossid,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="bookingPriceType != null">
+        #{bookingPriceType,jdbcType=VARCHAR},
+      </if>
+      <if test="skuParamsId != null">
+        #{skuParamsId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="bookingPriceUnit != null">
+        #{bookingPriceUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="isGroup != null">
+        #{isGroup,jdbcType=SMALLINT},
+      </if>
+      <if test="minNumber != null">
+        #{minNumber,jdbcType=INTEGER},
+      </if>
+      <if test="maxNumber != null">
+        #{maxNumber,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.pzj.base.sku.entity.XzSkuPriceBase">
+    update XZ_SKU_PRICE_BASE
+    <set>
+      <if test="skuId != null">
+        SKU_ID = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="bookingPriceType != null">
+        BOOKING_PRICE_TYPE = #{bookingPriceType,jdbcType=VARCHAR},
+      </if>
+      <if test="skuParamsId != null">
+        SKU_PARAMS_ID = #{skuParamsId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="bookingPriceUnit != null">
+        BOOKING_PRICE_UNIT = #{bookingPriceUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="isGroup != null">
+        IS_GROUP = #{isGroup,jdbcType=SMALLINT},
+      </if>
+      <if test="minNumber != null">
+        MIN_NUMBER = #{minNumber,jdbcType=INTEGER},
+      </if>
+      <if test="maxNumber != null">
+        MAX_NUMBER = #{maxNumber,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER} and  BOSSID = #{bossid,jdbcType=INTEGER}
+  </update>
+  
+  <sql id="selectByExample_Column_List">
+    ID, BOSSID, SKU_ID, BOOKING_PRICE_TYPE, SKU_PARAMS_ID, PRICE, BOOKING_PRICE_UNIT, 
+    IS_GROUP, MIN_NUMBER, MAX_NUMBER
+  </sql>
+  
+  <select id="selectByExample" parameterType="com.pzj.base.sku.entity.XzSkuPriceBaseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="selectByExample_Column_List" />
+    from XZ_SKU_PRICE_BASE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="start!=null and start>=0">
+      limit #{start} , #{pageSize}
+    </if>
+  </select>
+
+
+  <select id="selectXzSkuI18ns" parameterType="com.pzj.base.sku.entity.XzSkuI18n" resultMap="XzSkuI18nResultMap" >
+  	 select <include refid="XzSkuI18n_Column_List" /> 
+  	 from XZ_SKU_I18N  
+  	 where <include refid="XzSkuI18n_Where_Clause" />
+  </select>
+  <sql id="XzSkuI18n_Column_List">
+    ID, BOSSID, SKU_ID, SKU_TITLE, SUMMARY, LOCATION, MARKER_TITLE, MARKER_DESCRIPTION, 
+    MARKER_LINK_TEXT, MAP_ZOOM, LANGUAGE, EMAIL_NOTIFICATION, MORE_INFO_URL, VIDEO_URL, 
+    VIDEO_START_TIME
+  </sql>
+  <resultMap id="XzSkuI18nResultMap" type="com.pzj.base.sku.entity.XzSkuI18n">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BOSSID" jdbcType="INTEGER" property="bossid" />
+    <result column="SKU_ID" jdbcType="INTEGER" property="skuId" />
+    <result column="SKU_TITLE" jdbcType="VARCHAR" property="skuTitle" />
+    <result column="SUMMARY" jdbcType="VARCHAR" property="summary" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="MARKER_TITLE" jdbcType="VARCHAR" property="markerTitle" />
+    <result column="MARKER_DESCRIPTION" jdbcType="VARCHAR" property="markerDescription" />
+    <result column="MARKER_LINK_TEXT" jdbcType="VARCHAR" property="markerLinkText" />
+    <result column="MAP_ZOOM" jdbcType="INTEGER" property="mapZoom" />
+    <result column="LANGUAGE" jdbcType="VARCHAR" property="language" />
+    <result column="EMAIL_NOTIFICATION" jdbcType="VARCHAR" property="emailNotification" />
+    <result column="MORE_INFO_URL" jdbcType="VARCHAR" property="moreInfoUrl" />
+    <result column="VIDEO_URL" jdbcType="VARCHAR" property="videoUrl" />
+    <result column="VIDEO_START_TIME" jdbcType="VARCHAR" property="videoStartTime" />
+  </resultMap>
+   <sql id="XzSkuI18n_Where_Clause">
+     <trim prefixOverrides="AND">
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER}
+      </if>
+      <if test="record.bossid != null">
+        AND BOSSID = #{record.bossid,jdbcType=INTEGER}
+      </if>
+      <if test="record.skuId != null">
+        AND SKU_ID = #{record.skuId,jdbcType=INTEGER}
+      </if>
+      <if test="record.skuTitle != null">
+        AND SKU_TITLE = #{record.skuTitle,jdbcType=VARCHAR}
+      </if>
+      <if test="record.summary != null">
+        AND SUMMARY = #{record.summary,jdbcType=VARCHAR}
+      </if>
+      <if test="record.location != null">
+        AND LOCATION = #{record.location,jdbcType=VARCHAR}
+      </if>
+      <if test="record.markerTitle != null">
+        AND MARKER_TITLE = #{record.markerTitle,jdbcType=VARCHAR}
+      </if>
+      <if test="record.markerDescription != null">
+        AND MARKER_DESCRIPTION = #{record.markerDescription,jdbcType=VARCHAR}
+      </if>
+      <if test="record.markerLinkText != null">
+        AND MARKER_LINK_TEXT = #{record.markerLinkText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mapZoom != null">
+        AND MAP_ZOOM = #{record.mapZoom,jdbcType=INTEGER}
+      </if>
+      <if test="record.language != null">
+        AND LANGUAGE = #{record.language,jdbcType=VARCHAR}
+      </if>
+      <if test="record.emailNotification != null">
+        AND EMAIL_NOTIFICATION = #{record.emailNotification,jdbcType=VARCHAR}
+      </if>
+      <if test="record.moreInfoUrl != null">
+        AND MORE_INFO_URL = #{record.moreInfoUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="record.videoUrl != null">
+        AND VIDEO_URL = #{record.videoUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="record.videoStartTime != null">
+        AND VIDEO_START_TIME = #{record.videoStartTime,jdbcType=VARCHAR}
+      </if>
+      <if test="record.details != null">
+        AND DETAILS = #{record.details,jdbcType=LONGVARCHAR}
+      </if>
+    </trim>
+  </sql>
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into XZ_SKU_PRICE_BASE values
+		<trim  suffixOverrides=",">
+			<foreach collection="list" item="sku" open="" close="" separator=",">
+				(
+				#{sku.id,jdbcType=INTEGER},
+				#{sku.bossid,jdbcType=INTEGER},
+				#{sku.skuId,jdbcType=INTEGER},
+				#{sku.bookingPriceType,jdbcType=VARCHAR},
+				#{sku.skuParamsId,jdbcType=INTEGER},
+				#{sku.price,jdbcType=DECIMAL},
+				#{sku.bookingPriceUnit,jdbcType=VARCHAR},
+				#{sku.isGroup,jdbcType=SMALLINT},
+				#{sku.minNumber,jdbcType=INTEGER},
+				#{sku.maxNumber,jdbcType=INTEGER}
+				)
+			</foreach>
+		</trim>
+	</insert>
+</mapper>

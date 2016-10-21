@@ -1,0 +1,748 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IProductRelationMapper">
+
+<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+	id  
+	,obj_id 
+	,obj_type 
+	,rel_id 
+	,rel_type 
+	,create_by 
+	,create_date 
+	,update_by 
+	,update_date 
+	,sort 
+	,flag 
+	,remarks 
+	,group_code 
+	,supplier_id 
+	</sql>
+	
+<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.product.ProductRelation">
+	    <id column="id" property="id" jdbcType="BIGINT" />
+		<result column="obj_id" jdbcType="BIGINT" property="objId" />
+		<result column="obj_type" jdbcType="VARCHAR" property="objType" />
+		<result column="rel_id" jdbcType="BIGINT" property="relId" />
+		<result column="rel_type" jdbcType="VARCHAR" property="relType" />
+		<result column="create_by" jdbcType="VARCHAR" property="createBy" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+		<result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+		<result column="sort" jdbcType="INTEGER" property="sort" />
+		<result column="flag" jdbcType="CHAR" property="flag" />
+		<result column="remarks" jdbcType="VARCHAR" property="remarks" />
+		<result column="group_code" jdbcType="VARCHAR" property="groupCode" />
+		<result column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+	</resultMap>
+
+	<resultMap id="PackageWithScenicResultMap" type="com.pzj.base.entity.product.ProductScenicAndSupplier">
+		<result column="product_id" jdbcType="BIGINT" property="productId" />
+		<result column="supplier_id" jdbcType="BIGINT" property="supplierId" />
+		<result column="scenic_id" jdbcType="BIGINT" property="scenicId" />
+		<result column="scenic_cnt" jdbcType="BIGINT" property="scenicCnt" />
+	</resultMap>
+
+	<resultMap id="PackageWithUserResultMap" type="com.pzj.base.entity.query.ProductUser">
+		<id column="obj_id" jdbcType="BIGINT" property="productId" />
+		<collection property="userList" ofType="com.pzj.base.entity.SysUser">
+			<id column="_user_id" property="id" jdbcType="BIGINT"/>
+			<id column="_user_name" property="name" jdbcType="VARCHAR"/>
+		</collection>
+	</resultMap>
+
+<!-- 主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select  <include refid="Base_Column_List" />
+		from product_relation
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<select id="selectPackageWithScenic" resultMap="PackageWithScenicResultMap">
+		select
+			package.product_id, package.supplier_id, package_sub.scenic_cnt, relation.rel_id as scenic_id
+		from product_relation relation
+		inner join product_package_sub package_sub on relation.obj_id = package_sub.id and relation.rel_type = 'scenic' and relation.obj_type = 'package_sub'
+		inner join product_package package on package_sub.package_id = package.id
+		where package.product_id in <foreach collection="list" item="item" open="(" separator="," close=")">#{item,jdbcType=BIGINT}</foreach>
+	</select>
+
+<!-- 删除 -->	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product_relation where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+<!-- 通用查询条件 -->
+	<sql id="sql_of_where">
+		WHERE 1=1 
+		<if test="bParam != null" >
+			<if test="bParam.id != null"> AND id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.objIds != null and bParam.objIds.size > 0">
+				AND obj_id in
+				    <foreach collection="bParam.objIds" item="_objId" open="(" separator="," close=")">
+	                    #{_objId}
+	                </foreach>
+			</if>
+			<if test="bParam.relIds != null and bParam.relIds.size > 0">
+				AND rel_id in
+				    <foreach collection="bParam.relIds" item="_relId" open="(" separator="," close=")">
+	                    #{_relId}
+	                </foreach>
+			</if>
+			<if test="bParam.objId != null"> AND obj_id = #{bParam.objId,jdbcType=BIGINT} </if>
+			<if test="bParam.objType != null"> AND obj_type = #{bParam.objType,jdbcType=VARCHAR} </if>
+			<if test="bParam.relId != null"> AND rel_id = #{bParam.relId,jdbcType=BIGINT} </if>
+			<if test="bParam.relType != null"> AND rel_type = #{bParam.relType,jdbcType=VARCHAR} </if>
+			<if test="bParam.createBy != null"> AND create_by = #{bParam.createBy,jdbcType=VARCHAR} </if>
+			<if test="bParam.createDate != null"> AND create_date = #{bParam.createDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.updateBy != null"> AND update_by = #{bParam.updateBy,jdbcType=VARCHAR} </if>
+			<if test="bParam.updateDate != null"> AND update_date = #{bParam.updateDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.sort != null"> AND sort = #{bParam.sort,jdbcType=INTEGER} </if>
+			<if test="bParam.flag != null"> AND flag = #{bParam.flag,jdbcType=CHAR} </if>
+			<if test="bParam.remarks != null"> AND remarks = #{bParam.remarks,jdbcType=VARCHAR} </if>
+			<if test="bParam.groupCode != null"> AND group_code = #{bParam.groupCode,jdbcType=VARCHAR} </if>
+			<if test="bParam.supplierId != null"> AND supplier_id = #{bParam.supplierId,jdbcType=VARCHAR} </if>
+		</if>
+	</sql>
+	
+<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from product_relation
+		<include refid="sql_of_where" />
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null" > order by id desc</if>
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(id) from product_relation
+		<include refid="sql_of_where" />
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.pzj.base.entity.product.ProductRelation" useGeneratedKeys="true" keyProperty="id">
+		insert into product_relation 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				id, 
+			<if test="objId != null">
+			    obj_id,
+			</if>
+			<if test="objType != null">
+			    obj_type,
+			</if>
+			<if test="relId != null">
+			    rel_id,
+			</if>
+			<if test="relType != null">
+			    rel_type,
+			</if>
+			<if test="createBy != null">
+			    create_by,
+			</if>
+			<if test="createDate != null">
+			    create_date,
+			</if>
+			<if test="updateBy != null">
+			    update_by,
+			</if>
+			<if test="updateDate != null">
+			    update_date,
+			</if>
+			<if test="sort != null">
+			    sort,
+			</if>
+			<if test="flag != null">
+			    flag,
+			</if>
+			<if test="remarks != null">
+			    remarks,
+			</if>
+			<if test="groupCode != null">
+			    group_code,
+			</if>
+			<if test="supplierId != null">
+			    supplier_id,
+			</if> 
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			     #{id,jdbcType=BIGINT}, 
+			<if test="objId != null">
+			    #{objId,jdbcType=BIGINT},
+			</if>
+			<if test="objType != null">
+			    #{objType,jdbcType=VARCHAR},
+			</if>
+			<if test="relId != null">
+			    #{relId,jdbcType=BIGINT},
+			</if>
+			<if test="relType != null">
+			    #{relType,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+			    #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+			    #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+			    #{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+			    #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sort != null">
+			    #{sort,jdbcType=INTEGER},
+			</if>
+			<if test="flag != null">
+			    #{flag,jdbcType=CHAR},
+			</if>
+			<if test="remarks != null">
+			    #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="groupCode != null">
+			    #{groupCode,jdbcType=VARCHAR},
+			</if>
+			<if test="supplierId != null">
+			    #{supplierId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+<!-- 批量插入 请根据业务修改默认值-->	
+    <insert id="insertBatch"  parameterType="java.util.List">
+		insert into product_relation 
+		(id  
+		,obj_id 
+		,obj_type 
+		,rel_id 
+		,rel_type 
+		,create_by 
+		,create_date 
+		,update_by 
+		,update_date 
+		,sort 
+		,flag 
+		,remarks 
+		,group_code 
+		,supplier_id  
+		) 
+		values
+		<foreach collection="list" item="item" separator=",">
+		(#{item.id,jdbcType=BIGINT}  
+			<choose>  
+				<when test="item.objId != null">,#{item.objId ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.objType != null">,#{item.objType ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.relId != null">,#{item.relId ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.relType != null">,#{item.relType ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.createBy != null">,#{item.createBy ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.createDate != null">,#{item.createDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.updateBy != null">,#{item.updateBy ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.updateDate != null">,#{item.updateDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.sort != null">,#{item.sort ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.flag != null">,#{item.flag ,jdbcType=CHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.remarks != null">,#{item.remarks ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.groupCode != null">,#{item.groupCode ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.supplierId != null">,#{item.supplierId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose> 
+		)
+		</foreach>
+	</insert>
+
+<!-- 更新 -->
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.product.ProductRelation">
+		update product_relation
+		<set>
+			<if test="objId != null" >
+             obj_id = #{objId,jdbcType=BIGINT},
+            </if>
+			<if test="objType != null" >
+             obj_type = #{objType,jdbcType=VARCHAR},
+            </if>
+			<if test="relId != null" >
+             rel_id = #{relId,jdbcType=BIGINT},
+            </if>
+			<if test="relType != null" >
+             rel_type = #{relType,jdbcType=VARCHAR},
+            </if>
+			<if test="updateBy != null" >
+             update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+			<if test="updateDate != null" >
+             update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+			<if test="sort != null" >
+             sort = #{sort,jdbcType=INTEGER},
+            </if>
+			<if test="flag != null" >
+             flag = #{flag,jdbcType=CHAR},
+            </if>
+			<if test="remarks != null" >
+             remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+			<if test="groupCode != null" >
+             group_code = #{groupCode,jdbcType=VARCHAR},
+            </if>
+			<if test="supplierId != null" >
+             supplier_id = #{supplierId,jdbcType=VARCHAR},
+            </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+<!-- 批量更新 -->
+	<update id="updateBatchByPrimaryKey"  parameterType="java.util.List">
+	     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update product_relation 
+                <set>
+                  <if test="item.objId != null" >
+                    obj_id = #{item.objId,jdbcType=BIGINT},
+                  </if>
+                  <if test="item.objType != null" >
+                    obj_type = #{item.objType,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.relId != null" >
+                    rel_id = #{item.relId,jdbcType=BIGINT},
+                  </if>
+                  <if test="item.relType != null" >
+                    rel_type = #{item.relType,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.updateBy != null" >
+                    update_by = #{item.updateBy,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.updateDate != null" >
+                    update_date = #{item.updateDate,jdbcType=TIMESTAMP},
+                  </if>
+                  <if test="item.sort != null" >
+                    sort = #{item.sort,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.flag != null" >
+                    flag = #{item.flag,jdbcType=CHAR},
+                  </if>
+                  <if test="item.remarks != null" >
+                    remarks = #{item.remarks,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.groupCode != null" >
+                    group_code = #{item.groupCode,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.supplierId != null" >
+                    supplier_id = #{item.supplierId,jdbcType=VARCHAR},
+                  </if>
+                </set>
+                where id = #{item.id,jdbcType=BIGINT}
+         </foreach>
+	</update>
+	
+	<!-- 根据参数删除 -->
+	<delete id="deleteByParam" parameterType="java.util.Map">
+	   delete from product_relation
+	   <where>
+        <if test="objId != null" >
+           and obj_id = #{objId}
+        </if>
+        <if test="relId != null" >
+           and rel_id = #{relId}
+        </if>
+        <if test="relType != null" >
+           and rel_type = #{relType}
+        </if>
+        <if test="objType != null" >
+           and obj_type = #{objType}
+        </if>
+        <if test="groupCode != null" >
+           and group_code = #{groupCode}
+        </if>
+	   </where>
+	</delete>
+	
+<!-- 根据objIds或relIds查询 -->
+  <select id="findByIdsMap" resultMap="BaseResultMap"  parameterType="map">
+     select
+     <include refid="Base_Column_List" />
+     from product_relation 
+     <where>
+        <if test="objId != null and objId.size > 0">
+	       and obj_id in (
+	        <foreach collection="objId" item="_objId" separator=",">
+	            #{_objId}
+	        </foreach>
+	        )
+        </if>
+        <if test="relId != null and relId.size > 0" >
+           and rel_id in (
+            <foreach collection="relId" item="_relId" separator=",">
+                #{_relId}
+            </foreach>
+            )
+        </if>
+        <if test="relType != null">
+           and rel_type = #{relType}
+        </if>
+        <if test="objType != null">
+           and obj_type = #{objType}
+        </if>
+        <if test="groupCode != null">
+           and group_code = #{groupCode}
+        </if>
+        <if test="groupCodes != null and groupCodes.size > 0" >
+           and group_code in (
+            <foreach collection="groupCodes" item="_group_code" separator=",">
+                #{_group_code}
+            </foreach>
+            )
+        </if>
+     </where>
+  </select>
+  	<!-- 查询返利积分规则列表 -->
+	<select id="queryPageByParams" parameterType="java.util.Map" resultType="com.pzj.base.entity.product.ProductRelation">
+      select  b.id as id,
+		 b.label as objType,
+		<if test="bParam.relType == null">
+		  group_concat(c.name ORDER BY c.name separator "," ) AS relType,
+		</if>
+		<if test="bParam.relType != null">
+          c.name AS relType,
+        </if>
+        b.flag as flag
+		from product_relation a,product_dict b,product_release c
+		where a.obj_id = b.id and a.rel_id = c.id 
+		  and a.obj_type = #{bParam.createBy,jdbcType=VARCHAR} 
+		  and a.rel_type = #{bParam.updateBy,jdbcType=VARCHAR}
+		  and b.type = #{bParam.remarks,jdbcType=VARCHAR}
+       <if test="bParam.id != null">
+            and b.id =  #{bParam.id,jdbcType=BIGINT}
+       </if>
+       <if test="bParam.objType != null">
+            and b.label =  #{bParam.objType,jdbcType=VARCHAR}
+       </if>
+       <if test="bParam.flag != null">
+            and b.flag = #{bParam.flag,jdbcType=VARCHAR}
+       </if>
+       <if test="bParam.relType != null">
+            and c.name = #{bParam.relType,jdbcType=VARCHAR}
+       </if>
+       <if test="bParam.supplierId != null">
+            and a.supplier_id = #{bParam.supplierId,jdbcType=VARCHAR}
+       </if>
+       <if test="bParam.objIds != null and bParam.objIds.size > 0">
+	       and a.obj_id in (
+	        <foreach collection="bParam.objIds" item="_objId" separator=",">
+	            #{_objId}
+	        </foreach>
+	        )
+        </if>
+       group by a.obj_id
+       order by a.obj_id desc
+        <if test="pParam != null">
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+    </select>
+    
+    <select id="queryCountByParams" parameterType="java.util.Map" resultType="java.lang.Integer">
+      select count(d.id) from (
+      select b.id
+        from product_relation a,product_dict b,product_release c
+        where a.obj_id = b.id and a.rel_id = c.id 
+          and a.obj_type = #{bParam.createBy,jdbcType=VARCHAR} 
+          and a.rel_type = #{bParam.updateBy,jdbcType=VARCHAR}
+          and b.type = #{bParam.remarks,jdbcType=VARCHAR}
+       <if test="bParam.id != null">
+            and b.id =  #{bParam.id,jdbcType=BIGINT}
+       </if>
+       <if test="bParam.objType != null">
+            and b.label =  #{bParam.objType,jdbcType=VARCHAR}
+       </if>
+       <if test="bParam.flag != null">
+            and b.flag = #{bParam.flag,jdbcType=VARCHAR}
+       </if>
+       <if test="bParam.relType != null">
+            and c.name = #{bParam.relType,jdbcType=VARCHAR}
+       </if>
+       group by a.obj_id
+       ) d
+    </select>
+   <!-- <select id="queryRels" parameterType="com.pzj.base.entity.product.ProductRelation" resultType="com.pzj.base.entity.product.ProductRelation">
+        select obj_id,rel_id from product_relation 
+        <where>
+            <if test="objIds != null and objIds.size > 0">
+				AND obj_id in
+				    <foreach collection="objIds" item="_objId" open="(" separator="," close=")">
+	                    #{_objId}
+	                </foreach>
+			</if>
+	        <if test="relType != null">
+	           and rel_type = #{relType}
+	        </if>
+	        <if test="objType != null">
+	           and obj_type = #{objType}
+	        </if>
+	        <if test="flag != null">
+            and flag = #{flag}
+       </if>
+        </where>
+        group by rel_id
+    </select> -->
+    <!-- 查询渠道产品最低价最高价 -->
+    <select id="findMaxMin" parameterType="java.util.Map" resultType="java.util.Map">
+		select max(f.price) as maxprice,min(f.price) as minprice,
+			   e.name,e.city,e.grade,e.id as scenicId,e.img_url as imgUrl 
+		  from
+			   sys_label_relation a,
+			   sys_label_relation b,
+			   product_release c,
+			   product_relation d,
+			   product_scenic e,
+			   sys_channel_strategy f 
+		<where>
+			a.rel_type = #{strategyChannelType}
+			and a.obj_id = b.obj_id
+			and b.rel_type = #{strategyProductType}
+			and b.rel_id = d.obj_id
+			and d.obj_type = #{proReleaseType}
+			and d.rel_type = #{scenicType}
+			and d.rel_id = e.id
+			and b.obj_id = f.id
+			and d.obj_id = c.id 
+		 	<if test="channelIdList != null and channelIdList.size > 0">
+				and a.rel_id in
+			    <foreach collection="channelIdList" item="_objId" open="(" separator="," close=")">
+                    #{_objId}
+                </foreach>
+			</if>
+			<if test="classify != null">
+				and c.product_classify = #{classify}
+			</if>
+			<if test="kinds != null">
+				and c.product_kind = #{kinds}
+			</if>
+			<if test="scenicType != null">and e.type = #{scenicType}</if>
+			<if test="scenicCity != null">and e.city = #{scenicCity}</if>
+			<if test="scenicGrade != null">and e.grade = #{scenicGrade}</if>
+			<if test="scenicName != null">and e.name = #{scenicName}</if>
+		</where>
+			group by d.rel_id
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null" > order by b.id </if>
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null"> limit
+				#{pParam.startIndex} , #{pParam.pageSize}</if>
+		</if>
+	</select>
+	<select id="findCouMaxMin" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from (
+			select max(f.price) as maxprice,min(f.price) as minprice,
+			   e.name,e.city,e.grade,e.id as scenicId,e.img_url as imgUrl 
+		  from
+			   sys_label_relation a,
+			   sys_label_relation b,
+			   product_release c,
+			   product_relation d,
+			   product_scenic e,
+			   sys_channel_strategy f 
+		<where>
+			a.rel_type = #{strategyChannelType}
+			and a.obj_id = b.obj_id
+			and b.rel_type = #{strategyProductType}
+			and b.rel_id = d.obj_id
+			and d.obj_type = #{proReleaseType}
+			and d.rel_type = #{scenicType}
+			and d.rel_id = e.id
+			and b.obj_id = f.id
+			and d.obj_id = c.id 
+			and f.status = '1'
+			and c.flag = '1'
+		 	<if test="channelIdList != null and channelIdList.size > 0">
+				and a.rel_id in
+			    <foreach collection="channelIdList" item="_objId" open="(" separator="," close=")">
+                    #{_objId}
+                </foreach>
+			</if>
+			<if test="classify != null">
+				and c.product_classify = #{classify}
+			</if>
+			<if test="kinds != null">
+				and c.product_kind = #{kinds}
+			</if>
+			<if test="scenicType != null">and e.type = #{scenicType}</if>
+			<if test="scenicCity != null">and e.city = #{scenicCity}</if>
+			<if test="scenicGrade != null">and e.grade = #{scenicGrade}</if>
+			<if test="scenicName != null">and e.name = #{scenicName}</if>
+		</where>
+			group by d.rel_id
+		) k
+	</select>
+	<!-- 查询产品所含景区集合 -->
+	<select id="findScenicByProductId" parameterType="java.util.List" resultType="map">
+		SELECT
+			a.obj_id AS productId,
+			b.id AS scenicId,
+			b.name AS scenicName
+			FROM
+			product_relation AS a
+			LEFT JOIN product_scenic AS b ON a.rel_id = b.id
+			WHERE
+				a.obj_type = #{proReleaseType}
+			    and a.rel_type = #{scenicType} 
+			<if test="bParam != null and bParam.size > 0">
+			    and a.obj_id in 
+				<foreach collection="bParam" item="_objId" open="(" separator="," close=")">
+	                #{_objId}
+	            </foreach>
+			</if>
+	</select>
+	<!-- 查询产品所含景景点集合 -->
+	<select id="findScenicBySpotProductId" parameterType="java.util.List" resultType="map">
+		SELECT
+			a.obj_id AS productId,
+			b.id AS scenicSpotId,
+			b.sd_name AS scenicSpotName,
+			b.subsidiaryType AS subsidiaryType
+			FROM
+			product_relation AS a
+			LEFT JOIN product_site_data AS b ON a.rel_id = b.id
+			WHERE
+				a.obj_type = #{proReleaseType}
+			    and a.rel_type = #{scenicSpotType} 
+			<if test="bParam != null and bParam.size > 0">
+			    and a.obj_id in 
+				<foreach collection="bParam" item="_objId" open="(" separator="," close=")">
+	                #{_objId}
+	            </foreach>
+			</if>
+	</select>
+	<!-- 根据产品查询景区集合，已去除重复 -->
+	<select id="findScenicByProduct" parameterType="java.util.List" resultType="map">
+		SELECT
+			DISTINCT(b.id) AS scenicId,
+			b.name AS scenicName,
+			b.city as city,
+			b.province as province,
+			b.grade as grade,
+			b.img_url as img_url 
+			FROM
+			product_relation AS a
+			LEFT JOIN product_scenic AS b ON a.rel_id = b.id
+			WHERE
+				a.obj_type = #{proReleaseType}
+			    and a.rel_type = #{scenicType} 
+			<if test="status != null">
+				and b.status = #{status}
+			</if>
+			<if test="bParam != null and bParam.size > 0">
+			    and a.obj_id in 
+				<foreach collection="bParam" item="_objId" open="(" separator="," close=")">
+	                #{_objId}
+	            </foreach>
+			</if>
+	</select>
+
+	<!-- 根据产品查询供应商 -->
+	<!-- 用于子票关联的供应商 -->
+	<select id="findUserByProduct" resultMap="PackageWithUserResultMap">
+		select relation.obj_id, user.id as _user_id, user.name as _user_name from product_relation relation
+		inner join sys_user user on relation.rel_id  = user.id
+		and rel_type = 'supplier'
+		<where>
+			<if test="pu != null">
+				<if test="pu.productIds != null and pu.productIds.size > 0">
+					relation.obj_id in
+					<foreach collection="pu.productIds" item="_objId" open="(" separator="," close=")">
+						#{_objId}
+					</foreach>
+				</if>
+				<if test="pu.productId != null">
+					and relation.obj_id = #{pu.productId, jdbcType=BIGINT}
+				</if>
+			</if>
+		</where>
+	</select>
+	
+	<!-- <select id="findProductSupplier" parameterType="map" resultMap="map">
+		select c.obj_id as productId,a.name as name 
+		from sys_user a,scenic b,product_relation c 
+		where a.id = b.parent_id 
+		and b.id = c.rel_id and c.rel_type = #{scenicType} and c.obj_type = #{proReleaseType}
+		and c.obj_id in
+		<foreach collection="bParam" item="_objId" open="(" separator="," close=")">
+            #{_objId}
+        </foreach>
+	</select> -->
+	
+	
+	<!-- 20160727 二次迭代新加接口 start-->
+	<delete id="deleteBatchByParam" parameterType="java.util.List">
+	<foreach collection="list" item="item" separator=";">
+		   delete from product_relation
+		   <where>
+	        <if test="item.objId != null" >
+	           and obj_id = #{item.objId}
+	        </if>
+	        <if test="item.relId != null" >
+	           and rel_id = #{item.relId}
+	        </if>
+	        <if test="item.relType != null" >
+	           and rel_type = #{item.relType}
+	        </if>
+	        <if test="item.objType != null" >
+	           and obj_type = #{item.objType}
+	        </if>
+	        <if test="item.groupCode != null" >
+	           and group_code = #{item.groupCode}
+	        </if>
+	         <if test="item.supplierId != null" >
+	           and supplier_id = #{item.supplierId}
+	        </if>
+		   </where>
+	   </foreach>
+	</delete>
+	<!-- 20160727 二次迭代新加接口 end-->
+	
+</mapper>

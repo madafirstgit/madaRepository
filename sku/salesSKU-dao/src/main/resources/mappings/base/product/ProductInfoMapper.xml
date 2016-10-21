@@ -1,0 +1,1274 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IProductInfoMapper">
+
+    <!-- 所有字段 -->
+    <sql id="Base_Column_List">
+        info.id
+        ,info.name
+        ,info.product_type
+        ,info.release_thurl
+        ,info.start_time
+        ,info.end_time
+        ,info.product_no
+        ,info.minutes_node
+        ,info.hour_node
+        ,info.product_sum_repertory
+        ,info.product_usable_repertory
+        ,info.create_by
+        ,info.create_date
+        ,info.update_by
+        ,info.update_date
+        ,info.sort
+        ,info.flag
+        ,info.remarks
+        ,info.combination_name
+        ,info.combination_code
+        ,info.reease_message
+        ,info.reease_info
+        ,info.supplier_id
+        ,info.playtimeMode
+        ,info.playtimeValue
+        ,info.playtimeUnit
+        ,info.gainType
+        ,info.gainPeopleNum
+        ,info.gainPeopleTimeLimitUnit
+        ,info.gainPeopleTimeLimitValue
+        ,info.gainPeopleTimePurchaseNum
+        ,info.minPurchaseNumInOrder
+
+        ,info.is_need_scenic
+        ,info.ronda_name
+        ,info.checkIn_type
+        ,info.checkin_address
+        ,info.sale_start_date
+        ,info.sale_end_date
+        ,info.is_need_playtime
+        ,info.no_playtime_ordertime_type
+        ,info.ordertime_value
+        ,info.ordertime_unit
+        ,info.one_word_feature
+        ,info.product_info_detail
+        ,info.order_info
+        ,info.expense_info
+        ,info.salesmanship
+        ,info.important_clause
+        ,info.attentions
+        ,info.use_method
+        ,info.start_date
+        ,info.end_date
+        ,info.photoinfo_id
+        ,info.sku_grouping
+        ,info.more_info_url
+        ,info.province
+        ,info.city
+        ,info.county
+    </sql>
+
+    <sql id="Alias_Column_List">
+        info.id as info_id
+        ,info.name as info_name
+        ,info.product_type as info_product_type
+        ,info.release_thurl as info_release_thurl
+        ,info.start_time as info_start_time
+        ,info.end_time as info_end_time
+        ,info.product_no as info_product_no
+        ,info.minutes_node as info_minutes_node
+        ,info.hour_node as info_hour_node
+        ,info.product_sum_repertory as info_product_sum_repertory
+        ,info.product_usable_repertory as info_product_usable_repertory
+        ,info.create_by as info_create_by
+        ,info.create_date as info_create_date
+        ,info.update_by as info_update_by
+        ,info.update_date as info_update_date
+        ,info.sort as info_sort
+        ,info.flag as info_flag
+        ,info.remarks as info_remarks
+        ,info.combination_name as info_combination_name
+        ,info.combination_code as info_combination_code
+        ,info.reease_message as info_reease_message
+        ,info.reease_info as info_reease_info
+        ,info.supplier_id as info_supplier_id
+        ,info.playtimeMode as info_playtimeMode
+        ,info.playtimeValue as info_playtimeValue
+        ,info.playtimeUnit as info_playtimeUnit
+        ,info.gainType as info_gainType
+        ,info.gainPeopleNum as info_gainPeopleNum
+        ,info.gainPeopleTimeLimitUnit as info_gainPeopleTimeLimitUnit
+        ,info.gainPeopleTimeLimitValue as info_gainPeopleTimeLimitValue
+        ,info.gainPeopleTimePurchaseNum as info_gainPeopleTimePurchaseNum
+        ,info.minPurchaseNumInOrder as info_minPurchaseNumInOrder
+
+        ,info.is_need_scenic as info_is_need_scenic
+        ,info.ronda_name as info_ronda_name
+        ,info.checkIn_type as info_checkIn_type
+        ,info.checkin_address as info_checkin_address
+        ,info.start_time as info_start_time
+        ,info.end_time as info_end_time
+        ,info.sale_start_date as info_sale_start_date
+        ,info.sale_end_date as info_sale_end_date
+        ,info.is_need_playtime as info_is_need_playtime
+        ,info.no_playtime_ordertime_type as info_no_playtime_ordertime_type
+        ,info.ordertime_value as info_ordertime_value
+        ,info.ordertime_unit as info_ordertime_unit
+        ,info.one_word_feature as info_one_word_feature
+        ,info.product_info_detail as info_product_info_detail
+        ,info.order_info as info_order_info
+        ,info.expense_info as info_expense_info
+        ,info.salesmanship as info_salesmanship
+        ,info.important_clause as info_important_clause
+        ,info.attentions as info_attentions
+        ,info.use_method as info_use_method
+        ,info.start_date as info_start_date
+        ,info.end_date as info_end_date
+        ,info.photoinfo_id as info_photoinfo_id
+        ,info.sku_grouping as info_sku_grouping
+        ,info.more_info_url as info_more_info_url
+        ,info.province as info_province
+        ,info.city as info_city
+        ,info.county as info_county
+    </sql>
+
+    <sql id="RelaAlias_Column_List">
+        info.id as relproduct_info_id
+        ,info.name as relproduct_info_name
+        ,info.product_type as relproduct_info_product_type
+        ,info.release_thurl as relproduct_info_release_thurl
+        ,info.start_time as relproduct_info_start_time
+        ,info.end_time as relproduct_info_end_time
+        ,info.product_no as relproduct_info_product_no
+        ,info.minutes_node as relproduct_info_minutes_node
+        ,info.hour_node as relproduct_info_hour_node
+        ,info.product_sum_repertory as relproduct_info_product_sum_repertory
+        ,info.product_usable_repertory as relproduct_info_product_usable_repertory
+        ,info.create_by as relproduct_info_create_by
+        ,info.create_date as relproduct_info_create_date
+        ,info.update_by as relproduct_info_update_by
+        ,info.update_date as relproduct_info_update_date
+        ,info.sort as relproduct_info_sort
+        ,info.flag as relproduct_info_flag
+        ,info.remarks as relproduct_info_remarks
+        ,info.combination_name as relproduct_info_combination_name
+        ,info.combination_code as relproduct_info_combination_code
+        ,info.reease_message as relproduct_info_reease_message
+        ,info.reease_info as relproduct_info_reease_info
+        ,info.supplier_id as relproduct_info_supplier_id
+        ,info.playtimeMode as relproduct_info_playtimeMode
+        ,info.playtimeValue as relproduct_info_playtimeValue
+        ,info.playtimeUnit as relproduct_info_playtimeUnit
+        ,info.gainType as relproduct_info_gainType
+        ,info.gainPeopleNum as relproduct_info_gainPeopleNum
+        ,info.gainPeopleTimeLimitUnit as relproduct_info_gainPeopleTimeLimitUnit
+        ,info.gainPeopleTimeLimitValue as relproduct_info_gainPeopleTimeLimitValue
+        ,info.gainPeopleTimePurchaseNum as relproduct_info_gainPeopleTimePurchaseNum
+        ,info.minPurchaseNumInOrder as relproduct_info_minPurchaseNumInOrder
+
+        ,info.is_need_scenic as relproduct_info_is_need_scenic
+        ,info.ronda_name as relproduct_info_ronda_name
+        ,info.checkIn_type as relproduct_info_checkIn_type
+        ,info.checkin_address as relproduct_info_checkin_address
+        ,info.start_time as relproduct_info_start_time
+        ,info.end_time as relproduct_info_end_time
+        ,info.sale_start_date as relproduct_info_sale_start_date
+        ,info.sale_end_date as relproduct_info_sale_end_date
+        ,info.is_need_playtime as relproduct_info_is_need_playtime
+        ,info.no_playtime_ordertime_type as relproduct_info_no_playtime_ordertime_type
+        ,info.ordertime_value as relproduct_info_ordertime_value
+        ,info.ordertime_unit as relproduct_info_ordertime_unit
+        ,info.one_word_feature as relproduct_info_one_word_feature
+        ,info.product_info_detail as relproduct_info_product_info_detail
+        ,info.order_info as relproduct_info_order_info
+        ,info.expense_info as relproduct_info_expense_info
+        ,info.salesmanship as relproduct_info_salesmanship
+        ,info.important_clause as relproduct_info_important_clause
+        ,info.attentions as relproduct_info_attentions
+        ,info.use_method as relproduct_info_use_method
+        ,info.start_date as relproduct_info_start_date
+        ,info.end_date as relproduct_info_end_date
+        ,info.photoinfo_id as relproduct_info_photoinfo_id
+        ,info.sku_grouping as relproduct_info_sku_grouping
+        ,info.more_info_url as relproduct_info_more_info_url
+        ,info.province as relproduct_info_province
+        ,info.city as relproduct_info_city
+        ,info.county as relproduct_info_county
+    </sql>
+
+    <!-- 字段映射 -->
+    <resultMap id="BaseResultMap" type="com.pzj.base.entity.product.ProductInfo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="product_type" jdbcType="INTEGER" property="productType"/>
+        <result column="release_thurl" jdbcType="VARCHAR" property="releaseThurl"/>
+        <result column="start_time" jdbcType="VARCHAR" property="startTime"/>
+        <result column="end_time" jdbcType="VARCHAR" property="endTime"/>
+        <result column="product_no" jdbcType="VARCHAR" property="productNo"/>
+        <result column="minutes_node" jdbcType="INTEGER" property="minutesNode"/>
+        <result column="hour_node" jdbcType="INTEGER" property="hourNode"/>
+        <result column="product_sum_repertory" jdbcType="INTEGER" property="productSumRepertory"/>
+        <result column="product_usable_repertory" jdbcType="INTEGER" property="productUsableRepertory"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="flag" jdbcType="CHAR" property="flag"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="combination_name" jdbcType="VARCHAR" property="combinationName"/>
+        <result column="combination_code" jdbcType="VARCHAR" property="combinationCode"/>
+        <result column="reease_message" jdbcType="VARCHAR" property="reeaseMessage"/>
+        <result column="reease_info" jdbcType="VARCHAR" property="reeaseInfo"/>
+        <result column="supplier_id" jdbcType="VARCHAR" property="supplierId"/>
+        <result column="playtimeMode" jdbcType="INTEGER" property="playtimeMode"/>
+        <result column="playtimeValue" jdbcType="INTEGER" property="playtimeValue"/>
+        <result column="playtimeUnit" jdbcType="INTEGER" property="playtimeUnit"/>
+        <result column="gainType" jdbcType="INTEGER" property="gainType"/>
+        <result column="gainPeopleNum" jdbcType="INTEGER" property="gainPeopleNum"/>
+        <result column="gainPeopleTimeLimitUnit" jdbcType="INTEGER" property="gainPeopleTimeLimitUnit"/>
+        <result column="gainPeopleTimeLimitValue" jdbcType="INTEGER" property="gainPeopleTimeLimitValue"/>
+        <result column="gainPeopleTimePurchaseNum" jdbcType="INTEGER" property="gainPeopleTimePurchaseNum"/>
+        <result column="minPurchaseNumInOrder" jdbcType="INTEGER" property="minPurchaseNumInOrder"/>
+
+        <result column="is_need_scenic" jdbcType="INTEGER" property="isNeedScenic"/>
+        <result column="ronda_name" jdbcType="VARCHAR" property="rondaName"/>
+        <result column="checkIn_type" jdbcType="INTEGER" property="checkInType"/>
+        <result column="checkin_address" jdbcType="VARCHAR" property="checkinAddress"/>
+        <result column="sale_start_date" jdbcType="DATE" property="saleStartDate"/>
+        <result column="sale_end_date" jdbcType="DATE" property="saleEndDate"/>
+        <result column="is_need_playtime" jdbcType="INTEGER" property="isNeedPlaytime"/>
+        <result column="no_playtime_ordertime_type" jdbcType="INTEGER" property="noPlaytimeOrdertimeType"/>
+        <result column="ordertime_value" jdbcType="INTEGER" property="ordertimeValue"/>
+        <result column="ordertime_unit" jdbcType="INTEGER" property="ordertimeUnit"/>
+        <result column="one_word_feature" jdbcType="VARCHAR" property="oneWordFeature"/>
+        <result column="product_info_detail" jdbcType="VARCHAR" property="productInfoDetail"/>
+        <result column="order_info" jdbcType="VARCHAR" property="orderInfo"/>
+        <result column="expense_info" jdbcType="VARCHAR" property="expenseInfo"/>
+        <result column="salesmanship" jdbcType="VARCHAR" property="salesmanship"/>
+        <result column="important_clause" jdbcType="VARCHAR" property="importantClause"/>
+        <result column="attentions" jdbcType="VARCHAR" property="attentions"/>
+        <result column="use_method" jdbcType="VARCHAR" property="useMethod"/>
+        <result column="start_date" jdbcType="TIMESTAMP" property="startDate"/>
+        <result column="end_date" jdbcType="TIMESTAMP" property="endDate"/>
+        <result column="photoinfo_id" jdbcType="VARCHAR" property="photoinfoId"/>
+        <result column="sku_grouping" jdbcType="INTEGER" property="skuGrouping"/>
+        <result column="more_info_url" jdbcType="VARCHAR" property="moreInfoUrl"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="county" jdbcType="VARCHAR" property="county"/>
+
+
+    </resultMap>
+
+    <resultMap id="ProductInfoAndRelease" type="com.pzj.base.entity.product.ProductInfo" extends="BaseResultMap">
+        <collection property="productReleaseList" resultMap="com.pzj.base.product.IProductReleaseMapper.BaseResultMap" columnPrefix="releasee_"/>
+    </resultMap>
+
+    <!-- 主键查询 -->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from product_info info
+        where info.id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 删除 -->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from product_info where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <!-- 通用查询条件 -->
+    <sql id="sql_of_where">
+        <if test="info != null">
+            <if test="info.id != null">AND info.id = #{info.id,jdbcType=BIGINT}</if>
+            <if test="info.ids != null and info.ids.size > 0">
+                AND info.id in
+                <foreach collection="info.ids" item="_id" open="(" separator="," close=")">
+                    #{_id}
+                </foreach>
+            </if>
+            <if test="info.name != null">AND info.name like #{info.name,jdbcType=VARCHAR}</if>
+            <if test="info.productType != null">AND info.product_type = #{info.productType,jdbcType=INTEGER}</if>
+            <if test="info.releaseThurl != null">AND info.release_thurl = #{info.releaseThurl,jdbcType=VARCHAR}</if>
+            <if test="info.startTime != null">AND info.start_time = #{info.startTime,jdbcType=VARCHAR}</if>
+            <if test="info.endTime != null">AND info.end_time = #{info.endTime,jdbcType=VARCHAR}</if>
+            <if test="info.productNo != null">AND info.product_no = #{info.productNo,jdbcType=VARCHAR}</if>
+            <if test="info.minutesNode != null">AND info.minutes_node = #{info.minutesNode,jdbcType=INTEGER}</if>
+            <if test="info.hourNode != null">AND info.hour_node = #{info.hourNode,jdbcType=INTEGER}</if>
+            <if test="info.productSumRepertory != null">AND info.product_sum_repertory =
+                #{info.productSumRepertory,jdbcType=INTEGER}
+            </if>
+            <if test="info.productUsableRepertory != null">AND info.product_usable_repertory =
+                #{info.productUsableRepertory,jdbcType=INTEGER}
+            </if>
+            <if test="info.createBy != null">AND info.create_by = #{info.createBy,jdbcType=VARCHAR}</if>
+            <if test="info.createDate != null">AND info.create_date = #{info.createDate,jdbcType=TIMESTAMP}</if>
+            <if test="info.updateBy != null">AND info.update_by = #{info.updateBy,jdbcType=VARCHAR}</if>
+            <if test="info.updateDate != null">AND info.update_date = #{info.updateDate,jdbcType=TIMESTAMP}</if>
+            <if test="info.sort != null">AND info.sort = #{info.sort,jdbcType=INTEGER}</if>
+            <if test="info.flag != null">AND info.flag = #{info.flag,jdbcType=CHAR}</if>
+            <if test="info.remarks != null">AND info.remarks = #{info.remarks,jdbcType=VARCHAR}</if>
+            <if test="info.combinationName != null">AND info.combination_name =
+                #{info.combinationName,jdbcType=VARCHAR}
+            </if>
+            <if test="info.combinationCode != null">AND info.combination_code =
+                #{info.combinationCode,jdbcType=VARCHAR}
+            </if>
+            <if test="info.reeaseMessage != null">AND info.reease_message = #{info.reeaseMessage,jdbcType=VARCHAR}</if>
+            <if test="info.reeaseInfo != null">AND info.reease_info = #{info.reeaseInfo,jdbcType=VARCHAR}</if>
+            <if test="info.supplierId != null">AND info.supplier_id = #{info.supplierId,jdbcType=VARCHAR}</if>
+            <if test="info.playtimeMode != null">AND info.playtimeMode = #{info.playtimeMode,jdbcType=INTEGER}</if>
+            <if test="info.playtimeValue != null">AND info.playtimeValue = #{info.playtimeValue,jdbcType=INTEGER}</if>
+            <if test="info.playtimeUnit != null">AND info.playtimeUnit = #{info.playtimeUnit,jdbcType=INTEGER}</if>
+            <if test="info.gainType != null">AND info.gainType = #{info.gainType,jdbcType=INTEGER}</if>
+            <if test="info.gainPeopleNum != null">AND info.gainPeopleNum = #{info.gainPeopleNum,jdbcType=INTEGER}</if>
+            <if test="info.gainPeopleTimeLimitUnit != null">AND info.gainPeopleTimeLimitUnit = #{info.gainPeopleTimeLimitUnit,jdbcType=INTEGER}</if>
+            <if test="info.gainPeopleTimeLimitValue != null">AND info.gainPeopleTimeLimitValue = #{info.gainPeopleTimeLimitValue,jdbcType=INTEGER}</if>
+            <if test="info.gainPeopleTimePurchaseNum != null">AND info.gainPeopleTimePurchaseNum = #{info.gainPeopleTimePurchaseNum,jdbcType=INTEGER}</if>
+
+            <if test="info.isNeedScenic != null">AND info.is_need_scenic = #{info.isNeedScenic,jdbcType=INTEGER}</if>
+            <if test="info.rondaName != null">AND info.ronda_name = #{info.rondaName,jdbcType=VARCHAR}</if>
+            <if test="info.checkInType != null">AND info.checkIn_type = #{info.checkInType,jdbcType=INTEGER}</if>
+            <if test="info.checkinAddress != null">AND info.checkin_address = #{info.checkinAddress,jdbcType=VARCHAR}</if>
+            <if test="info.saleStartDate != null">AND info.sale_start_date = #{info.saleStartDate,jdbcType=DATE}</if>
+            <if test="info.saleEndDate != null">AND info.sale_end_date = #{info.saleEndDate,jdbcType=DATE}</if>
+            <if test="info.isNeedPlaytime != null">AND info.is_need_playtime = #{info.isNeedPlaytime,jdbcType=INTEGER}</if>
+            <if test="info.noPlaytimeOrdertimeType != null">AND info.no_playtime_ordertime_type = #{info.noPlaytimeOrdertimeType,jdbcType=INTEGER}</if>
+            <if test="info.ordertimeValue != null">AND info.ordertime_value = #{info.ordertimeValue,jdbcType=INTEGER}</if>
+            <if test="info.ordertimeUnit != null">AND info.ordertime_unit = #{info.ordertimeUnit,jdbcType=INTEGER}</if>
+            <if test="info.oneWordFeature != null">AND info.one_word_feature = #{info.oneWordFeature,jdbcType=VARCHAR}</if>
+            <if test="info.productInfoDetail != null">AND info.product_info_detail = #{info.productInfoDetail,jdbcType=VARCHAR}</if>
+            <if test="info.orderInfo != null">AND info.order_info = #{info.orderInfo,jdbcType=VARCHAR}</if>
+            <if test="info.expenseInfo != null">AND info.expense_info = #{info.expenseInfo,jdbcType=VARCHAR}</if>
+            <if test="info.salesmanship != null">AND info.salesmanship = #{info.salesmanship,jdbcType=VARCHAR}</if>
+            <if test="info.importantClause != null">AND info.important_clause = #{info.importantClause,jdbcType=VARCHAR}</if>
+            <if test="info.attentions != null">AND info.attentions = #{info.attentions,jdbcType=VARCHAR}</if>
+            <if test="info.useMethod != null">AND info.use_method = #{info.useMethod,jdbcType=VARCHAR}</if>
+            <if test="info.startDate != null">AND info.start_date = #{info.startDate,jdbcType=TIMESTAMP}</if>
+            <if test="info.endDate != null">AND info.end_date = #{info.endDate,jdbcType=TIMESTAMP}</if>
+            <if test="info.photoinfoId != null">AND info.photoinfo_id = #{info.photoinfoId,jdbcType=VARCHAR}</if>
+            <if test="info.skuGrouping != null">AND info.sku_grouping = #{info.skuGrouping,jdbcType=INTEGER}</if>
+            <if test="info.moreInfoUrl != null">AND info.more_info_url = #{info.moreInfoUrl,jdbcType=VARCHAR}</if>
+            <if test="info.province != null">AND info.province = #{info.province,jdbcType=VARCHAR}</if>
+            <if test="info.city != null">AND info.city = #{info.city,jdbcType=VARCHAR}</if>
+            <if test="info.county != null">AND info.county = #{info.county,jdbcType=VARCHAR}</if>
+
+            <if test="info.saleDateQuery != null and (info.saleDateQuery.startDate != null or info.saleDateQuery.endDate != null)">
+                <trim prefix="and ( " prefixOverrides="and|or" suffix=" )">
+                    <if test="info.saleDateQuery.startDate != null and info.saleDateQuery.endDate != null">
+                        or ( info.sale_start_date &lt;= #{info.saleDateQuery.endDate}
+                          and info.sale_end_date &gt;= #{info.saleDateQuery.startDate} )
+                    </if>
+                    <if test="info.saleDateQuery.startDate != null and info.saleDateQuery.endDate == null">
+                        or ( info.sale_start_date &lt;= #{info.saleDateQuery.startDate}
+                          and info.sale_end_date &gt;= #{info.saleDateQuery.startDate} )
+                    </if>
+                    <if test="info.saleDateQuery.startDate == null and info.saleDateQuery.endDate != null">
+                        or ( info.sale_start_date &lt;= #{info.saleDateQuery.endDate}
+                          and info.sale_end_date &gt;= #{info.saleDateQuery.endDate}  )
+                    </if>
+                </trim>
+            </if>
+            <if test="info.availableDateQuery != null and (info.availableDateQuery.startDate != null or info.availableDateQuery.endDate != null)">
+                <trim prefix="and ( " prefixOverrides="and|or" suffix=" )">
+                    <if test="info.availableDateQuery.startDate != null and info.availableDateQuery.endDate != null">
+                        or ( info.start_date &lt;= #{info.availableDateQuery.endDate}
+                        and info.end_date &gt;= #{info.availableDateQuery.startDate} )
+                    </if>
+                    <if test="info.availableDateQuery.startDate != null and info.availableDateQuery.endDate == null">
+                        or ( info.start_date &lt;= #{info.availableDateQuery.startDate}
+                        and info.end_date &gt;= #{info.availableDateQuery.startDate} )
+                    </if>
+                    <if test="info.availableDateQuery.startDate == null and info.availableDateQuery.endDate != null">
+                        or ( info.start_date &lt;= #{info.availableDateQuery.endDate}
+                        and info.end_date &gt;= #{info.availableDateQuery.endDate}  )
+                    </if>
+                </trim>
+            </if>
+
+            <if test="info.productTypes != null and info.productTypes.size > 0">
+                and info.product_type in
+                <foreach collection="info.productTypes" item="_type" open="(" separator="," close=")">
+                    #{_type, jdbcType=INTEGER}
+                </foreach>
+            </if>
+        </if>
+    </sql>
+
+    <!-- 通用分页查询 -->
+    <select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product_info info
+        <where><include refid="sql_of_where"/></where>
+        <if test="pParam != null">
+            <if test="pParam.orderByClause == null">order by info.id desc</if>
+            <if test="pParam.orderByClause != null">order by ${pParam.orderByClause}</if>
+            <if test="pParam.startIndex != null and pParam.pageSize != null">
+                limit #{pParam.startIndex} , #{pParam.pageSize}
+            </if>
+        </if>
+    </select>
+
+    <!-- 通用分页查询记录总数 -->
+    <select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(info.id) from product_info info
+        <where><include refid="sql_of_where"/></where>
+    </select>
+
+    <!-- 插入 -->
+    <insert id="insert" parameterType="com.pzj.base.entity.product.ProductInfo" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into product_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="name != null">
+                name,
+            </if>
+            <if test="productType != null">
+                product_type,
+            </if>
+            <if test="releaseThurl != null">
+                release_thurl,
+            </if>
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="productNo != null">
+                product_no,
+            </if>
+            <if test="minutesNode != null">
+                minutes_node,
+            </if>
+            <if test="hourNode != null">
+                hour_node,
+            </if>
+            <if test="productSumRepertory != null">
+                product_sum_repertory,
+            </if>
+            <if test="productUsableRepertory != null">
+                product_usable_repertory,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="flag != null">
+                flag,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="combinationName != null">
+                combination_name,
+            </if>
+            <if test="combinationCode != null">
+                combination_code,
+            </if>
+            <if test="reeaseMessage != null">
+                reease_message,
+            </if>
+            <if test="reeaseInfo != null">
+                reease_info,
+            </if>
+            <if test="supplierId != null">
+                supplier_id,
+            </if>
+            <if test="playtimeMode != null">
+                playtimeMode,
+            </if>
+            <if test="playtimeValue != null">
+                playtimeValue,
+            </if>
+            <if test="playtimeUnit != null">
+                playtimeUnit,
+            </if>
+            <if test="gainType != null">
+                gainType,
+            </if>
+            <if test="gainPeopleNum != null">
+                gainPeopleNum,
+            </if>
+            <if test="gainPeopleTimeLimitUnit != null">
+                gainPeopleTimeLimitUnit,
+            </if>
+            <if test="gainPeopleTimeLimitValue != null">
+                gainPeopleTimeLimitValue,
+            </if>
+            <if test="gainPeopleTimePurchaseNum != null">
+                gainPeopleTimePurchaseNum,
+            </if>
+            <if test="minPurchaseNumInOrder != null">
+                minPurchaseNumInOrder,
+            </if>
+            <if test="isNeedScenic != null">is_need_scenic,</if>
+            <if test="rondaName != null">ronda_name,</if>
+            <if test="checkInType != null">checkIn_type,</if>
+            <if test="checkinAddress != null">checkin_address,</if>
+            <if test="saleStartDate != null">sale_start_date,</if>
+            <if test="saleEndDate != null">sale_end_date,</if>
+            <if test="isNeedPlaytime != null">is_need_playtime,</if>
+            <if test="noPlaytimeOrdertimeType != null">no_playtime_ordertime_type,</if>
+            <if test="ordertimeValue != null">ordertime_value,</if>
+            <if test="ordertimeUnit != null">ordertime_unit,</if>
+            <if test="oneWordFeature != null">one_word_feature,</if>
+            <if test="productInfoDetail != null">product_info_detail,</if>
+            <if test="orderInfo != null">order_info,</if>
+            <if test="expenseInfo != null">expense_info,</if>
+            <if test="salesmanship != null">salesmanship,</if>
+            <if test="importantClause != null">important_clause,</if>
+            <if test="attentions != null">attentions,</if>
+            <if test="useMethod != null">use_method,</if>
+            <if test="startDate != null">start_date,</if>
+            <if test="endDate != null">end_date,</if>
+            <if test="photoinfoId != null">photoinfo_id,</if>
+            <if test="skuGrouping != null">sku_grouping,</if>
+            <if test="moreInfoUrl != null">more_info_url,</if>
+            <if test="province != null">province,</if>
+            <if test="city != null">city,</if>
+            <if test="county != null">county,</if>
+            <if test="skuId != null">sku_Id,</if>
+            <if test="hashCode != null">hash_Code,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id,jdbcType=BIGINT},
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="productType != null">
+                #{productType,jdbcType=INTEGER},
+            </if>
+            <if test="releaseThurl != null">
+                #{releaseThurl,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=VARCHAR},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=VARCHAR},
+            </if>
+            <if test="productNo != null">
+                #{productNo,jdbcType=VARCHAR},
+            </if>
+            <if test="minutesNode != null">
+                #{minutesNode,jdbcType=INTEGER},
+            </if>
+            <if test="hourNode != null">
+                #{hourNode,jdbcType=INTEGER},
+            </if>
+            <if test="productSumRepertory != null">
+                #{productSumRepertory,jdbcType=INTEGER},
+            </if>
+            <if test="productUsableRepertory != null">
+                #{productUsableRepertory,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="flag != null">
+                #{flag,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="combinationName != null">
+                #{combinationName,jdbcType=VARCHAR},
+            </if>
+            <if test="combinationCode != null">
+                #{combinationCode,jdbcType=VARCHAR},
+            </if>
+            <if test="reeaseMessage != null">
+                #{reeaseMessage,jdbcType=VARCHAR},
+            </if>
+            <if test="reeaseInfo != null">
+                #{reeaseInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierId != null">
+                #{supplierId,jdbcType=VARCHAR},
+            </if>
+            <if test="playtimeMode != null">
+                #{playtimeMode,jdbcType=INTEGER},
+            </if>
+            <if test="playtimeValue != null">
+                #{playtimeValue,jdbcType=INTEGER},
+            </if>
+            <if test="playtimeUnit != null">
+                #{playtimeUnit,jdbcType=INTEGER},
+            </if>
+            <if test="gainType != null">
+                #{gainType,jdbcType=INTEGER},
+            </if>
+            <if test="gainPeopleNum != null">
+                #{gainPeopleNum,jdbcType=INTEGER},
+            </if>
+            <if test="gainPeopleTimeLimitUnit != null">
+                #{gainPeopleTimeLimitUnit,jdbcType=INTEGER},
+            </if>
+            <if test="gainPeopleTimeLimitValue != null">
+                #{gainPeopleTimeLimitValue,jdbcType=INTEGER},
+            </if>
+            <if test="gainPeopleTimePurchaseNum != null">
+                #{gainPeopleTimePurchaseNum,jdbcType=INTEGER},
+            </if>
+            <if test="minPurchaseNumInOrder != null">
+                #{minPurchaseNumInOrder,jdbcType=INTEGER},
+            </if>
+            <if test="isNeedScenic != null">#{isNeedScenic,jdbcType=INTEGER},</if>
+            <if test="rondaName != null">#{rondaName,jdbcType=VARCHAR},</if>
+            <if test="checkInType != null">#{checkInType,jdbcType=INTEGER},</if>
+            <if test="checkinAddress != null">#{checkinAddress,jdbcType=VARCHAR},</if>
+            <if test="saleStartDate != null">#{saleStartDate,jdbcType=DATE},</if>
+            <if test="saleEndDate != null">#{saleEndDate,jdbcType=DATE},</if>
+            <if test="isNeedPlaytime != null">#{isNeedPlaytime,jdbcType=INTEGER},</if>
+            <if test="noPlaytimeOrdertimeType != null">#{noPlaytimeOrdertimeType,jdbcType=INTEGER},</if>
+            <if test="ordertimeValue != null">#{ordertimeValue,jdbcType=INTEGER},</if>
+            <if test="ordertimeUnit != null">#{ordertimeUnit,jdbcType=INTEGER},</if>
+            <if test="oneWordFeature != null">#{oneWordFeature,jdbcType=VARCHAR},</if>
+            <if test="productInfoDetail != null">#{productInfoDetail,jdbcType=VARCHAR},</if>
+            <if test="orderInfo != null">#{orderInfo,jdbcType=VARCHAR},</if>
+            <if test="expenseInfo != null">#{expenseInfo,jdbcType=VARCHAR},</if>
+            <if test="salesmanship != null">#{salesmanship,jdbcType=VARCHAR},</if>
+            <if test="importantClause != null">#{importantClause,jdbcType=VARCHAR},</if>
+            <if test="attentions != null">#{attentions,jdbcType=VARCHAR},</if>
+            <if test="useMethod != null">#{useMethod,jdbcType=VARCHAR},</if>
+            <if test="startDate != null">#{startDate,jdbcType=TIMESTAMP},</if>
+            <if test="endDate != null">#{endDate,jdbcType=TIMESTAMP},</if>
+            <if test="photoinfoId != null">#{photoinfoId,jdbcType=VARCHAR},</if>
+            <if test="skuGrouping != null">#{skuGrouping,jdbcType=INTEGER},</if>
+            <if test="moreInfoUrl != null">#{moreInfoUrl,jdbcType=VARCHAR},</if>
+            <if test="province != null">#{province,jdbcType=VARCHAR},</if>
+            <if test="city != null">#{city,jdbcType=VARCHAR},</if>
+            <if test="county != null">#{county,jdbcType=VARCHAR},</if>
+            <if test="skuId != null">#{skuId,jdbcType=VARCHAR},</if>
+            <if test="hashCode != null">#{hashCode,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+
+    <!-- 批量插入 请根据业务修改默认值-->
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into product_info
+        (id
+        ,name
+        ,product_type
+        ,release_thurl
+        ,start_time
+        ,end_time
+        ,product_no
+        ,minutes_node
+        ,hour_node
+        ,product_sum_repertory
+        ,product_usable_repertory
+        ,create_by
+        ,create_date
+        ,update_by
+        ,update_date
+        ,sort
+        ,flag
+        ,remarks
+        ,combination_name
+        ,combination_code
+        ,reease_message
+        ,reease_info
+        ,supplier_id
+        ,playtimeMode
+        ,playtimeValue
+        ,playtimeUnit
+        ,gainType
+        ,gainPeopleNum
+        ,gainPeopleTimeLimitUnit
+        ,gainPeopleTimeLimitValue
+        ,gainPeopleTimePurchaseNum
+        ,minPurchaseNumInOrder
+
+        ,is_need_scenic
+        ,ronda_name
+        ,checkIn_type
+        ,checkin_address
+        ,sale_start_date
+        ,sale_end_date
+        ,is_need_playtime
+        ,no_playtime_ordertime_type
+        ,ordertime_value
+        ,ordertime_unit
+        ,one_word_feature
+        ,product_info_detail
+        ,order_info
+        ,expense_info
+        ,salesmanship
+        ,important_clause
+        ,attentions
+        ,use_method
+        ,start_date
+        ,end_date
+        ,photoinfo_id
+        ,sku_grouping
+        ,more_info_url
+        ,province
+        ,city
+        ,county
+        ,sku_id
+        ,hash_code
+        )
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id,jdbcType=BIGINT}
+            <choose>
+                <when test="item.name != null">,#{item.name ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.productType != null">,#{item.productType ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.releaseThurl != null">,#{item.releaseThurl ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.startTime != null">,#{item.startTime ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.endTime != null">,#{item.endTime ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.productNo != null">,#{item.productNo ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.minutesNode != null">,#{item.minutesNode ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.hourNode != null">,#{item.hourNode ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.productSumRepertory != null">,#{item.productSumRepertory ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.productUsableRepertory != null">,#{item.productUsableRepertory ,jdbcType=INTEGER}
+                </when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.createBy != null">,#{item.createBy ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.createDate != null">,#{item.createDate ,jdbcType=TIMESTAMP}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.updateBy != null">,#{item.updateBy ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.updateDate != null">,#{item.updateDate ,jdbcType=TIMESTAMP}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.sort != null">,#{item.sort ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.flag != null">,#{item.flag ,jdbcType=CHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.remarks != null">,#{item.remarks ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.combinationName != null">,#{item.combinationName ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.combinationCode != null">,#{item.combinationCode ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.reeaseMessage != null">,#{item.reeaseMessage ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.reeaseInfo != null">,#{item.reeaseInfo ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.supplierId != null">,#{item.supplierId ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.playtimeMode != null">,#{item.playtimeMode ,jdbcType=INTEGER}</when>
+                <otherwise>,-1</otherwise>
+            </choose>
+            <choose>
+                <when test="item.playtimeValue != null">,#{item.playtimeValue ,jdbcType=INTEGER}</when>
+                <otherwise>,-1</otherwise>
+            </choose>
+            <choose>
+                <when test="item.playtimeUnit != null">,#{item.playtimeUnit ,jdbcType=INTEGER}</when>
+                <otherwise>,-1</otherwise>
+            </choose>
+            <choose>
+                <when test="item.gainType != null">,#{item.gainType ,jdbcType=INTEGER}</when>
+                <otherwise>,-1</otherwise>
+            </choose>
+            <choose>
+                <when test="item.gainPeopleNum != null">,#{item.gainPeopleNum ,jdbcType=INTEGER}</when>
+                <otherwise>,-1</otherwise>
+            </choose>
+            <choose>
+                <when test="item.gainPeopleTimeLimitUnit != null">,#{item.gainPeopleTimeLimitUnit ,jdbcType=INTEGER}</when>
+                <otherwise>,-1</otherwise>
+            </choose>
+            <choose>
+                <when test="item.gainPeopleTimeLimitValue != null">,#{item.gainPeopleTimeLimitValue ,jdbcType=INTEGER}</when>
+                <otherwise>,-1</otherwise>
+            </choose>
+            <choose>
+                <when test="item.gainPeopleTimePurchaseNum != null">,#{item.gainPeopleTimePurchaseNum ,jdbcType=INTEGER}</when>
+                <otherwise>,-1</otherwise>
+            </choose>
+            <choose>
+                <when test="item.minPurchaseNumInOrder != null">,#{item.minPurchaseNumInOrder ,jdbcType=INTEGER}</when>
+                <otherwise>,1</otherwise>
+            </choose>
+
+            <choose>
+                <when test="item.isNeedScenic != null">,#{item.isNeedScenic ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.rondaName != null">,#{item.rondaName ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.checkInType != null">,#{item.checkInType ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.checkinAddress != null">,#{item.checkinAddress ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.saleStartDate != null">,#{item.saleStartDate ,jdbcType=DATE}</when>
+                <otherwise>,null</otherwise>
+            </choose>
+            <choose>
+                <when test="item.saleEndDate != null">,#{item.saleEndDate ,jdbcType=DATE}</when>
+                <otherwise>,null</otherwise>
+            </choose>
+            <choose>
+                <when test="item.isNeedPlaytime != null">,#{item.isNeedPlaytime ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.noPlaytimeOrdertimeType != null">,#{item.noPlaytimeOrdertimeType ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.ordertimeValue != null">,#{item.ordertimeValue ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.ordertimeUnit != null">,#{item.ordertimeUnit ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.oneWordFeature != null">,#{item.oneWordFeature ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.productInfoDetail != null">,#{item.productInfoDetail ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.orderInfo != null">,#{item.orderInfo ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.expenseInfo != null">,#{item.expenseInfo ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.salesmanship != null">,#{item.salesmanship ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.importantClause != null">,#{item.importantClause ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.attentions != null">,#{item.attentions ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.useMethod != null">,#{item.useMethod ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.startDate != null">,#{item.startDate ,jdbcType=TIMESTAMP}</when>
+                <otherwise>,null</otherwise>
+            </choose>
+            <choose>
+                <when test="item.endDate != null">,#{item.endDate ,jdbcType=TIMESTAMP}</when>
+                <otherwise>,null</otherwise>
+            </choose>
+            <choose>
+                <when test="item.photoinfoId != null">,#{item.photoinfoId ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.skuGrouping != null">,#{item.skuGrouping ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.moreInfoUrl != null">,#{item.moreInfoUrl ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.province != null">,#{item.province ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.city != null">,#{item.city ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.county != null">,#{item.county ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.skuId != null">,#{item.skuId ,jdbcType=VARCHAR}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.hashCode != null">,#{item.hashCode ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            )
+        </foreach>
+    </insert>
+
+    <!-- 更新 -->
+    <update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.product.ProductInfo">
+        update product_info
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="productType != null">
+                product_type = #{productType,jdbcType=INTEGER},
+            </if>
+            <if test="releaseThurl != null">
+                release_thurl = #{releaseThurl,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=VARCHAR},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=VARCHAR},
+            </if>
+            <if test="productNo != null">
+                product_no = #{productNo,jdbcType=VARCHAR},
+            </if>
+            <if test="minutesNode != null">
+                minutes_node = #{minutesNode,jdbcType=INTEGER},
+            </if>
+            <if test="hourNode != null">
+                hour_node = #{hourNode,jdbcType=INTEGER},
+            </if>
+            <if test="productSumRepertory != null">
+                product_sum_repertory = #{productSumRepertory,jdbcType=INTEGER},
+            </if>
+            <if test="productUsableRepertory != null">
+                product_usable_repertory = #{productUsableRepertory,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="flag != null">
+                flag = #{flag,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="combinationName != null">
+                combination_name = #{combinationName,jdbcType=VARCHAR},
+            </if>
+            <if test="combinationCode != null">
+                combination_code = #{combinationCode,jdbcType=VARCHAR},
+            </if>
+            <if test="reeaseMessage != null">
+                reease_message = #{reeaseMessage,jdbcType=VARCHAR},
+            </if>
+            <if test="reeaseInfo != null">
+                reease_info = #{reeaseInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierId != null">
+                supplier_id = #{supplierId,jdbcType=VARCHAR},
+            </if>
+            <if test="playtimeMode != null">
+                playtimeMode = #{playtimeMode,jdbcType=INTEGER},
+            </if>
+            <if test="playtimeValue != null">
+                playtimeValue = #{playtimeValue,jdbcType=INTEGER},
+            </if>
+            <if test="playtimeUnit != null">
+                playtimeUnit = #{playtimeUnit,jdbcType=INTEGER},
+            </if>
+            <if test="gainType != null">
+                gainType = #{gainType,jdbcType=INTEGER},
+            </if>
+            <if test="gainPeopleNum != null">
+                gainPeopleNum = #{gainPeopleNum,jdbcType=INTEGER},
+            </if>
+            <if test="gainPeopleTimeLimitUnit != null">
+                gainPeopleTimeLimitUnit = #{gainPeopleTimeLimitUnit,jdbcType=INTEGER},
+            </if>
+            <if test="gainPeopleTimeLimitValue != null">
+                gainPeopleTimeLimitValue = #{gainPeopleTimeLimitValue,jdbcType=INTEGER},
+            </if>
+            <if test="gainPeopleTimePurchaseNum != null">
+                gainPeopleTimePurchaseNum = #{gainPeopleTimePurchaseNum,jdbcType=INTEGER},
+            </if>
+            <if test="minPurchaseNumInOrder != null">
+                minPurchaseNumInOrder = #{minPurchaseNumInOrder,jdbcType=INTEGER},
+            </if>
+
+            <if test="isNeedScenic != null">is_need_scenic = #{isNeedScenic,jdbcType=INTEGER},</if>
+            <if test="rondaName != null">ronda_name = #{rondaName,jdbcType=VARCHAR},</if>
+            <if test="checkInType != null">checkIn_type = #{checkInType,jdbcType=INTEGER},</if>
+            <if test="checkinAddress != null">checkin_address = #{checkinAddress,jdbcType=VARCHAR},</if>
+            <if test="saleStartDate != null">sale_start_date = #{saleStartDate,jdbcType=DATE},</if>
+            <if test="saleEndDate != null">sale_end_date = #{saleEndDate,jdbcType=DATE},</if>
+            <if test="isNeedPlaytime != null">is_need_playtime = #{isNeedPlaytime,jdbcType=INTEGER},</if>
+            <if test="noPlaytimeOrdertimeType != null">no_playtime_ordertime_type = #{noPlaytimeOrdertimeType,jdbcType=INTEGER},</if>
+            <if test="ordertimeValue != null">ordertime_value = #{ordertimeValue,jdbcType=INTEGER},</if>
+            <if test="ordertimeUnit != null">ordertime_unit = #{ordertimeUnit,jdbcType=INTEGER},</if>
+            <if test="oneWordFeature != null">one_word_feature = #{oneWordFeature,jdbcType=VARCHAR},</if>
+            <if test="productInfoDetail != null">product_info_detail = #{productInfoDetail,jdbcType=VARCHAR},</if>
+            <if test="orderInfo != null">order_info = #{orderInfo,jdbcType=VARCHAR},</if>
+            <if test="expenseInfo != null">expense_info = #{expenseInfo,jdbcType=VARCHAR},</if>
+            <if test="salesmanship != null">salesmanship = #{salesmanship,jdbcType=VARCHAR},</if>
+            <if test="importantClause != null">important_clause = #{importantClause,jdbcType=VARCHAR},</if>
+            <if test="attentions != null">attentions = #{attentions,jdbcType=VARCHAR},</if>
+            <if test="useMethod != null">use_method = #{useMethod,jdbcType=VARCHAR},</if>
+            <if test="startDate != null">start_date = #{startDate,jdbcType=TIMESTAMP},</if>
+            <if test="endDate != null">end_date = #{endDate,jdbcType=TIMESTAMP},</if>
+            <if test="photoinfoId != null">photoinfo_id = #{photoinfoId,jdbcType=VARCHAR},</if>
+            <if test="skuGrouping != null">sku_grouping = #{skuGrouping,jdbcType=INTEGER},</if>
+            <if test="moreInfoUrl != null">more_info_url = #{moreInfoUrl,jdbcType=VARCHAR},</if>
+            <if test="province != null">province = #{province,jdbcType=VARCHAR},</if>
+            <if test="city != null">city = #{city,jdbcType=VARCHAR},</if>
+            <if test="county != null">county = #{county,jdbcType=VARCHAR},</if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- 批量更新 -->
+    <update id="updateBatchByPrimaryKey" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update product_info
+            <set>
+                <if test="item.name != null">
+                    name = #{item.name,jdbcType=VARCHAR},
+                </if>
+                <if test="item.productType != null">
+                    product_type = #{item.productType,jdbcType=INTEGER},
+                </if>
+                <if test="item.releaseThurl != null">
+                    release_thurl = #{item.releaseThurl,jdbcType=VARCHAR},
+                </if>
+                <if test="item.startTime != null">
+                    start_time = #{item.startTime,jdbcType=VARCHAR},
+                </if>
+                <if test="item.endTime != null">
+                    end_time = #{item.endTime,jdbcType=VARCHAR},
+                </if>
+                <if test="item.productNo != null">
+                    product_no = #{item.productNo,jdbcType=VARCHAR},
+                </if>
+                <if test="item.minutesNode != null">
+                    minutes_node = #{item.minutesNode,jdbcType=INTEGER},
+                </if>
+                <if test="item.hourNode != null">
+                    hour_node = #{item.hourNode,jdbcType=INTEGER},
+                </if>
+                <if test="item.productSumRepertory != null">
+                    product_sum_repertory = #{item.productSumRepertory,jdbcType=INTEGER},
+                </if>
+                <if test="item.productUsableRepertory != null">
+                    product_usable_repertory = #{item.productUsableRepertory,jdbcType=INTEGER},
+                </if>
+                <if test="item.createBy != null">
+                    create_by = #{item.createBy,jdbcType=VARCHAR},
+                </if>
+                <if test="item.createDate != null">
+                    create_date = #{item.createDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.updateBy != null">
+                    update_by = #{item.updateBy,jdbcType=VARCHAR},
+                </if>
+                <if test="item.updateDate != null">
+                    update_date = #{item.updateDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.sort != null">
+                    sort = #{item.sort,jdbcType=INTEGER},
+                </if>
+                <if test="item.flag != null">
+                    flag = #{item.flag,jdbcType=CHAR},
+                </if>
+                <if test="item.remarks != null">
+                    remarks = #{item.remarks,jdbcType=VARCHAR},
+                </if>
+                <if test="item.combinationName != null">
+                    combination_name = #{item.combinationName,jdbcType=VARCHAR},
+                </if>
+                <if test="item.combinationCode != null">
+                    combination_code = #{item.combinationCode,jdbcType=VARCHAR},
+                </if>
+                <if test="item.reeaseMessage != null">
+                    reease_message = #{item.reeaseMessage,jdbcType=VARCHAR},
+                </if>
+                <if test="item.reeaseInfo != null">
+                    reease_info = #{item.reeaseInfo,jdbcType=VARCHAR},
+                </if>
+                <if test="item.supplierId != null">
+                    supplier_id = #{item.supplierId,jdbcType=VARCHAR},
+                </if>
+                <if test="item.playtimeMode != null">
+                    playtimeMode = #{item.playtimeMode,jdbcType=INTEGER},
+                </if>
+                <if test="item.playtimeValue != null">
+                    playtimeValue = #{item.playtimeValue,jdbcType=INTEGER},
+                </if>
+                <if test="item.playtimeUnit != null">
+                    playtimeUnit = #{item.playtimeUnit,jdbcType=INTEGER},
+                </if>
+                <if test="item.gainType != null">
+                    gainType = #{item.gainType,jdbcType=INTEGER},
+                </if>
+                <if test="item.gainPeopleNum != null">
+                    gainPeopleNum = #{item.gainPeopleNum,jdbcType=INTEGER},
+                </if>
+                <if test="item.gainPeopleTimeLimitUnit != null">
+                    gainPeopleTimeLimitUnit = #{item.gainPeopleTimeLimitUnit,jdbcType=INTEGER},
+                </if>
+                <if test="item.gainPeopleTimeLimitValue != null">
+                    gainPeopleTimeLimitValue = #{item.gainPeopleTimeLimitValue,jdbcType=INTEGER},
+                </if>
+                <if test="item.gainPeopleTimePurchaseNum != null">
+                    gainPeopleTimePurchaseNum = #{item.gainPeopleTimePurchaseNum,jdbcType=INTEGER},
+                </if>
+                <if test="item.minPurchaseNumInOrder != null">
+                    minPurchaseNumInOrder = #{item.minPurchaseNumInOrder,jdbcType=INTEGER},
+                </if>
+
+                <if test="item.isNeedScenic != null">is_need_scenic = #{item.isNeedScenic,jdbcType=INTEGER},</if>
+                <if test="item.rondaName != null">ronda_name = #{item.rondaName,jdbcType=VARCHAR},</if>
+                <if test="item.checkInType != null">checkIn_type = #{item.checkInType,jdbcType=INTEGER},</if>
+                <if test="item.checkinAddress != null">checkin_address = #{item.checkinAddress,jdbcType=VARCHAR},</if>
+                <if test="item.saleStartDate != null">sale_start_date = #{item.saleStartDate,jdbcType=DATE},</if>
+                <if test="item.saleEndDate != null">sale_end_date = #{item.saleEndDate,jdbcType=DATE},</if>
+                <if test="item.isNeedPlaytime != null">is_need_playtime = #{item.isNeedPlaytime,jdbcType=INTEGER},</if>
+                <if test="item.noPlaytimeOrdertimeType != null">no_playtime_ordertime_type = #{item.noPlaytimeOrdertimeType,jdbcType=INTEGER},</if>
+                <if test="item.ordertimeValue != null">ordertime_value = #{item.ordertimeValue,jdbcType=INTEGER},</if>
+                <if test="item.ordertimeUnit != null">ordertime_unit = #{item.ordertimeUnit,jdbcType=INTEGER},</if>
+                <if test="item.oneWordFeature != null">one_word_feature = #{item.oneWordFeature,jdbcType=VARCHAR},</if>
+                <if test="item.productInfoDetail != null">product_info_detail = #{item.productInfoDetail,jdbcType=VARCHAR},</if>
+                <if test="item.orderInfo != null">order_info = #{item.orderInfo,jdbcType=VARCHAR},</if>
+                <if test="item.expenseInfo != null">expense_info = #{item.expenseInfo,jdbcType=VARCHAR},</if>
+                <if test="item.salesmanship != null">salesmanship = #{item.salesmanship,jdbcType=VARCHAR},</if>
+                <if test="item.importantClause != null">important_clause = #{item.importantClause,jdbcType=VARCHAR},</if>
+                <if test="item.attentions != null">attentions = #{item.attentions,jdbcType=VARCHAR},</if>
+                <if test="item.useMethod != null">use_method = #{item.useMethod,jdbcType=VARCHAR},</if>
+                <if test="item.startDate != null">start_date = #{item.startDate,jdbcType=TIMESTAMP},</if>
+                <if test="item.endDate != null">end_date = #{item.endDate,jdbcType=TIMESTAMP},</if>
+                <if test="item.photoinfoId != null">photoinfo_id = #{item.photoinfoId,jdbcType=VARCHAR},</if>
+                <if test="item.skuGrouping != null">sku_grouping = #{item.skuGrouping,jdbcType=INTEGER},</if>
+                <if test="item.moreInfoUrl != null">more_info_url = #{item.moreInfoUrl,jdbcType=VARCHAR},</if>
+                <if test="item.province != null">province = #{item.province,jdbcType=VARCHAR},</if>
+                <if test="item.city != null">city = #{item.city,jdbcType=VARCHAR},</if>
+                <if test="item.county != null">county = #{item.county,jdbcType=VARCHAR},</if>
+            </set>
+            where id = #{item.id,jdbcType=BIGINT}
+        </foreach>
+    </update>
+
+    <select id="selectProductInfoByInfoScenic" resultMap="BaseResultMap" >
+        select <include refid="Base_Column_List"/> from product_info info
+        inner join product_relation rel on info.id = rel.obj_id and obj_type = 'proInfo' and rel_type = 'scenic'
+        <where>
+            <include refid="sql_of_where"/>
+            <if test="scenic!= null">
+                <if test="scenic.id != null">
+                    and rel_id = #{scenic.id, jdbcType=BIGINT}
+                </if>
+            </if>
+        </where>
+    </select>
+    <select id="countProductInfoByInfoScenic" resultType="int">
+        select count(info.id) from product_info info
+        inner join product_relation rel on info.id = rel.obj_id and obj_type = 'proInfo' and rel_type = 'scenic'
+        <where>
+            <include refid="sql_of_where"/>
+            <if test="scenic!= null">
+                <if test="scenic.id != null">
+                    and rel_id = #{scenic.id, jdbcType=BIGINT}
+                </if>
+            </if>
+        </where>
+    </select>
+    <select id="selectProductInfoWithReleaseByParam" resultMap="ProductInfoAndRelease" >
+        select
+        <include refid="Base_Column_List"/>, <include refid="com.pzj.base.product.IProductReleaseMapper.AliasProduct_Column_List"/>
+        from product_info info
+        inner join product_release releasee on info.id = releasee.product_id
+        <where>
+            <include refid="sql_of_where"/>
+        </where>
+    </select>
+    
+    
+</mapper>

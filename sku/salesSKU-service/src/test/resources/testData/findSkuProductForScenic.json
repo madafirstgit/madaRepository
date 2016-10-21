@@ -1,0 +1,23 @@
+{
+  "scenicId" : 2216619736663829,
+  "resellerId" : 123456789,
+  "ticketVarie":"0",
+  "SalesType":"3"
+}
+
+/*
+{
+  "scenicId" : 2216619736563720,
+  "resellerId" : 2216619736563730,
+  "salesType" : "1",
+  "ticketVarie" : "1",
+  "queryParam" : {
+    "ids" : [
+      2216619736563013
+    ],
+    "productIds" : [
+      2216619736566873,
+      2216619736563713
+    ]
+  }
+}*/

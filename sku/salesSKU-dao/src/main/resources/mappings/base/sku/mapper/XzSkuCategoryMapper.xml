@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pzj.base.sku.mapper.XzSkuCategoryMapper" >
+ 
+  <resultMap id="BaseResultMap" type="com.pzj.base.sku.entity.XzSkuCategory">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BOSSID" jdbcType="INTEGER" property="bossid" />
+    <result column="CATEGORY_NAME" jdbcType="VARCHAR" property="categoryName" />
+    <result column="CATEGORY_IMG" jdbcType="VARCHAR" property="categoryImg" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="SORT" jdbcType="INTEGER" property="sort" />
+    <result column="CREATE_USER" jdbcType="INTEGER" property="createUser" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, BOSSID, CATEGORY_NAME, CATEGORY_IMG, DESCRIPTION, SORT, CREATE_USER, CREATE_TIME
+  </sql>
+	
+  <select id="findCategoriesByBossId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/>
+  	from XZ_SKU_CATEGORY
+  	where BOSSID = #{bossid,jdbcType=INTEGER}
+  </select>
+  
+  <sql id="sql_of_where">
+  	<trim prefixOverrides="and">
+  			1=1
+  		<if test="bossid != null">
+	      and BOSSID = #{bossid,jdbcType=INTEGER}
+	    </if>
+	    <if test="categoryName != null">
+	      and CATEGORY_NAME = #{categoryName,jdbcType=VARCHAR}
+	    </if>
+	    <if test="categoryImg != null">
+	      and CATEGORY_IMG = #{categoryImg,jdbcType=VARCHAR}
+	    </if>
+	    <if test="description != null">
+	      and DESCRIPTION = #{description,jdbcType=VARCHAR}
+	    </if>
+	    <if test="sort != null">
+	      and SORT = #{sort,jdbcType=INTEGER}
+	    </if>
+	    <if test="createUser != null">
+	      and CREATE_USER = #{createUser,jdbcType=INTEGER}
+	    </if>
+	    <if test="createTime != null">
+	      and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+	    </if>
+  	</trim>
+  </sql>
+  
+  <!-- 根据条件查询总的记录数 -->
+  <select id="countByExample" parameterType="com.pzj.base.sku.entity.XzSkuCategoryExample" resultType="java.lang.Integer">
+    select count(*) from XZ_SKU_CATEGORY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+   <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+
+  <!-- 分页查询 -->
+  <select id="selectByExample" parameterType="com.pzj.base.sku.entity.XzSkuCategoryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from XZ_SKU_CATEGORY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="start!=null and start>=0">
+      limit #{start} , #{pageSize}
+    </if>
+  </select>
+  
+   
+	<select id="findByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from XZ_SKU_CATEGORY
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="findByCategoryName" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from XZ_SKU_CATEGORY
+		where CATEGORY_NAME = #{name,jdbcType=VARCHAR}
+	</select>
+	
+	
+	<insert id="insertXzSkuCategory"   parameterType="com.pzj.base.sku.entity.XzSkuCategory">
+	   insert into XZ_SKU_CATEGORY 
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+     	<if test="id != null">
+	      id,
+	    </if>
+		<if test="bossid != null">
+	      bossid,
+	    </if>
+	    <if test="categoryName != null">
+	     category_Name,
+	    </if>
+	    <if test="categoryImg != null">
+	      category_Img,
+	    </if>
+	    <if test="description != null">
+	     description,
+	    </if>
+	    <if test="sort != null">
+	      sort,
+	    </if>
+	    <if test="createUser != null">
+	      create_User,
+	    </if>
+	    <if test="createTime != null">
+	      create_Time,
+	    </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+    	 <if test="id != null">
+	      #{id,jdbcType=INTEGER},
+	    </if>
+		<if test="bossid != null">
+	      #{bossid,jdbcType=INTEGER},
+	    </if>
+	    <if test="categoryName != null">
+	      #{categoryName,jdbcType=VARCHAR},
+	    </if>
+	    <if test="categoryImg != null">
+	      #{categoryImg,jdbcType=VARCHAR},
+	    </if>
+	    <if test="description != null">
+	     #{description,jdbcType=VARCHAR},
+	    </if>
+	    <if test="sort != null">
+	      #{sort,jdbcType=INTEGER},
+	    </if>
+	    <if test="createUser != null">
+	      #{createUser,jdbcType=INTEGER},
+	    </if>
+	    <if test="createTime != null">
+	      #{createTime,jdbcType=TIMESTAMP},
+	    </if>
+    </trim>
+	</insert>
+  
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.sku.entity.XzSkuCategory">
+	  update XZ_SKU_CATEGORY
+	  <set>
+	    <if test="categoryName != null">
+	      CATEGORY_NAME = #{categoryName,jdbcType=VARCHAR},
+	    </if>
+	    <if test="categoryImg != null">
+	      CATEGORY_IMG = #{categoryImg,jdbcType=VARCHAR},
+	    </if>
+	    <if test="description != null">
+	      DESCRIPTION = #{description,jdbcType=VARCHAR},
+	    </if>
+	    <if test="sort != null">
+	      SORT = #{sort,jdbcType=INTEGER},
+	    </if>
+	    <if test="createUser != null">
+	      CREATE_USER = #{createUser,jdbcType=INTEGER},
+	    </if>
+	    <if test="createTime != null">
+	      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+	    </if>
+	  </set>
+	  where ID = #{id,jdbcType=INTEGER} and  BOSSID = #{bossid,jdbcType=INTEGER}
+	</update>
+	<delete id="delete" parameterType="com.pzj.base.sku.entity.XzSkuCategory">
+		delete from XZ_SKU_CATEGORY where
+		<trim prefixOverrides="and">
+			<if test="id != null">
+		      and ID = #{id,jdbcType=INTEGER}
+		    </if>
+			 <if test="bossid != null">
+		      and BOSSID = #{bossid,jdbcType=INTEGER}
+		    </if>
+		    <if test="categoryName != null">
+		      and CATEGORY_NAME = #{categoryName,jdbcType=VARCHAR}
+		    </if>
+		    <if test="categoryImg != null">
+		      and CATEGORY_IMG = #{categoryImg,jdbcType=VARCHAR}
+		    </if>
+		    <if test="description != null">
+		      and DESCRIPTION = #{description,jdbcType=VARCHAR}
+		    </if>
+		    <if test="sort != null">
+		      and SORT = #{sort,jdbcType=INTEGER}
+		    </if>
+		    <if test="createUser != null">
+		      and CREATE_USER = #{createUser,jdbcType=INTEGER}
+		    </if>
+		    <if test="createTime != null">
+		      and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+		    </if>
+		</trim>
+	</delete>
+</mapper>

@@ -1,0 +1,707 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IProductScenicMapper">
+
+<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+	id  
+	,code 
+	,name 
+	,province 
+	,city 
+	,county 
+	,grade 
+	,checkin_type 
+	,address 
+	,show_num 
+	,theater_zone 
+	,info 
+	,img_url 
+	,view_url 
+	,data_url 
+	,create_by 
+	,create_date 
+	,update_by 
+	,update_date 
+	,sort 
+	,status 
+	,type 
+	,source 
+	,supplier_id 
+	</sql>
+	
+	<sql id="Alias_Column_List">
+    a.id  
+    ,a.code 
+    ,a.name 
+    ,a.province 
+    ,a.city 
+    ,a.county 
+    ,a.grade 
+    ,a.checkin_type 
+    ,a.address 
+    ,a.show_num 
+    ,a.theater_zone 
+    ,a.info 
+    ,a.img_url 
+    ,a.view_url 
+    ,a.data_url 
+    ,a.create_by 
+    ,a.create_date 
+    ,a.update_by 
+    ,a.update_date 
+    ,a.sort 
+    ,a.status 
+    ,a.type 
+    ,a.source
+    </sql>
+
+	<sql id="Column_List_With_ScenicRelation">
+		<include refid="Alias_Column_List"/>
+		,b.rel_id as supplier_id
+	</sql>
+
+	<sql id="sql_of_where_alias">
+		<if test="bParam != null" >
+			<if test="bParam.id != null"> AND a.id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.code != null"> AND a.code = #{bParam.code,jdbcType=VARCHAR} </if>
+			<if test="bParam.name != null"> AND a.name like #{bParam.name}"%"  </if>
+			<if test="bParam.province != null"> AND a.province = #{bParam.province,jdbcType=VARCHAR} </if>
+			<if test="bParam.city != null"> AND a.city = #{bParam.city,jdbcType=VARCHAR} </if>
+			<if test="bParam.county != null"> AND a.county = #{bParam.county,jdbcType=VARCHAR} </if>
+			<if test="bParam.grade != null"> AND a.grade = #{bParam.grade,jdbcType=BIT} </if>
+			<if test="bParam.checkinType != null"> AND a.checkin_type = #{bParam.checkinType,jdbcType=VARCHAR} </if>
+			<if test="bParam.address != null"> AND a.address = #{bParam.address,jdbcType=VARCHAR} </if>
+			<if test="bParam.showNum != null"> AND a.show_num = #{bParam.showNum,jdbcType=VARCHAR} </if>
+			<if test="bParam.theaterZone != null"> AND a.theater_zone = #{bParam.theaterZone,jdbcType=VARCHAR} </if>
+			<if test="bParam.info != null"> AND a.info = #{bParam.info,jdbcType=VARCHAR} </if>
+			<if test="bParam.imgUrl != null"> AND a.img_url = #{bParam.imgUrl,jdbcType=VARCHAR} </if>
+			<if test="bParam.viewUrl != null"> AND a.view_url = #{bParam.viewUrl,jdbcType=VARCHAR} </if>
+			<if test="bParam.dataUrl != null"> AND a.data_url = #{bParam.dataUrl,jdbcType=VARCHAR} </if>
+			<if test="bParam.createBy != null"> AND a.create_by = #{bParam.createBy,jdbcType=CHAR} </if>
+			<if test="bParam.createDate != null"> AND a.create_date = #{bParam.createDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.updateBy != null"> AND a.update_by = #{bParam.updateBy,jdbcType=CHAR} </if>
+			<if test="bParam.updateDate != null"> AND a.update_date = #{bParam.updateDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.sort != null"> AND a.sort = #{bParam.sort,jdbcType=TINYINT} </if>
+			<if test="bParam.status != null"> AND a.status = #{bParam.status,jdbcType=BIT} </if>
+			<if test="bParam.type != null"> AND a.type = #{bParam.type,jdbcType=BIT} </if>
+			<if test="bParam.source != null"> AND a.source = #{bParam.source,jdbcType=VARCHAR} </if>
+			<if test="bParam.supplierId != null"> AND b.rel_id = #{bParam.supplierId,jdbcType=BIGINT}</if>
+            <if test="bParam.searchKey != null">AND (
+                name like "%"#{bParam.searchKey}"%"
+                or province like "%"#{bParam.searchKey}"%"
+                or city like "%"#{bParam.searchKey}"%"
+                or county like "%"#{bParam.searchKey}"%"
+                or address like "%"#{bParam.searchKey}"%"
+                )
+            </if>
+		</if>
+	</sql>
+
+	<!-- 跟联系表联合查询条件 -->
+	<sql id="sql_of_where_with_scenic_relation">
+		<include refid="sql_of_where_alias" />
+		<if test="bParam != null" >
+			<if test="bParam.relType != null"> AND b.rel_type = #{bParam.relType,jdbcType=VARCHAR}</if>
+		</if>
+	</sql>
+	
+<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.product.ProductScenic">
+	    <id column="id" property="id" jdbcType="BIGINT" />
+		<result column="code" jdbcType="VARCHAR" property="code" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="province" jdbcType="VARCHAR" property="province" />
+		<result column="city" jdbcType="VARCHAR" property="city" />
+		<result column="county" jdbcType="VARCHAR" property="county" />
+		<result column="grade" jdbcType="INTEGER" property="grade" />
+		<result column="checkin_type" jdbcType="VARCHAR" property="checkinType" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="show_num" jdbcType="VARCHAR" property="showNum" />
+		<result column="theater_zone" jdbcType="VARCHAR" property="theaterZone" />
+		<result column="info" jdbcType="VARCHAR" property="info" />
+		<result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+		<result column="view_url" jdbcType="VARCHAR" property="viewUrl" />
+		<result column="data_url" jdbcType="VARCHAR" property="dataUrl" />
+		<result column="create_by" jdbcType="VARCHAR" property="createBy" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="update_by" jdbcType="CHAR" property="updateBy" />
+		<result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+		<result column="sort" jdbcType="TINYINT" property="sort" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="source" jdbcType="VARCHAR" property="source" />
+		<result column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+	</resultMap>
+
+<!-- 字段映射 -->
+    <resultMap id="ExtResultMap" type="com.pzj.base.entity.product.ProductScenic" extends="BaseResultMap">
+        <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
+    </resultMap>
+
+<!-- 主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select  <include refid="Base_Column_List" />
+		from product_scenic
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+<!-- 删除 -->	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product_scenic where id = #{id,jdbcType=BIGINT}
+    </delete>
+	
+<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Alias_Column_List" />
+		from product_scenic a
+		<where>
+		<include refid="sql_of_where_alias" />
+		</where>
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null" > order by id desc</if>
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(a.id) from product_scenic a
+		<where>
+		<include refid="sql_of_where_alias" />
+		</where>
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.pzj.base.entity.product.ProductScenic" useGeneratedKeys="true" keyProperty="id">
+		insert into product_scenic 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				id, 
+			<if test="code != null">
+			    code,
+			</if>
+			<if test="name != null">
+			    name,
+			</if>
+			<if test="province != null">
+			    province,
+			</if>
+			<if test="city != null">
+			    city,
+			</if>
+			<if test="county != null">
+			    county,
+			</if>
+			<if test="grade != null">
+			    grade,
+			</if>
+			<if test="checkinType != null">
+			    checkin_type,
+			</if>
+			<if test="address != null">
+			    address,
+			</if>
+			<if test="showNum != null">
+			    show_num,
+			</if>
+			<if test="theaterZone != null">
+			    theater_zone,
+			</if>
+			<if test="info != null">
+			    info,
+			</if>
+			<if test="imgUrl != null">
+			    img_url,
+			</if>
+			<if test="viewUrl != null">
+			    view_url,
+			</if>
+			<if test="dataUrl != null">
+			    data_url,
+			</if>
+			<if test="createBy != null">
+			    create_by,
+			</if>
+			<if test="createDate != null">
+			    create_date,
+			</if>
+			<if test="updateBy != null">
+			    update_by,
+			</if>
+			<if test="updateDate != null">
+			    update_date,
+			</if>
+			<if test="sort != null">
+			    sort,
+			</if>
+			<if test="status != null">
+			    status,
+			</if>
+			<if test="type != null">type,</if>
+			<if test="source != null">source,</if>
+			<if test="supplierId != null">supplier_id,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			     #{id,jdbcType=BIGINT}, 
+			<if test="code != null">
+			    #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+			    #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="province != null">
+			    #{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+			    #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="county != null">
+			    #{county,jdbcType=VARCHAR},
+			</if>
+			<if test="grade != null">
+			    #{grade,jdbcType=INTEGER},
+			</if>
+			<if test="checkinType != null">
+			    #{checkinType,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+			    #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="showNum != null">
+			    #{showNum,jdbcType=VARCHAR},
+			</if>
+			<if test="theaterZone != null">
+			    #{theaterZone,jdbcType=VARCHAR},
+			</if>
+			<if test="info != null">
+			    #{info,jdbcType=VARCHAR},
+			</if>
+			<if test="imgUrl != null">
+			    #{imgUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="viewUrl != null">
+			    #{viewUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="dataUrl != null">
+			    #{dataUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+			    #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+			    #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+			    #{updateBy,jdbcType=CHAR},
+			</if>
+			<if test="updateDate != null">
+			    #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sort != null">
+			    #{sort,jdbcType=TINYINT},
+			</if>
+			<if test="status != null">
+			    #{status,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+			    #{type,jdbcType=INTEGER},
+			</if>
+			<if test="source != null">
+			    #{source,jdbcType=VARCHAR},
+			</if>
+			<if test="supplierId != null">
+			    #{supplierId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+<!-- 批量插入 请根据业务修改默认值-->	
+    <insert id="insertBatch"  parameterType="java.util.List">
+		insert into product_scenic (<include refid="Base_Column_List" />)
+		values
+		<foreach collection="list" item="item" separator=",">
+		(#{item.id,jdbcType=BIGINT}  
+			<choose>  
+				<when test="item.code != null">,#{item.code ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.name != null">,#{item.name ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.province != null">,#{item.province ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.city != null">,#{item.city ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.county != null">,#{item.county ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.grade != null">,#{item.grade ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.checkinType != null">,#{item.checkinType ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.address != null">,#{item.address ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.showNum != null">,#{item.showNum ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.theaterZone != null">,#{item.theaterZone ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.info != null">,#{item.info ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.imgUrl != null">,#{item.imgUrl ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.viewUrl != null">,#{item.viewUrl ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.dataUrl != null">,#{item.dataUrl ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.createBy != null">,#{item.createBy ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.createDate != null">,#{item.createDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.updateBy != null">,#{item.updateBy ,jdbcType=CHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.updateDate != null">,#{item.updateDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.sort != null">,#{item.sort ,jdbcType=TINYINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.status != null">,#{item.status ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.type != null">,#{item.type ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.source != null">,#{item.source ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.supplierId != null">,#{item.supplierId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose> 
+		)
+		</foreach>
+	</insert>
+
+<!-- 更新 -->
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.product.ProductScenic">
+		update product_scenic
+		<set>
+			<if test="code != null" >
+             code = #{code,jdbcType=VARCHAR},
+            </if>
+			<if test="name != null" >
+             name = #{name,jdbcType=VARCHAR},
+            </if>
+			<if test="province != null" >
+             province = #{province,jdbcType=VARCHAR},
+            </if>
+			<if test="city != null" >
+             city = #{city,jdbcType=VARCHAR},
+            </if>
+			<if test="county != null" >
+             county = #{county,jdbcType=VARCHAR},
+            </if>
+			<if test="grade != null" >
+             grade = #{grade,jdbcType=INTEGER},
+            </if>
+			<if test="checkinType != null" >
+             checkin_type = #{checkinType,jdbcType=VARCHAR},
+            </if>
+			<if test="address != null" >
+             address = #{address,jdbcType=VARCHAR},
+            </if>
+			<if test="showNum != null" >
+             show_num = #{showNum,jdbcType=VARCHAR},
+            </if>
+			<if test="theaterZone != null" >
+             theater_zone = #{theaterZone,jdbcType=VARCHAR},
+            </if>
+			<if test="info != null" >
+             info = #{info,jdbcType=VARCHAR},
+            </if>
+			<if test="imgUrl != null" >
+             img_url = #{imgUrl,jdbcType=VARCHAR},
+            </if>
+			<if test="viewUrl != null" >
+             view_url = #{viewUrl,jdbcType=VARCHAR},
+            </if>
+			<if test="dataUrl != null" >
+             data_url = #{dataUrl,jdbcType=VARCHAR},
+            </if>
+			<if test="updateBy != null" >
+             update_by = #{updateBy,jdbcType=CHAR},
+            </if>
+			<if test="updateDate != null" >
+             update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+			<if test="sort != null" >
+             sort = #{sort,jdbcType=TINYINT},
+            </if>
+			<if test="status != null" >
+             status = #{status,jdbcType=INTEGER},
+            </if>
+			<if test="type != null" >
+             type = #{type,jdbcType=INTEGER},
+            </if>
+			<if test="source != null" >
+             source = #{source,jdbcType=VARCHAR},
+            </if>
+			<if test="supplierId != null" >
+             supplier_id = #{supplierId,jdbcType=VARCHAR},
+            </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+<!-- 批量更新 -->
+	<update id="updateBatchByPrimaryKey"  parameterType="java.util.List">
+	     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update product_scenic 
+                <set>
+                  <if test="item.code != null" >
+                    code = #{item.code,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.name != null" >
+                    name = #{item.name,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.province != null" >
+                    province = #{item.province,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.city != null" >
+                    city = #{item.city,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.county != null" >
+                    county = #{item.county,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.grade != null" >
+                    grade = #{item.grade,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.checkinType != null" >
+                    checkin_type = #{item.checkinType,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.address != null" >
+                    address = #{item.address,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.showNum != null" >
+                    show_num = #{item.showNum,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.theaterZone != null" >
+                    theater_zone = #{item.theaterZone,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.info != null" >
+                    info = #{item.info,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.imgUrl != null" >
+                    img_url = #{item.imgUrl,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.viewUrl != null" >
+                    view_url = #{item.viewUrl,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.dataUrl != null" >
+                    data_url = #{item.dataUrl,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.updateBy != null" >
+                    update_by = #{item.updateBy,jdbcType=CHAR},
+                  </if>
+                  <if test="item.updateDate != null" >
+                    update_date = #{item.updateDate,jdbcType=TIMESTAMP},
+                  </if>
+                  <if test="item.sort != null" >
+                    sort = #{item.sort,jdbcType=TINYINT},
+                  </if>
+                  <if test="item.status != null" >
+                    status = #{item.status,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.type != null" >
+                    type = #{item.type,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.source != null" >
+                    source = #{item.source,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.supplierId != null" >
+                    supplier_id = #{item.supplierId,jdbcType=VARCHAR},
+                  </if>
+                </set>
+                where id = #{item.id,jdbcType=BIGINT}
+         </foreach>
+	</update>
+	<!-- 根据ids查询 -->
+  <select id="findByIdsMap" resultMap="BaseResultMap"  parameterType="map">
+     select
+     <include refid="Base_Column_List" />
+     from product_scenic 
+     <where>
+        id in (
+        <foreach collection="objId" item="_objId" separator=",">
+            #{_objId}
+        </foreach>
+        )
+     </where>
+  </select>
+  
+  <select id="queryScenicWithOutParentId" resultMap="ExtResultMap" parameterType="java.lang.Long" >
+	select 
+    <include refid="Column_List_With_ScenicRelation" />
+    ,c.name as supplier_name
+	from product_scenic a join product_scenic_relation b on a.id = b.scenicId and b.rel_id !=#{item.id,jdbcType=BIGINT}
+	and b.rel_type='SUPPILER' join sys_user c on b.rel_id=c.id
+	group by a.id
+  </select>
+  
+  <select id="queryScenicWithParentId" resultMap="ExtResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Column_List_With_ScenicRelation" />
+    ,c.name as supplier_name
+    from product_scenic a join product_scenic_relation b on a.id = b.scenicId and b.rel_id =#{item.id,jdbcType=BIGINT}
+    and b.rel_type='SUPPILER' join sys_user c on b.rel_id=c.id
+    group by a.id
+  </select>
+
+<!-- 跟联系表联合分页查询 -->
+    <select id="queryByParamMapWithRelation" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select 
+        <include refid="Column_List_With_ScenicRelation" />
+        from product_scenic a join product_scenic_relation b on a.id = b.scenicId and b.rel_type ='SUPPILER'
+		<where><include refid="sql_of_where_with_scenic_relation" /></where>
+        <if test="pParam != null">
+			<if test="pParam.orderByClause == null" > order by a.id desc</if>
+            <if test="pParam.orderByClause != null" > order by a.${pParam.orderByClause} </if>
+            <if test="pParam.startIndex != null and pParam.pageSize != null" >
+              limit #{pParam.startIndex} , #{pParam.pageSize}
+            </if>
+        </if>
+    </select>
+    
+    <!-- 跟联系表联合分页查询记录总数 -->
+    <select id="countByParamMapWithRelation" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(z.id) from (select a.id from product_scenic a join product_scenic_relation b on a.id = b.scenicId
+        <where><include refid="sql_of_where_with_scenic_relation" /></where>
+         group by a.id) z
+        
+    </select>
+     <!-- 查询数据库中所有的省份信息-->
+    <select id="findAllProvinces"  resultType="java.lang.String">
+        select distinct province from product_scenic
+    </select>
+    
+    <!-- 根据参数模糊查询所有景区 -->
+	<select id="findLikeScenics" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Column_List_With_ScenicRelation" />
+		from product_scenic a join product_scenic_relation b on a.id = b.scenicId 
+			join sys_user c on b.supplier_id = c.supplier_id
+		<where>
+			<if test="params != null">
+				<if test="params.localSupplierId == null">
+					c.supplier_id = #{params.localSupplierId},
+				</if>
+				<if test="params.scenicName != null">
+					a.name = #{params.scenicName},
+				</if>
+				<if test="params.supplierName != null">
+					c.name = #{params.supplierName}
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<select id="selectScenicByProductRelation" resultMap="BaseResultMap">
+		select
+		<include refid="Alias_Column_List" />
+		from product_scenic a join product_relation b on a.id = b.rel_id and b.rel_type ='scenic'
+		<where>
+			<include refid="sql_of_where_alias" />
+			<if test="relationObjId != null">
+				AND b.obj_id = #{relationObjId, jdbcType=BIGINT}
+			</if>
+			<if test="relationObjType != null">
+				AND b.obj_type = #{relationObjType, jdbcType=VARCHAR}
+			</if>
+		</where>
+		group by a.id
+	</select>
+	<select id="selectAddressByProductId" resultMap="BaseResultMap">
+	select a.id,a.province,a.city
+	from product_scenic a
+	inner join product_relation b on a.id = b.rel_id and b.rel_type ='scenic' and b.obj_type='proRelease'
+	and a.status = '1'
+	<if test="productIds != null and productIds.size > 0">
+	  and b.obj_id in
+		<foreach collection="productIds" item="item" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+	</if>
+	group by a.province,a.city	
+	</select>
+	
+	<select id="selectScenicByName" resultMap="BaseResultMap">
+	select
+	<include refid="Alias_Column_List" /> 
+	from product_scenic a
+	<where>
+	  <if test="name != null">
+	     and a.name = #{name}
+	  </if>
+	   or 1=2
+	</where>
+	
+	</select>
+	
+	<select id="selectScenicsByAppSearchKey" resultMap="BaseResultMap">
+	  select
+	<include refid="Base_Column_List" /> 
+	from product_scenic
+	<where>
+	   <if test="bParam != null" >
+		  <if test="bParam.id != null"> AND id = #{bParam.id,jdbcType=BIGINT} </if>
+		  <if test="bParam.province != null"> AND province = #{bParam.province,jdbcType=VARCHAR} </if>
+			<if test="bParam.city != null"> AND city = #{bParam.city,jdbcType=VARCHAR} </if>
+			<if test="bParam.county != null"> AND county = #{bParam.county,jdbcType=VARCHAR} </if>
+			
+	   </if>
+	</where>
+	
+	</select>
+	
+	
+</mapper>

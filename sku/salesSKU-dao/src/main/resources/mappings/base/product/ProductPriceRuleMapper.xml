@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IProductPriceRuleMapper">
+
+<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+	id  
+	,priority 
+	,type 
+	,start_date 
+	,end_date 
+	,weekday 
+	,market_price 
+	,product_id 
+	,supplier_id 
+	,retail_price 
+	,mf_price 
+	</sql>
+	
+<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.product.pms.ProductPriceRule">
+	     <id column="id" property="id" jdbcType="BIGINT" />
+		<result column="priority" jdbcType="INTEGER" property="priority" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
+		<result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+		<result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+		<result column="weekday" jdbcType="INTEGER" property="weekday" />
+		<result column="market_price" jdbcType="DOUBLE" property="marketPrice" />
+		<result column="product_id" jdbcType="BIGINT" property="productId" />
+		<result column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+		<result column="retail_price" jdbcType="DOUBLE" property="retailPrice" />
+		<result column="mf_price" jdbcType="DOUBLE" property="mfPrice" />
+	</resultMap>
+
+<!-- 主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select  <include refid="Base_Column_List" />
+		from product_price_rule
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+<!-- 删除 -->	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product_price_rule where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+<!-- 通用查询条件 -->
+	<sql id="sql_of_where">
+		WHERE 1=1 
+		<if test="bParam != null" >
+			<if test="bParam.id != null"> AND id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.priority != null"> AND priority = #{bParam.priority,jdbcType=INTEGER} </if>
+			<if test="bParam.type != null"> AND type = #{bParam.type,jdbcType=VARCHAR} </if>
+			<if test="bParam.startDate != null"> AND start_date = #{bParam.startDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.endDate != null"> AND end_date = #{bParam.endDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.weekday != null"> AND weekday = #{bParam.weekday,jdbcType=INTEGER} </if>
+			<if test="bParam.marketPrice != null"> AND market_price = #{bParam.marketPrice,jdbcType=DOUBLE} </if>
+			<if test="bParam.productId != null"> AND product_id = #{bParam.productId,jdbcType=BIGINT} </if>
+			<if test="bParam.supplierId != null"> AND supplier_id = #{bParam.supplierId,jdbcType=VARCHAR} </if>
+			<if test="bParam.retailPrice != null"> AND retail_price = #{bParam.retailPrice,jdbcType=DOUBLE} </if>
+			<if test="bParam.mfPrice != null"> AND mf_price = #{bParam.mfPrice,jdbcType=DOUBLE} </if>
+			<if test="bParam.queryIdList != null and bParam.queryIdList.size > 0">
+                AND id in
+               <foreach collection="bParam.queryIdList" item="item" open="(" separator=","
+                        close=")">
+                   #{item}
+               </foreach>
+            </if>
+            <if test="bParam.queryParentIdList != null and bParam.queryParentIdList.size > 0">
+                AND product_id in
+               <foreach collection="bParam.queryParentIdList" item="item" open="(" separator=","
+                        close=")">
+                   #{item}
+               </foreach>
+            </if>
+		</if>
+	</sql>
+	
+<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from product_price_rule
+		<include refid="sql_of_where" />
+		<if test="pParam != null">
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(id) from product_price_rule
+		<include refid="sql_of_where" />
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.pzj.base.entity.product.pms.ProductPriceRule" useGeneratedKeys="true" keyProperty="id">
+		insert into product_price_rule 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				id, 
+			<if test="priority != null">
+			    priority,
+			</if>
+			<if test="type != null">
+			    type,
+			</if>
+			<if test="startDate != null">
+			    start_date,
+			</if>
+			<if test="endDate != null">
+			    end_date,
+			</if>
+			<if test="weekday != null">
+			    weekday,
+			</if>
+			<if test="marketPrice != null">
+			    market_price,
+			</if>
+			<if test="productId != null">
+			    product_id,
+			</if>
+			<if test="supplierId != null">
+			    supplier_id,
+			</if>
+			<if test="retailPrice != null">
+			    retail_price,
+			</if>
+			<if test="mfPrice != null">
+			    mf_price,
+			</if> 
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			     #{id,jdbcType=BIGINT}, 
+			<if test="priority != null">
+			    #{priority,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+			    #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="startDate != null">
+			    #{startDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endDate != null">
+			    #{endDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="weekday != null">
+			    #{weekday,jdbcType=INTEGER},
+			</if>
+			<if test="marketPrice != null">
+			    #{marketPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="productId != null">
+			    #{productId,jdbcType=BIGINT},
+			</if>
+			<if test="supplierId != null">
+			    #{supplierId,jdbcType=VARCHAR},
+			</if>
+			<if test="retailPrice != null">
+			    #{retailPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="mfPrice != null">
+			    #{mfPrice,jdbcType=DOUBLE},
+			</if>
+		</trim>
+	</insert>
+	
+<!-- 批量插入 请根据业务修改默认值-->	
+    <insert id="insertBatch"  parameterType="java.util.List">
+		insert into product_price_rule 
+		(id  
+		,priority 
+		,type 
+		,start_date 
+		,end_date 
+		,weekday 
+		,market_price 
+		,product_id 
+		,supplier_id 
+		,retail_price 
+		,mf_price  
+		) 
+		values
+		<foreach collection="list" item="item" separator=",">
+		(#{item.id,jdbcType=BIGINT}  
+			<choose>  
+				<when test="item.priority != null">,#{item.priority ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.type != null">,#{item.type ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.startDate != null">,#{item.startDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.endDate != null">,#{item.endDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.weekday != null">,#{item.weekday ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.marketPrice != null">,#{item.marketPrice ,jdbcType=DOUBLE}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.productId != null">,#{item.productId ,jdbcType=BIGINT}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.supplierId != null">,#{item.supplierId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.retailPrice != null">,#{item.retailPrice ,jdbcType=DOUBLE}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.mfPrice != null">,#{item.mfPrice ,jdbcType=DOUBLE}</when>
+				<otherwise>,0</otherwise>
+			</choose> 
+		)
+		</foreach>
+	</insert>
+
+<!-- 更新 -->
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.product.pms.ProductPriceRule">
+		update product_price_rule
+		<set>
+			<if test="priority != null" >
+             priority = #{priority,jdbcType=INTEGER},
+            </if>
+			<if test="type != null" >
+             type = #{type,jdbcType=VARCHAR},
+            </if>
+			<if test="startDate != null" >
+             start_date = #{startDate,jdbcType=TIMESTAMP},
+            </if>
+			<if test="endDate != null" >
+             end_date = #{endDate,jdbcType=TIMESTAMP},
+            </if>
+			<if test="weekday != null" >
+             weekday = #{weekday,jdbcType=INTEGER},
+            </if>
+			<if test="marketPrice != null" >
+             market_price = #{marketPrice,jdbcType=DOUBLE},
+            </if>
+			<if test="productId != null" >
+             product_id = #{productId,jdbcType=BIGINT},
+            </if>
+			<if test="supplierId != null" >
+             supplier_id = #{supplierId,jdbcType=VARCHAR},
+            </if>
+			<if test="retailPrice != null" >
+             retail_price = #{retailPrice,jdbcType=DOUBLE},
+            </if>
+			<if test="mfPrice != null" >
+             mf_price = #{mfPrice,jdbcType=DOUBLE},
+            </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+<!-- 批量更新 -->
+	<update id="updateBatchByPrimaryKey"  parameterType="java.util.List">
+	     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update product_price_rule 
+                <set>
+                  <if test="item.priority != null" >
+                    priority = #{item.priority,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.type != null" >
+                    type = #{item.type,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.startDate != null" >
+                    start_date = #{item.startDate,jdbcType=TIMESTAMP},
+                  </if>
+                  <if test="item.endDate != null" >
+                    end_date = #{item.endDate,jdbcType=TIMESTAMP},
+                  </if>
+                  <if test="item.weekday != null" >
+                    weekday = #{item.weekday,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.marketPrice != null" >
+                    market_price = #{item.marketPrice,jdbcType=DOUBLE},
+                  </if>
+                  <if test="item.productId != null" >
+                    product_id = #{item.productId,jdbcType=BIGINT},
+                  </if>
+                  <if test="item.supplierId != null" >
+                    supplier_id = #{item.supplierId,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.retailPrice != null" >
+                    retail_price = #{item.retailPrice,jdbcType=DOUBLE},
+                  </if>
+                  <if test="item.mfPrice != null" >
+                    mf_price = #{item.mfPrice,jdbcType=DOUBLE},
+                  </if>
+                </set>
+                where id = #{item.id,jdbcType=BIGINT}
+         </foreach>
+	</update>
+	
+	<!-- 新加（根据id查询） -->
+     <select id="findByIdList" resultMap="BaseResultMap"
+            parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from product_price_rule
+        <where>
+            <if test="idList != null">
+                and id in
+                <foreach collection="idList" item="item" open="(" separator=","
+                         close=")">
+                    #{item}
+                </foreach>
+            </if>
+            or 1=2
+        </where>
+        order by id desc
+    </select>
+    <!-- 新加（根据parentId查询） -->
+    <select id="findByParentIdList" resultMap="BaseResultMap"
+            parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from product_price_rule
+        <where>
+            <if test="parentIdList != null">
+                and product_id in
+                <foreach collection="parentIdList" item="item" open="(" separator=","
+                         close=")">
+                    #{item}
+                </foreach>
+            </if>
+            or 1=2
+        </where>
+       order by id desc
+    </select>
+    
+     <!-- 新加批量删除 -->
+    <delete id="deleteBatchByPrimaryKey" parameterType="list">
+        <foreach collection="list" item="item" separator=";">
+        delete from product_price_rule where id = #{item.id ,jdbcType=BIGINT}
+        </foreach>
+    </delete>
+</mapper>

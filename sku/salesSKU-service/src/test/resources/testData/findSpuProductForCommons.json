@@ -1,0 +1,14 @@
+{
+  "spuProductQuery" : {
+    "id":2216619741564391,
+    "availableDateQuery" : {
+      "startDate" : "2016-10-01"
+    }
+  },
+  "resellerId" : 2216619736563718,
+  "salesType" : "3",
+
+  "skuProductQuery" : {
+
+  }
+}

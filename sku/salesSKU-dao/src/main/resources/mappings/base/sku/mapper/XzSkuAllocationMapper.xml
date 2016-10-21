@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pzj.base.sku.mapper.XzSkuAllocationMapper">
+  <resultMap id="BaseResultMap" type="com.pzj.base.sku.entity.XzSkuAllocation">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BOSSID" jdbcType="INTEGER" property="bossid" />
+    <result column="SKU_ID" jdbcType="INTEGER" property="skuId" />
+    <result column="ALLOCATION" jdbcType="VARCHAR" property="allocation" />
+    <result column="FIXED_LENGTH" jdbcType="INTEGER" property="fixedLength" />
+    <result column="FIXED_START_TIME" jdbcType="VARCHAR" property="fixedStartTime" />
+    <result column="DEFAULT_LENGTH" jdbcType="INTEGER" property="defaultLength" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="BOOKING_DISPLAY" jdbcType="VARCHAR" property="bookingDisplay" />
+    <result column="SHOW_END_TIMES" jdbcType="SMALLINT" property="showEndTimes" />
+    <result column="SHOW_UNAVAILABLE_SLOTS" jdbcType="SMALLINT" property="showUnavailableSlots" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, BOSSID, SKU_ID, ALLOCATION, FIXED_LENGTH, FIXED_START_TIME, DEFAULT_LENGTH, UNIT, 
+    BOOKING_DISPLAY, SHOW_END_TIMES, SHOW_UNAVAILABLE_SLOTS
+  </sql>
+  <select id="selectByExample" parameterType="com.pzj.base.sku.entity.XzSkuAllocationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from XZ_SKU_ALLOCATION
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="start!=null and start>=0">
+      limit #{start} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from XZ_SKU_ALLOCATION
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from XZ_SKU_ALLOCATION
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pzj.base.sku.entity.XzSkuAllocationExample">
+    delete from XZ_SKU_ALLOCATION
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert"   parameterType="com.pzj.base.sku.entity.XzSkuAllocation">
+    insert into XZ_SKU_ALLOCATION (ID, BOSSID, SKU_ID, 
+      ALLOCATION, FIXED_LENGTH, FIXED_START_TIME, 
+      DEFAULT_LENGTH, UNIT, BOOKING_DISPLAY, 
+      SHOW_END_TIMES, SHOW_UNAVAILABLE_SLOTS)
+    values (#{id,jdbcType=INTEGER}, #{bossid,jdbcType=INTEGER}, #{skuId,jdbcType=INTEGER}, 
+      #{allocation,jdbcType=VARCHAR}, #{fixedLength,jdbcType=INTEGER}, #{fixedStartTime,jdbcType=VARCHAR}, 
+      #{defaultLength,jdbcType=INTEGER}, #{unit,jdbcType=VARCHAR}, #{bookingDisplay,jdbcType=VARCHAR}, 
+      #{showEndTimes,jdbcType=SMALLINT}, #{showUnavailableSlots,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective"   parameterType="com.pzj.base.sku.entity.XzSkuAllocation">
+    insert into XZ_SKU_ALLOCATION
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="bossid != null">
+        BOSSID,
+      </if>
+      <if test="skuId != null">
+        SKU_ID,
+      </if>
+      <if test="allocation != null">
+        ALLOCATION,
+      </if>
+      <if test="fixedLength != null">
+        FIXED_LENGTH,
+      </if>
+      <if test="fixedStartTime != null">
+        FIXED_START_TIME,
+      </if>
+      <if test="defaultLength != null">
+        DEFAULT_LENGTH,
+      </if>
+      <if test="unit != null">
+        UNIT,
+      </if>
+      <if test="bookingDisplay != null">
+        BOOKING_DISPLAY,
+      </if>
+      <if test="showEndTimes != null">
+        SHOW_END_TIMES,
+      </if>
+      <if test="showUnavailableSlots != null">
+        SHOW_UNAVAILABLE_SLOTS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bossid != null">
+        #{bossid,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="allocation != null">
+        #{allocation,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedLength != null">
+        #{fixedLength,jdbcType=INTEGER},
+      </if>
+      <if test="fixedStartTime != null">
+        #{fixedStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultLength != null">
+        #{defaultLength,jdbcType=INTEGER},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="bookingDisplay != null">
+        #{bookingDisplay,jdbcType=VARCHAR},
+      </if>
+      <if test="showEndTimes != null">
+        #{showEndTimes,jdbcType=SMALLINT},
+      </if>
+      <if test="showUnavailableSlots != null">
+        #{showUnavailableSlots,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pzj.base.sku.entity.XzSkuAllocationExample" resultType="java.lang.Integer">
+    select count(*) from XZ_SKU_ALLOCATION
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update XZ_SKU_ALLOCATION
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.skuId != null">
+        SKU_ID = #{record.skuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.allocation != null">
+        ALLOCATION = #{record.allocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fixedLength != null">
+        FIXED_LENGTH = #{record.fixedLength,jdbcType=INTEGER},
+      </if>
+      <if test="record.fixedStartTime != null">
+        FIXED_START_TIME = #{record.fixedStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defaultLength != null">
+        DEFAULT_LENGTH = #{record.defaultLength,jdbcType=INTEGER},
+      </if>
+      <if test="record.unit != null">
+        UNIT = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookingDisplay != null">
+        BOOKING_DISPLAY = #{record.bookingDisplay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.showEndTimes != null">
+        SHOW_END_TIMES = #{record.showEndTimes,jdbcType=SMALLINT},
+      </if>
+      <if test="record.showUnavailableSlots != null">
+        SHOW_UNAVAILABLE_SLOTS = #{record.showUnavailableSlots,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update XZ_SKU_ALLOCATION
+    set ID = #{record.id,jdbcType=INTEGER},
+      SKU_ID = #{record.skuId,jdbcType=INTEGER},
+      ALLOCATION = #{record.allocation,jdbcType=VARCHAR},
+      FIXED_LENGTH = #{record.fixedLength,jdbcType=INTEGER},
+      FIXED_START_TIME = #{record.fixedStartTime,jdbcType=VARCHAR},
+      DEFAULT_LENGTH = #{record.defaultLength,jdbcType=INTEGER},
+      UNIT = #{record.unit,jdbcType=VARCHAR},
+      BOOKING_DISPLAY = #{record.bookingDisplay,jdbcType=VARCHAR},
+      SHOW_END_TIMES = #{record.showEndTimes,jdbcType=SMALLINT},
+      SHOW_UNAVAILABLE_SLOTS = #{record.showUnavailableSlots,jdbcType=SMALLINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pzj.base.sku.entity.XzSkuAllocation">
+    update XZ_SKU_ALLOCATION
+    <set>
+      <if test="skuId != null">
+        SKU_ID = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="allocation != null">
+        ALLOCATION = #{allocation,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedLength != null">
+        FIXED_LENGTH = #{fixedLength,jdbcType=INTEGER},
+      </if>
+      <if test="fixedStartTime != null">
+        FIXED_START_TIME = #{fixedStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultLength != null">
+        DEFAULT_LENGTH = #{defaultLength,jdbcType=INTEGER},
+      </if>
+      <if test="unit != null">
+        UNIT = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="bookingDisplay != null">
+        BOOKING_DISPLAY = #{bookingDisplay,jdbcType=VARCHAR},
+      </if>
+      <if test="showEndTimes != null">
+        SHOW_END_TIMES = #{showEndTimes,jdbcType=SMALLINT},
+      </if>
+      <if test="showUnavailableSlots != null">
+        SHOW_UNAVAILABLE_SLOTS = #{showUnavailableSlots,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER} and  BOSSID = #{bossid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pzj.base.sku.entity.XzSkuAllocation">
+    update XZ_SKU_ALLOCATION
+    set
+      SKU_ID = #{skuId,jdbcType=INTEGER},
+      ALLOCATION = #{allocation,jdbcType=VARCHAR},
+      FIXED_LENGTH = #{fixedLength,jdbcType=INTEGER},
+      FIXED_START_TIME = #{fixedStartTime,jdbcType=VARCHAR},
+      DEFAULT_LENGTH = #{defaultLength,jdbcType=INTEGER},
+      UNIT = #{unit,jdbcType=VARCHAR},
+      BOOKING_DISPLAY = #{bookingDisplay,jdbcType=VARCHAR},
+      SHOW_END_TIMES = #{showEndTimes,jdbcType=SMALLINT},
+      SHOW_UNAVAILABLE_SLOTS = #{showUnavailableSlots,jdbcType=SMALLINT}
+    where ID = #{id,jdbcType=INTEGER} and  BOSSID = #{bossid,jdbcType=INTEGER}
+  </update>
+     <insert id="insertBatch" parameterType="java.util.List">
+		insert into XZ_SKU_ALLOCATION values
+		<trim suffixOverrides=",">
+			<foreach collection="list" item="sku" open="" close=""
+				separator=",">
+				(
+				#{sku.id,jdbcType=INTEGER}, 
+				#{sku.bossid,jdbcType=INTEGER},
+				#{sku.skuId,jdbcType=INTEGER},
+				#{sku.allocation,jdbcType=VARCHAR}, 
+				#{sku.fixedLength,jdbcType=INTEGER}, 
+				#{sku.fixedStartTime,jdbcType=VARCHAR},
+				#{sku.defaultLength,jdbcType=INTEGER}, 
+				#{sku.unit,jdbcType=VARCHAR},
+				#{sku.bookingDisplay,jdbcType=VARCHAR},
+				#{sku.showEndTimes,jdbcType=SMALLINT}, 
+				#{sku.showUnavailableSlots,jdbcType=SMALLINT}
+				)
+			</foreach>
+		</trim>
+	</insert>
+</mapper>

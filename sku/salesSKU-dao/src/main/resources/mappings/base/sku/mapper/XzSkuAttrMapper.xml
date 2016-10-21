@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pzj.base.sku.mapper.XzSkuAttrMapper" >
+  <resultMap id="BaseResultMap" type="com.pzj.base.sku.entity.XzSkuAttr">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BOSSID" jdbcType="INTEGER" property="bossid" />
+    <result column="DEFAULT_VALUE" jdbcType="INTEGER" property="defaultValue" />
+    <result column="HAS_PRICE" jdbcType="BIT" property="hasPrice" />
+    <result column="IS_DISPLAY_RANGE" jdbcType="BIT" property="isDisplayRange" />
+    <result column="IS_CTRL_INVENTORY" jdbcType="BIT" property="isCtrlInventory" />
+    <result column="IS_REQUIRED" jdbcType="BIT" property="isRequired" />
+    <result column="VISIBILITY" jdbcType="VARCHAR" property="visibility" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, BOSSID, DEFAULT_VALUE, HAS_PRICE, IS_DISPLAY_RANGE, IS_CTRL_INVENTORY, IS_REQUIRED, 
+    VISIBILITY
+  </sql>
+  <select id="selectByExample" parameterType="com.pzj.base.sku.entity.XzSkuAttrExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from XZ_SKU_ATTR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="start!=null and start>=0">
+      limit #{start} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from XZ_SKU_ATTR
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from XZ_SKU_ATTR
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pzj.base.sku.entity.XzSkuAttrExample">
+    delete from XZ_SKU_ATTR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert"   parameterType="com.pzj.base.sku.entity.XzSkuAttr">
+    insert into XZ_SKU_ATTR (ID, BOSSID, DEFAULT_VALUE, 
+      HAS_PRICE, IS_DISPLAY_RANGE, IS_CTRL_INVENTORY, 
+      IS_REQUIRED, VISIBILITY)
+    values (#{id,jdbcType=INTEGER}, #{bossid,jdbcType=INTEGER}, #{defaultValue,jdbcType=INTEGER}, 
+      #{hasPrice,jdbcType=BIT}, #{isDisplayRange,jdbcType=BIT}, #{isCtrlInventory,jdbcType=BIT}, 
+      #{isRequired,jdbcType=BIT}, #{visibility,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective"   parameterType="com.pzj.base.sku.entity.XzSkuAttr">
+    insert into XZ_SKU_ATTR
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="bossid != null">
+        BOSSID,
+      </if>
+      <if test="defaultValue != null">
+        DEFAULT_VALUE,
+      </if>
+      <if test="hasPrice != null">
+        HAS_PRICE,
+      </if>
+      <if test="isDisplayRange != null">
+        IS_DISPLAY_RANGE,
+      </if>
+      <if test="isCtrlInventory != null">
+        IS_CTRL_INVENTORY,
+      </if>
+      <if test="isRequired != null">
+        IS_REQUIRED,
+      </if>
+      <if test="visibility != null">
+        VISIBILITY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bossid != null">
+        #{bossid,jdbcType=INTEGER},
+      </if>
+      <if test="defaultValue != null">
+        #{defaultValue,jdbcType=INTEGER},
+      </if>
+      <if test="hasPrice != null">
+        #{hasPrice,jdbcType=BIT},
+      </if>
+      <if test="isDisplayRange != null">
+        #{isDisplayRange,jdbcType=BIT},
+      </if>
+      <if test="isCtrlInventory != null">
+        #{isCtrlInventory,jdbcType=BIT},
+      </if>
+      <if test="isRequired != null">
+        #{isRequired,jdbcType=BIT},
+      </if>
+      <if test="visibility != null">
+        #{visibility,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pzj.base.sku.entity.XzSkuAttrExample" resultType="java.lang.Integer">
+    select count(*) from XZ_SKU_ATTR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update XZ_SKU_ATTR
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.defaultValue != null">
+        DEFAULT_VALUE = #{record.defaultValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.hasPrice != null">
+        HAS_PRICE = #{record.hasPrice,jdbcType=BIT},
+      </if>
+      <if test="record.isDisplayRange != null">
+        IS_DISPLAY_RANGE = #{record.isDisplayRange,jdbcType=BIT},
+      </if>
+      <if test="record.isCtrlInventory != null">
+        IS_CTRL_INVENTORY = #{record.isCtrlInventory,jdbcType=BIT},
+      </if>
+      <if test="record.isRequired != null">
+        IS_REQUIRED = #{record.isRequired,jdbcType=BIT},
+      </if>
+      <if test="record.visibility != null">
+        VISIBILITY = #{record.visibility,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update XZ_SKU_ATTR
+    set ID = #{record.id,jdbcType=INTEGER},
+      DEFAULT_VALUE = #{record.defaultValue,jdbcType=INTEGER},
+      HAS_PRICE = #{record.hasPrice,jdbcType=BIT},
+      IS_DISPLAY_RANGE = #{record.isDisplayRange,jdbcType=BIT},
+      IS_CTRL_INVENTORY = #{record.isCtrlInventory,jdbcType=BIT},
+      IS_REQUIRED = #{record.isRequired,jdbcType=BIT},
+      VISIBILITY = #{record.visibility,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pzj.base.sku.entity.XzSkuAttr">
+    update XZ_SKU_ATTR
+    <set>
+
+      <if test="defaultValue != null">
+        DEFAULT_VALUE = #{defaultValue,jdbcType=INTEGER},
+      </if>
+      <if test="hasPrice != null">
+        HAS_PRICE = #{hasPrice,jdbcType=BIT},
+      </if>
+      <if test="isDisplayRange != null">
+        IS_DISPLAY_RANGE = #{isDisplayRange,jdbcType=BIT},
+      </if>
+      <if test="isCtrlInventory != null">
+        IS_CTRL_INVENTORY = #{isCtrlInventory,jdbcType=BIT},
+      </if>
+      <if test="isRequired != null">
+        IS_REQUIRED = #{isRequired,jdbcType=BIT},
+      </if>
+      <if test="visibility != null">
+        VISIBILITY = #{visibility,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER} and  BOSSID = #{bossid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pzj.base.sku.entity.XzSkuAttr">
+    update XZ_SKU_ATTR
+    set
+      DEFAULT_VALUE = #{defaultValue,jdbcType=INTEGER},
+      HAS_PRICE = #{hasPrice,jdbcType=BIT},
+      IS_DISPLAY_RANGE = #{isDisplayRange,jdbcType=BIT},
+      IS_CTRL_INVENTORY = #{isCtrlInventory,jdbcType=BIT},
+      IS_REQUIRED = #{isRequired,jdbcType=BIT},
+      VISIBILITY = #{visibility,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER} and  BOSSID = #{bossid,jdbcType=INTEGER}
+  </update>
+  <insert id="insertBatch" parameterType="java.util.List">
+  	insert into XZ_SKU_ATTR values 
+  	<trim suffixOverrides="," >
+		<foreach collection="list" item="sku" open="" close="" separator=",">
+			(
+			#{sku.id,jdbcType=INTEGER}, 
+			#{sku.bossid,jdbcType=INTEGER},
+			#{sku.defaultValue,jdbcType=INTEGER},
+			#{sku.hasPrice,jdbcType=BIT}, 
+			#{sku.isDisplayRange,jdbcType=BIT}, 
+			#{sku.isCtrlInventory,jdbcType=BIT},
+			#{sku.isRequired,jdbcType=BIT}, 
+			#{sku.visibility,jdbcType=VARCHAR}
+			)
+  		</foreach>
+  	</trim>
+  </insert>
+</mapper>

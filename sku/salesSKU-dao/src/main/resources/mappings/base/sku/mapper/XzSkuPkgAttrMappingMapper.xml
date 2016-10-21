@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pzj.base.sku.mapper.XzSkuPkgAttrMappingMapper">
+  <resultMap id="BaseResultMap" type="com.pzj.base.sku.entity.XzSkuPkgAttrMapping">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BOSSID" jdbcType="INTEGER" property="bossid" />
+    <result column="SKU_ID" jdbcType="INTEGER" property="skuId" />
+    <result column="PACKAGE_ID" jdbcType="INTEGER" property="packageId" />
+    <result column="SKU_ATTR_ID" jdbcType="INTEGER" property="skuAttrId" />
+    <result column="PKG_SKU_ATTR_ID" jdbcType="INTEGER" property="pkgSkuAttrId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, BOSSID, SKU_ID, PACKAGE_ID, SKU_ATTR_ID, PKG_SKU_ATTR_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.pzj.base.sku.entity.XzSkuPkgAttrMappingExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from XZ_SKU_PKG_ATTR_MAPPING
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="start!=null and start>=0">
+      limit #{start} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from XZ_SKU_PKG_ATTR_MAPPING
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from XZ_SKU_PKG_ATTR_MAPPING
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pzj.base.sku.entity.XzSkuPkgAttrMappingExample">
+    delete from XZ_SKU_PKG_ATTR_MAPPING
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert"   parameterType="com.pzj.base.sku.entity.XzSkuPkgAttrMapping">
+    insert into XZ_SKU_PKG_ATTR_MAPPING (ID, BOSSID, SKU_ID, 
+      PACKAGE_ID, SKU_ATTR_ID, PKG_SKU_ATTR_ID
+      )
+    values (#{id,jdbcType=INTEGER}, #{bossid,jdbcType=INTEGER}, #{skuId,jdbcType=INTEGER}, 
+      #{packageId,jdbcType=INTEGER}, #{skuAttrId,jdbcType=INTEGER}, #{pkgSkuAttrId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective"   parameterType="com.pzj.base.sku.entity.XzSkuPkgAttrMapping">
+    insert into XZ_SKU_PKG_ATTR_MAPPING
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="bossid != null">
+        BOSSID,
+      </if>
+      <if test="skuId != null">
+        SKU_ID,
+      </if>
+      <if test="packageId != null">
+        PACKAGE_ID,
+      </if>
+      <if test="skuAttrId != null">
+        SKU_ATTR_ID,
+      </if>
+      <if test="pkgSkuAttrId != null">
+        PKG_SKU_ATTR_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bossid != null">
+        #{bossid,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="packageId != null">
+        #{packageId,jdbcType=INTEGER},
+      </if>
+      <if test="skuAttrId != null">
+        #{skuAttrId,jdbcType=INTEGER},
+      </if>
+      <if test="pkgSkuAttrId != null">
+        #{pkgSkuAttrId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pzj.base.sku.entity.XzSkuPkgAttrMappingExample" resultType="java.lang.Integer">
+    select count(*) from XZ_SKU_PKG_ATTR_MAPPING
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update XZ_SKU_PKG_ATTR_MAPPING
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.skuId != null">
+        SKU_ID = #{record.skuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.packageId != null">
+        PACKAGE_ID = #{record.packageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.skuAttrId != null">
+        SKU_ATTR_ID = #{record.skuAttrId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pkgSkuAttrId != null">
+        PKG_SKU_ATTR_ID = #{record.pkgSkuAttrId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update XZ_SKU_PKG_ATTR_MAPPING
+    set ID = #{record.id,jdbcType=INTEGER},
+      SKU_ID = #{record.skuId,jdbcType=INTEGER},
+      PACKAGE_ID = #{record.packageId,jdbcType=INTEGER},
+      SKU_ATTR_ID = #{record.skuAttrId,jdbcType=INTEGER},
+      PKG_SKU_ATTR_ID = #{record.pkgSkuAttrId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pzj.base.sku.entity.XzSkuPkgAttrMapping">
+    update XZ_SKU_PKG_ATTR_MAPPING
+    <set>
+
+      <if test="skuId != null">
+        SKU_ID = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="packageId != null">
+        PACKAGE_ID = #{packageId,jdbcType=INTEGER},
+      </if>
+      <if test="skuAttrId != null">
+        SKU_ATTR_ID = #{skuAttrId,jdbcType=INTEGER},
+      </if>
+      <if test="pkgSkuAttrId != null">
+        PKG_SKU_ATTR_ID = #{pkgSkuAttrId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER} and  BOSSID = #{bossid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pzj.base.sku.entity.XzSkuPkgAttrMapping">
+    update XZ_SKU_PKG_ATTR_MAPPING
+    set
+      SKU_ID = #{skuId,jdbcType=INTEGER},
+      PACKAGE_ID = #{packageId,jdbcType=INTEGER},
+      SKU_ATTR_ID = #{skuAttrId,jdbcType=INTEGER},
+      PKG_SKU_ATTR_ID = #{pkgSkuAttrId,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER} and  BOSSID = #{bossid,jdbcType=INTEGER}
+  </update>
+</mapper>

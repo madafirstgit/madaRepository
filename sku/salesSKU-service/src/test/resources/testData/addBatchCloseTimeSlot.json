@@ -1,0 +1,26 @@
+[
+  {
+    "colseDate": "2012-03-25 12:30:10",
+    "startDate": "2012-03-26 12:30:10",
+    "endDate": "2012-03-27 12:30:10",
+    "productInfoId": 14124512,
+    "flag": 12,
+    "supplierId": 24823,
+    "createBy": "Junit测试数据",
+    "updateBy": "Junit测试数据",
+    "createDate": "2012-03-28 22:30:10",
+    "updateDate": "2012-03-29 12:30:10"
+  },
+  {
+    "colseDate": "2013-03-25 22:30:10",
+    "startDate": "2013-03-26 12:30:10",
+    "endDate": "2013-03-27 12:30:10",
+    "productInfoId": 5132,
+    "flag": 33,
+    "supplierId": 534,
+    "createBy": "Junit测试数据",
+    "updateBy": "Junit测试数据",
+    "createDate": "2013-03-28 12:30:10",
+    "updateDate": "2013-03-29 12:30:10"
+  }
+]

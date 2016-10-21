@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration debug="false" scan="true">
+	<property name="log.path" value="../logs" />
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss} [%5p] %C{0}.%M - %m%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="product-data" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="com.pzj.framework.logger.filter.ThresholdFilter">
+			<level>warn</level>
+			<rebel>true</rebel>
+		</filter>
+		<file>${log.path}/product-data.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.path}/product-data-%d{yyyyMMdd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss} [%-5p] [%t] %C{0}.%M - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="product-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="com.pzj.framework.logger.filter.ThresholdFilter" />
+		<file>${log.path}/product-error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.path}/product-error-%d{yyyyMMdd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss} [%-5p] [%t] %C{0}.%M - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.pzj" level="info" additivity="false">
+		<appender-ref ref="product-data" />
+		<appender-ref ref="product-error" />
+		<appender-ref ref="stdout" />
+	</logger>
+
+	<logger name="org.springframework" level="warn" />
+	<logger name="com.alibaba" level="warn" />
+	<logger name="org.apache" level="warn" />
+	<logger name="org.I0Itec.zkclient" level="warn" />
+
+	<root level="info">
+		<appender-ref ref="stdout" />
+	</root>
+</configuration>

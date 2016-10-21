@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IProductRebateRuleMapper">
+
+<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+	id  
+	,name 
+	,product_id 
+	,product_name 
+	,flag 
+	,create_date 
+	,create_by 
+	,match_cnt 
+	,auditStatus 
+	,supplier_id 
+	</sql>
+	
+<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.product.ProductRebateRule">
+	    <id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="product_id" jdbcType="BIGINT" property="productId" />
+		<result column="product_name" jdbcType="VARCHAR" property="productName" />
+		<result column="flag" jdbcType="CHAR" property="flag" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="create_by" jdbcType="VARCHAR" property="createBy" />
+		<result column="match_cnt" jdbcType="INTEGER" property="matchCnt" />
+		<result column="auditStatus" jdbcType="VARCHAR" property="auditStatus" />
+		<result column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+	</resultMap>
+
+<!-- 主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select  <include refid="Base_Column_List" />
+		from product_rebate_rule
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+<!-- 删除 -->	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product_rebate_rule where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+<!-- 通用查询条件 -->
+	<sql id="sql_of_where">
+		WHERE 1=1 
+		<if test="bParam != null" >
+			<if test="bParam.id != null"> AND id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.name != null"> AND name = #{bParam.name,jdbcType=VARCHAR} </if>
+			<if test="bParam.productId != null"> AND product_id = #{bParam.productId,jdbcType=BIGINT} </if>
+			<if test="bParam.productName != null"> AND product_name = #{bParam.productName,jdbcType=VARCHAR} </if>
+			<if test="bParam.flag != null"> AND flag = #{bParam.flag,jdbcType=CHAR} </if>
+			<if test="bParam.createDate != null"> AND create_date = #{bParam.createDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.createBy != null"> AND create_by = #{bParam.createBy,jdbcType=VARCHAR} </if>
+			<if test="bParam.matchCnt != null"> AND match_cnt = #{bParam.matchCnt,jdbcType=INTEGER} </if>
+			<if test="bParam.auditStatus != null"> AND auditStatus = #{bParam.auditStatus,jdbcType=VARCHAR} </if>
+			<if test="bParam.supplierId != null"> AND supplier_id = #{bParam.supplierId,jdbcType=VARCHAR} </if>
+		</if>
+	</sql>
+	
+<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from product_rebate_rule
+		<include refid="sql_of_where" />
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null" > order by id desc</if>
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(id) from product_rebate_rule
+		<include refid="sql_of_where" />
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.pzj.base.entity.product.ProductRebateRule" useGeneratedKeys="true" keyProperty="id">
+		insert into product_rebate_rule 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				id, 
+			<if test="name != null">
+			    name,
+			</if>
+			<if test="productId != null">
+			    product_id,
+			</if>
+			<if test="productName != null">
+			    product_name,
+			</if>
+			<if test="flag != null">
+			    flag,
+			</if>
+			<if test="createDate != null">
+			    create_date,
+			</if>
+			<if test="createBy != null">
+			    create_by,
+			</if>
+			<if test="matchCnt != null">
+			    match_cnt,
+			</if>
+			<if test="auditStatus != null">
+			    auditStatus,
+			</if>
+			<if test="supplierId != null">
+			    supplier_id,
+			</if> 
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			     #{id,jdbcType=BIGINT}, 
+			<if test="name != null">
+			    #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="productId != null">
+			    #{productId,jdbcType=BIGINT},
+			</if>
+			<if test="productName != null">
+			    #{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="flag != null">
+			    #{flag,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+			    #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+			    #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="matchCnt != null">
+			    #{matchCnt,jdbcType=INTEGER},
+			</if>
+			<if test="auditStatus != null">
+			    #{auditStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="supplierId != null">
+			    #{supplierId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+<!-- 批量插入 请根据业务修改默认值-->	
+    <insert id="insertBatch"  parameterType="java.util.List">
+		insert into product_rebate_rule 
+		(id  
+		,name 
+		,product_id 
+		,product_name 
+		,flag 
+		,create_date 
+		,create_by 
+		,match_cnt 
+		,auditStatus 
+		,supplier_id  
+		) 
+		values
+		<foreach collection="list" item="item" separator=",">
+		(#{item.id,jdbcType=BIGINT}  
+			<choose>  
+				<when test="item.name != null">,#{item.name ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.productId != null">,#{item.productId ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.productName != null">,#{item.productName ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.flag != null">,#{item.flag ,jdbcType=CHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.createDate != null">,#{item.createDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.createBy != null">,#{item.createBy ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.matchCnt != null">,#{item.matchCnt ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.auditStatus != null">,#{item.auditStatus ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.supplierId != null">,#{item.supplierId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose> 
+		)
+		</foreach>
+	</insert>
+
+<!-- 更新 -->
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.product.ProductRebateRule">
+		update product_rebate_rule
+		<set>
+			<if test="name != null" >
+             name = #{name,jdbcType=VARCHAR},
+            </if>
+			<if test="productId != null" >
+             product_id = #{productId,jdbcType=BIGINT},
+            </if>
+			<if test="productName != null" >
+             product_name = #{productName,jdbcType=VARCHAR},
+            </if>
+			<if test="flag != null" >
+             flag = #{flag,jdbcType=CHAR},
+            </if>
+			<if test="createDate != null" >
+             create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+			<if test="createBy != null" >
+             create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+			<if test="matchCnt != null" >
+             match_cnt = #{matchCnt,jdbcType=INTEGER},
+            </if>
+			<if test="auditStatus != null" >
+             auditStatus = #{auditStatus,jdbcType=VARCHAR},
+            </if>
+			<if test="supplierId != null" >
+             supplier_id = #{supplierId,jdbcType=VARCHAR},
+            </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+<!-- 批量更新 -->
+	<update id="updateBatchByPrimaryKey"  parameterType="java.util.List">
+	     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update product_rebate_rule 
+                <set>
+                  <if test="item.name != null" >
+                    name = #{item.name,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.productId != null" >
+                    product_id = #{item.productId,jdbcType=BIGINT},
+                  </if>
+                  <if test="item.productName != null" >
+                    product_name = #{item.productName,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.flag != null" >
+                    flag = #{item.flag,jdbcType=CHAR},
+                  </if>
+                  <if test="item.createDate != null" >
+                    create_date = #{item.createDate,jdbcType=TIMESTAMP},
+                  </if>
+                  <if test="item.createBy != null" >
+                    create_by = #{item.createBy,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.matchCnt != null" >
+                    match_cnt = #{item.matchCnt,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.auditStatus != null" >
+                    auditStatus = #{item.auditStatus,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.supplierId != null" >
+                    supplier_id = #{item.supplierId,jdbcType=VARCHAR},
+                  </if>
+                </set>
+                where id = #{item.id,jdbcType=BIGINT}
+         </foreach>
+	</update>
+</mapper>

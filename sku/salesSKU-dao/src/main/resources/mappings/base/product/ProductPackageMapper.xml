@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IProductPackageMapper">
+
+<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+	id  
+	,name 
+	,sub_rebate_rule 
+	,package_type 
+	,status 
+	,create_by 
+	,create_date 
+	,update_by 
+	,update_date 
+	,product_id 
+	,supplier_id 
+	</sql>
+	
+<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.product.ProductPackage">
+	    <id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="sub_rebate_rule" jdbcType="VARCHAR" property="subRebateRule" />
+		<result column="package_type" jdbcType="INTEGER" property="packageType" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<result column="create_by" jdbcType="VARCHAR" property="createBy" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+		<result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+		<result column="product_id" jdbcType="BIGINT" property="productId" />
+		<result column="supplier_id" jdbcType="VARCHAR" property="supplierId" />
+	</resultMap>
+
+	<resultMap id="AllResultMap" type="com.pzj.base.entity.product.ProductPackage" extends="BaseResultMap">
+		<association property="subList" resultMap="com.pzj.base.product.IProductPackageSubMapper.BaseResultMap" columnPrefix="sub_"/>
+	</resultMap>
+
+<!-- 主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select  <include refid="Base_Column_List" />
+		from product_package
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+<!-- 删除 -->	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product_package where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+<!-- 通用查询条件 -->
+	<sql id="sql_of_where">
+		WHERE 1=1 
+		<if test="bParam != null" >
+			<if test="bParam.id != null"> AND id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.name != null"> AND name = #{bParam.name,jdbcType=VARCHAR} </if>
+			<if test="bParam.subRebateRule != null"> AND sub_rebate_rule = #{bParam.subRebateRule,jdbcType=VARCHAR} </if>
+			<if test="bParam.packageType != null"> AND package_type = #{bParam.packageType,jdbcType=INTEGER} </if>
+			<if test="bParam.status != null"> AND status = #{bParam.status,jdbcType=INTEGER} </if>
+			<if test="bParam.createBy != null"> AND create_by = #{bParam.createBy,jdbcType=VARCHAR} </if>
+			<if test="bParam.createDate != null"> AND create_date = #{bParam.createDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.updateBy != null"> AND update_by = #{bParam.updateBy,jdbcType=VARCHAR} </if>
+			<if test="bParam.updateDate != null"> AND update_date = #{bParam.updateDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.productId != null"> AND product_id = #{bParam.productId,jdbcType=BIGINT} </if>
+			<if test="bParam.supplierId != null"> AND supplier_id = #{bParam.supplierId,jdbcType=VARCHAR} </if>
+		</if>
+	</sql>
+	
+<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from product_package
+		<include refid="sql_of_where" />
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null" > order by id desc</if>
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(id) from product_package
+		<include refid="sql_of_where" />
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.pzj.base.entity.product.ProductPackage" useGeneratedKeys="true" keyProperty="id">
+		insert into product_package 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				id, 
+			<if test="name != null">
+			    name,
+			</if>
+			<if test="subRebateRule != null">
+			    sub_rebate_rule,
+			</if>
+			<if test="packageType != null">
+			    package_type,
+			</if>
+			<if test="status != null">
+			    status,
+			</if>
+			<if test="createBy != null">
+			    create_by,
+			</if>
+			<if test="createDate != null">
+			    create_date,
+			</if>
+			<if test="updateBy != null">
+			    update_by,
+			</if>
+			<if test="updateDate != null">
+			    update_date,
+			</if>
+			<if test="productId != null">
+			    product_id,
+			</if>
+			<if test="supplierId != null">
+			    supplier_id,
+			</if> 
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			     #{id,jdbcType=BIGINT}, 
+			<if test="name != null">
+			    #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="subRebateRule != null">
+			    #{subRebateRule,jdbcType=VARCHAR},
+			</if>
+			<if test="packageType != null">
+			    #{packageType,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+			    #{status,jdbcType=INTEGER},
+			</if>
+			<if test="createBy != null">
+			    #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+			    #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+			    #{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+			    #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="productId != null">
+			    #{productId,jdbcType=BIGINT},
+			</if>
+			<if test="supplierId != null">
+			    #{supplierId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+<!-- 批量插入 请根据业务修改默认值-->	
+    <insert id="insertBatch"  parameterType="java.util.List">
+		insert into product_package 
+		(id  
+		,name 
+		,sub_rebate_rule 
+		,package_type 
+		,status 
+		,create_by 
+		,create_date 
+		,update_by 
+		,update_date 
+		,product_id 
+		,supplier_id  
+		) 
+		values
+		<foreach collection="list" item="item" separator=",">
+		(#{item.id,jdbcType=BIGINT}  
+			<choose>  
+				<when test="item.name != null">,#{item.name ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.subRebateRule != null">,#{item.subRebateRule ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.packageType != null">,#{item.packageType ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.status != null">,#{item.status ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.createBy != null">,#{item.createBy ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.createDate != null">,#{item.createDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.updateBy != null">,#{item.updateBy ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.updateDate != null">,#{item.updateDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.productId != null">,#{item.productId ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.supplierId != null">,#{item.supplierId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose> 
+		)
+		</foreach>
+	</insert>
+
+<!-- 更新 -->
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.product.ProductPackage">
+		update product_package
+		<set>
+			<if test="name != null" >
+             name = #{name,jdbcType=VARCHAR},
+            </if>
+			<if test="subRebateRule != null" >
+             sub_rebate_rule = #{subRebateRule,jdbcType=VARCHAR},
+            </if>
+			<if test="packageType != null" >
+             package_type = #{packageType,jdbcType=INTEGER},
+            </if>
+			<if test="status != null" >
+             status = #{status,jdbcType=INTEGER},
+            </if>
+			<if test="createBy != null" >
+             create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+			<if test="createDate != null" >
+             create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+			<if test="updateBy != null" >
+             update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+			<if test="updateDate != null" >
+             update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+			<if test="productId != null" >
+             product_id = #{productId,jdbcType=BIGINT},
+            </if>
+			<if test="supplierId != null" >
+             supplier_id = #{supplierId,jdbcType=VARCHAR},
+            </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+<!-- 批量更新 -->
+	<update id="updateBatchByPrimaryKey"  parameterType="java.util.List">
+	     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update product_package 
+                <set>
+                  <if test="item.name != null" >
+                    name = #{item.name,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.subRebateRule != null" >
+                    sub_rebate_rule = #{item.subRebateRule,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.packageType != null" >
+                    package_type = #{item.packageType,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.status != null" >
+                    status = #{item.status,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.createBy != null" >
+                    create_by = #{item.createBy,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.createDate != null" >
+                    create_date = #{item.createDate,jdbcType=TIMESTAMP},
+                  </if>
+                  <if test="item.updateBy != null" >
+                    update_by = #{item.updateBy,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.updateDate != null" >
+                    update_date = #{item.updateDate,jdbcType=TIMESTAMP},
+                  </if>
+                  <if test="item.productId != null" >
+                    product_id = #{item.productId,jdbcType=BIGINT},
+                  </if>
+                  <if test="item.supplierId != null" >
+                    supplier_id = #{item.supplierId,jdbcType=VARCHAR},
+                  </if>
+                </set>
+                where id = #{item.id,jdbcType=BIGINT}
+         </foreach>
+	</update>
+
+	<select id="selectAllByPackage">
+		select sub.* from  product_package_sub sub
+		inner join product_package pac on sub.package_id = pac.id
+		<where>
+			<if test="pac != null">
+				<if test="ids != null">
+					pac.id in
+					<foreach collection="pac.ids" item="id" open="( " separator="," close=" )">#{id,jdbcType=BIGINT}</foreach>
+				</if>
+			</if>
+		</where>
+	</select>
+</mapper>

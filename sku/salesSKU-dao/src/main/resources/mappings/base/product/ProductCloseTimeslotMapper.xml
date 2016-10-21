@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IProductCloseTimeslotMapper">
+
+<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+	id  
+	,colse_date 
+	,start_date 
+	,end_date 
+	,product_info_id 
+	,flag 
+	,supplier_id 
+	,create_by 
+	,update_by 
+	,create_date 
+	,update_date 
+	</sql>
+	
+<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.product.ProductCloseTimeslot">
+	     <id column="id" property="id" jdbcType="BIGINT" />
+		<result column="colse_date" jdbcType="TIMESTAMP" property="colseDate" />
+		<result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+		<result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+		<result column="product_info_id" jdbcType="BIGINT" property="productInfoId" />
+		<result column="flag" jdbcType="TINYINT" property="flag" />
+		<result column="supplier_id" jdbcType="BIGINT" property="supplierId" />
+		<result column="create_by" jdbcType="VARCHAR" property="createBy" />
+		<result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+	</resultMap>
+
+<!-- 主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select  <include refid="Base_Column_List" />
+		from product_close_timeslot
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+<!-- 删除 -->	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product_close_timeslot where id = #{id,jdbcType=BIGINT}
+    </delete>
+    
+    <delete id="deleteByPid" parameterType="java.lang.Long" >
+    delete from product_close_timeslot where product_info_id = #{pid,jdbcType=BIGINT}
+    </delete>
+
+<!-- 通用查询条件 -->
+	<sql id="sql_of_where">
+		WHERE 1=1 
+		<if test="bParam != null" >
+			<if test="bParam.id != null"> AND id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.ids != null">
+				AND id in
+				<foreach collection="bParam.ids" item="_id" open="(" separator="," close=")">
+					#{_id,jdbcType=BIGINT}
+				</foreach>
+			</if>
+			<if test="bParam.colseDate != null"> AND colse_date = #{bParam.colseDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.startDate != null"> AND start_date = #{bParam.startDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.endDate != null"> AND end_date = #{bParam.endDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.productInfoId != null"> AND product_info_id = #{bParam.productInfoId,jdbcType=BIGINT} </if>
+			<if test="bParam.flag != null"> AND flag = #{bParam.flag,jdbcType=TINYINT} </if>
+			<if test="bParam.supplierId != null"> AND supplier_id = #{bParam.supplierId,jdbcType=BIGINT} </if>
+			<if test="bParam.createBy != null"> AND create_by = #{bParam.createBy,jdbcType=VARCHAR} </if>
+			<if test="bParam.updateBy != null"> AND update_by = #{bParam.updateBy,jdbcType=VARCHAR} </if>
+			<if test="bParam.createDate != null"> AND create_date = #{bParam.createDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.updateDate != null"> AND update_date = #{bParam.updateDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.productInfoIds != null">
+				AND product_info_id in
+				<foreach collection="bParam.productInfoIds" item="_id" open="(" separator="," close=")">
+					#{_id,jdbcType=BIGINT}
+				</foreach>
+			</if>
+		</if>
+	</sql>
+	
+<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from product_close_timeslot
+		<include refid="sql_of_where" />
+		<if test="pParam != null">
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(id) from product_close_timeslot
+		<include refid="sql_of_where" />
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.pzj.base.entity.product.ProductCloseTimeslot" useGeneratedKeys="true" keyProperty="id">
+		insert into product_close_timeslot 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				id, 
+			<if test="colseDate != null">
+			    colse_date,
+			</if>
+			<if test="startDate != null">
+			    start_date,
+			</if>
+			<if test="endDate != null">
+			    end_date,
+			</if>
+			<if test="productInfoId != null">
+			    product_info_id,
+			</if>
+			<if test="flag != null">
+			    flag,
+			</if>
+			<if test="supplierId != null">
+			    supplier_id,
+			</if>
+			<if test="createBy != null">
+			    create_by,
+			</if>
+			<if test="updateBy != null">
+			    update_by,
+			</if>
+			<if test="createDate != null">
+			    create_date,
+			</if>
+			<if test="updateDate != null">
+			    update_date,
+			</if> 
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			     #{id,jdbcType=BIGINT}, 
+			<if test="colseDate != null">
+			    #{colseDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="startDate != null">
+			    #{startDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endDate != null">
+			    #{endDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="productInfoId != null">
+			    #{productInfoId,jdbcType=BIGINT},
+			</if>
+			<if test="flag != null">
+			    #{flag,jdbcType=TINYINT},
+			</if>
+			<if test="supplierId != null">
+			    #{supplierId,jdbcType=BIGINT},
+			</if>
+			<if test="createBy != null">
+			    #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateBy != null">
+			    #{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+			    #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateDate != null">
+			    #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+<!-- 批量插入 请根据业务修改默认值-->	
+    <insert id="insertBatch"  parameterType="java.util.List">
+		insert into product_close_timeslot 
+		(id  
+		,colse_date 
+		,start_date 
+		,end_date 
+		,product_info_id 
+		,flag 
+		,supplier_id 
+		,create_by 
+		,update_by 
+		,create_date 
+		,update_date  
+		) 
+		values
+		<foreach collection="list" item="item" separator=",">
+		(#{item.id,jdbcType=BIGINT}  
+			<choose>  
+				<when test="item.colseDate != null">,#{item.colseDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.startDate != null">,#{item.startDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.endDate != null">,#{item.endDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.productInfoId != null">,#{item.productInfoId ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.flag != null">,#{item.flag ,jdbcType=TINYINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.supplierId != null">,#{item.supplierId ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.createBy != null">,#{item.createBy ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.updateBy != null">,#{item.updateBy ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.createDate != null">,#{item.createDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.updateDate != null">,#{item.updateDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose> 
+		)
+		</foreach>
+	</insert>
+
+<!-- 更新 -->
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.product.ProductCloseTimeslot">
+		update product_close_timeslot
+		<set>
+			<if test="colseDate != null" >
+             colse_date = #{colseDate,jdbcType=TIMESTAMP},
+            </if>
+			<if test="startDate != null" >
+             start_date = #{startDate,jdbcType=TIMESTAMP},
+            </if>
+			<if test="endDate != null" >
+             end_date = #{endDate,jdbcType=TIMESTAMP},
+            </if>
+			<if test="productInfoId != null" >
+             product_info_id = #{productInfoId,jdbcType=BIGINT},
+            </if>
+			<if test="flag != null" >
+             flag = #{flag,jdbcType=TINYINT},
+            </if>
+			<if test="supplierId != null" >
+             supplier_id = #{supplierId,jdbcType=BIGINT},
+            </if>
+			<if test="createBy != null" >
+             create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+			<if test="updateBy != null" >
+             update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+			<if test="createDate != null" >
+             create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+			<if test="updateDate != null" >
+             update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+		<update id="updateAllByPrimaryKey" parameterType="com.pzj.base.entity.product.ProductCloseTimeslot">
+		update product_close_timeslot
+		<set>	
+     colse_date = #{colseDate,jdbcType=TIMESTAMP},        
+     start_date = #{startDate,jdbcType=TIMESTAMP},        
+     end_date = #{endDate,jdbcType=TIMESTAMP},        
+     product_info_id = #{productInfoId,jdbcType=BIGINT},        
+     flag = #{flag,jdbcType=TINYINT},        
+     supplier_id = #{supplierId,jdbcType=BIGINT},        
+     create_by = #{createBy,jdbcType=VARCHAR},        
+     update_by = #{updateBy,jdbcType=VARCHAR},        
+     create_date = #{createDate,jdbcType=TIMESTAMP},        
+     update_date = #{updateDate,jdbcType=TIMESTAMP},        
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+<!-- 批量更新 -->
+	<update id="updateBatchByPrimaryKey"  parameterType="java.util.List">
+	     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update product_close_timeslot 
+                <set>
+                  <if test="item.colseDate != null" >
+                    colse_date = #{item.colseDate,jdbcType=TIMESTAMP},
+                  </if>
+                  <if test="item.startDate != null" >
+                    start_date = #{item.startDate,jdbcType=TIMESTAMP},
+                  </if>
+                  <if test="item.endDate != null" >
+                    end_date = #{item.endDate,jdbcType=TIMESTAMP},
+                  </if>
+                  <if test="item.productInfoId != null" >
+                    product_info_id = #{item.productInfoId,jdbcType=BIGINT},
+                  </if>
+                  <if test="item.flag != null" >
+                    flag = #{item.flag,jdbcType=TINYINT},
+                  </if>
+                  <if test="item.supplierId != null" >
+                    supplier_id = #{item.supplierId,jdbcType=BIGINT},
+                  </if>
+                  <if test="item.createBy != null" >
+                    create_by = #{item.createBy,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.updateBy != null" >
+                    update_by = #{item.updateBy,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.createDate != null" >
+                    create_date = #{item.createDate,jdbcType=TIMESTAMP},
+                  </if>
+                  <if test="item.updateDate != null" >
+                    update_date = #{item.updateDate,jdbcType=TIMESTAMP},
+                  </if>
+                </set>
+                where id = #{item.id,jdbcType=BIGINT}
+         </foreach>
+	</update>
+</mapper>

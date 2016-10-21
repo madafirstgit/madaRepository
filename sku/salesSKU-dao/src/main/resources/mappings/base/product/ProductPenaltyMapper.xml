@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IProductPenaltyMapper">
+
+<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+	pe.id  
+	,pe.category 
+	,pe.penalty_cancel 
+	,pe.penalty_collect_type 
+	,pe.cancel_time_type 
+	,pe.penalty_collect_money 
+	,pe.product_id 
+	,pe.supplier_id
+	</sql>
+	
+<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.product.pms.ProductPenalty">
+	     <id column="id" property="id" jdbcType="BIGINT" />
+		<result column="category" jdbcType="INTEGER" property="category" />
+		<result column="penalty_cancel" jdbcType="INTEGER" property="penaltyCancel" />
+		<result column="penalty_collect_type" jdbcType="INTEGER" property="penaltyCollectType" />
+		<result column="cancel_time_type" jdbcType="VARCHAR" property="cancelTimeType" />
+		<result column="penalty_collect_money" jdbcType="DOUBLE" property="penaltyCollectMoney" />
+		<result column="product_id" jdbcType="BIGINT" property="productId" />
+		<result column="supplier_id" jdbcType="BIGINT" property="supplierId"/>
+	</resultMap>
+
+<!-- 主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select  <include refid="Base_Column_List" />
+		from product_penalty pe
+		where pe.id = #{id,jdbcType=BIGINT}
+	</select>
+
+<!-- 删除 -->	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product_penalty where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+<!-- 通用查询条件 -->
+	<sql id="sql_of_where">
+		WHERE 1=1 
+		<if test="bParam != null" >
+			<if test="bParam.id != null"> AND pe.id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.category != null"> AND pe.category = #{bParam.category,jdbcType=INTEGER} </if>
+			<if test="bParam.penaltyCancel != null"> AND pe.penalty_type = #{bParam.penaltyCancel,jdbcType=INTEGER} </if>
+			<if test="bParam.penaltyCollectType != null"> AND pe.penalty_collect_type = #{bParam.penaltyCollectType,jdbcType=INTEGER} </if>
+			<if test="bParam.cancelTimeType != null"> AND pe.cancel_time_type = #{bParam.cancelTimeType,jdbcType=VARCHAR} </if>
+			<if test="bParam.penaltyCollectMoney != null"> AND pe.penalty_collect_money = #{bParam.penaltyCollectMoney,jdbcType=DOUBLE} </if>
+			<if test="bParam.productId != null"> AND pe.product_id = #{bParam.productId,jdbcType=BIGINT} </if>
+			 <if test="bParam.supplierId != null">AND pe.supplier_id =
+                #{bParam.supplierId,jdbcType=BIGINT}
+            </if>
+			<if test="bParam.queryIdList != null and bParam.queryIdList.size > 0">
+                AND pe.id in
+               <foreach collection="bParam.queryIdList" item="item" open="(" separator=","
+                        close=")">
+                   #{item}
+               </foreach>
+            </if>
+			<if test="bParam.queryParentIdList != null and bParam.queryParentIdList.size > 0">
+                AND pe.product_id in
+               <foreach collection="bParam.queryParentIdList" item="item" open="(" separator=","
+                        close=")">
+                   #{item}
+               </foreach>
+            </if>
+			
+		</if>
+	</sql>
+	
+<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from product_penalty pe
+		<include refid="sql_of_where" />
+		<if test="pParam != null">
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(pe.id) from product_penalty pe
+		<include refid="sql_of_where" />
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.pzj.base.entity.product.pms.ProductPenalty" useGeneratedKeys="true" keyProperty="id">
+		insert into product_penalty 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				id, 
+			<if test="category != null">
+			    category,
+			</if>
+			<if test="penaltyCancel != null">
+			    penalty_cancel,
+			</if>
+			<if test="penaltyCollectType != null">
+			    penalty_collect_type,
+			</if>
+			<if test="cancelTimeType != null">
+			    cancel_time_type,
+			</if>
+			<if test="penaltyCollectMoney != null">
+			    penalty_collect_money,
+			</if>
+			<if test="productId != null">
+			    product_id,
+			</if> 
+			<if test="supplierId != null">
+                supplier_id,
+            </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			     #{id,jdbcType=BIGINT}, 
+			<if test="category != null">
+			    #{category,jdbcType=INTEGER},
+			</if>
+			<if test="penaltyCancel != null">
+			    #{penaltyCancel,jdbcType=INTEGER},
+			</if>
+			<if test="penaltyCollectType != null">
+			    #{penaltyCollectType,jdbcType=INTEGER},
+			</if>
+			<if test="cancelTimeType != null">
+			    #{cancelTimeType,jdbcType=VARCHAR},
+			</if>
+			<if test="penaltyCollectMoney != null">
+			    #{penaltyCollectMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="productId != null">
+			    #{productId,jdbcType=BIGINT},
+			</if>
+			 <if test="supplierId != null">
+                #{supplierId,jdbcType=BIGINT},
+            </if>
+		</trim>
+	</insert>
+	
+<!-- 批量插入 请根据业务修改默认值-->	
+    <insert id="insertBatch"  parameterType="java.util.List">
+		insert into product_penalty 
+		(id  
+		,category 
+		,penalty_cancel 
+		,penalty_collect_type 
+		,cancel_time_type 
+		,penalty_collect_money 
+		,product_id 
+		,supplier_id
+		) 
+		values
+		<foreach collection="list" item="item" separator=",">
+		(#{item.id,jdbcType=BIGINT}  
+			<choose>  
+				<when test="item.category != null">,#{item.category ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.penaltyCancel != null">,#{item.penaltyCancel ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.penaltyCollectType != null">,#{item.penaltyCollectType ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.cancelTimeType != null">,#{item.cancelTimeType ,jdbcType=VARCHAR}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.penaltyCollectMoney != null">,#{item.penaltyCollectMoney ,jdbcType=DOUBLE}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.productId != null">,#{item.productId ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose> 
+			 <choose>
+                <when test="item.supplierId != null">,#{item.supplierId ,jdbcType=BIGINT}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+		)
+		</foreach>
+	</insert>
+
+<!-- 更新 -->
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.product.pms.ProductPenalty">
+		update product_penalty
+		<set>
+			<if test="category != null" >
+             category = #{category,jdbcType=INTEGER},
+            </if>
+			<if test="penaltyCancel != null" >
+             penalty_cancel = #{penaltyCancel,jdbcType=INTEGER},
+            </if>
+			<if test="penaltyCollectType != null" >
+             penalty_collect_type = #{penaltyCollectType,jdbcType=INTEGER},
+            </if>
+			<if test="cancelTimeType != null" >
+             cancel_time_type = #{cancelTimeType,jdbcType=VARCHAR},
+            </if>
+			<if test="penaltyCollectMoney != null" >
+             penalty_collect_money = #{penaltyCollectMoney,jdbcType=DOUBLE},
+            </if>
+			<if test="productId != null" >
+             product_id = #{productId,jdbcType=BIGINT},
+            </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+<!-- 批量更新 -->
+	<update id="updateBatchByPrimaryKey"  parameterType="java.util.List">
+	     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update product_penalty 
+                <set>
+                  <if test="item.category != null" >
+                    category = #{item.category,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.penaltyCancel != null" >
+                    penalty_cancel = #{item.penaltyCancel,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.penaltyCollectType != null" >
+                    penalty_collect_type = #{item.penaltyCollectType,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.cancelTimeType != null" >
+                    cancel_time_type = #{item.cancelTimeType,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.penaltyCollectMoney != null" >
+                    penalty_collect_money = #{item.penaltyCollectMoney,jdbcType=DOUBLE},
+                  </if>
+                  <if test="item.productId != null" >
+                    product_id = #{item.productId,jdbcType=BIGINT},
+                  </if>
+                  <if test="supplierId != null">
+                    supplier_id = #{supplierId,jdbcType=BIGINT},
+                  </if>
+                </set>
+                where id = #{item.id,jdbcType=BIGINT}
+         </foreach>
+	</update>
+	
+	<!-- 新加（根据id查询） -->
+     <select id="findByIdList" resultMap="BaseResultMap"
+            parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from product_penalty pe
+        <where>
+            <if test="idList != null">
+                and pe.id in
+                <foreach collection="idList" item="item" open="(" separator=","
+                         close=")">
+                    #{item}
+                </foreach>
+            </if>
+            or 1=2
+        </where>
+        order by pe.id desc
+    </select>
+    <!-- 新加（根据parentId查询） -->
+    <select id="findByParentIdList" resultMap="BaseResultMap"
+            parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from product_penalty pe
+        <where>
+            <if test="parentIdList != null">
+                and pe.product_id in
+                <foreach collection="parentIdList" item="item" open="(" separator=","
+                         close=")">
+                    #{item}
+                </foreach>
+            </if>
+            or 1=2
+        </where>
+       order by pe.id desc
+    </select>
+     <!-- 新加批量删除 -->
+    <delete id="deleteBatchByPrimaryKey" parameterType="list">
+        <foreach collection="list" item="item" separator=";">
+        delete from product_penalty where id = #{item.id ,jdbcType=BIGINT}
+        </foreach>
+    </delete>
+</mapper>

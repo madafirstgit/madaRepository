@@ -1,0 +1,746 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.base.product.IProductSiteDataMapper">
+
+<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+	id  
+	,sd_name 
+	,check_count 
+	,equipment_code 
+	,equipment_key 
+	,create_by 
+	,create_date 
+	,update_by 
+	,update_date 
+	,sort 
+	,sd_flag 
+	,sd_info 
+	,type 
+	,dataType 
+	,belong
+	,parent_id
+	,scenic_id
+	,suppiler_id
+	,jqrk_name
+	,jqrk_id
+	,subsidiaryType
+	</sql>
+	
+    <sql id="Column_List_Alias">
+    a.id  
+    ,a.sd_name 
+    ,a.check_count 
+    ,a.equipment_code 
+    ,a.equipment_key 
+    ,a.create_by 
+    ,a.create_date 
+    ,a.update_by 
+    ,a.update_date 
+    ,a.sort 
+    ,a.sd_flag 
+    ,a.sd_info 
+    ,a.type 
+    ,a.dataType 
+    ,a.belong
+    ,a.parent_id
+    ,a.scenic_id
+    ,a.suppiler_id
+    ,a.jqrk_name
+    ,a.jqrk_id
+	,a.subsidiaryType
+    </sql>
+
+	<sql id="Column_List_With_Scenic">
+		<include refid="Column_List_Alias" />
+		,b.type as scenic_type
+	</sql>
+	
+<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.product.ProductSiteData">
+	     <id column="id" property="id" jdbcType="BIGINT" />
+		<result column="sd_name" jdbcType="VARCHAR" property="sdName" />
+		<result column="check_count" jdbcType="INTEGER" property="checkCount" />
+		<result column="equipment_code" jdbcType="VARCHAR" property="equipmentCode" />
+		<result column="equipment_key" jdbcType="VARCHAR" property="equipmentKey" />
+		<result column="create_by" jdbcType="VARCHAR" property="createBy" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+		<result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+		<result column="sort" jdbcType="INTEGER" property="sort" />
+		<result column="sd_flag" jdbcType="CHAR" property="sdFlag" />
+		<result column="sd_info" jdbcType="VARCHAR" property="sdInfo" />
+		<result column="type" jdbcType="CHAR" property="type" />
+		<result column="dataType" jdbcType="CHAR" property="dataType" />
+		<result column="belong" jdbcType="VARCHAR" property="belong" />
+        <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+        <result column="jqrkId" jdbcType="BIGINT" property="scenicId" />
+        <result column="suppiler_id" jdbcType="BIGINT" property="supplierId" />
+        
+        <result column="jqrk_name" jdbcType="VARCHAR" property="jqrkName" />
+        <result column="jqrk_id" jdbcType="BIGINT" property="jqrkId" />
+		<result column="subsidiaryType" jdbcType="INTEGER" property="subsidiaryType" />
+	</resultMap>
+
+    <resultMap id="ResultMap_with_scenic" type="com.pzj.base.entity.product.ProductSiteData">
+         <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="sd_name" jdbcType="VARCHAR" property="sdName" />
+        <result column="check_count" jdbcType="INTEGER" property="checkCount" />
+        <result column="equipment_code" jdbcType="VARCHAR" property="equipmentCode" />
+        <result column="equipment_key" jdbcType="VARCHAR" property="equipmentKey" />
+        <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+        <result column="sort" jdbcType="INTEGER" property="sort" />
+        <result column="sd_flag" jdbcType="CHAR" property="sdFlag" />
+        <result column="sd_info" jdbcType="VARCHAR" property="sdInfo" />
+        <result column="type" jdbcType="CHAR" property="type" />
+        <result column="dataType" jdbcType="CHAR" property="dataType" />
+        <result column="belong" jdbcType="VARCHAR" property="belong" />
+        <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+        <result column="scenicName" jdbcType="VARCHAR" property="scenicName" />
+        <result column="scenic_id" jdbcType="BIGINT" property="scenicId" />
+        <result column="suppiler_id" jdbcType="BIGINT" property="supplierId" />
+        <result column="scenic_type" jdbcType="INTEGER" property="scenicType" />
+        
+        <result column="jqrk_name" jdbcType="VARCHAR" property="jqrkName" />
+        <result column="jqrk_id" jdbcType="BIGINT" property="jqrkId" />
+		<result column="subsidiaryType" jdbcType="INTEGER" property="subsidiaryType" />
+    </resultMap>
+
+<!-- 主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select  <include refid="Base_Column_List" />
+		from product_site_data
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+<!-- 删除 -->	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product_site_data where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+<!-- 通用查询条件 -->
+	<sql id="sql_of_where_alias">
+		<if test="bParam != null" >
+			<if test="bParam.id != null"> AND a.id = #{bParam.id,jdbcType=BIGINT} </if>		
+			<if test="bParam.ids != null and bParam.ids.size > 0">
+				AND id in (
+				<foreach collection="bParam.ids" item="id" separator=",">
+					#{id}
+				</foreach>
+				)
+			</if>
+			<!-- <if test="bParam.sdName != null"> AND sd_name = #{bParam.sdName,jdbcType=VARCHAR} </if> 2016-1-22 by lizheng -->
+			<if test="bParam.sdName != null"> AND a.sd_name like #{bParam.sdName}"%" </if>
+			<if test="bParam.checkCount != null"> AND a.check_count = #{bParam.checkCount,jdbcType=INTEGER} </if>
+			<if test="bParam.equipmentCode != null"> AND a.equipment_code = #{bParam.equipmentCode,jdbcType=VARCHAR} </if>
+			<if test="bParam.equipmentKey != null"> AND a.equipment_key = #{bParam.equipmentKey,jdbcType=VARCHAR} </if>
+			<if test="bParam.createBy != null"> AND a.create_by = #{bParam.createBy,jdbcType=VARCHAR} </if>
+			<if test="bParam.createDate != null"> AND a.create_date = #{bParam.createDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.updateBy != null"> AND a.update_by = #{bParam.updateBy,jdbcType=VARCHAR} </if>
+			<if test="bParam.updateDate != null"> AND a.update_date = #{bParam.updateDate,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.sort != null"> AND a.sort = #{bParam.sort,jdbcType=INTEGER} </if>
+			<if test="bParam.sdFlag != null"> AND a.sd_flag = #{bParam.sdFlag,jdbcType=CHAR} </if>
+			<if test="bParam.statusList != null and bParam.statusList.size > 0"> 
+                AND a.sd_flag in
+			        <foreach collection="bParam.statusList" item="_flag" open="(" separator="," close=")">
+			            #{_flag}
+			        </foreach>
+            </if>
+			<if test="bParam.sdInfo != null"> AND a.sd_info = #{bParam.sdInfo,jdbcType=VARCHAR} </if>
+			<if test="bParam.type != null"> AND a.type = #{bParam.type,jdbcType=CHAR} </if>
+			<if test="bParam.dataType != null"> AND a.dataType = #{bParam.dataType,jdbcType=CHAR} </if>
+			<if test="bParam.belong != null"> AND a.belong = #{bParam.belong,jdbcType=VARCHAR} </if>
+            <if test="bParam.parentId != null"> AND a.parent_id = #{bParam.parentId,jdbcType=BIGINT} </if>
+            <if test="bParam.scenicId != null"> AND a.scenic_id = #{bParam.scenicId,jdbcType=BIGINT} </if>
+            <if test="bParam.supplierId != null"> AND a.suppiler_id = #{bParam.supplierId,jdbcType=BIGINT} </if>
+            <if test="bParam.jqrkName != null"> AND a.jqrk_name = #{bParam.jqrkName,jdbcType=VARCHAR} </if>
+            <if test="bParam.jqrkId != null"> AND a.jqrk_id = #{bParam.jqrkId,jdbcType=BIGINT} </if>
+            <if test="bParam.scenicIdList != null and bParam.scenicIdList.size > 0">
+                AND a.scenic_id in
+			        <foreach collection="bParam.scenicIdList" item="_objId" open="(" separator="," close=")">
+			            #{_objId}
+			        </foreach>
+            </if>
+            <if test="bParam.nameList != null and bParam.nameList.size > 0"> 
+                AND a.sd_name in
+                    <foreach collection="bParam.nameList" item="_objId" open="(" separator="," close=")">
+                        #{_objId}
+                    </foreach>
+            </if>
+		</if>
+	</sql>
+	
+<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from product_site_data a
+		<where><include refid="sql_of_where_alias" /></where>
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null" > order by id desc</if>
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(a.id) from product_site_data a
+		<where>
+		<include refid="sql_of_where_alias" />
+		</where>
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.pzj.base.entity.product.ProductSiteData" useGeneratedKeys="true" keyProperty="id">
+		insert into product_site_data 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				id, 
+			<if test="sdName != null">
+			    sd_name,
+			</if>
+			<if test="checkCount != null">
+			    check_count,
+			</if>
+			<if test="equipmentCode != null">
+			    equipment_code,
+			</if>
+			<if test="equipmentKey != null">
+			    equipment_key,
+			</if>
+			<if test="createBy != null">
+			    create_by,
+			</if>
+			<if test="createDate != null">
+			    create_date,
+			</if>
+			<if test="updateBy != null">
+			    update_by,
+			</if>
+			<if test="updateDate != null">
+			    update_date,
+			</if>
+			<if test="sort != null">
+			    sort,
+			</if>
+			<if test="sdFlag != null">
+			    sd_flag,
+			</if>
+			<if test="sdInfo != null">
+			    sd_info,
+			</if>
+			<if test="type != null">
+			    type,
+			</if>
+			<if test="dataType != null">
+			    dataType,
+			</if> 
+            <if test="belong != null">
+                belong,
+            </if> 
+            <if test="parentId != null">
+                parent_id,
+            </if> 
+            <if test="scenicId != null">
+                scenic_id,
+            </if> 
+            <if test="supplierId != null">
+                suppiler_id,
+            </if> 
+            <if test="jqrkName != null">
+                jqrk_name,
+            </if> 
+            <if test="jqrkId != null">
+                jqrk_id,
+            </if>
+			<if test="subsidiaryType != null">
+				subsidiaryType,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			     #{id,jdbcType=BIGINT}, 
+			<if test="sdName != null">
+			    #{sdName,jdbcType=VARCHAR},
+			</if>
+			<if test="checkCount != null">
+			    #{checkCount,jdbcType=INTEGER},
+			</if>
+			<if test="equipmentCode != null">
+			    #{equipmentCode,jdbcType=VARCHAR},
+			</if>
+			<if test="equipmentKey != null">
+			    #{equipmentKey,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+			    #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+			    #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+			    #{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+			    #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sort != null">
+			    #{sort,jdbcType=INTEGER},
+			</if>
+			<if test="sdFlag != null">
+			    #{sdFlag,jdbcType=CHAR},
+			</if>
+			<if test="sdInfo != null">
+			    #{sdInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+			    #{type,jdbcType=CHAR},
+			</if>
+			<if test="dataType != null">
+			    #{dataType,jdbcType=CHAR},
+			</if>
+            <if test="belong != null">
+                #{belong,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="scenicId != null">
+                #{scenicId,jdbcType=BIGINT},
+            </if>
+            <if test="supplierId != null">
+                #{supplierId,jdbcType=BIGINT},
+            </if>
+            
+            <if test="jqrkName!= null">
+                #{jqrkName,jdbcType=VARCHAR},
+            </if>
+            <if test="jqrkId != null">
+                #{jqrkId,jdbcType=BIGINT},
+            </if>
+			<if test="subsidiaryType != null">
+				#{subsidiaryType,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	
+<!-- 批量插入 请根据业务修改默认值-->	
+    <insert id="insertBatch"  parameterType="java.util.List">
+		insert into product_site_data 
+		(id  
+		,sd_name 
+		,check_count 
+		,equipment_code 
+		,equipment_key 
+		,create_by 
+		,create_date 
+		,update_by 
+		,update_date 
+		,sort 
+		,sd_flag 
+		,sd_info 
+		,type 
+		,dataType  
+		,belong
+		,parent_id
+		,scenic_id
+		,suppiler_id
+		,jqrk_name
+		,jqrk_id
+		,subsidiaryType
+		) 
+		values
+		<foreach collection="list" item="item" separator=",">
+		(#{item.id,jdbcType=BIGINT}  
+			<choose>  
+				<when test="item.sdName != null">,#{item.sdName ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.checkCount != null">,#{item.checkCount ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.equipmentCode != null">,#{item.equipmentCode ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.equipmentKey != null">,#{item.equipmentKey ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.createBy != null">,#{item.createBy ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.createDate != null">,#{item.createDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.updateBy != null">,#{item.updateBy ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.updateDate != null">,#{item.updateDate ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.sort != null">,#{item.sort ,jdbcType=INTEGER}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.sdFlag != null">,#{item.sdFlag ,jdbcType=CHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.sdInfo != null">,#{item.sdInfo ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.type != null">,#{item.type ,jdbcType=CHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.dataType != null">,#{item.dataType ,jdbcType=CHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose> 
+            <choose>  
+                <when test="item.belong != null">,#{item.belong ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose> 
+            <choose>  
+                <when test="item.parentId != null">,#{item.parentId ,jdbcType=BIGINT}</when>
+                <otherwise>,0</otherwise>
+            </choose> 
+            <choose>  
+                <when test="item.scenicId != null">,#{item.scenicId ,jdbcType=BIGINT}</when>
+                <otherwise>,0</otherwise>
+            </choose> 
+            <choose>  
+                <when test="item.supplierId != null">,#{item.supplierId ,jdbcType=BIGINT}</when>
+                <otherwise>,0</otherwise>
+            </choose> 
+             <choose>  
+                <when test="item.jqrkName != null">,#{item.jqrkName ,jdbcType=VARCHAR}</when>
+                <otherwise>,0</otherwise>
+            </choose> 
+             <choose>  
+                <when test="item.jqrkId != null">,#{item.jqrkId ,jdbcType=BIGINT}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+			<choose>
+				<when test="item.subsidiaryType != null">,#{item.subsidiaryType ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			)
+		</foreach>
+	</insert>
+
+<!-- 更新 -->
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.product.ProductSiteData">
+		update product_site_data
+		<set>
+			<if test="sdName != null" >
+             sd_name = #{sdName,jdbcType=VARCHAR},
+            </if>
+			<if test="checkCount != null" >
+             check_count = #{checkCount,jdbcType=INTEGER},
+            </if>
+			<if test="equipmentCode != null" >
+             equipment_code = #{equipmentCode,jdbcType=VARCHAR},
+            </if>
+			<if test="equipmentKey != null" >
+             equipment_key = #{equipmentKey,jdbcType=VARCHAR},
+            </if>
+			<if test="updateBy != null" >
+             update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+			<if test="updateDate != null" >
+             update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+			<if test="sort != null" >
+             sort = #{sort,jdbcType=INTEGER},
+            </if>
+			<if test="sdFlag != null" >
+             sd_flag = #{sdFlag,jdbcType=CHAR},
+            </if>
+			<if test="sdInfo != null" >
+             sd_info = #{sdInfo,jdbcType=VARCHAR},
+            </if>
+			<if test="type != null" >
+             type = #{type,jdbcType=CHAR},
+            </if>
+			<if test="dataType != null" >
+             dataType = #{dataType,jdbcType=CHAR},
+            </if>
+            <if test="belong != null" >
+             belong = #{belong,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null" >
+             parent_id = #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="scenicId != null" >
+             scenic_Id = #{scenicId,jdbcType=BIGINT},
+            </if>
+            <if test="supplierId != null" >
+             suppiler_Id = #{supplierId,jdbcType=BIGINT},
+            </if>
+            <if test="jqrkName != null" >
+             jqrk_name = #{jqrkName,jdbcType=VARCHAR},
+            </if>
+            <if test="jqrkId != null" >
+             jqrk_id = #{jqrkId,jdbcType=BIGINT},
+            </if>
+			<if test="subsidiaryType != null" >
+				subsidiaryType = #{subsidiaryType,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+<!-- 批量更新 -->
+	<update id="updateBatchByPrimaryKey"  parameterType="java.util.List">
+	     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update product_site_data 
+                <set>
+                  <if test="item.sdName != null" >
+                    sd_name = #{item.sdName,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.checkCount != null" >
+                    check_count = #{item.checkCount,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.equipmentCode != null" >
+                    equipment_code = #{item.equipmentCode,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.equipmentKey != null" >
+                    equipment_key = #{item.equipmentKey,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.updateBy != null" >
+                    update_by = #{item.updateBy,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.updateDate != null" >
+                    update_date = #{item.updateDate,jdbcType=TIMESTAMP},
+                  </if>
+                  <if test="item.sort != null" >
+                    sort = #{item.sort,jdbcType=INTEGER},
+                  </if>
+                  <if test="item.sdFlag != null" >
+                    sd_flag = #{item.sdFlag,jdbcType=CHAR},
+                  </if>
+                  <if test="item.sdInfo != null" >
+                    sd_info = #{item.sdInfo,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.type != null" >
+                    type = #{item.type,jdbcType=CHAR},
+                  </if>
+                  <if test="item.dataType != null" >
+                    dataType = #{item.dataType,jdbcType=CHAR},
+                  </if>
+                  <if test="item.belong != null" >
+                    belong = #{item.belong,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.parentId != null" >
+                    parent_id = #{item.parentId,jdbcType=BIGINT},
+                  </if>
+                  <if test="item.scenicId != null" >
+                    scenic_id = #{item.scenicId,jdbcType=BIGINT},
+                  </if>
+                  <if test="item.supplierId != null" >
+                    suppiler_id = #{item.supplierId,jdbcType=BIGINT},
+                  </if>
+                  <if test="item.jqrkName != null" >
+            		jqrk_name = #{item.jqrkName,jdbcType=VARCHAR},
+            	  </if>
+            	  <if test="item.jqrkId != null" >
+             		jqrk_id = #{item.jqrkId,jdbcType=BIGINT},
+            	  </if>
+					<if test="item.subsidiaryType != null" >
+						subsidiaryType = #{item.subsidiaryType,jdbcType=BIGINT},
+					</if>
+                </set>
+                where id = #{item.id,jdbcType=BIGINT}
+         </foreach>
+	</update>
+	
+<!-- 根据ids查询 -->
+  <select id="findByIdsMap" resultMap="BaseResultMap"  parameterType="map">
+     select
+     <include refid="Base_Column_List" />
+     from product_site_data 
+     <where>
+        id in (
+        <foreach collection="objId" item="_objId" separator=",">
+            #{_objId}
+        </foreach>
+        )
+     </where>
+  </select>
+  
+<!-- 根据父对象id查询 -->
+  <select id="findByParentIdsMap" resultMap="BaseResultMap"  parameterType="map">
+     select
+     <include refid="Base_Column_List" />
+     from product_site_data 
+     <where>
+        parent_id in (
+	        <foreach collection="objId" item="_objId" separator=",">
+	            #{_objId}
+	        </foreach>
+        )
+        <if test="flag != null">
+            and sd_flag in (
+	        <foreach collection="flag" item="_flag" separator=",">
+	            #{_flag}
+	        </foreach>
+	        )
+        </if>
+     </where>
+  </select>
+  
+<!-- 根据景区id查询 -->
+  <select id="findByScenicIdsMap" resultMap="BaseResultMap"  parameterType="map">
+     select
+     <include refid="Base_Column_List" />
+     from product_site_data 
+     <where>
+        scenic_id in (
+        <foreach collection="objId" item="_objId" separator=",">
+            #{_objId}
+        </foreach>
+        )
+     </where>
+  </select>
+  
+<!-- 根据ids查询 -->
+  <select id="findByIdsMapWithScenic" resultMap="ResultMap_with_scenic"  parameterType="map">
+     select
+     <include refid="Column_List_With_Scenic" />
+     from product_site_data a join product_scenic b on a.scenic_id = b.id
+     <where>
+        a.id in (
+        <foreach collection="objId" item="_objId" separator=",">
+            #{_objId}
+        </foreach>
+        )
+     </where>
+  </select>
+  
+  <update id="resetParentId" parameterType="java.lang.Long">
+    update product_site_data set parent_id=0 where parent_id=#{parentId,jdbcType=BIGINT}
+  </update>
+  
+<!-- 根据id集合删除 -->
+  <delete id="deleteByIds"   parameterType="java.util.List">
+     delete
+     from product_site_data 
+     <where>
+        id in (
+        <foreach collection="list" item="_id" separator=",">
+            #{_id,jdbcType=BIGINT}
+        </foreach>
+        )
+     </where>
+  </delete> 
+  
+  <!-- 查询检票点，跟景区表联合查询 -->
+  <select id="findWithScenic" resultType="com.pzj.base.entity.product.ProductSiteData"  parameterType="map">
+        select a.id as id,a.sd_name as sd_name,a.sd_flag as sdFlag,
+        	   a.create_date as create_date,
+        	   b.id as scenicId,b.name as scenicName 
+        from product_site_data a,product_scenic b 
+        where a.scenic_id = b.id 
+        <if test="bParam != null">
+	        <if test="bParam.dataType != null">
+	            and a.dataType = #{bParam.dataType}
+	        </if>
+	        <if test="bParam.sdName != null">
+	           and a.sd_name like #{bParam.sdName}"%"
+	        </if>
+            <if test="bParam.scenicName != null">
+               and b.name like #{bParam.scenicName}"%"
+            </if>
+            <if test="bParam.scenicId != null">
+               and b.id = #{bParam.scenicId}
+            </if>
+            <if test="bParam.supplierId != null">
+               and a.suppiler_id = #{bParam.supplierId}
+            </if>
+        </if>
+        group by a.id 
+        <if test="pParam != null">
+			<if test="pParam.orderByClause == null" > order by id desc</if>
+            <if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+            <if test="pParam.startIndex != null and pParam.pageSize != null" >
+              limit #{pParam.startIndex} , #{pParam.pageSize}
+            </if>
+        </if>
+  </select>
+  
+  <!-- 查询检票点，跟景区表联合查询 -->
+  <select id="countWithScenic" resultType="java.lang.Integer" parameterType="map">
+        select count(z.id) from ( select a.id
+        from product_site_data a,product_scenic b 
+        where a.scenic_id = b.id 
+        <if test="bParam != null">
+            <if test="bParam.dataType != null">
+                and a.dataType = #{bParam.dataType}
+            </if>
+            <if test="bParam.sdName != null">
+               and a.sd_name like #{bParam.sdName}"%"
+            </if>
+            <if test="bParam.scenicName != null">
+               and b.name like #{bParam.scenicName}"%"
+            </if>
+            <if test="bParam.supplierId != null">
+               and a.suppiler_id = #{bParam.supplierId}
+            </if>
+        </if>
+        group by a.id ) z
+  </select>
+  
+  <select id="queryWithScenic" resultType="com.pzj.base.entity.product.ProductSiteData" parameterType="map">
+	  select
+	  <include refid="Column_List_With_Scenic" />
+	  from product_site_data a join product_scenic b on a.scenic_id = b.id and a.dataType = 1
+           <if test="supplierId != null">
+              and a.suppiler_id = #{supplierId}
+           </if>
+           <if test="siteName != null">
+              and a.name like #{siteName}"%"
+           </if>
+           <if test="siteStatus != null">
+              and a.sd_flag = #{siteStatus}
+           </if>
+           <if test="scenicStatus != null">
+              and b.status = #{scenicStatus}
+           </if>
+           group by a.id
+        <if test="pParam != null">
+			<if test="pParam.orderByClause == null" > order by id desc</if>
+            <if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+            <if test="pParam.startIndex != null and pParam.pageSize != null" >
+              limit #{pParam.startIndex} , #{pParam.pageSize}
+            </if>
+        </if>
+  </select>
+  
+  <select id="getEntryCheckCountByMac" parameterType="java.lang.String" resultType="java.lang.Integer">
+  	select sum(check_count) from product_site_data where jqrk_id = (select jqrk_id from product_site_data 
+  		where equipment_code = #{mac} and jqrk_id is not null) group by jqrk_id
+  </select>
+
+	<select id="selectSiteDataByProductInfo" resultMap="BaseResultMap">
+		SELECT <include refid="Column_List_Alias"/> FROM product_site_data a, product_site_relation b
+		WHERE a.id = b.site_id
+		<include refid="sql_of_where_alias"/>
+		<if test="relation != null">
+			<if test="relation.productInfoId != null">
+				and b.product_info_id = #{relation.productInfoId, jdbcType=BIGINT}
+			</if>
+		</if>
+	</select>
+</mapper>

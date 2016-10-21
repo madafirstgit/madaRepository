@@ -1,0 +1,23 @@
+[
+  {
+    "distributorId": 123,
+    "date": "2016-8-1 21:42:12",
+    "productIds": [
+      1,
+      2,
+      3
+    ],
+    "channelId": 123,
+    "saleType": "app"
+  },
+  {
+    "distributorId": 2216619736563714,
+    "date": "2016-8-1 21:42:12",
+    "productIds": [
+      2216619736563717,
+      2216619736563718
+    ],
+    "channelId": 2216619736563724,
+    "saleType": "strategy:salesType#3"
+  }
+]

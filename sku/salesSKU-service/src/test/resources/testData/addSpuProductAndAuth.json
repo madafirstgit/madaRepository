@@ -1,0 +1,46 @@
+{
+  "productInfo": {
+    "name": "测试通用产品下单",
+    "isNeedPlaytime": 0,
+    "id" : 2216619736567013
+  },
+  "skuProducts": [
+    {
+      "skuProduct": {
+        "id" : 2216619736567084,
+        "name": "测试通用产品下单123",
+        "productPrice": 100,
+        "proCategory": "1000",
+        "supplierId": "2216619746563727",
+        "auditStatus": "1",
+        "isNeedTakeOrder": 0,
+        "verificationRuleType": 1,
+        "refundDateType": 1,
+        "prerefundDays": 2,
+        "prerefundHour": 16,
+        "prerefundMinute": 30,
+        "prerefundSupplierFeetype": 2,
+        "prerefundSupplierFeevalue": 0,
+        "prerefundDistributorFeetype": 1,
+        "prerefundDistributorFeevalue": 10,
+        "prorefundDays": 1,
+        "prorefundHour": 12,
+        "prorefundMinute": 0,
+        "prorefundSupplierFeetype": 2,
+        "prorefundSupplierFeevalue": 8,
+        "prorefundDistributorFeetype": 1,
+        "prorefundDistributorFeevalue": 20,
+        "twiceSure": 1,
+        "overdueVerificationDatetype" : 4,
+        "overdueVerificationUnit" : 4,
+        "overdueVerificationTime" : 4,
+        "overdueVerificationFeetype" : 4,
+        "overdueVerificationFeevalue" : 4,
+        "consumerCardType" : 5,
+        "isOneVote" : 1,
+        "isSelectSeat" : 1,
+        "inventoryKkId" : 5
+      }
+    }
+  ]
+}
