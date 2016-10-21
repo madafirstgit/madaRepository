@@ -1,0 +1,353 @@
+package test;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.pzj.channel.service.ChannelService;
+import com.pzj.regulation.entity.StrategyVo;
+import com.pzj.regulation.service.RebatePlusService;
+import com.pzj.regulation.service.StrategyService;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:/spring.xml")
+public class strategyServiceTest {
+    @Autowired
+    ChannelService    channelService;
+
+    @Autowired
+    RebatePlusService rebatePlusService;
+
+    @Autowired
+    StrategyService   strategyService;
+
+    /*    
+     * 根据景区和分销商获取政策及政策关联的产品
+     
+    @Test
+    public void findStrategyByScenic() throws Exception {
+        Long customerId = 2216619736569726l;
+        Long scenicId = 2216619736563859l;
+        Long supplierId = 1l;
+    
+        String ticketVarie = "1";
+        List<StrategyVo> findStrategyByScenic = strategyService.findStrategyByScenic(customerId, scenicId, supplierId, ticketVarie);
+        System.out.println("haha" + findStrategyByScenic.size());
+    
+    }
+    
+    @Test
+    public void findStrategyByProductIds() throws Exception {
+        Map<Long, String> pidAndCid = new HashMap<Long, String>();
+        pidAndCid.put(2216619736564866l, "2216619736569726,2216619736564065");
+        Long customerId = 2216619736569726l;
+        String ticketVarie = "1";
+    
+        Map<String, List<StrategyVo>> findStrategyByProductIds = strategyService.findStrategyByProductIds(pidAndCid, customerId, ticketVarie);
+        System.out.println("haha");
+    
+    }
+    
+    @Test
+    public void findComposeStrategyByScenic() throws Exception {
+        Long customerId = 2216619736569724l;
+        Long scenicId = 2216619736563858l;
+        String ticketVarie = "1";
+        List<StrategyVo> findStrategyByProductIds = strategyService.findComposeStrategyByScenic(customerId, scenicId, ticketVarie);
+        System.out.println("haha" + findStrategyByProductIds.size());
+    
+    }
+    
+    @Test
+    public void findComposeStrategyByProductIds() throws Exception {
+        List<Long> productIds = new ArrayList<Long>();
+        productIds.add(2216619736564843l);
+        Long customerId = 2216619736569724l;
+        String ticketVarie = "0";
+    
+        Map<String, List<StrategyVo>> findStrategyByProductIds = strategyService.findComposeStrategyByProductIds(productIds, customerId, ticketVarie);
+        System.out.println("haha");
+    
+    }
+    
+    @Test
+    public void queryPageAuthByAllParamMap() throws Exception {
+        StrategyVo vo = queryListByAllParamMapData();
+    
+        PageModel model = new PageModel(1, 20);
+    
+        PageList<StrategyVo> strategyList = strategyService.queryPageAuthByAllParamMap(model, vo);
+    
+        List<StrategyVo> resultList = strategyList.getResultList();
+    
+        assertNotNull(resultList);
+    
+        for (StrategyVo str : resultList) {
+            System.out.println(str.getId() + "\t-----------\t" + str.getName());
+        }
+    
+    }
+    
+    private List getQueryDataList() {
+        try {
+    
+            List<DateQueryVo> list = new ArrayList<>();
+    
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String startDateString = "2016-3-10";
+            String endDateString = "2016-4-5";
+            Date startDate = sdf.parse(startDateString);
+            Date endDate = sdf.parse(endDateString);
+            
+            {
+                DateQueryVo vo = new DateQueryVo();
+                vo.setStartDate(startDate);
+                vo.setEndDate(endDate);
+                vo.setQueryFieldName("beginDate");
+                list.add(vo);
+            }
+            {
+                DateQueryVo vo = new DateQueryVo();
+                vo.setStartDate(startDate);
+                vo.setEndDate(endDate);
+                vo.setQueryFieldName("endDate");
+                list.add(vo);
+            }
+            {
+                DateQueryVo vo = new DateQueryVo();
+                vo.setStartDate(startDate);
+                vo.setEndDate(endDate);
+                vo.setQueryFieldName("createDate");
+                list.add(vo);
+            }
+            {
+                DateQueryVo vo = new DateQueryVo();
+                vo.setStartDate(startDate);
+                vo.setEndDate(endDate);
+                vo.setQueryFieldName("updateDate");
+                list.add(vo);
+            }
+            {
+                DateQueryVo vo = new DateQueryVo();
+                vo.setStartDate(startDate);
+                vo.setEndDate(endDate);
+                vo.setQueryFieldName("publishDate");
+                list.add(vo);
+            }
+            return list;
+        } catch (Exception e) {
+    
+        }
+        return null;
+    }
+    
+    @Test
+    public void isHaveStrategyByDate() throws Exception {
+        StrategyVo vo = new StrategyVo();
+        vo.setTicketVarie("0");
+        List<Long> productIdList = new ArrayList<Long>();
+        productIdList.add(2216619736564891l);
+    
+        List<Long> channelIdList = new ArrayList<Long>();
+        channelIdList.add(2216619736564065l);
+    
+        vo.setProductList(productIdList);
+        vo.setChannelIds(channelIdList);
+    
+        vo.setType("2");
+        vo.setStatus(1);
+    
+        List<KeyValueVo> kvList = new ArrayList<KeyValueVo>();
+        KeyValueVo kv1 = new KeyValueVo();
+        kv1.setKey(StrategyGlobalDict.salesType());
+        kv1.setValue("3");
+        KeyValueVo kv2 = new KeyValueVo();
+        kv2.setKey(StrategyGlobalDict.salesType());
+        kv2.setValue("4");
+        KeyValueVo kv5 = new KeyValueVo();
+        kv5.setKey(StrategyGlobalDict.salesType());
+        kv5.setValue("7");
+        kvList.add(kv1);
+        kvList.add(kv2);
+        kvList.add(kv5);
+        vo.setSalesType(kvList);
+        List<StrategyVo> list = strategyService.isHaveStrategyByDate(vo, null, null);
+        System.out.println(list.size());
+    
+    }
+    
+    @Test
+    public void getAuthByIdList() throws Exception {
+        List<Long> ids = new ArrayList<Long>();
+        ids.add(123627l);
+        ids.add(2215520224936059l);
+        List<StrategyVo> list = strategyService.getAuthByIdList(ids);
+        System.out.println("haha");
+        // assertNotNull(list);
+    }
+    
+    @Test
+    public void update() throws Exception {
+        List<StrategyVo> updateList = new ArrayList<StrategyVo>();
+        StrategyVo vo = new StrategyVo();
+        vo.setId(123627l);
+        vo.setName("isNew");
+        vo.setIsNeedUpdateNull(true);
+        updateList.add(vo);
+    
+        RebateStrategyVo stra = new RebateStrategyVo();
+        stra.setProductName("setProductNamesss");
+        stra.setProductId(2L);
+        stra.setRebateAmount(31.4);
+    
+        List<RebateStrategyVo> rebateStrategyList = new ArrayList<RebateStrategyVo>();
+        rebateStrategyList.add(stra);
+    
+        vo.setRebateStrategyList(rebateStrategyList);
+    
+        Integer num = strategyService.updateBatchAndAuth(updateList);
+    
+        System.out.println(">>>>>> " + num);
+    }
+    
+    @Test
+    public void updateBatchAndAuth() throws Exception {
+        List<StrategyVo> strategyList = createDataFromJsonFile();
+    
+        Integer num = strategyService.updateBatchAndAuth(strategyList);
+    
+        System.out.println(">>>>>> " + num);
+    }
+    
+    @Test
+    public void createBatchAndAuth111() throws Exception {
+        List<StrategyVo> updateList = createDataFromJsonFile();
+    
+        Integer num = strategyService.createBatchAndAuth(updateList);
+    
+        System.out.println(">>>>>> " + num);
+    }
+    
+    private List<Long> getProductIds() {
+        List<Long> ids = new ArrayList<>();
+        ids.add(155L);
+        return ids;
+    }
+    
+    @Test
+    public void create() throws Exception {
+        StrategyVo strategy = new StrategyVo();
+        //strategy.setId(2216619736563718L);
+        strategy.setDataSource("junit测试数据");
+        strategy.setName("junit测试数据");
+        strategy.setIsNeedUpdateNull(true);
+    
+        strategy.setIsOpenMultiRebate(1);
+    
+        strategy.setIsLimitAdvanceDue(1);
+        strategy.setAdvanceDueDays(1);
+        strategy.setAdvanceDueHour(1);
+        strategy.setAdvanceDueMinute(1);
+        strategy.setIsLimitDelayConsume(1);
+        strategy.setDelayConsumeHour(1);
+        strategy.setLeastPerdueNumber(1);
+        strategy.setMostPerdueNumber(1);
+        strategy.setAdvanceDueUnit(1);
+        //strategy.setProductId(1L);
+        strategy.setProductList(getProductIds());
+    
+        Long strategyId = strategyService.create(strategy);
+    
+        System.out.println("\r\n\r\n>>>>>> strategyId : " + strategyId);
+    }
+    
+    @Test
+    public void createFromJsonFile() throws Exception {
+        List<StrategyVo> strategyList = createDataFromJsonFile();
+    
+        Integer num = strategyService.createBatchAndAuth(strategyList);
+    
+    }
+    
+    private StrategyVo queryListByAllParamMapData() throws Exception {
+        StrategyVo strategy = JsonDataUtil.readObjectFromClasspath("/testData/queryListByAllParamMap.json", StrategyVo.class);
+        return strategy;
+    }
+    
+    private List<StrategyVo> createDataFromJsonFile() throws Exception {
+        List<StrategyVo> strategyList = JsonDataUtil.readListFromClasspath("/testData/Strategy.json", StrategyVo.class);
+        return strategyList;
+    }
+    
+    @Test
+    public void getById() throws Exception {
+        StrategyVo strategy = strategyService.getById(2216619736563718L);
+    
+        assertNotNull(strategy);
+    
+        System.out.println(strategy.getIsLimitAdvanceDue());
+        System.out.println(strategy.getAdvanceDueDays());
+        System.out.println(strategy.getAdvanceDueHour());
+        System.out.println(strategy.getAdvanceDueMinute());
+        System.out.println(strategy.getIsLimitDelayConsume());
+        System.out.println(strategy.getDelayConsumeHour());
+        System.out.println(strategy.getLeastPerdueNumber());
+        System.out.println(strategy.getMostPerdueNumber());
+        System.out.println(strategy.getAdvanceDueUnit());
+        System.out.println(strategy.getProductId());
+    }
+    
+    @Test
+    public void queryListAuthByAllParamMap() throws Exception {
+        StrategyVo strategyParams = queryListByAllParamMapData();
+                strategyParams.setIsOpenMultiRebate(1);
+        strategyParams.setIsLimitAdvanceDue(1);
+        strategyParams.setAdvanceDueDays(1);
+        strategyParams.setAdvanceDueHour(1);
+        strategyParams.setAdvanceDueMinute(1);
+        strategyParams.setIsLimitDelayConsume(1);
+        strategyParams.setDelayConsumeHour(1);
+        strategyParams.setLeastPerdueNumber(1);
+        strategyParams.setMostPerdueNumber(1);
+        strategyParams.setAdvanceDueUnit(1);
+        strategyParams.setProductId(155L);
+    
+        List<StrategyVo> strategyList = strategyService.queryListAuthByAllParamMap(strategyParams);
+    
+        assertNotNull(strategyList);
+    
+        StrategyVo strategy = strategyList.get(0);
+    
+        System.out.println("========================");
+        System.out.println(strategy.getId());
+        System.out.println(strategy.getIsLimitAdvanceDue());
+        System.out.println(strategy.getAdvanceDueDays());
+        System.out.println(strategy.getAdvanceDueHour());
+        System.out.println(strategy.getAdvanceDueMinute());
+        System.out.println(strategy.getIsLimitDelayConsume());
+        System.out.println(strategy.getDelayConsumeHour());
+        System.out.println(strategy.getLeastPerdueNumber());
+        System.out.println(strategy.getMostPerdueNumber());
+        System.out.println(strategy.getAdvanceDueUnit());
+        System.out.println(strategy.getProductId());
+        System.out.println("========================");
+    }
+    
+    @Test
+    public void createBatchAndAuthWithMicroshop() throws Exception {
+        List<StrategyVo> beans = JsonDataUtil.readListFromClasspath("/testData/createBatchAndAuthWithMicroshop.json", StrategyVo.class);
+    
+        Integer batchAndAuthWithMicroshop = strategyService.createBatchAndAuthWithMicroshop(beans);
+    
+    }*/
+
+    @Test
+    public void updateForPlatform() throws Exception {
+        StrategyVo vo = new StrategyVo();
+        vo.setId(2216619741565312l);
+        vo.setStatus(1);
+        Integer batchAndAuthWithMicroshop = strategyService.updateForPlatform(vo);
+    }
+}

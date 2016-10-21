@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.dao.app.IAppFeedbackMapper">
+
+<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+	id  
+	,user_id 
+	,content 
+	,phone 
+	,create_time 
+	,feedbackScenario 
+	</sql>
+	
+<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.app.AppFeedback">
+	    <id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" jdbcType="BIGINT" property="userId" />
+		<result column="content" jdbcType="VARCHAR" property="content" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="feedbackScenario" jdbcType="VARCHAR" property="feedbackScenario" />
+	</resultMap>
+
+<!-- 主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select  <include refid="Base_Column_List" />
+		from app_feedback
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+<!-- 删除 -->	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from app_feedback where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+<!-- 通用查询条件 -->
+	<sql id="sql_of_where">
+		WHERE 1=1 
+		<if test="bParam != null" >
+			<if test="bParam.id != null"> AND id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.userId != null"> AND user_id = #{bParam.userId,jdbcType=BIGINT} </if>
+			<if test="bParam.content != null"> AND content = #{bParam.content,jdbcType=VARCHAR} </if>
+			<if test="bParam.phone != null"> AND phone = #{bParam.phone,jdbcType=VARCHAR} </if>
+			<if test="bParam.createTime != null"> AND create_time = #{bParam.createTime,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.feedbackScenario != null"> AND feedbackScenario = #{bParam.feedbackScenario,jdbcType=VARCHAR} </if>
+		</if>
+	</sql>
+	
+<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from app_feedback
+		<include refid="sql_of_where" />
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null">order by id desc</if>
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(id) from app_feedback
+		<include refid="sql_of_where" />
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.pzj.base.entity.app.AppFeedback" useGeneratedKeys="true" keyProperty="id">
+		insert into app_feedback 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				id, 
+			<if test="userId != null">
+			    user_id,
+			</if>
+			<if test="content != null">
+			    content,
+			</if>
+			<if test="phone != null">
+			    phone,
+			</if>
+			<if test="createTime != null">
+			    create_time,
+			</if>
+			<if test="feedbackScenario != null">
+			    feedbackScenario,
+			</if> 
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			     #{id,jdbcType=BIGINT}, 
+			<if test="userId != null">
+			    #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="content != null">
+			    #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+			    #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+			    #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="feedbackScenario != null">
+			    #{feedbackScenario,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+<!-- 批量插入 请根据业务修改默认值-->	
+    <insert id="insertBatch"  parameterType="java.util.List">
+		insert into app_feedback 
+		(id  
+		,user_id 
+		,content 
+		,phone 
+		,create_time 
+		,feedbackScenario  
+		) 
+		values
+		<foreach collection="list" item="item" separator=",">
+		(#{item.id,jdbcType=BIGINT}  
+			<choose>  
+				<when test="item.userId != null">,#{item.userId ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.content != null">,#{item.content ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.phone != null">,#{item.phone ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.createTime != null">,#{item.createTime ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.feedbackScenario != null">,#{item.feedbackScenario ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose> 
+		)
+		</foreach>
+	</insert>
+
+<!-- 更新 -->
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.app.AppFeedback">
+		update app_feedback
+		<set>
+			<if test="userId != null" >
+             user_id = #{userId,jdbcType=BIGINT},
+            </if>
+			<if test="content != null" >
+             content = #{content,jdbcType=VARCHAR},
+            </if>
+			<if test="phone != null" >
+             phone = #{phone,jdbcType=VARCHAR},
+            </if>
+			<if test="createTime != null" >
+             create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+			<if test="feedbackScenario != null" >
+             feedbackScenario = #{feedbackScenario,jdbcType=VARCHAR},
+            </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+<!-- 批量更新 -->
+	<update id="updateBatchByPrimaryKey"  parameterType="java.util.List">
+	     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update app_feedback 
+                <set>
+                  <if test="item.userId != null" >
+                    user_id = #{item.userId,jdbcType=BIGINT},
+                  </if>
+                  <if test="item.content != null" >
+                    content = #{item.content,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.phone != null" >
+                    phone = #{item.phone,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.createTime != null" >
+                    create_time = #{item.createTime,jdbcType=TIMESTAMP},
+                  </if>
+                  <if test="item.feedbackScenario != null" >
+                    feedbackScenario = #{item.feedbackScenario,jdbcType=VARCHAR},
+                  </if>
+                </set>
+                where id = #{item.id,jdbcType=BIGINT}
+         </foreach>
+	</update>
+</mapper>

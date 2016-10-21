@@ -1,0 +1,2405 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.dao.SysChannelStrategyMapper">
+
+    <!-- 所有字段 -->
+    <sql id="Base_Column_List">
+        id
+        ,name
+        ,remark
+        ,price
+        ,quantity
+        ,begin_date
+        ,end_date
+        ,pre_sale
+        ,pre_sale_mode
+        ,expire
+        ,expire_mode
+        ,scope
+        ,status
+        ,create_date
+        ,create_by
+        ,update_date
+        ,update_by
+        ,type
+        ,del_flag
+        ,publish_date
+        ,data_source
+        ,publish_by
+        ,publish_status
+        ,dict_value
+        ,is_open_multi_rebate
+        ,supplier_id
+        ,sub_product_id
+        ,strategy_expire_type
+        ,checkin_expire_type
+        ,checkin_expire_num
+        ,checkin_expire_unit
+        ,settlement_price
+        ,ticket_varie
+        ,sales_type
+        ,audit_status
+        ,isMF
+        ,refuse_reason
+        ,rebate_rate
+        ,not_total_settlement_type
+        ,reduce_settlement_money
+        ,parent_id
+        ,market_price
+        ,advice_price
+
+        ,is_limit_advance_due
+        ,advance_due_days
+        ,advance_due_hour
+        ,advance_due_minute
+        ,is_limit_delay_consume
+        ,delay_consume_hour
+        ,least_perdue_number
+        ,most_perdue_number
+        ,advance_due_unit
+        ,product_id
+    </sql>
+
+    <!-- 字段映射 -->
+    <resultMap id="BaseResultMap" type="com.pzj.base.entity.SysChannelStrategy">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="price" jdbcType="DOUBLE" property="price"/>
+        <result column="quantity" jdbcType="INTEGER" property="quantity"/>
+        <result column="begin_date" jdbcType="TIMESTAMP" property="beginDate"/>
+        <result column="end_date" jdbcType="TIMESTAMP" property="endDate"/>
+        <result column="pre_sale" jdbcType="INTEGER" property="preSale"/>
+        <result column="pre_sale_mode" jdbcType="BIT" property="preSaleMode"/>
+        <result column="expire" jdbcType="INTEGER" property="expire"/>
+        <result column="expire_mode" jdbcType="BIT" property="expireMode"/>
+        <result column="scope" jdbcType="VARCHAR" property="scope"/>
+        <result column="status" jdbcType="BIT" property="status"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="type" jdbcType="CHAR" property="type"/>
+        <result column="del_flag" jdbcType="CHAR" property="delFlag"/>
+        <result column="publish_date" jdbcType="TIMESTAMP" property="publishDate"/>
+        <result column="data_source" jdbcType="VARCHAR" property="dataSource"/>
+        <result column="publish_by" jdbcType="VARCHAR" property="publishBy"/>
+        <result column="publish_status" jdbcType="BIT" property="publishStatus"/>
+        <result column="dict_value" jdbcType="VARCHAR" property="dictValue"/>
+        <result column="is_open_multi_rebate" jdbcType="BIT" property="isOpenMultiRebate"/>
+        <result column="supplier_id" jdbcType="BIGINT" property="supplierId"/>
+        <result column="sub_product_id" jdbcType="BIGINT" property="subProductId"/>
+        <result column="strategy_expire_type" jdbcType="INTEGER" property="strategyExpireType"/>
+        <result column="checkin_expire_type" jdbcType="INTEGER" property="checkinExpireType"/>
+        <result column="checkin_expire_num" jdbcType="INTEGER" property="checkinExpireNum"/>
+        <result column="checkin_expire_unit" jdbcType="INTEGER" property="checkinExpireUnit"/>
+        <result column="settlement_price" jdbcType="DOUBLE" property="settlementPrice"/>
+        <result column="ticket_varie" jdbcType="VARCHAR" property="ticketVarie"/>
+        <result column="sales_type" jdbcType="VARCHAR" property="salesType"/>
+        <result column="audit_status" jdbcType="INTEGER" property="auditStatus"/>
+        <result column="isMF" jdbcType="INTEGER" property="isMF"/>
+        <result column="refuse_reason" jdbcType="VARCHAR" property="refuseReason"/>
+        <result column="rebate_rate" jdbcType="DOUBLE" property="rebateRate"/>
+        <result column="not_total_settlement_type" jdbcType="INTEGER" property="notTotalSettlementType"/>
+        <result column="reduce_settlement_money" jdbcType="DOUBLE" property="reduceSettlementMoney"/>
+        <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+        <result column="market_price" jdbcType="DOUBLE" property="marketPrice"/>
+        <result column="advice_price" jdbcType="DOUBLE" property="advicePrice"/>
+        <result column="is_limit_advance_due" jdbcType="INTEGER" property="isLimitAdvanceDue"/>
+        <result column="advance_due_days" jdbcType="INTEGER" property="advanceDueDays"/>
+        <result column="advance_due_hour" jdbcType="INTEGER" property="advanceDueHour"/>
+        <result column="advance_due_minute" jdbcType="INTEGER" property="advanceDueMinute"/>
+        <result column="is_limit_delay_consume" jdbcType="INTEGER" property="isLimitDelayConsume"/>
+        <result column="delay_consume_hour" jdbcType="INTEGER" property="delayConsumeHour"/>
+        <result column="least_perdue_number" jdbcType="INTEGER" property="leastPerdueNumber"/>
+        <result column="most_perdue_number" jdbcType="INTEGER" property="mostPerdueNumber"/>
+        <result column="advance_due_unit" jdbcType="INTEGER" property="advanceDueUnit"/>
+        <result column="product_id" jdbcType="BIGINT" property="productId"/>
+    </resultMap>
+
+    <!-- 主键查询 -->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_channel_strategy
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 删除 -->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from
+        sys_channel_strategy where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <!-- 通用查询条件 -->
+    <sql id="sql_of_where">
+        WHERE 1=1
+        <if test="bParam != null">
+            <if test="bParam.id != null">AND id = #{bParam.id,jdbcType=BIGINT}</if>
+            
+            <if test="bParam.ids != null and bParam.ids.size > 0">
+			  and id in
+			  <foreach collection="bParam.ids" item="item" open="(" close=")" separator=",">
+			   #{item} 
+			  </foreach>
+			</if>
+            <if test="bParam.name != null">AND name = #{bParam.name,jdbcType=VARCHAR}</if>
+            <if test="bParam.remark != null">AND remark = #{bParam.remark,jdbcType=VARCHAR}</if>
+            <if test="bParam.price != null">AND price = #{bParam.price,jdbcType=DOUBLE}</if>
+            <if test="bParam.quantity != null">AND quantity = #{bParam.quantity,jdbcType=INTEGER}</if>
+            <if test="bParam.beginDate != null">AND begin_date = #{bParam.beginDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="bParam.endDate != null">AND end_date = #{bParam.endDate,jdbcType=TIMESTAMP}</if>
+            <if test="bParam.preSale != null">AND pre_sale = #{bParam.preSale,jdbcType=INTEGER}</if>
+            <if test="bParam.preSaleMode != null">AND pre_sale_mode = #{bParam.preSaleMode,jdbcType=BIT}
+            </if>
+            <if test="bParam.expire != null">AND expire = #{bParam.expire,jdbcType=INTEGER}</if>
+            <if test="bParam.expireMode != null">AND expire_mode = #{bParam.expireMode,jdbcType=BIT}</if>
+            <if test="bParam.scope != null">AND scope = #{bParam.scope,jdbcType=VARCHAR}</if>
+            <if test="bParam.status != null">AND status = #{bParam.status,jdbcType=BIT}</if>
+            <if test="bParam.createDate != null">AND create_date =
+                #{bParam.createDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="bParam.createBy != null">AND create_by = #{bParam.createBy,jdbcType=VARCHAR}</if>
+            <if test="bParam.updateDate != null">AND update_date =
+                #{bParam.updateDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="bParam.updateBy != null">AND update_by = #{bParam.updateBy,jdbcType=VARCHAR}</if>
+            <if test="bParam.type != null">AND type = #{bParam.type,jdbcType=CHAR}</if>
+            <if test="bParam.delFlag != null">AND del_flag = #{bParam.delFlag,jdbcType=CHAR}</if>
+            <if test="bParam.publishDate != null">AND publish_date =
+                #{bParam.publishDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="bParam.dataSource != null">AND data_source =
+                #{bParam.dataSource,jdbcType=VARCHAR}
+            </if>
+            <if test="bParam.publishBy != null">AND publish_by =
+                #{bParam.publishBy,jdbcType=VARCHAR}
+            </if>
+            <if test="bParam.publishStatus != null">AND publish_status = #{bParam.publishStatus,jdbcType=BIT}</if>
+            <if test="bParam.dictValue != null">AND dict_value like
+                #{bParam.dictValue,jdbcType=VARCHAR}
+            </if>
+            <if test="bParam.isOpenMultiRebate != null">AND is_open_multi_rebate =
+                #{bParam.isOpenMultiRebate,jdbcType=BIT}
+            </if>
+            <if test="bParam.supplierId != null">AND supplier_id =
+                #{bParam.supplierId,jdbcType=BIGINT}
+            </if>
+            <if test="bParam.subProductId != null">AND sub_product_id =
+                #{bParam.subProductId,jdbcType=BIGINT}
+            </if>
+            <if test="bParam.strategyExpireType != null">AND strategy_expire_type = #{bParam.strategyExpireType,jdbcType=INTEGER}</if>
+            <if test="bParam.checkinExpireType != null">AND checkin_expire_type = #{bParam.checkinExpireType,jdbcType=INTEGER}</if>
+            <if test="bParam.checkinExpireNum != null">AND checkin_expire_num = #{bParam.checkinExpireNum,jdbcType=INTEGER}</if>
+            <if test="bParam.checkinExpireUnit != null">AND checkin_expire_unit = #{bParam.checkinExpireUnit,jdbcType=INTEGER}</if>
+            <if test="bParam.settlementPrice != null">AND settlement_price = #{bParam.settlementPrice,jdbcType=DOUBLE}</if>
+            
+            <if test="bParam.marketPrice != null">AND market_price = #{bParam.marketPrice,jdbcType=DOUBLE}</if>
+            <if test="bParam.advicePrice != null">AND advice_price = #{bParam.advicePrice,jdbcType=DOUBLE}</if>
+            
+            <if test="bParam.ticketVarie != null">AND ticket_varie = #{bParam.ticketVarie,jdbcType=VARCHAR}</if>
+            <if test="bParam.salesType != null">AND sales_type like #{bParam.salesType,jdbcType=VARCHAR}</if>
+            <if test="bParam.auditStatus != null">AND audit_status = #{bParam.auditStatus,jdbcType=INTEGER}</if>
+            <if test="bParam.isMF != null">AND isMF = #{bParam.isMF,jdbcType=INTEGER}</if>
+            <if test="bParam.refuseReason != null">AND refuse_reason = #{bParam.refuseReason,jdbcType=VARCHAR}</if>
+            <if test="bParam.rebateRate != null">AND rebate_rate = #{bParam.rebateRate,jdbcType=DOUBLE}</if>
+            <if test="bParam.notTotalSettlementType != null">AND not_total_settlement_type = #{bParam.notTotalSettlementType,jdbcType=INTEGER}</if>
+            <if test="bParam.reduceSettlementMoney != null">AND reduce_settlement_money = #{bParam.reduceSettlementMoney,jdbcType=DOUBLE}</if>
+            <if test="bParam.parentId != null">AND parent_id = #{bParam.parentId,jdbcType=BIGINT} </if>
+            <if test="bParam.isLimitAdvanceDue != null">AND is_limit_advance_due = #{bParam.isLimitAdvanceDue,jdbcType=INTEGER}</if>
+            <if test="bParam.advanceDueDays != null">AND advance_due_days = #{bParam.advanceDueDays,jdbcType=INTEGER}</if>
+            <if test="bParam.advanceDueHour != null">AND advance_due_hour = #{bParam.advanceDueHour,jdbcType=INTEGER}</if>
+            <if test="bParam.advanceDueMinute != null">AND advance_due_minute = #{bParam.advanceDueMinute,jdbcType=INTEGER}</if>
+            <if test="bParam.isLimitDelayConsume != null">AND is_limit_delay_consume = #{bParam.isLimitDelayConsume,jdbcType=INTEGER}</if>
+            <if test="bParam.delayConsumeHour != null">AND delay_consume_hour = #{bParam.delayConsumeHour,jdbcType=INTEGER}</if>
+            <if test="bParam.leastPerdueNumber != null">AND least_perdue_number = #{bParam.leastPerdueNumber,jdbcType=INTEGER}</if>
+            <if test="bParam.mostPerdueNumber != null">AND most_perdue_number = #{bParam.mostPerdueNumber,jdbcType=INTEGER}</if>
+            <if test="bParam.advanceDueUnit != null">AND advance_due_unit = #{bParam.advanceDueUnit,jdbcType=INTEGER}</if>
+            <if test="bParam.productId != null">AND product_id = #{bParam.productId,jdbcType=BIGINT}</if>
+        </if>
+    </sql>
+
+    <!-- 通用分页查询 -->
+    <select id="queryByParamMap" parameterType="java.util.Map"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_channel_strategy s
+        <include refid="inner_join_dict_relation"/>
+        <include refid="sql_of_where"/>
+        <if test="pParam != null">
+            <if test="pParam.orderByClause == null">order by id desc</if>
+            <if test="pParam.orderByClause != null">order by
+                ${pParam.orderByClause}
+            </if>
+            <if test="pParam.startIndex != null and pParam.pageSize != null">
+                limit #{pParam.startIndex} , #{pParam.pageSize}
+            </if>
+        </if>
+    </select>
+
+    <!-- 通用分页查询记录总数 -->
+    <select id="countByParamMap" parameterType="java.util.Map"
+            resultType="java.lang.Integer">
+        select count(id) from sys_channel_strategy s
+        <include refid="inner_join_dict_relation"/>
+        <include refid="sql_of_where"/>
+    </select>
+
+    <!-- 插入 -->
+    <insert id="insert" parameterType="com.pzj.base.entity.SysChannelStrategy">
+        insert into sys_channel_strategy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="name != null">
+                name,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="quantity != null">
+                quantity,
+            </if>
+            <if test="beginDate != null">
+                begin_date,
+            </if>
+            <if test="endDate != null">
+                end_date,
+            </if>
+            <if test="preSale != null">
+                pre_sale,
+            </if>
+            <if test="preSaleMode != null">
+                pre_sale_mode,
+            </if>
+            <if test="expire != null">
+                expire,
+            </if>
+            <if test="expireMode != null">
+                expire_mode,
+            </if>
+            <if test="scope != null">
+                scope,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="delFlag != null">
+                del_flag,
+            </if>
+            <if test="publishDate != null">
+                publish_date,
+            </if>
+            <if test="dataSource != null">
+                data_source,
+            </if>
+            <if test="publishBy != null">
+                publish_by,
+            </if>
+            <if test="publishStatus != null">
+                publish_status,
+            </if>
+            <if test="dictValue != null">
+                dict_value,
+            </if>
+            <if test="isOpenMultiRebate != null">
+                is_open_multi_rebate,
+            </if>
+            <if test="supplierId != null">
+                supplier_id,
+            </if>
+            
+             <if test="subProductId != null">
+                sub_product_id,
+            </if>
+
+            <if test="strategyExpireType != null">
+                strategy_expire_type,
+            </if>
+            <if test="checkinExpireType != null">
+                checkin_expire_type,
+            </if>
+            <if test="checkinExpireNum != null">
+                checkin_expire_num,
+            </if>
+            <if test="checkinExpireUnit != null">
+                checkin_expire_unit,
+            </if>
+            <if test="settlementPrice != null">
+                settlement_price,
+            </if>
+            <if test="ticketVarie != null">
+                ticket_varie,
+            </if>
+            <if test="salesType != null">
+                sales_type,
+            </if>
+            <if test="auditStatus != null">
+                audit_status,
+            </if>
+            <if test="isMF != null">
+                isMF,
+            </if>
+            <if test="refuseReason != null">
+                refuse_reason,
+            </if>
+            <if test="rebateRate != null">
+                rebate_rate,
+            </if>
+            <if test="notTotalSettlementType != null">
+                not_total_settlement_type,
+            </if>
+            <if test="reduceSettlementMoney != null">
+                reduce_settlement_money,
+            </if>
+            
+             <if test="marketPrice != null">
+                market_price,
+            </if>
+             <if test="advicePrice != null">
+                advice_price,
+            </if>
+             
+            <if test="parentId != null">
+                parent_id,
+            </if>
+
+            <if test="isLimitAdvanceDue != null">
+                is_limit_advance_due,
+            </if>
+            <if test="advanceDueDays != null">
+                advance_due_days,
+            </if>
+            <if test="advanceDueHour != null">
+                advance_due_hour,
+            </if>
+            <if test="advanceDueMinute != null">
+                advance_due_minute,
+            </if>
+            <if test="isLimitDelayConsume != null">
+                is_limit_delay_consume,
+            </if>
+            <if test="delayConsumeHour != null">
+                delay_consume_hour,
+            </if>
+            <if test="leastPerdueNumber != null">
+                least_perdue_number,
+            </if>
+            <if test="mostPerdueNumber != null">
+                most_perdue_number,
+            </if>
+            <if test="advanceDueUnit != null">
+                advance_due_unit,
+            </if>
+            <if test="productId != null">
+                product_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id,jdbcType=BIGINT},
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="quantity != null">
+                #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="beginDate != null">
+                #{beginDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endDate != null">
+                #{endDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="preSale != null">
+                #{preSale,jdbcType=INTEGER},
+            </if>
+            <if test="preSaleMode != null">
+                #{preSaleMode,jdbcType=BIT},
+            </if>
+            <if test="expire != null">
+                #{expire,jdbcType=INTEGER},
+            </if>
+            <if test="expireMode != null">
+                #{expireMode,jdbcType=BIT},
+            </if>
+            <if test="scope != null">
+                #{scope,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BIT},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=CHAR},
+            </if>
+            <if test="delFlag != null">
+                #{delFlag,jdbcType=CHAR},
+            </if>
+            <if test="publishDate != null">
+                #{publishDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dataSource != null">
+                #{dataSource,jdbcType=VARCHAR},
+            </if>
+            <if test="publishBy != null">
+                #{publishBy,jdbcType=VARCHAR},
+            </if>
+            <if test="publishStatus != null">
+                #{publishStatus,jdbcType=BIT},
+            </if>
+            <if test="dictValue != null">
+                #{dictValue,jdbcType=VARCHAR},
+            </if>
+            <if test="isOpenMultiRebate != null">
+                #{isOpenMultiRebate,jdbcType=BIT},
+            </if>
+            <if test="supplierId != null">
+                #{supplierId,jdbcType=BIGINT},
+            </if>
+             <if test="subProductId != null">
+                #{subProductId,jdbcType=BIGINT},
+            </if>
+
+            <if test="strategyExpireType != null">
+                #{strategyExpireType,jdbcType=INTEGER},
+            </if>
+            <if test="checkinExpireType != null">
+                #{checkinExpireType,jdbcType=INTEGER},
+            </if>
+            <if test="checkinExpireNum != null">
+                #{checkinExpireNum,jdbcType=INTEGER},
+            </if>
+            <if test="checkinExpireUnit != null">
+                #{checkinExpireUnit,jdbcType=INTEGER},
+            </if>
+            <if test="settlementPrice != null">
+                #{settlementPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="ticketVarie != null">
+                #{ticketVarie,jdbcType=VARCHAR},
+            </if>
+            <if test="salesType != null">
+                #{salesType,jdbcType=VARCHAR},
+            </if>
+            <if test="auditStatus != null">
+                #{auditStatus,jdbcType=INTEGER},
+            </if>
+            <if test="isMF != null">
+                #{isMF,jdbcType=INTEGER},
+            </if>
+            <if test="refuseReason != null">
+                #{refuseReason,jdbcType=VARCHAR},
+            </if>
+            <if test="rebateRate != null">
+                #{rebateRate,jdbcType=DOUBLE},
+            </if>
+              <if test="notTotalSettlementType != null">
+                #{notTotalSettlementType,jdbcType=INTEGER},
+            </if>
+            <if test="reduceSettlementMoney != null">
+                #{reduceSettlementMoney,jdbcType=DOUBLE},
+            </if>
+            
+            <if test="marketPrice != null">
+                #{marketPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="advicePrice != null">
+                #{advicePrice,jdbcType=DOUBLE},
+            </if>
+            
+             <if test="parentId != null">
+                #{parentId,jdbcType=BIGINT},
+            </if>
+
+            <if test="isLimitAdvanceDue != null">
+                #{isLimitAdvanceDue,jdbcType=INTEGER},
+            </if>
+            <if test="advanceDueDays != null">
+                #{advanceDueDays,jdbcType=INTEGER},
+            </if>
+            <if test="advanceDueHour != null">
+                #{advanceDueHour,jdbcType=INTEGER},
+            </if>
+            <if test="advanceDueMinute != null">
+                #{advanceDueMinute,jdbcType=INTEGER},
+            </if>
+            <if test="isLimitDelayConsume != null">
+                #{isLimitDelayConsume,jdbcType=INTEGER},
+            </if>
+            <if test="delayConsumeHour != null">
+                #{delayConsumeHour,jdbcType=INTEGER},
+            </if>
+            <if test="leastPerdueNumber != null">
+                #{leastPerdueNumber,jdbcType=INTEGER},
+            </if>
+            <if test="mostPerdueNumber != null">
+                #{mostPerdueNumber,jdbcType=INTEGER},
+            </if>
+            <if test="advanceDueUnit != null">
+                #{advanceDueUnit,jdbcType=INTEGER},
+            </if>
+            <if test="productId != null">
+                #{productId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- 批量插入 请根据业务修改默认值 -->
+    <insert id="insertBatch" parameterType="java.util.List" keyProperty="id">
+        insert into sys_channel_strategy
+        (id
+        ,name
+        ,remark
+        ,price
+        ,quantity
+        ,begin_date
+        ,end_date
+        ,pre_sale
+        ,pre_sale_mode
+        ,expire
+        ,expire_mode
+        ,scope
+        ,status
+        ,create_date
+        ,create_by
+        ,update_date
+        ,update_by
+        ,type
+        ,del_flag
+        ,publish_date
+        ,data_source
+        ,publish_by
+        ,publish_status
+        ,dict_value
+        ,is_open_multi_rebate
+        ,supplier_id
+        ,sub_product_id
+        ,strategy_expire_type
+        ,checkin_expire_type
+        ,checkin_expire_num
+        ,checkin_expire_unit
+        ,settlement_price
+        ,ticket_varie
+        ,sales_type
+        ,audit_status
+        ,isMF
+        ,refuse_reason
+        ,rebate_rate
+        ,not_total_settlement_type
+        ,reduce_settlement_money
+        ,parent_id
+        ,market_price
+        ,advice_price
+
+        ,is_limit_advance_due
+        ,advance_due_days
+        ,advance_due_hour
+        ,advance_due_minute
+        ,is_limit_delay_consume
+        ,delay_consume_hour
+        ,least_perdue_number
+        ,most_perdue_number
+        ,advance_due_unit
+        ,product_id
+        )
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id,jdbcType=BIGINT}
+            <choose>
+                <when test="item.name != null">,#{item.name ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.remark != null">,#{item.remark ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.price != null">,#{item.price ,jdbcType=DOUBLE}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.quantity != null">,#{item.quantity ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.beginDate != null">,#{item.beginDate ,jdbcType=TIMESTAMP}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.endDate != null">,#{item.endDate ,jdbcType=TIMESTAMP}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.preSale != null">,#{item.preSale ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.preSaleMode != null">,#{item.preSaleMode ,jdbcType=BIT}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.expire != null">,#{item.expire ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.expireMode != null">,#{item.expireMode ,jdbcType=BIT}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.scope != null">,#{item.scope ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.status != null">,#{item.status ,jdbcType=BIT}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.createDate != null">,#{item.createDate ,jdbcType=TIMESTAMP}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.createBy != null">,#{item.createBy ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.updateDate != null">,#{item.updateDate ,jdbcType=TIMESTAMP}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.updateBy != null">,#{item.updateBy ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.type != null">,#{item.type ,jdbcType=CHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.delFlag != null">,#{item.delFlag ,jdbcType=CHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.publishDate != null">,#{item.publishDate ,jdbcType=TIMESTAMP}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.dataSource != null">,#{item.dataSource ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.publishBy != null">,#{item.publishBy ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.publishStatus != null">,#{item.publishStatus ,jdbcType=BIT}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.dictValue != null">,#{item.dictValue ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.isOpenMultiRebate != null">,#{item.isOpenMultiRebate ,jdbcType=BIT}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+            <choose>
+                <when test="item.supplierId != null">,#{item.supplierId ,jdbcType=BIGINT}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.subProductId != null">,#{item.subProductId ,jdbcType=BIGINT}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+
+            <choose>
+                <when test="item.strategyExpireType != null">,#{item.strategyExpireType ,jdbcType=INTEGER}</when>
+                <otherwise>,NULL </otherwise>
+            </choose>
+            <choose>
+                <when test="item.checkinExpireType != null">,#{item.checkinExpireType ,jdbcType=INTEGER}</when>
+                <otherwise>,NULL </otherwise>
+            </choose>
+            <choose>
+                <when test="item.checkinExpireNum != null">,#{item.checkinExpireNum ,jdbcType=INTEGER}</when>
+                <otherwise>,NULL </otherwise>
+            </choose>
+            <choose>
+                <when test="item.checkinExpireUnit != null">,#{item.checkinExpireUnit ,jdbcType=INTEGER}</when>
+                <otherwise>,NULL </otherwise>
+            </choose>
+            <choose>
+                <when test="item.settlementPrice != null">,#{item.settlementPrice ,jdbcType=DOUBLE}</when>
+                <otherwise>,NULL </otherwise>
+            </choose>
+            <choose>
+                <when test="item.ticketVarie != null">,#{item.ticketVarie ,jdbcType=VARCHAR}</when>
+                <otherwise>,NULL </otherwise>
+            </choose>
+            <choose>
+                <when test="item.salesType != null">,#{item.salesType ,jdbcType=VARCHAR}</when>
+                <otherwise>,NULL </otherwise>
+            </choose>
+            <choose>
+                <when test="item.auditStatus != null">,#{item.auditStatus ,jdbcType=INTEGER}</when>
+                <otherwise>,NULL </otherwise>
+            </choose>
+            <choose>
+                <when test="item.isMF != null">,#{item.isMF ,jdbcType=INTEGER}</when>
+                <otherwise>,NULL </otherwise>
+            </choose>
+            <choose>
+                <when test="item.refuseReason != null">,#{item.refuseReason ,jdbcType=VARCHAR}</when>
+                <otherwise>,NULL </otherwise>
+            </choose>
+             <choose>
+                <when test="item.rebateRate != null">,#{item.rebateRate ,jdbcType=DOUBLE}</when>
+                <otherwise>,NULL </otherwise>
+            </choose>
+            
+              <choose>
+                <when test="item.notTotalSettlementType != null">,#{item.notTotalSettlementType ,jdbcType=INTEGER}</when>
+                <otherwise>,NULL </otherwise>
+            </choose>
+            <choose>
+                <when test="item.reduceSettlementMoney != null">,#{item.reduceSettlementMoney ,jdbcType=DOUBLE}</when>
+                <otherwise>,NULL </otherwise>
+            </choose>
+             <choose>
+                <when test="item.parentId != null">,#{item.parentId ,jdbcType=BIGINT}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+
+ 			<choose>
+                <when test="item.marketPrice != null">,#{item.marketPrice ,jdbcType=DOUBLE}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            
+            <choose>
+                <when test="item.advicePrice != null">,#{item.advicePrice ,jdbcType=DOUBLE}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+
+            <choose>
+                <when test="item.isLimitAdvanceDue != null">,#{item.isLimitAdvanceDue ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.advanceDueDays != null">,#{item.advanceDueDays ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.advanceDueHour != null">,#{item.advanceDueHour ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.advanceDueMinute != null">,#{item.advanceDueMinute ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.isLimitDelayConsume != null">,#{item.isLimitDelayConsume ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.delayConsumeHour != null">,#{item.delayConsumeHour ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.leastPerdueNumber != null">,#{item.leastPerdueNumber ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.mostPerdueNumber != null">,#{item.mostPerdueNumber ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.advanceDueUnit != null">,#{item.advanceDueUnit ,jdbcType=INTEGER}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+            <choose>
+                <when test="item.productId != null">,#{item.productId ,jdbcType=BIGINT}</when>
+                <otherwise>,0</otherwise>
+            </choose>
+
+            )
+        </foreach>
+    </insert>
+
+    <!-- 更新 : 值为Null则不更新 -->
+    <update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.SysChannelStrategy">
+        update sys_channel_strategy
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="quantity != null">
+                quantity = #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="beginDate != null">
+                begin_date = #{beginDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endDate != null">
+                end_date = #{endDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="preSale != null">
+                pre_sale = #{preSale,jdbcType=INTEGER},
+            </if>
+            <if test="preSaleMode != null">
+                pre_sale_mode = #{preSaleMode,jdbcType=BIT},
+            </if>
+            <if test="expire != null">
+                expire = #{expire,jdbcType=INTEGER},
+            </if>
+            <if test="expireMode != null">
+                expire_mode = #{expireMode,jdbcType=BIT},
+            </if>
+            <if test="scope != null">
+                scope = #{scope,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=BIT},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate == null">
+                update_date = current_timestamp(),
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=CHAR},
+            </if>
+            <if test="delFlag != null">
+                del_flag = #{delFlag,jdbcType=CHAR},
+            </if>
+            <if test="publishDate != null">
+                publish_date = #{publishDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dataSource != null">
+                data_source = #{dataSource,jdbcType=VARCHAR},
+            </if>
+            <if test="publishBy != null">
+                publish_by = #{publishBy,jdbcType=VARCHAR},
+            </if>
+            <if test="publishStatus != null">publish_status = #{publishStatus,jdbcType=BIT},</if>
+            <if test="dictValue != null">
+                dict_value = #{dictValue,jdbcType=VARCHAR},
+            </if>
+            <if test="isOpenMultiRebate != null">is_open_multi_rebate = #{isOpenMultiRebate,jdbcType=BIT},</if>
+            <if test="supplierId != null">
+                supplier_id = #{supplierId,jdbcType=BIGINT},
+            </if>
+            <if test="subProductId != null">
+                sub_product_id = #{subProductId,jdbcType=BIGINT},
+            </if>
+
+            <if test="strategyExpireType != null">
+                strategy_expire_type = #{strategyExpireType,jdbcType=INTEGER},
+            </if>
+            <if test="checkinExpireType != null">
+                checkin_expire_type = #{checkinExpireType,jdbcType=INTEGER},
+            </if>
+            <if test="checkinExpireNum != null">
+                checkin_expire_num = #{checkinExpireNum,jdbcType=INTEGER},
+            </if>
+            <if test="checkinExpireUnit != null">
+                checkin_expire_unit = #{checkinExpireUnit,jdbcType=INTEGER},
+            </if>
+            <if test="settlementPrice != null">
+                settlement_price = #{settlementPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="ticketVarie != null">
+                ticket_varie =  #{ticketVarie,jdbcType=VARCHAR},
+            </if>
+            <if test="salesType != null">
+                sales_type = #{salesType,jdbcType=VARCHAR},
+            </if>
+            <if test="auditStatus != null">
+                audit_status = #{auditStatus,jdbcType=INTEGER},
+            </if>
+            <if test="isMF != null">
+                isMF = #{isMF,jdbcType=INTEGER},
+            </if>
+            <if test="refuseReason != null">
+                refuse_reason = #{refuseReason,jdbcType=VARCHAR},
+            </if>
+            <if test="rebateRate != null">
+                rebate_rate = #{rebateRate,jdbcType=DOUBLE},
+            </if>
+             <if test="notTotalSettlementType != null">
+                not_total_settlement_type = #{notTotalSettlementType,jdbcType=INTEGER},
+            </if>
+            <if test="reduceSettlementMoney != null">
+                reduce_settlement_money = #{reduceSettlementMoney,jdbcType=DOUBLE},
+            </if>
+             <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=BIGINT},
+            </if>
+            
+             <if test="marketPrice != null">
+                market_price = #{marketPrice,jdbcType=DOUBLE},
+            </if>
+             <if test="advicePrice != null">
+                advice_price = #{advicePrice,jdbcType=DOUBLE},
+            </if>
+
+            <if test="isLimitAdvanceDue != null">
+                is_limit_advance_due = #{isLimitAdvanceDue,jdbcType=INTEGER},
+            </if>
+            <if test="advanceDueDays != null">
+                advance_due_days = #{advanceDueDays,jdbcType=INTEGER},
+            </if>
+            <if test="advanceDueHour != null">
+                advance_due_hour = #{advanceDueHour,jdbcType=INTEGER},
+            </if>
+            <if test="advanceDueMinute != null">
+                advance_due_minute = #{advanceDueMinute,jdbcType=INTEGER},
+            </if>
+            <if test="isLimitDelayConsume != null">
+                is_limit_delay_consume = #{isLimitDelayConsume,jdbcType=INTEGER},
+            </if>
+            <if test="delayConsumeHour != null">
+                delay_consume_hour = #{delayConsumeHour,jdbcType=INTEGER},
+            </if>
+            <if test="leastPerdueNumber != null">
+                least_perdue_number = #{leastPerdueNumber,jdbcType=INTEGER},
+            </if>
+            <if test="mostPerdueNumber != null">
+                most_perdue_number = #{mostPerdueNumber,jdbcType=INTEGER},
+            </if>
+            <if test="advanceDueUnit != null">
+                advance_due_unit = #{advanceDueUnit,jdbcType=INTEGER},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- 批量更新 -->
+    <update id="updateBatchByPrimaryKey" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open=""
+                 close="" separator=";">
+            update sys_channel_strategy
+            <set>
+                <if test="item.name != null">
+                    name = #{item.name,jdbcType=VARCHAR},
+                </if>
+                <if test="item.remark != null">
+                    remark = #{item.remark,jdbcType=VARCHAR},
+                </if>
+                <if test="item.price != null">
+                    price = #{item.price,jdbcType=DOUBLE},
+                </if>
+                <if test="item.quantity != null">
+                    quantity = #{item.quantity,jdbcType=INTEGER},
+                </if>
+                <if test="item.beginDate != null">
+                    begin_date = #{item.beginDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.endDate != null">
+                    end_date = #{item.endDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.preSale != null">
+                    pre_sale = #{item.preSale,jdbcType=INTEGER},
+                </if>
+                <if test="item.preSaleMode != null">
+                    pre_sale_mode = #{item.preSaleMode,jdbcType=BIT},
+                </if>
+                <if test="item.expire != null">
+                    expire = #{item.expire,jdbcType=INTEGER},
+                </if>
+                <if test="item.expireMode != null">
+                    expire_mode = #{item.expireMode,jdbcType=BIT},
+                </if>
+                <if test="item.scope != null">
+                    scope = #{item.scope,jdbcType=VARCHAR},
+                </if>
+                <if test="item.status != null">
+                    status = #{item.status,jdbcType=BIT},
+                </if>
+                <if test="item.createDate != null">
+                    create_date = #{item.createDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.createBy != null">
+                    create_by = #{item.createBy,jdbcType=VARCHAR},
+                </if>
+
+                <if test="item.updateBy != null">
+                    update_by = #{item.updateBy,jdbcType=VARCHAR},
+                </if>
+                <if test="item.type != null">
+                    type = #{item.type,jdbcType=CHAR},
+                </if>
+                <if test="item.delFlag != null">
+                    del_flag = #{item.delFlag,jdbcType=CHAR},
+                </if>
+                <if test="item.publishDate != null">
+                    publish_date = #{item.publishDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.updateDate != null">
+                    update_date = #{item.updateDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.updateDate == null">
+                    update_date = current_timestamp(),
+                </if>
+                <if test="item.dataSource != null">
+                    data_source = #{item.dataSource,jdbcType=VARCHAR},
+                </if>
+                <if test="item.publishBy != null">
+                    publish_by = #{item.publishBy,jdbcType=VARCHAR},
+                </if>
+                <if test="item.publishStatus != null">
+                    publish_status = #{item.publishStatus,jdbcType=BIT},
+                </if>
+                <if test="item.publishBy != null">
+                    dict_value = #{item.dictValue,jdbcType=VARCHAR},
+                </if>
+                <if test="item.isOpenMultiRebate != null">
+                    is_open_multi_rebate = #{item.isOpenMultiRebate,jdbcType=BIT},
+                </if>
+                <if test="item.supplierId != null">
+                    supplier_id = #{item.supplierId,jdbcType=BIGINT},
+                </if>
+                
+                <if test="item.subProductId != null">
+                    sub_product_id = #{item.subProductId,jdbcType=BIGINT},
+                </if>
+
+
+                <if test="item.strategyExpireType != null">
+                    strategy_expire_type = #{item.strategyExpireType,jdbcType=INTEGER},
+                </if>
+                <if test="item.checkinExpireType != null">
+                    checkin_expire_type = #{item.checkinExpireType,jdbcType=INTEGER},
+                </if>
+                <if test="item.checkinExpireNum != null">
+                    checkin_expire_num = #{item.checkinExpireNum,jdbcType=INTEGER},
+                </if>
+                <if test="item.checkinExpireUnit != null">
+                    checkin_expire_unit = #{item.checkinExpireUnit,jdbcType=INTEGER},
+                </if>
+                <if test="item.settlementPrice != null">
+                    settlement_price = #{item.settlementPrice,jdbcType=DOUBLE},
+                </if>
+                <if test="item.ticketVarie != null">
+                    ticket_varie =  #{item.ticketVarie,jdbcType=VARCHAR},
+                </if>
+                <if test="item.salesType != null">
+                    sales_type = #{item.salesType,jdbcType=VARCHAR},
+                </if>
+                <if test="item.auditStatus != null">
+                    audit_status = #{item.auditStatus,jdbcType=INTEGER},
+                </if>
+                <if test="item.isMF != null">
+                    isMF = #{item.isMF,jdbcType=INTEGER},
+                </if>
+                <if test="item.refuseReason != null">
+                    refuse_reason = #{item.refuseReason,jdbcType=VARCHAR},
+                </if>
+                <if test="item.rebateRate != null">
+                    rebate_rate = #{item.rebateRate,jdbcType=DOUBLE},
+                </if>
+                  <if test="item.notTotalSettlementType != null">
+	                not_total_settlement_type = #{item.notTotalSettlementType,jdbcType=INTEGER},
+	            </if>
+	            <if test="item.reduceSettlementMoney != null">
+	                reduce_settlement_money = #{item.reduceSettlementMoney,jdbcType=DOUBLE},
+	            </if>
+	             <if test="item.parentId != null">
+                    parent_id = #{item.parentId,jdbcType=BIGINT},
+                </if>
+                
+                <if test="item.marketPrice != null">
+                    market_price = #{item.marketPrice,jdbcType=DOUBLE},
+                </if>
+                <if test="item.advicePrice != null">
+                    advice_price = #{item.advicePrice,jdbcType=DOUBLE},
+                </if>
+
+
+                <if test="item.isLimitAdvanceDue != null">
+                    is_limit_advance_due = #{item.isLimitAdvanceDue,jdbcType=INTEGER},
+                </if>
+                <if test="item.advanceDueDays != null">
+                    advance_due_days = #{item.advanceDueDays,jdbcType=INTEGER},
+                </if>
+                <if test="item.advanceDueHour != null">
+                    advance_due_hour = #{item.advanceDueHour,jdbcType=INTEGER},
+                </if>
+                <if test="item.advanceDueMinute != null">
+                    advance_due_minute = #{item.advanceDueMinute,jdbcType=INTEGER},
+                </if>
+                <if test="item.isLimitDelayConsume != null">
+                    is_limit_delay_consume = #{item.isLimitDelayConsume,jdbcType=INTEGER},
+                </if>
+                <if test="item.delayConsumeHour != null">
+                    delay_consume_hour = #{item.delayConsumeHour,jdbcType=INTEGER},
+                </if>
+                <if test="item.leastPerdueNumber != null">
+                    least_perdue_number = #{item.leastPerdueNumber,jdbcType=INTEGER},
+                </if>
+                <if test="item.mostPerdueNumber != null">
+                    most_perdue_number = #{item.mostPerdueNumber,jdbcType=INTEGER},
+                </if>
+                <if test="item.advanceDueUnit != null">
+                    advance_due_unit = #{item.advanceDueUnit,jdbcType=INTEGER},
+                </if>
+                <if test="item.productId != null">
+                    product_id = #{item.productId,jdbcType=BIGINT},
+                </if>
+            </set>
+            where id = #{item.id,jdbcType=BIGINT}
+        </foreach>
+    </update>
+
+    <!-- 更新 : 值为Null也更新 -->
+    <update id="updateAllByPrimaryKey" parameterType="com.pzj.base.entity.SysChannelStrategy">
+        update sys_channel_strategy
+        <set>
+                name = #{name,jdbcType=VARCHAR},
+           
+                remark = #{remark,jdbcType=VARCHAR},         
+           
+                price = #{price,jdbcType=DOUBLE},
+          
+                quantity = #{quantity,jdbcType=INTEGER},
+          
+                begin_date = #{beginDate,jdbcType=TIMESTAMP},
+          
+                end_date = #{endDate,jdbcType=TIMESTAMP},
+          
+                pre_sale = #{preSale,jdbcType=INTEGER},
+           
+                pre_sale_mode = #{preSaleMode,jdbcType=BIT},
+          
+                expire = #{expire,jdbcType=INTEGER},
+           
+                expire_mode = #{expireMode,jdbcType=BIT},
+          
+                scope = #{scope,jdbcType=VARCHAR},
+         
+                status = #{status,jdbcType=BIT},
+           
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+          
+                create_by = #{createBy,jdbcType=VARCHAR},
+           
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+          
+                update_date = current_timestamp(),
+          
+                update_by = #{updateBy,jdbcType=VARCHAR},
+         
+                type = #{type,jdbcType=CHAR},
+          
+                del_flag = #{delFlag,jdbcType=CHAR},
+           
+                publish_date = #{publishDate,jdbcType=TIMESTAMP},
+          
+                data_source = #{dataSource,jdbcType=VARCHAR},
+          
+                publish_by = #{publishBy,jdbcType=VARCHAR},
+                publish_status = #{publishStatus,jdbcType=BIT},
+           
+                dict_value = #{dictValue,jdbcType=VARCHAR},
+            
+                is_open_multi_rebate = #{isOpenMultiRebate,jdbcType=BIT},
+           
+                supplier_id = #{supplierId,jdbcType=BIGINT},
+                
+                sub_product_id = #{subProductId,jdbcType=BIGINT},
+          
+                strategy_expire_type = #{strategyExpireType,jdbcType=INTEGER},
+            
+                checkin_expire_type = #{checkinExpireType,jdbcType=INTEGER},
+          
+                checkin_expire_num = #{checkinExpireNum,jdbcType=INTEGER},
+           
+                checkin_expire_unit = #{checkinExpireUnit,jdbcType=INTEGER},
+           
+                settlement_price = #{settlementPrice,jdbcType=DOUBLE},
+           
+                ticket_varie =  #{ticketVarie,jdbcType=VARCHAR},
+           
+                sales_type = #{salesType,jdbcType=VARCHAR},
+          
+                audit_status = #{auditStatus,jdbcType=INTEGER},
+           
+                isMF = #{isMF,jdbcType=INTEGER},
+           
+                refuse_reason = #{refuseReason,jdbcType=VARCHAR},
+                
+                rebate_rate = #{rebateRate,jdbcType=DOUBLE},
+                
+                not_total_settlement_type = #{notTotalSettlementType,jdbcType=INTEGER},
+                
+                reduce_settlement_money = #{reduceSettlementMoney,jdbcType=DOUBLE},
+                
+                parent_id = #{parentId,jdbcType=BIGINT},
+                
+                market_price = #{marketPrice,jdbcType=DOUBLE},
+                 
+                advice_price = #{advicePrice,jdbcType=DOUBLE},
+
+                is_limit_advance_due = #{isLimitAdvanceDue,jdbcType=INTEGER},
+                advance_due_days = #{advanceDueDays,jdbcType=INTEGER},
+                advance_due_hour = #{advanceDueHour,jdbcType=INTEGER},
+                advance_due_minute = #{advanceDueMinute,jdbcType=INTEGER},
+                is_limit_delay_consume = #{isLimitDelayConsume,jdbcType=INTEGER},
+                delay_consume_hour = #{delayConsumeHour,jdbcType=INTEGER},
+                least_perdue_number = #{leastPerdueNumber,jdbcType=INTEGER},
+                most_perdue_number = #{mostPerdueNumber,jdbcType=INTEGER},
+                advance_due_unit = #{advanceDueUnit,jdbcType=INTEGER},
+                product_id = #{productId,jdbcType=BIGINT},
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="findByIdsMap" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_channel_strategy
+        <where>
+            <if test="strategyIds != null">
+                and id in (${strategyIds})
+            </if>
+            or 1=2
+
+        </where>
+    </select>
+
+    <select id="findByIdList" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_channel_strategy
+        <where>
+            <if test="strategyIds != null">
+                and id in
+                <foreach collection="strategyIds" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            or 1=2
+        </where>
+        order by create_date desc
+    </select>
+
+
+    <sql id="inner_join_dict_relation">
+        <if test="bParam != null and bParam.salesTypeValues != null and bParam.salesTypeValues.size > 0">
+            inner join sys_object_dict_relation dictrel on s.id = dictrel.object_id and dictrel.object= "sys_channel_strategy"
+            and dictrel.type='strategy:salesType' and dictrel.value in
+            <foreach collection="bParam.salesTypeValues" item="_value" open="(" separator="," close=")">
+                #{_value, jdbcType=VARCHAR}
+            </foreach>
+        </if>
+    </sql>
+
+    <!-- inner join -->
+    <!-- 左连接返回map -->
+    <sql id="Base_Column_LeftJoin_List">
+        s.id
+        ,s.name
+        ,s.remark
+        ,s.price
+        ,s.quantity
+        ,s.begin_date
+        ,s.end_date
+        ,s.pre_sale
+        ,s.pre_sale_mode
+        ,s.expire
+        ,s.expire_mode
+        ,s.scope
+        ,s.status
+        ,s.create_date
+        ,s.create_by
+        ,s.update_date
+        ,s.update_by
+        ,s.type
+        ,s.del_flag
+        ,s.publish_date
+        ,s.data_source
+        ,s.publish_by
+        ,s.publish_status
+        ,s.dict_value
+        ,s.is_open_multi_rebate
+        ,s.supplier_id
+        ,s.sub_product_id
+        ,s.strategy_expire_type
+        ,s.checkin_expire_type
+        ,s.checkin_expire_num
+        ,s.checkin_expire_unit
+        ,s.settlement_price
+        ,s.ticket_varie
+        ,s.sales_type
+        ,s.audit_status
+        ,s.isMF
+        ,s.refuse_reason
+        ,s.not_total_settlement_type
+        ,s.reduce_settlement_money
+        ,s.parent_id
+        ,s.market_price
+        ,s.advice_price
+
+        ,s.is_limit_advance_due
+        ,s.advance_due_days
+        ,s.advance_due_hour
+        ,s.advance_due_minute
+        ,s.is_limit_delay_consume
+        ,s.delay_consume_hour
+        ,s.least_perdue_number
+        ,s.most_perdue_number
+        ,s.advance_due_unit
+        ,s.product_id
+    </sql>
+    <!-- 左连接实体多蚕食查询sql -->
+    <sql id="sql_of_innerJoin_condition">
+        <if test="bParam != null">
+            <if test="bParam.id != null">AND s.id = #{bParam.id,jdbcType=BIGINT}</if>
+            <if test="bParam.name != null">AND s.name like #{bParam.name,jdbcType=VARCHAR}</if>
+            <if test="bParam.remark != null">AND s.remark = #{bParam.remark,jdbcType=VARCHAR}</if>
+            <if test="bParam.price != null">AND s.price = #{bParam.price,jdbcType=DOUBLE}</if>
+            <if test="bParam.quantity != null">AND s.quantity = #{bParam.quantity,jdbcType=INTEGER}
+            </if>
+            <if test="bParam.beginDate != null">AND s.begin_date =
+                #{bParam.beginDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="bParam.endDate != null">AND s.end_date = #{bParam.endDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="bParam.preSale != null">AND s.pre_sale = #{bParam.preSale,jdbcType=INTEGER}</if>
+            <if test="bParam.preSaleMode != null">AND s.pre_sale_mode = #{bParam.preSaleMode,jdbcType=BIT}
+            </if>
+            <if test="bParam.expire != null">AND s.expire = #{bParam.expire,jdbcType=INTEGER}</if>
+            <if test="bParam.expireMode != null">AND s.expire_mode = #{bParam.expireMode,jdbcType=BIT}
+            </if>
+            <if test="bParam.scope != null">AND s.scope = #{bParam.scope,jdbcType=VARCHAR}</if>
+            <if test="bParam.status != null">AND s.status = #{bParam.status,jdbcType=BIT}</if>
+            <if test="bParam.createDate != null">AND s.create_date =
+                #{bParam.createDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="bParam.createBy != null">AND s.create_by = #{bParam.createBy,jdbcType=VARCHAR}
+            </if>
+            <if test="bParam.updateDate != null">AND s.update_date =
+                #{bParam.updateDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="bParam.updateBy != null">AND s.update_by = #{bParam.updateBy,jdbcType=VARCHAR}
+            </if>
+            <if test="bParam.type != null">AND s.type = #{bParam.type,jdbcType=CHAR}</if>
+            <if test="bParam.delFlag != null">AND s.del_flag = #{bParam.delFlag,jdbcType=CHAR}</if>
+            <if test="bParam.publishDate != null">AND s.publish_date =
+                #{bParam.publishDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="bParam.dataSource != null">AND s.data_source =
+                #{bParam.dataSource,jdbcType=VARCHAR}
+            </if>
+            <if test="bParam.publishBy != null">AND s.publish_by =
+                #{bParam.publishBy,jdbcType=VARCHAR}
+            </if>
+            <if test="bParam.publishStatus != null">AND s.publish_status = #{bParam.publishStatus,jdbcType=BIT}</if>
+            <if test="bParam.dictValue != null">AND s.dict_value like
+                #{bParam.dictValue,jdbcType=VARCHAR}
+            </if>
+            <if test="bParam.isOpenMultiRebate != null">AND s.is_open_multi_rebate =
+                #{bParam.isOpenMultiRebate,jdbcType=BIT}
+            </if>
+            <if test="bParam.supplierId != null">AND s.supplier_id = #{bParam.supplierId,jdbcType=BIGINT}</if>
+            
+            <if test="bParam.subProductId != null">AND s.sub_product_id = #{bParam.subProductId,jdbcType=BIGINT}</if>
+
+            <if test="bParam.strategyExpireType != null">AND s.strategy_expire_type = #{bParam.strategyExpireType,jdbcType=INTEGER}</if>
+            <if test="bParam.checkinExpireType != null">AND s.checkin_expire_type = #{bParam.checkinExpireType,jdbcType=INTEGER}</if>
+            <if test="bParam.checkinExpireNum != null">AND s.checkin_expire_num = #{bParam.checkinExpireNum,jdbcType=INTEGER}</if>
+            <if test="bParam.checkinExpireUnit != null">AND s.checkin_expire_unit = #{bParam.checkinExpireUnit,jdbcType=INTEGER}</if>
+            <if test="bParam.settlementPrice != null">AND s.settlement_price = #{bParam.settlementPrice,jdbcType=DOUBLE}</if>
+            <if test="bParam.ticketVarie != null">AND s.ticket_varie = #{bParam.ticketVarie,jdbcType=VARCHAR}</if>
+            <if test="bParam.salesType != null">AND s.sales_type like #{bParam.salesType,jdbcType=VARCHAR}</if>
+            <if test="bParam.auditStatus != null">AND s.audit_status = #{bParam.auditStatus,jdbcType=INTEGER}</if> 
+            <if test="bParam.isMF != null">AND s.isMF = #{bParam.isMF,jdbcType=INTEGER}</if>      
+            <if test="bParam.rebateRate != null">AND s.rebate_rate = #{bParam.rebateRate,jdbcType=DOUBLE}</if>     
+            <if test="bParam.refuseReason != null">AND s.refuse_reason = #{bParam.refuseReason,jdbcType=VARCHAR}</if>
+            <if test="bParam.notTotalSettlementType != null">AND s.not_total_settlement_type = #{bParam.notTotalSettlementType,jdbcType=INTEGER}</if>
+            <if test="bParam.reduceSettlementMoney != null">AND s.reduce_settlement_money = #{bParam.reduceSettlementMoney,jdbcType=DOUBLE}</if>
+            
+            <if test="bParam.marketPrice != null">AND s.market_price = #{bParam.marketPrice,jdbcType=DOUBLE}</if>
+            <if test="bParam.advicePrice != null">AND s.advice_price = #{bParam.advicePrice,jdbcType=DOUBLE}</if>
+            
+            <if test="bParam.parentId != null">AND s.parent_id = #{bParam.parentId,jdbcType=BIGINT}</if>
+
+            <if test="bParam.isLimitAdvanceDue != null">AND s.is_limit_advance_due = #{bParam.isLimitAdvanceDue,jdbcType=INTEGER}</if>
+            <if test="bParam.advanceDueDays != null">AND s.advance_due_days = #{bParam.advanceDueDays,jdbcType=INTEGER}</if>
+            <if test="bParam.advanceDueHour != null">AND s.advance_due_hour = #{bParam.advanceDueHour,jdbcType=INTEGER}</if>
+            <if test="bParam.advanceDueMinute != null">AND s.advance_due_minute = #{bParam.advanceDueMinute,jdbcType=INTEGER}</if>
+            <if test="bParam.isLimitDelayConsume != null">AND s.is_limit_delay_consume = #{bParam.isLimitDelayConsume,jdbcType=INTEGER}</if>
+            <if test="bParam.delayConsumeHour != null">AND s.delay_consume_hour = #{bParam.delayConsumeHour,jdbcType=INTEGER}</if>
+            <if test="bParam.leastPerdueNumber != null">AND s.least_perdue_number = #{bParam.leastPerdueNumber,jdbcType=INTEGER}</if>
+            <if test="bParam.mostPerdueNumber != null">AND s.most_perdue_number = #{bParam.mostPerdueNumber,jdbcType=INTEGER}</if>
+            <if test="bParam.advanceDueUnit != null">AND s.advance_due_unit = #{bParam.advanceDueUnit,jdbcType=INTEGER}</if>
+            <if test="bParam.productId != null">AND s.product_id = #{bParam.productId,jdbcType=BIGINT}</if>
+
+            <if test="bParam.queryDateList != null">
+                <foreach collection="bParam.queryDateList" item="item">
+                    <if test="item.queryFieldName == 'beginDate'">
+                        <if test="item.startDate != null">
+                            and begin_date &gt;= #{item.startDate}
+                        </if>
+                        <if test="item.endDate != null">
+                            and begin_date &lt;= #{item.endDate}
+                        </if>
+
+                    </if>
+                    <if test="item.queryFieldName == 'endDate'">
+
+                        <if test="item.startDate != null">
+                            and end_date &gt;= #{item.startDate}
+                        </if>
+                        <if test="item.endDate != null">
+                            and end_date &lt;= #{item.endDate}
+                        </if>
+
+                    </if>
+                    <if test="item.queryFieldName == 'createDate'">
+
+                        <if test="item.startDate != null">
+                            and create_date &gt;= #{item.startDate}
+                        </if>
+                        <if test="item.endDate != null">
+                            and create_date &lt;= #{item.endDate}
+                        </if>
+
+                    </if>
+                    <if test="item.queryFieldName == 'updateDate'">
+
+                        <if test="item.startDate != null">
+                            and update_date &gt;= #{item.startDate}
+                        </if>
+                        <if test="item.endDate != null">
+                            and update_date &lt;= #{item.endDate}
+                        </if>
+
+                    </if>
+                    <if test="item.queryFieldName == 'publishDate'">
+
+                        <if test="item.startDate != null">
+                            and publish_date &gt;= #{item.startDate}
+                        </if>
+                        <if test="item.endDate != null">
+                            and publish_date &lt;= #{item.endDate}
+                        </if>
+
+                    </if>
+                </foreach>
+            </if>
+        </if>
+        <if test="dateParam != null">
+            <foreach collection="dateParam" item="item">
+                <if test="item.queryFieldName == 'beginDate'">
+
+                    <if test="item.startDate != null">
+                        and begin_date &gt;= #{item.startDate}
+                    </if>
+                    <if test="item.endDate != null">
+                        and begin_date &lt;= #{item.endDate}
+                    </if>
+
+                </if>
+                <if test="item.queryFieldName == 'endDate'">
+
+                    <if test="item.startDate != null">
+                        and end_date &gt;= #{item.startDate}
+                    </if>
+                    <if test="item.endDate != null">
+                        and end_date &lt;= #{item.endDate}
+                    </if>
+
+                </if>
+                <if test="item.queryFieldName == 'createDate'">
+
+                    <if test="item.startDate != null">
+                        and create_date &gt;= #{item.startDate}
+                    </if>
+                    <if test="item.endDate != null">
+                        and create_date &lt;= #{item.endDate}
+                    </if>
+
+                </if>
+                <if test="item.queryFieldName == 'updateDate'">
+
+                    <if test="item.startDate != null">
+                        and update_date &gt;= #{item.startDate}
+                    </if>
+                    <if test="item.endDate != null">
+                        and update_date &lt;= #{item.endDate}
+                    </if>
+
+                </if>
+                <if test="item.queryFieldName == 'publishDate'">
+
+                    <if test="item.startDate != null">
+                        and publish_date &gt;= #{item.startDate}
+                    </if>
+                    <if test="item.endDate != null">
+                        and publish_date &lt;= #{item.endDate}
+                    </if>
+
+                </if>
+            </foreach>
+        </if>
+
+    </sql>
+
+    <!--根据政策字段，政策id集合，政策发布状态集合，政策审核状态集合，政策关联的渠道id集合-->
+    <select id="findListByAllParam" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_LeftJoin_List"/>
+        from sys_channel_strategy s
+        <include refid="inner_join_dict_relation"/>
+        <if test="bParam.channelIds != null and bParam.channelIds.size > 0">
+            inner join sys_label_relation sc on sc.obj_id = s.id and sc.rel_type = 'strategyChannel'
+            and sc.rel_id in
+            <foreach collection="bParam.channelIds" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="bParam.productIds != null and bParam.productIds.size > 0">
+            inner join sys_label_relation sp on sp.obj_id = s.id and sp.rel_type = 'strategyProduct'
+            and sp.rel_id in
+            <foreach collection="bParam.productIds" item="item" open="(" separator=","
+                     close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="bParam.rebateIds != null and bParam.rebateIds.size > 0">
+            inner join sys_label_relation sr on sr.obj_id = s.id and sr.rel_type = 'strategyRebate'
+            and sr.rel_id in
+            <foreach collection="bParam.rebateIds" item="item" open="(" separator=","
+                     close=")">
+                #{item}
+            </foreach>
+        </if>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            <if test="bParam.ids != null and bParam.ids.size > 0">
+                and s.id in
+                <foreach collection="bParam.ids" item="item" open="(" separator=","
+                         close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="bParam.auditStatusList != null and bParam.auditStatusList.size > 0">
+                and s.audit_status in
+                <foreach collection="bParam.auditStatusList" item="item" open="(" separator=","
+                         close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="bParam.checkinExpireTypeList != null and bParam.checkinExpireTypeList.size > 0 ">
+                and s.checkin_expire_type in
+                <foreach collection="bParam.checkinExpireTypeList" item="item" open="(" separator=","
+                         close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+        group by s.id
+        <if test="pParam != null">
+            <if test="pParam.orderByClause == null">order by s.id desc</if>
+            <if test="pParam.orderByClause != null">order by
+                ${pParam.orderByClause}
+            </if>
+            <if test="pParam.startIndex != null and pParam.pageSize != null">
+                limit #{pParam.startIndex} , #{pParam.pageSize}
+            </if>
+        </if>
+    </select>
+    <select id="countListByAllParam" resultType="java.lang.Integer"
+            parameterType="map">
+        select count(z.id) from (
+        select
+         s.id
+        from sys_channel_strategy s
+        <include refid="inner_join_dict_relation"/>
+        <if test="bParam.channelIds != null">
+            inner join sys_label_relation sc on sc.obj_id = s.id and sc.rel_type = 'strategyChannel'
+            and sc.rel_id in
+            <foreach collection="bParam.channelIds" item="item" open="(" separator=","
+                     close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="bParam.productIds != null">
+            inner join sys_label_relation sp on sp.obj_id = s.id and sp.rel_type = 'strategyProduct'
+            and sp.rel_id in
+            <foreach collection="bParam.productIds" item="item" open="(" separator=","
+                     close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="bParam.rebateIds != null">
+            inner join sys_label_relation sr on sr.obj_id = s.id and sr.rel_type = 'strategyRebate'
+            and sr.rel_id in
+            <foreach collection="bParam.rebateIds" item="item" open="(" separator=","
+                     close=")">
+                #{item}
+            </foreach>
+        </if>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            <if test="bParam.ids != null">
+                and s.id in
+                <foreach collection="bParam.ids" item="item" open="(" separator=","
+                         close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="bParam.auditStatusList != null">
+                and s.audit_status in
+                <foreach collection="bParam.auditStatusList" item="item" open="(" separator=","
+                         close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="bParam.checkinExpireTypeList != null">
+                and s.checkin_expire_type in
+                <foreach collection="bParam.checkinExpireTypeList" item="item" open="(" separator=","
+                         close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+        group by s.id
+        ) z
+    </select>
+
+    <!-- 根据关系表中的objId分页获取标签列表 -->
+    <select id="findListByObjID" resultMap="BaseResultMap"
+            parameterType="map">
+        select
+        <include refid="Base_Column_LeftJoin_List"/>
+        from sys_channel_strategy s
+        inner join sys_label_relation r on r.rel_id = s.id
+        <include refid="inner_join_dict_relation"/>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            and r.obj_id = #{idParam}
+            and r.rel_type = #{relType}
+        </where>
+        <if test="pParam != null">
+            <if test="pParam.orderByClause == null">order by s.id desc</if>
+            <if test="pParam.orderByClause != null">order by
+                ${pParam.orderByClause}
+            </if>
+            <if test="pParam.startIndex != null and pParam.pageSize != null">
+                limit #{pParam.startIndex} , #{pParam.pageSize}
+            </if>
+        </if>
+        <if test="pParam == null">
+            order by s.id desc
+        </if>
+    </select>
+    <select id="countByObjID" resultType="java.lang.Integer"
+            parameterType="map">
+        select
+        count(s.id)
+        from sys_channel_strategy s
+        inner join
+        sys_label_relation r on r.rel_id = s.id
+        <include refid="inner_join_dict_relation"/>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            and r.obj_id = #{idParam}
+            and r.rel_type = #{relType}
+        </where>
+    </select>
+
+    <!-- 根据关系表中的refId分页获取标签列表 -->
+    <select id="findListByRefID" resultMap="BaseResultMap"
+            parameterType="map">
+        select
+        <include refid="Base_Column_LeftJoin_List"/>
+        from sys_channel_strategy s
+        inner join sys_label_relation r on r.obj_id = s.id
+        <include refid="inner_join_dict_relation"/>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            and r.rel_id = #{idParam}
+            and r.rel_type = #{relType}
+        </where>
+        <if test="pParam != null">
+            <if test="pParam.orderByClause == null">order by s.id desc</if>
+            <if test="pParam.orderByClause != null">order by
+                ${pParam.orderByClause}
+            </if>
+            <if test="pParam.startIndex != null and pParam.pageSize != null">
+                limit #{pParam.startIndex} , #{pParam.pageSize}
+            </if>
+        </if>
+
+
+    </select>
+    <select id="countByRefID" resultType="java.lang.Integer"
+            parameterType="map">
+        select
+        count(s.id)
+        from sys_channel_strategy s
+        inner join
+        sys_label_relation r on r.obj_id = s.id
+        <include refid="inner_join_dict_relation"/>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            and r.rel_id = #{idParam}
+            and r.rel_type = #{relType}
+        </where>
+    </select>
+
+    <!-- 通过渠道Id和产品Id查询对应的政策 -->
+    <select id="findListByChannelIDAndProductID" resultMap="BaseResultMap"
+            parameterType="map">
+        select
+        <include refid="Base_Column_LeftJoin_List"/>
+        from sys_channel_strategy s
+        inner join sys_label_relation r on r.obj_id = s.id
+        inner join sys_label_relation r1 on r1.obj_id = s.id
+        <include refid="inner_join_dict_relation"/>
+        <where>
+            and r.rel_id = #{channelId}
+            and r.rel_type = #{strategyChannel}
+            and r1.rel_id = #{productId}
+            and r1.rel_type = #{strategyProduct}
+        </where>
+    </select>
+
+    <!-- 通过政策信息和产品Id集合查询 对应的政策 -->
+    <select id="findListByProductID" resultMap="BaseResultMap"
+            parameterType="map">
+        select
+        <include refid="Base_Column_LeftJoin_List"/>
+        from sys_channel_strategy s
+        inner join sys_label_relation r on r.obj_id = s.id
+        <include refid="inner_join_dict_relation"/>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            <if test="relIds != null">
+                and rel_id in
+                <foreach collection="relIds" item="item" open="(" separator=","
+                         close=")">
+                    #{item}
+                </foreach>
+            </if>
+            and r.rel_type = #{relType}
+
+        </where>
+        group by s.id
+        <if test="pParam != null">
+            <if test="pParam.orderByClause == null">order by s.id desc</if>
+            <if test="pParam.orderByClause != null">order by
+                ${pParam.orderByClause}
+            </if>
+            <if test="pParam.startIndex != null and pParam.pageSize != null">
+                limit #{pParam.startIndex} , #{pParam.pageSize}
+            </if>
+        </if>
+    </select>
+    <select id="countByProductID" resultType="java.lang.Integer"
+            parameterType="map">
+        select count(z.id) from (
+        select
+        s.id as id
+        from sys_channel_strategy s
+        inner join
+        sys_label_relation r on r.obj_id = s.id
+        <include refid="inner_join_dict_relation"/>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            <if test="relIds != null">
+                and rel_id in
+                <foreach collection="relIds" item="item" open="(" separator=","
+                         close=")">
+                    #{item}
+                </foreach>
+            </if>
+            and r.rel_type = #{relType}
+        </where>
+        group by s.id
+        ) z
+    </select>
+    <!-- 获取某个景区下的直销政策 -->
+     <select id="findDirectStrategyVoByScenic" resultMap="BaseResultMap" parameterType="map">
+         select
+         <include refid="Base_Column_LeftJoin_List"/>
+         from sys_channel_strategy s
+         inner join sys_label_relation sp on s.id = sp.obj_id and sp.rel_type = 'strategyProduct'
+         inner join product_relation ps on ps.obj_id = sp.rel_id and ps.obj_type = 'proRelease' and ps.rel_type = 'scenic'
+         <include refid="inner_join_dict_relation"/>
+         <if test="scenicId != null">
+             and ps.rel_id = #{scenicId}
+         </if>
+         <where>
+             <include refid="sql_of_innerJoin_condition"/>
+             <if test="supplierId != null">
+            and s.supplier_id = #{supplierId}
+            </if>
+             or 1=2
+         </where>
+         group by s.id
+         <if test="pParam != null">
+             <if test="pParam.orderByClause == null">order by s.id desc</if>
+             <if test="pParam.orderByClause != null">order by
+                 ${pParam.orderByClause}
+             </if>
+             <if test="pParam.startIndex != null and pParam.pageSize != null">
+                 limit #{pParam.startIndex} , #{pParam.pageSize}
+             </if>
+         </if>
+     </select>
+    <select id="countDirectStrategyVoByScenic" resultType="java.lang.Integer"
+            parameterType="map">
+        select count(z.id) from (
+        select
+        s.id as id
+        from sys_channel_strategy s
+        inner join sys_label_relation sp on s.id = sp.obj_id and sp.rel_type = 'strategyProduct'
+        inner join product_relation ps on ps.obj_id = sp.rel_id and ps.obj_type = 'proRelease' and ps.rel_type = 'scenic'
+        <include refid="inner_join_dict_relation"/>
+        <if test="scenicId != null">
+            and ps.rel_id = #{scenicId}
+        </if>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            <if test="supplierId != null">
+            and s.supplier_id = #{supplierId}
+            </if>
+            or 1=2
+        </where>
+        group by s.id
+        ) z
+    </select>
+    <!-- 获取在不同产品下的直销政策 -->
+    <select id="findDirectStrategyVoByProductIds" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_LeftJoin_List"/>
+        from sys_channel_strategy s
+        inner join sys_label_relation sp on s.id = sp.obj_id and sp.rel_type = 'strategyProduct'
+        <include refid="inner_join_dict_relation"/>
+        <if test="productId != null">
+            and sp.rel_id = #{productId}
+        </if>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            <if test="supplierId != null">
+            and s.supplier_id = #{supplierId}
+            </if>
+            or 1=2
+        </where>
+        group by s.id
+    </select>
+
+    <!-- 获取用户在某个景区下的分销直连政策 -->
+    <select id="findCustomerDirectStrategyVoByScenic" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_LeftJoin_List"/>
+        from sys_channel_strategy s
+        inner join sys_label_relation sc on s.id = sc.obj_id and sc.rel_type = 'strategyChannel'
+        inner join sys_label_relation sp on s.id = sp.obj_id and sp.rel_type = 'strategyProduct'
+        inner join sys_label_relation cc on cc.obj_id = sc.rel_id and cc.rel_type = 'channelUser'
+        <if test="userId != null">
+            and cc.rel_id = #{userId}
+        </if>
+        inner join product_relation ps on ps.obj_id = sp.rel_id and ps.obj_type = 'proRelease' and ps.rel_type = 'scenic'
+        <include refid="inner_join_dict_relation"/>
+        <if test="scenicId != null">
+            and ps.rel_id = #{scenicId}
+        </if>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            <if test="supplierId != null">
+            and s.supplier_id = #{supplierId}
+            </if>
+            or 1=2
+        </where>
+        group by s.id
+        <if test="pParam != null">
+            <if test="pParam.orderByClause == null">order by s.id desc</if>
+            <if test="pParam.orderByClause != null">order by
+                ${pParam.orderByClause}
+            </if>
+            <if test="pParam.startIndex != null and pParam.pageSize != null">
+                limit #{pParam.startIndex} , #{pParam.pageSize}
+            </if>
+        </if>
+    </select>
+    <select id="countCustomerDirectStrategyVoByScenic" resultType="java.lang.Integer"
+            parameterType="map">
+        select count(z.id) from (
+        select
+        s.id as id
+        from sys_channel_strategy s
+        inner join sys_label_relation sc on s.id = sc.obj_id and sc.rel_type = 'strategyChannel'
+        inner join sys_label_relation sp on s.id = sp.obj_id and sp.rel_type = 'strategyProduct'
+        inner join sys_label_relation cc on cc.obj_id = sc.rel_id and cc.rel_type = 'channelUser'
+        <include refid="inner_join_dict_relation"/>
+        <if test="userId != null">
+            and cc.rel_id = #{userId}
+        </if>
+        inner join product_relation ps on ps.obj_id = sp.rel_id and ps.obj_type = 'proRelease' and ps.rel_type = 'scenic'
+        <if test="scenicId != null">
+            and ps.rel_id = #{scenicId}
+        </if>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            <if test="supplierId != null">
+            and s.supplier_id = #{supplierId}
+            </if>
+            or 1=2
+        </where>
+        group by s.id
+        ) z
+    </select>
+    <!-- 获取用户在某个景区下的分销政策 -->
+    <select id="findCustomerDistributionStrategyVoByScenic" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_LeftJoin_List"/>
+        from sys_channel_strategy s
+        inner join sys_label_relation sc on s.id = sc.obj_id and sc.rel_type = 'strategyChannel'
+        inner join sys_label_relation sp on s.id = sp.obj_id and sp.rel_type = 'strategyProduct'
+        inner join sys_label_relation cc on cc.obj_id = sc.rel_id and cc.rel_type = 'channelUser'
+        <include refid="inner_join_dict_relation"/>
+        <if test="userId != null">
+            and cc.rel_id = #{userId}
+        </if>
+        inner join product_relation ps on ps.obj_id = sp.rel_id and ps.obj_type = 'proRelease' and ps.rel_type = 'scenic'
+        <if test="scenicId != null">
+            and ps.rel_id = #{scenicId}
+        </if>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            <if test="supplierId != null">
+            and s.supplier_id != #{supplierId}
+            </if>
+            or 1=2
+        </where>
+        group by s.id
+        <if test="pParam != null">
+            <if test="pParam.orderByClause == null">order by s.id desc</if>
+            <if test="pParam.orderByClause != null">order by
+                ${pParam.orderByClause}
+            </if>
+            <if test="pParam.startIndex != null and pParam.pageSize != null">
+                limit #{pParam.startIndex} , #{pParam.pageSize}
+            </if>
+        </if>
+    </select>
+    <select id="countCustomerDistributionStrategyVoByScenic" resultType="java.lang.Integer"
+            parameterType="map">
+        select count(z.id) from (
+        select
+        s.id as id
+        from sys_channel_strategy s
+        inner join sys_label_relation sc on s.id = sc.obj_id and sc.rel_type = 'strategyChannel'
+        inner join sys_label_relation sp on s.id = sp.obj_id and sp.rel_type = 'strategyProduct'
+        inner join sys_label_relation cc on cc.obj_id = sc.rel_id  and cc.rel_type = 'channelUser'
+        <include refid="inner_join_dict_relation"/>
+        <if test="userId != null">
+            and cc.rel_id = #{userId}
+        </if>
+        inner join product_relation ps on ps.obj_id = sp.rel_id and ps.obj_type = 'proRelease'  and ps.rel_type = 'scenic'
+        <if test="scenicId != null">
+            and ps.rel_id = #{scenicId}
+        </if>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            <if test="supplierId != null">
+            and s.supplier_id != #{supplierId}
+            </if>
+            or 1=2
+        </where>
+        group by s.id
+        ) z
+    </select>
+    <!-- 获取用户在不同产品下的分销直连政策 -->
+    <select id="findCustomerDirectStrategyVoByProductIds" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_LeftJoin_List"/>
+        from sys_channel_strategy s
+        inner join sys_label_relation sc on s.id = sc.obj_id and sc.rel_type = 'strategyChannel'
+        inner join sys_label_relation sp on s.id = sp.obj_id and sp.rel_type = 'strategyProduct'
+        <include refid="inner_join_dict_relation"/>
+        <if test="productId != null">
+            and sp.rel_id = #{productId}
+        </if>
+        inner join sys_label_relation cc on cc.obj_id = sc.rel_id and cc.rel_type = 'channelUser'
+        <if test="userId != null">
+            and cc.rel_id = #{userId}
+        </if>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+             <if test="supplierId != null">
+                and s.supplier_id = #{supplierId}
+            </if>
+            or 1=2
+        </where>
+        group by s.id
+    </select>
+
+    <!-- 获取用户在不同产品下的分销政策 -->
+    <select id="findCustomerDistributionStrategyVoByProductIds" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_LeftJoin_List"/>
+        from sys_channel_strategy s
+        inner join sys_label_relation sc on s.id = sc.obj_id and sc.rel_type = 'strategyChannel'
+        inner join sys_label_relation sp on s.id = sp.obj_id and sp.rel_type = 'strategyProduct'
+        <include refid="inner_join_dict_relation"/>
+        <if test="productId != null">
+            and sp.rel_id = #{productId}
+        </if>
+        inner join sys_label_relation cc on cc.obj_id = sc.rel_id and cc.rel_type = 'channelUser'
+        <if test="userId != null">
+            and cc.rel_id = #{userId}
+        </if>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            <if test="supplierId != null">
+                and s.supplier_id != #{supplierId}
+            </if>
+            or 1=2
+        </where>
+        group by s.id
+    </select>
+    
+    
+    <!-- 获取景区有关联的联合产品的直销政策 -->
+    <select id="findComposeDirectStrategyVoByScenic" resultMap="BaseResultMap" parameterType="map">
+       select
+        <include refid="Base_Column_LeftJoin_List"/>
+        from sys_channel_strategy s
+        inner join sys_label_relation sp on s.id = sp.obj_id and sp.rel_type = 'strategyProduct'
+        inner join product_combine_relation cr on cr.product_id = sp.rel_id 
+        inner join product_relation ps on ps.obj_id = cr.sub_product_id and ps.obj_type = 'proRelease' and ps.rel_type = 'scenic'
+        <include refid="inner_join_dict_relation"/>
+        <if test="scenicId != null">
+            and ps.rel_id = #{scenicId}
+        </if>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            or 1=2
+        </where>
+        group by s.id
+        <if test="pParam != null">
+            <if test="pParam.orderByClause == null">order by s.id desc</if>
+            <if test="pParam.orderByClause != null">order by
+                ${pParam.orderByClause}
+            </if>
+            <if test="pParam.startIndex != null and pParam.pageSize != null">
+                limit #{pParam.startIndex} , #{pParam.pageSize}
+            </if>
+        </if>
+    </select>
+    
+    <select id="countComposeDirectStrategyVoByScenic" resultType="java.lang.Integer"
+            parameterType="map">
+        select count(z.id) from (
+        select
+         s.id as id
+        from sys_channel_strategy s
+         inner join sys_label_relation sp on s.id = sp.obj_id and sp.rel_type = 'strategyProduct'
+        inner join product_combine_relation cr on cr.product_id = sp.rel_id 
+        inner join product_relation ps on ps.obj_id = cr.sub_product_id and ps.obj_type = 'proRelease' and ps.rel_type = 'scenic'
+        <include refid="inner_join_dict_relation"/>
+        <if test="scenicId != null">
+            and ps.rel_id = #{scenicId}
+        </if>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            or 1=2
+        </where>
+        group by s.id
+        ) z
+    </select>
+    
+    <!-- 获取景区有关联的联合产品的分销政策 -->
+    <select id="findComposeDistributionStrategyVoByScenic" resultMap="BaseResultMap" parameterType="map">
+       select
+        <include refid="Base_Column_LeftJoin_List"/>
+        from sys_channel_strategy s
+        inner join sys_label_relation sc on s.id = sc.obj_id and sc.rel_type = 'strategyChannel'      
+        inner join sys_label_relation cc on cc.obj_id = sc.rel_id and cc.rel_type = 'channelUser'
+        <if test="userId != null">
+            and cc.rel_id = #{userId}
+        </if>
+
+        inner join sys_label_relation sp on s.id = sp.obj_id and sp.rel_type = 'strategyProduct'
+        inner join product_combine_relation cr on cr.product_id = sp.rel_id 
+        inner join product_relation ps on ps.obj_id = cr.sub_product_id and ps.obj_type = 'proRelease' and ps.rel_type = 'scenic'
+        <include refid="inner_join_dict_relation"/>
+
+        <if test="scenicId != null">
+            and ps.rel_id = #{scenicId}
+        </if>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            or 1=2
+        </where>
+        group by s.id
+        <if test="pParam != null">
+            <if test="pParam.orderByClause == null">order by s.id desc</if>
+            <if test="pParam.orderByClause != null">order by
+                ${pParam.orderByClause}
+            </if>
+            <if test="pParam.startIndex != null and pParam.pageSize != null">
+                limit #{pParam.startIndex} , #{pParam.pageSize}
+            </if>
+        </if>
+    </select>
+    
+    <select id="countComposeDistributionStrategyVoByScenic" resultType="java.lang.Integer"
+            parameterType="map">
+        select count(z.id) from (
+        select s.id as id
+        from sys_channel_strategy s
+        inner join sys_label_relation sc on s.id = sc.obj_id and sc.rel_type = 'strategyChannel'      
+        inner join sys_label_relation cc on cc.obj_id = sc.rel_id and cc.rel_type = 'channelUser'
+        <include refid="inner_join_dict_relation"/>
+
+        <if test="userId != null">
+            and cc.rel_id = #{userId}
+        </if>
+        inner join sys_label_relation sp on s.id = sp.obj_id and sp.rel_type = 'strategyProduct'
+        inner join product_combine_relation cr on cr.product_id = sp.rel_id 
+        inner join product_relation ps on ps.obj_id = cr.sub_product_id and ps.obj_type = 'proRelease' and ps.rel_type = 'scenic'
+        <if test="scenicId != null">
+            and ps.rel_id = #{scenicId}
+        </if>
+        <where>
+            <include refid="sql_of_innerJoin_condition"/>
+            or 1=2
+        </where>
+        group by s.id
+        ) z
+    </select>
+    
+    
+
+ <select id="selectByStrategyIdForUpdate" resultType="java.lang.String" parameterType="java.lang.Long">
+        select
+        strategy.dict_value
+        from sys_channel_strategy strategy
+        where strategy.id = #{strategyId,jdbcType=BIGINT}
+        for update
+ </select> 
+ 
+     <!-- 更新 : 值为Null则不更新 -->
+   <update id="updateBatchByDictValue" >
+        update sys_channel_strategy
+        <set>
+            <if test="strategy.name != null">
+                name = #{strategy.name,jdbcType=VARCHAR},
+            </if>
+            <if test="strategy.remark != null">
+                remark = #{strategy.remark,jdbcType=VARCHAR},
+            </if>
+            <if test="strategy.price != null">
+                price = #{strategy.price,jdbcType=DOUBLE},
+            </if>
+            <if test="strategy.quantity != null">
+                quantity = #{strategy.quantity,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.beginDate != null">
+                begin_date = #{strategy.beginDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="strategy.endDate != null">
+                end_date = #{strategy.endDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="strategy.preSale != null">
+                pre_sale = #{strategy.preSale,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.preSaleMode != null">
+                pre_sale_mode = #{strategy.preSaleMode,jdbcType=BIT},
+            </if>
+            <if test="strategy.expire != null">
+                expire = #{strategy.expire,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.expireMode != null">
+                expire_mode = #{strategy.expireMode,jdbcType=BIT},
+            </if>
+            <if test="strategy.scope != null">
+                scope = #{strategy.scope,jdbcType=VARCHAR},
+            </if>
+            <if test="strategy.status != null">
+                status = #{strategy.status,jdbcType=BIT},
+            </if>
+            <if test="strategy.createDate != null">
+                create_date = #{strategy.createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="strategy.createBy != null">
+                create_by = #{strategy.createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="strategy.updateDate != null">
+                update_date = #{strategy.updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="strategy.updateDate == null">
+                update_date = current_timestamp(),
+            </if>
+            <if test="strategy.updateBy != null">
+                update_by = #{strategy.updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="strategy.type != null">
+                type = #{strategy.type,jdbcType=CHAR},
+            </if>
+            <if test="strategy.delFlag != null">
+                del_flag = #{strategy.delFlag,jdbcType=CHAR},
+            </if>
+            <if test="strategy.publishDate != null">
+                publish_date = #{strategy.publishDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="strategy.dataSource != null">
+                data_source = #{strategy.dataSource,jdbcType=VARCHAR},
+            </if>
+            <if test="strategy.publishBy != null">
+                publish_by = #{strategy.publishBy,jdbcType=VARCHAR},
+            </if>
+            <if test="strategy.publishStatus != null">publish_status = #{strategy.publishStatus,jdbcType=BIT},</if>
+            <if test="strategy.dictValue != null">
+                dict_value = #{strategy.dictValue,jdbcType=VARCHAR},
+            </if>
+            <if test="strategy.isOpenMultiRebate != null">is_open_multi_rebate = #{strategy.isOpenMultiRebate,jdbcType=BIT},</if>
+            <if test="strategy.supplierId != null">
+                supplier_id = #{strategy.supplierId,jdbcType=BIGINT},
+            </if>
+            <if test="strategy.subProductId != null">
+                sub_product_id = #{strategy.subProductId,jdbcType=BIGINT},
+            </if>
+
+            <if test="strategy.strategyExpireType != null">
+                strategy_expire_type = #{strategy.strategyExpireType,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.checkinExpireType != null">
+                checkin_expire_type = #{strategy.checkinExpireType,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.checkinExpireNum != null">
+                checkin_expire_num = #{strategy.checkinExpireNum,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.checkinExpireUnit != null">
+                checkin_expire_unit = #{strategy.checkinExpireUnit,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.settlementPrice != null">
+                settlement_price = #{strategy.settlementPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="strategy.ticketVarie != null">
+                ticket_varie =  #{strategy.ticketVarie,jdbcType=VARCHAR},
+            </if>
+            <if test="strategy.salesType != null">
+                sales_type = #{strategy.salesType,jdbcType=VARCHAR},
+            </if>
+            <if test="strategy.auditStatus != null">
+                audit_status = #{strategy.auditStatus,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.isMF != null">
+                isMF = #{strategy.isMF,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.refuseReason != null">
+                refuse_reason = #{strategy.refuseReason,jdbcType=VARCHAR},
+            </if>
+            <if test="strategy.rebateRate != null">
+                rebate_rate = #{strategy.rebateRate,jdbcType=DOUBLE},
+            </if>
+             <if test="strategy.notTotalSettlementType != null">
+                not_total_settlement_type = #{strategy.notTotalSettlementType,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.reduceSettlementMoney != null">
+                reduce_settlement_money = #{strategy.reduceSettlementMoney,jdbcType=DOUBLE},
+            </if>
+             <if test="strategy.parentId != null">
+                parent_id = #{strategy.parentId,jdbcType=BIGINT},
+            </if>
+            
+             <if test="strategy.marketPrice != null">
+                market_price = #{strategy.marketPrice,jdbcType=DOUBLE},
+            </if>
+             <if test="strategy.advicePrice != null">
+                advice_price = #{strategy.advicePrice,jdbcType=DOUBLE},
+            </if>
+
+            <if test="strategy.isLimitAdvanceDue != null">
+                is_limit_advance_due = #{strategy.isLimitAdvanceDue,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.advanceDueDays != null">
+                advance_due_days = #{strategy.advanceDueDays,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.advanceDueHour != null">
+                advance_due_hour = #{strategy.advanceDueHour,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.advanceDueMinute != null">
+                advance_due_minute = #{strategy.advanceDueMinute,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.isLimitDelayConsume != null">
+                is_limit_delay_consume = #{strategy.isLimitDelayConsume,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.delayConsumeHour != null">
+                delay_consume_hour = #{strategy.delayConsumeHour,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.leastPerdueNumber != null">
+                least_perdue_number = #{strategy.leastPerdueNumber,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.mostPerdueNumber != null">
+                most_perdue_number = #{strategy.mostPerdueNumber,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.advanceDueUnit != null">
+                advance_due_unit = #{strategy.advanceDueUnit,jdbcType=INTEGER},
+            </if>
+            <if test="strategy.productId != null">
+                product_id = #{strategy.productId,jdbcType=BIGINT},
+            </if>
+        </set>
+        where dict_Value = #{bParam,jdbcType=VARCHAR}
+         	  and is_open_multi_rebate = 1
+    </update>
+</mapper>

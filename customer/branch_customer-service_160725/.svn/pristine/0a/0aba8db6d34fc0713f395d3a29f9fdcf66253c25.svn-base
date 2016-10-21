@@ -1,0 +1,9 @@
+package com.pzj.dao;
+
+import com.pzj.base.common.persistence.annotation.MyBatisDao;
+import com.pzj.base.entity.SysRebateStrategy;
+
+@MyBatisDao
+public interface SysRebateStrategyMapper extends BaseUserMapper<SysRebateStrategy> {
+	
+}
