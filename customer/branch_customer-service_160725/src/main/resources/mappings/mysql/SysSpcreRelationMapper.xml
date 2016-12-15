@@ -1,0 +1,474 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.dao.SysSpcreRelationMapper">
+
+<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+	id  
+	,strategy_id 
+	,product_id 
+	,channel_id 
+	,rebate_id 
+	,extra_rebate_id 
+	,status
+	,refuse_reason
+	</sql>
+	
+<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.SysSpcreRelationKey">
+	     <id column="id" property="id" jdbcType="BIGINT" />
+		<result column="strategy_id" jdbcType="VARCHAR" property="strategyId" />
+		<result column="product_id" jdbcType="VARCHAR" property="productId" />
+		<result column="channel_id" jdbcType="VARCHAR" property="channelId" />
+		<result column="rebate_id" jdbcType="VARCHAR" property="rebateId" />
+		<result column="extra_rebate_id" jdbcType="VARCHAR" property="extraRebateId" />
+		<result column="status" jdbcType="CHAR" property="status" />
+		<result column="refuse_reason" jdbcType="VARCHAR" property="refuseReason" />
+	</resultMap>
+
+<!-- 主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select  <include refid="Base_Column_List" />
+		from sys_spcre_relation
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+<!-- 删除 -->	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_spcre_relation where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+<!-- 通用查询条件 -->
+	<sql id="sql_of_where">
+		WHERE 1=1 
+		<if test="bParam != null" >
+			<if test="bParam.id != null"> AND id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.strategyId != null"> AND strategy_id = #{bParam.strategyId,jdbcType=VARCHAR} </if>
+			<if test="bParam.productId != null"> AND product_id = #{bParam.productId,jdbcType=VARCHAR} </if>
+			<if test="bParam.channelId != null"> AND channel_id = #{bParam.channelId,jdbcType=VARCHAR} </if>
+			<if test="bParam.rebateId != null"> AND rebate_id = #{bParam.rebateId,jdbcType=VARCHAR} </if>
+			<if test="bParam.extraRebateId != null"> AND extra_rebate_id = #{bParam.extraRebateId,jdbcType=VARCHAR} </if>
+			<if test="bParam.status != null"> AND status = #{bParam.status,jdbcType=CHAR} </if>
+			<if test="bParam.refuseReason != null"> AND refuse_reason = #{bParam.refuseReason,jdbcType=VARCHAR} </if>
+			<if test="bParam.queryChannelIds != null and bParam.queryChannelIds.size > 0">
+			  and channel_id in
+			  <foreach collection="bParam.queryChannelIds" item="item" open="(" close=")" separator=",">
+			   #{item} 
+			  </foreach>
+			</if>
+			<if test="bParam.queryProductIds != null and bParam.queryProductIds.size > 0">
+			  and product_id in
+			  <foreach collection="bParam.queryProductIds" item="item" open="(" close=")" separator=",">
+			   #{item} 
+			  </foreach>
+			</if>
+			<if test="bParam.queryStrategyIds != null and bParam.queryStrategyIds.size > 0">
+			  and strategy_id in
+			  <foreach collection="bParam.queryStrategyIds" item="item" open="(" close=")" separator=",">
+			   #{item} 
+			  </foreach>
+			</if>
+			
+		</if>
+	</sql>
+	<!-- 加点返列表 -->
+	<select id="findSpcreRelation" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select id,strategy_id,product_id from sys_spcre_relation
+		<where>
+			<if test="bParam != null">
+				<if test="bParam.channelId != null"> AND channel_id = #{bParam.channelId,jdbcType=VARCHAR} </if>
+				<if test="bParam.status != null"> AND status = #{bParam.status,jdbcType=CHAR} </if>
+				<if test="bParam.statusList != null and bParam.statusList.size > 0"> 
+					AND status in
+				 	<foreach collection="bParam.statusList" item="_status" open="(" separator="," close=")">
+				 		 #{_status}
+				 	</foreach>
+				</if>
+			</if>
+		</where>
+		group by strategy_id 
+		<if test="pParam != null">
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null">
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	<select id="findCouSpcreRelation" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from (
+		select id,strategy_id,product_id from sys_spcre_relation
+		<where>
+			<if test="bParam != null">
+				<if test="bParam.channelId != null"> AND channel_id = #{bParam.channelId,jdbcType=VARCHAR} </if>
+				<if test="bParam.status != null"> AND status = #{bParam.status,jdbcType=CHAR} </if>
+				<if test="bParam.statusList != null and bParam.statusList.size > 0"> 
+					AND status in
+				 	<foreach collection="bParam.statusList" item="_status" open="(" separator="," close=")">
+				 		 #{_status}
+				 	</foreach>
+				</if>
+			</if>
+		</where>
+		group by strategy_id 
+		) k
+	</select>
+	
+	
+	
+<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from sys_spcre_relation
+		<include refid="sql_of_where" />
+		<if test="pParam != null">
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(id) from sys_spcre_relation
+		<include refid="sql_of_where" />
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.pzj.base.entity.SysSpcreRelationKey" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_spcre_relation 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				id, 
+			<if test="strategyId != null">
+			    strategy_id,
+			</if>
+			<if test="productId != null">
+			    product_id,
+			</if>
+			<if test="channelId != null">
+			    channel_id,
+			</if>
+			<if test="rebateId != null">
+			    rebate_id,
+			</if>
+			<if test="extraRebateId != null">
+			    extra_rebate_id,
+			</if>
+			<if test="status != null">
+			    status,
+			</if> 
+			<if test="refuseReason != null">
+                refuse_reason,
+            </if> 
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			     #{id,jdbcType=BIGINT}, 
+			<if test="strategyId != null">
+			    #{strategyId,jdbcType=VARCHAR},
+			</if>
+			<if test="productId != null">
+			    #{productId,jdbcType=VARCHAR},
+			</if>
+			<if test="channelId != null">
+			    #{channelId,jdbcType=VARCHAR},
+			</if>
+			<if test="rebateId != null">
+			    #{rebateId,jdbcType=VARCHAR},
+			</if>
+			<if test="extraRebateId != null">
+			    #{extraRebateId,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+			    #{status,jdbcType=CHAR},
+			</if>
+			<if test="refuseReason != null">
+                #{refuseReason,jdbcType=VARCHAR},
+            </if>
+		</trim>
+	</insert>
+	
+<!-- 批量插入 请根据业务修改默认值-->	
+    <insert id="insertBatch"  parameterType="java.util.List">
+		insert into sys_spcre_relation 
+		(id  
+		,strategy_id 
+		,product_id 
+		,channel_id 
+		,rebate_id 
+		,extra_rebate_id 
+		,status
+		,refuse_reason  
+		) 
+		values
+		<foreach collection="list" item="item" separator=",">
+		(#{item.id,jdbcType=BIGINT}  
+			<choose>  
+				<when test="item.strategyId != null">,#{item.strategyId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.productId != null">,#{item.productId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.channelId != null">,#{item.channelId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.rebateId != null">,#{item.rebateId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.extraRebateId != null">,#{item.extraRebateId ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.status != null">,#{item.status ,jdbcType=CHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose> 
+			<choose>  
+                <when test="item.refuseReason != null">,#{item.refuseReason ,jdbcType=VARCHAR}</when>
+                <otherwise>,''</otherwise>
+            </choose>
+			
+		)
+		</foreach>
+	</insert>
+
+<!-- 更新 -->
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.SysSpcreRelationKey">
+		update sys_spcre_relation
+		<set>
+			<if test="strategyId != null" >
+             strategy_id = #{strategyId,jdbcType=VARCHAR},
+            </if>
+			<if test="productId != null" >
+             product_id = #{productId,jdbcType=VARCHAR},
+            </if>
+			<if test="channelId != null" >
+             channel_id = #{channelId,jdbcType=VARCHAR},
+            </if>
+			<if test="rebateId != null" >
+             rebate_id = #{rebateId,jdbcType=VARCHAR},
+            </if>
+			<if test="extraRebateId != null" >
+             extra_rebate_id = #{extraRebateId,jdbcType=VARCHAR},
+            </if>
+			<if test="status != null" >
+             status = #{status,jdbcType=CHAR},
+            </if>
+            <if test="refuseReason != null" >
+             refuse_reason = #{refuseReason,jdbcType=VARCHAR},
+            </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+<!-- 批量更新 -->
+	<update id="updateBatchByPrimaryKey"  parameterType="java.util.List">
+	     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update sys_spcre_relation 
+                <set>
+                  <if test="item.strategyId != null" >
+                    strategy_id = #{item.strategyId,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.productId != null" >
+                    product_id = #{item.productId,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.channelId != null" >
+                    channel_id = #{item.channelId,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.rebateId != null" >
+                    rebate_id = #{item.rebateId,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.extraRebateId != null" >
+                    extra_rebate_id = #{item.extraRebateId,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.status != null" >
+                    status = #{item.status,jdbcType=CHAR},
+                  </if>
+                  <if test="item.refuseReason != null" >
+                    refuse_reason = #{item.refuseReason,jdbcType=VARCHAR},
+                  </if>
+                </set>
+                where id = #{item.id,jdbcType=BIGINT}
+         </foreach>
+	</update>
+	<update id="updateByChannelStrategy"  parameterType="java.util.List">
+	     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update sys_spcre_relation 
+                <set>
+                  <if test="item.status != null" >
+                    status = #{item.status,jdbcType=CHAR},
+                  </if>
+                  <if test="item.refuseReason != null" >
+                    refuse_reason = #{item.refuseReason,jdbcType=VARCHAR},
+                  </if>
+                </set>
+                where channel_id = #{item.channelId,jdbcType=VARCHAR}
+                  and  strategy_id = #{item.strategyId,jdbcType=VARCHAR}
+         </foreach>
+	</update>
+	
+	 <!-- 定制的SQL -->
+	  <sql id="sql_of_where_ID">
+        <where>
+            <if test="id != null">
+                and id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="strategyId != null">
+                and strategy_id = #{strategyId,jdbcType=VARCHAR}
+            </if>
+            <if test="productId != null">
+                and product_id = #{productId,jdbcType=VARCHAR}
+            </if>
+            <if test="channelId != null">
+                and channel_id = #{channelId,jdbcType=VARCHAR}
+            </if>
+            <if test="rebateId != null">
+                and rebate_id = #{rebateId,jdbcType=VARCHAR}
+            </if>
+             <if test="extraRebateId != null">
+                and extra_rebate_id = #{extraRebateId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null">
+                and status = #{status,jdbcType=VARCHAR}
+            </if>
+               or (1=2)
+        </where>
+    </sql>
+    <sql id="sql_of_where_string">
+        <where>
+            <if test="strategyIds != null">
+                and strategy_id in (${strategyIds})
+            </if>
+            <if test="productIds != null">
+                and product_id in (${productIds})
+            </if>
+            <if test="channelIds != null">
+                and channel_id in (${channelIds})
+            </if>
+            <if test="rebateIds != null">
+                and rebate_id in (${rebateIds})
+            </if>
+             <if test="extraRebateIds != null">
+                and extra_rebate_id in (${extraRebateIds})
+            </if>
+            <if test="status != null">
+                and status = #{status,jdbcType=VARCHAR}
+            </if>
+               or (1=2)
+        </where>
+    </sql>
+      <sql id="sql_of_where_list">
+        <where>
+            <if test="strategyIds != null">
+                and strategy_id in
+                <foreach collection="strategyIds" item="item" open="(" separator=","
+                    close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="productIds != null">
+                and product_id in
+                <foreach collection="productIds" item="item" open="(" separator=","
+                    close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="channelIds != null">
+                and channel_id in
+                <foreach collection="channelIds" item="item" open="(" separator=","
+                    close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="rebateIds != null">
+                and rebate_id in
+                <foreach collection="rebateIds" item="item" open="(" separator=","
+                    close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="extraRebateIds != null">
+                and extra_rebate_id in
+                <foreach collection="extraRebateIds" item="item" open="(" separator=","
+                    close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="status != null">
+                and status = #{status,jdbcType=VARCHAR}
+            </if>
+               or (1=2)
+        </where>
+    </sql>
+
+    <select id="findByIdsMap" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List" />
+        from sys_spcre_relation
+        <include refid="sql_of_where_string" />
+    </select>
+    
+    <select id="findByIdListMap" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List" />
+        from sys_spcre_relation
+        <include refid="sql_of_where_list" />
+    </select>
+    
+    <!-- 删除 -->
+    <delete id="deleteSelective" parameterType="com.pzj.base.entity.SysSpcreRelationKey">
+        delete from sys_spcre_relation
+        <include refid="sql_of_where_ID" />
+
+    </delete>
+
+    <delete id="deleteByIdsMap" parameterType="map">
+        delete from sys_spcre_relation
+        <include refid="sql_of_where_string" />
+    </delete>
+
+    <delete id="deleteByIdList" parameterType="map">
+        delete from sys_spcre_relation
+        <include refid="sql_of_where_list" />
+    </delete>
+
+    <delete id="deleteBatchByPrimaryKey" parameterType="list">
+        <foreach collection="list" item="item" index="index" separator=";">
+            delete from sys_spcre_relation where id = #{id,jdbcType=BIGINT}
+        </foreach>
+    </delete>
+
+    <delete id="deleteBatchSelective" parameterType="list">
+        <foreach collection="list" item="item"  index="index"  separator=";">
+            delete from sys_spcre_relation
+            <where>
+            <if test="item.id != null">
+                and id = #{item.id,jdbcType=BIGINT}
+            </if>
+            <if test="item.strategyId != null">
+                and strategy_id = #{item.strategyId,jdbcType=VARCHAR}
+            </if>
+            <if test="item.productId != null">
+                and product_id = #{item.productId,jdbcType=VARCHAR}
+            </if>
+            <if test="item.channelId != null">
+                and channel_id = #{item.channelId,jdbcType=VARCHAR}
+            </if>
+            <if test="item.rebateId != null">
+                and rebate_id = #{item.rebateId,jdbcType=VARCHAR}
+            </if>
+             <if test="item.extraRebateId != null">
+                and extra_rebate_id = #{item.extraRebateId,jdbcType=VARCHAR}
+            </if>
+            <if test="item.status != null">
+                and status = #{item.status,jdbcType=VARCHAR}
+            </if>
+               or (1=2)
+        </where>
+        </foreach>
+    </delete>
+</mapper>

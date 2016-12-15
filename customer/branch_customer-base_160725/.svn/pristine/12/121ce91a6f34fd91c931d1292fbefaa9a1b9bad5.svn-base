@@ -1,0 +1,54 @@
+package com.pzj.base.service.sys;
+
+import java.util.List;
+
+import com.pzj.base.entity.SysRebateStrategy;
+
+/**
+ * 返利规则
+ * 返利规则的增删查改
+ * @author LIANGNING
+ *
+ */
+public interface IRebateStrategyService extends IBaseUserService<SysRebateStrategy> {
+
+	/**
+	 * <h3>批量插入返利规则<h3>
+	 * <p>
+	 * 如果每个元素sysExtraRebateStrategyList有元素，也就是说返利规则中存在加点返利规则，
+	 * 则汇集所有的SysExtraRebateStrategy对象（加点返利规则）后批量创建。
+	 * </p>
+	 * @param rebateList 返利规则集合
+	 */
+	public void createRebateStrategyBatch(List<SysRebateStrategy> rebateList);
+	
+	/**
+	 * 插入返利规则
+	 * @param rebateStrategy
+	 * @return 返回ID
+	 */
+	public void createRebateStrategy(SysRebateStrategy rebateStrategy);
+	
+	/**
+	 * 更新返利规则
+	 * @param rebateStrategy
+	 */
+	public void UpdateRebateStrategy(SysRebateStrategy rebateStrategy);
+	
+	/**
+	 * 批量更新返利规则
+	 * @param rebateStrategyList
+	 */
+	public void UpdateRebateStrategyBatch(List<SysRebateStrategy> rebateStrategyList);
+	
+	/**
+	 * 禁用/启用/删除操作
+	 */
+	public void updateRebateStrategyStatus(Long rebateStrategyId, Integer state);
+	
+	/**
+	 * 根据Id获取返利规则
+	 * @return
+	 */
+	public SysRebateStrategy querySysRebateStrategyById(Long RebateStrategyId);
+}

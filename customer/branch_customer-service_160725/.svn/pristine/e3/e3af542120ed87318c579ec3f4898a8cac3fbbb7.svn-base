@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pzj.dao.app.IAppEquipmentMapper">
+
+<!-- 所有字段 -->
+	<sql id="Base_Column_List">
+	id  
+	,create_time 
+	,update_time 
+	,device_token 
+	,device_type 
+	,status 
+	,user_id 
+	</sql>
+	
+<!-- 字段映射 -->
+	<resultMap id="BaseResultMap" type="com.pzj.base.entity.app.AppEquipment">
+	    <id column="id" property="id" jdbcType="BIGINT" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="device_token" jdbcType="VARCHAR" property="deviceToken" />
+		<result column="device_type" jdbcType="VARCHAR" property="deviceType" />
+		<result column="status" jdbcType="TINYINT" property="status" />
+		<result column="user_id" jdbcType="BIGINT" property="userId" />
+	</resultMap>
+
+<!-- 主键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select  <include refid="Base_Column_List" />
+		from app_equipment
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+<!-- 删除 -->	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from app_equipment where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+<!-- 通用查询条件 -->
+	<sql id="sql_of_where">
+		WHERE 1=1 
+		<if test="bParam != null" >
+			<if test="bParam.id != null"> AND id = #{bParam.id,jdbcType=BIGINT} </if>
+			<if test="bParam.createTime != null"> AND create_time = #{bParam.createTime,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.updateTime != null"> AND update_time = #{bParam.updateTime,jdbcType=TIMESTAMP} </if>
+			<if test="bParam.deviceToken != null"> AND device_token = #{bParam.deviceToken,jdbcType=VARCHAR} </if>
+			<if test="bParam.deviceType != null"> AND device_type = #{bParam.deviceType,jdbcType=VARCHAR} </if>
+			<if test="bParam.status != null"> AND status = #{bParam.status,jdbcType=TINYINT} </if>
+			<if test="bParam.userId != null"> AND user_id = #{bParam.userId,jdbcType=BIGINT} </if>
+		</if>
+	</sql>
+	
+<!-- 通用分页查询 -->
+	<select id="queryByParamMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from app_equipment
+		<include refid="sql_of_where" />
+		<if test="pParam != null">
+			<if test="pParam.orderByClause == null">order by id desc</if>
+			<if test="pParam.orderByClause != null" > order by ${pParam.orderByClause} </if>
+			<if test="pParam.startIndex != null and pParam.pageSize != null" >
+			  limit #{pParam.startIndex} , #{pParam.pageSize}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 通用分页查询记录总数 -->
+	<select id="countByParamMap" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(id) from app_equipment
+		<include refid="sql_of_where" />
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.pzj.base.entity.app.AppEquipment" useGeneratedKeys="true" keyProperty="id">
+		insert into app_equipment 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				id, 
+			<if test="createTime != null">
+			    create_time,
+			</if>
+			<if test="updateTime != null">
+			    update_time,
+			</if>
+			<if test="deviceToken != null">
+			    device_token,
+			</if>
+			<if test="deviceType != null">
+			    device_type,
+			</if>
+			<if test="status != null">
+			    status,
+			</if>
+			<if test="userId != null">
+			    user_id,
+			</if> 
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			     #{id,jdbcType=BIGINT}, 
+			<if test="createTime != null">
+			    #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+			    #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deviceToken != null">
+			    #{deviceToken,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceType != null">
+			    #{deviceType,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+			    #{status,jdbcType=TINYINT},
+			</if>
+			<if test="userId != null">
+			    #{userId,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	
+<!-- 批量插入 请根据业务修改默认值-->	
+    <insert id="insertBatch"  parameterType="java.util.List">
+		insert into app_equipment 
+		(id  
+		,create_time 
+		,update_time 
+		,device_token 
+		,device_type 
+		,status 
+		,user_id  
+		) 
+		values
+		<foreach collection="list" item="item" separator=",">
+		(#{item.id,jdbcType=BIGINT}  
+			<choose>  
+				<when test="item.createTime != null">,#{item.createTime ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.updateTime != null">,#{item.updateTime ,jdbcType=TIMESTAMP}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.deviceToken != null">,#{item.deviceToken ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.deviceType != null">,#{item.deviceType ,jdbcType=VARCHAR}</when>
+				<otherwise>,''</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.status != null">,#{item.status ,jdbcType=TINYINT}</when>
+				<otherwise>,0</otherwise>
+			</choose>
+			<choose>  
+				<when test="item.userId != null">,#{item.userId ,jdbcType=BIGINT}</when>
+				<otherwise>,0</otherwise>
+			</choose> 
+		)
+		</foreach>
+	</insert>
+
+<!-- 更新 -->
+	<update id="updateByPrimaryKey" parameterType="com.pzj.base.entity.app.AppEquipment">
+		update app_equipment
+		<set>
+			<if test="createTime != null" >
+             create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+			<if test="updateTime != null" >
+             update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+			<if test="deviceToken != null" >
+             device_token = #{deviceToken,jdbcType=VARCHAR},
+            </if>
+			<if test="deviceType != null" >
+             device_type = #{deviceType,jdbcType=VARCHAR},
+            </if>
+			<if test="status != null" >
+             status = #{status,jdbcType=TINYINT},
+            </if>
+			<if test="userId != null" >
+             user_id = #{userId,jdbcType=BIGINT},
+            </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+<!-- 批量更新 -->
+	<update id="updateBatchByPrimaryKey"  parameterType="java.util.List">
+	     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update app_equipment 
+                <set>
+                  <if test="item.createTime != null" >
+                    create_time = #{item.createTime,jdbcType=TIMESTAMP},
+                  </if>
+                  <if test="item.updateTime != null" >
+                    update_time = #{item.updateTime,jdbcType=TIMESTAMP},
+                  </if>
+                  <if test="item.deviceToken != null" >
+                    device_token = #{item.deviceToken,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.deviceType != null" >
+                    device_type = #{item.deviceType,jdbcType=VARCHAR},
+                  </if>
+                  <if test="item.status != null" >
+                    status = #{item.status,jdbcType=TINYINT},
+                  </if>
+                  <if test="item.userId != null" >
+                    user_id = #{item.userId,jdbcType=BIGINT},
+                  </if>
+                </set>
+                where id = #{item.id,jdbcType=BIGINT}
+         </foreach>
+	</update>
+</mapper>

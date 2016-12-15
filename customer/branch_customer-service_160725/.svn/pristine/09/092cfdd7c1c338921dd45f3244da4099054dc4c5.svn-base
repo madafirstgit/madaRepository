@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+       default-autowire="byName" default-lazy-init="true">
+
+    <!-- 用户暴露接口 -->
+    <dubbo:service interface="com.pzj.base.service.sys.IUserService" ref="userService" version="1.0" timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.IRoleService" ref="roleService" version="1.0" timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.IMenuService" ref="menuService" version="1.0" timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.IOfficeService" ref="officeService" version="1.0"
+                   timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.IUserAuthOfficeService" ref="userAuthOfficeService" version="1.0"
+                   timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.IUserAuthRoleService" ref="userAuthRoleService" version="1.0"
+                   timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.IUserAuthMenuService" ref="userAuthMenuService" version="1.0"
+                   timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.IRoleAuthOfficeService" ref="roleAuthOfficeService" version="1.0"
+                   timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.IRoleAuthMenuService" ref="roleAuthMenuService" version="1.0"
+                   timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.IDictService" ref="dictService" version="1.0" timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.ILogService" ref="logService" version="1.0" timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.ISysUserRelationService" ref="sysUserRelationService"
+                   version="1.0" timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.ISysUserAgentService" ref="sysUserAgentServiceImpl" version="1.0"
+                   timeout="30000"/>
+
+    <dubbo:service interface="com.pzj.base.service.sys.IChannelService" ref="channelService" version="1.0"
+                   timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.IChannelStrategyService" ref="channelStrategyService"
+                   version="1.0" timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.ILabelService" ref="labelServiceImpl" version="1.0"
+                   timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.ILabelRelationService" ref="labelRelationService" version="1.0"
+                   timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.IRebateStrategyService" ref="rebateStrategyService" version="1.0"
+                   timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.IExtraRebateStrategyService" ref="extraRebateStrategyService"
+                   version="1.0" timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.ISpcreRelationService" ref="spcreRelationService" version="1.0"
+                   timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.ISysSettlementRuleService" ref="sysSettlementRuleService"
+                   version="1.0" timeout="30000"/>
+    <!-- API接口 -->
+    <dubbo:service interface="com.pzj.base.service.sys.app.IAppEquipmentService" ref="appEquipmentServiceImpl"
+                   version="1.0" timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.app.IAppFeedbackService" ref="appFeedbackServiceImpl"
+                   version="1.0" timeout="30000"/>
+    <dubbo:service interface="com.pzj.base.service.sys.app.IAppMessageService" ref="appMessageServiceImpl" version="1.0"
+                   timeout="30000"/>
+    <!-- 用户接口 -->
+    <dubbo:service interface="com.pzj.channel.service.IStrategyService"
+                   ref="channelStrategyService" version="1.1" timeout="30000"/>
+    <!-- 访问日志 -->
+    <dubbo:protocol accesslog="true"/>
+</beans>
