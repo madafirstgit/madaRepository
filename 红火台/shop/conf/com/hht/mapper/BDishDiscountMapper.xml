@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hht.mapper.BDishDiscountMapper">
+  <resultMap id="BaseResultMap" type="com.hht.models.BDishDiscount">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="dish_code" jdbcType="VARCHAR" property="dishCode" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="discount" jdbcType="DECIMAL" property="discount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_staff_id" jdbcType="VARCHAR" property="createStaffId" />
+    <result column="update_staff_id" jdbcType="VARCHAR" property="updateStaffId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_history" jdbcType="INTEGER" property="isHistory" />
+    <result column="shop_id" jdbcType="VARCHAR" property="shopId" />
+    <result column="tenant_id" jdbcType="VARCHAR" property="tenantId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dish_code, level, discount, create_time, create_staff_id, update_staff_id, update_time, 
+    is_history, shop_id, tenant_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from b_dish_discount
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from b_dish_discount
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hht.models.BDishDiscount">
+    insert into b_dish_discount (id, dish_code, level, 
+      discount, create_time, create_staff_id, 
+      update_staff_id, update_time, is_history, 
+      shop_id, tenant_id)
+    values (#{id,jdbcType=CHAR}, #{dishCode,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, 
+      #{discount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{createStaffId,jdbcType=VARCHAR}, 
+      #{updateStaffId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{isHistory,jdbcType=INTEGER}, 
+      #{shopId,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hht.models.BDishDiscount">
+    insert into b_dish_discount
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dishCode != null">
+        dish_code,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="discount != null">
+        discount,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createStaffId != null">
+        create_staff_id,
+      </if>
+      <if test="updateStaffId != null">
+        update_staff_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="isHistory != null">
+        is_history,
+      </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="tenantId != null">
+        tenant_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="dishCode != null">
+        #{dishCode,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createStaffId != null">
+        #{createStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateStaffId != null">
+        #{updateStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isHistory != null">
+        #{isHistory,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hht.models.BDishDiscount">
+    update b_dish_discount
+    <set>
+      <if test="dishCode != null">
+        dish_code = #{dishCode,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null">
+        discount = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createStaffId != null">
+        create_staff_id = #{createStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateStaffId != null">
+        update_staff_id = #{updateStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isHistory != null">
+        is_history = #{isHistory,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null">
+        tenant_id = #{tenantId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hht.models.BDishDiscount">
+    update b_dish_discount
+    set dish_code = #{dishCode,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      discount = #{discount,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_staff_id = #{createStaffId,jdbcType=VARCHAR},
+      update_staff_id = #{updateStaffId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_history = #{isHistory,jdbcType=INTEGER},
+      shop_id = #{shopId,jdbcType=VARCHAR},
+      tenant_id = #{tenantId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+  <select id="selectByParams" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from b_dish_discount
+    <where>
+      <if test="isHistory != null and isHistory != ''" >
+        is_history = #{isHistory,jdbcType=INTEGER}
+      </if>
+      <if test="tenantId != null and tenantId != ''" >
+        AND tenant_id = #{tenantId,jdbcType=VARCHAR}
+      </if>
+      <if test="shopId != null and shopId != ''" >
+        AND shop_id = #{shopId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+</mapper>

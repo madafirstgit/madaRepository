@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hht.mapper.BAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.hht.models.BAccount" >
+    <id column="login_account" property="loginAccount" jdbcType="VARCHAR" />
+    <result column="staff_id" property="staffId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="organize_id" property="organizeId" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="gale" property="gale" jdbcType="INTEGER" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="login_fail_count" property="loginFailCount" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_history" property="isHistory" jdbcType="INTEGER" />
+    <result column="tenant_id" property="tenantId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    login_account, staff_id, name, password, organize_id, telephone, gale, age, email, 
+    title, login_fail_count, create_time, update_time, is_history, tenant_id, shop_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from b_account
+    where login_account = #{loginAccount,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from b_account
+    where login_account = #{loginAccount,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hht.models.BAccount" >
+    insert into b_account (login_account, staff_id, name, 
+      password, organize_id, telephone, 
+      gale, age, email, title, 
+      login_fail_count, create_time, update_time, 
+      is_history, tenant_id, shop_id
+      )
+    values (#{loginAccount,jdbcType=VARCHAR}, #{staffId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{organizeId,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{gale,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{loginFailCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isHistory,jdbcType=INTEGER}, #{tenantId,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hht.models.BAccount" >
+    insert into b_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loginAccount != null" >
+        login_account,
+      </if>
+      <if test="staffId != null" >
+        staff_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="organizeId != null" >
+        organize_id,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="gale != null" >
+        gale,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="loginFailCount != null" >
+        login_fail_count,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="isHistory != null" >
+        is_history,
+      </if>
+      <if test="tenantId != null" >
+        tenant_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loginAccount != null" >
+        #{loginAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null" >
+        #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="organizeId != null" >
+        #{organizeId,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="gale != null" >
+        #{gale,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="loginFailCount != null" >
+        #{loginFailCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isHistory != null" >
+        #{isHistory,jdbcType=INTEGER},
+      </if>
+      <if test="tenantId != null" >
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hht.models.BAccount" >
+    update b_account
+    <set >
+      <if test="staffId != null" >
+        staff_id = #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="organizeId != null" >
+        organize_id = #{organizeId,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="gale != null" >
+        gale = #{gale,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="loginFailCount != null" >
+        login_fail_count = #{loginFailCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isHistory != null" >
+        is_history = #{isHistory,jdbcType=INTEGER},
+      </if>
+      <if test="tenantId != null" >
+        tenant_id = #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where login_account = #{loginAccount,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hht.models.BAccount" >
+    update b_account
+    set staff_id = #{staffId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      organize_id = #{organizeId,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      gale = #{gale,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      login_fail_count = #{loginFailCount,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_history = #{isHistory,jdbcType=INTEGER},
+      tenant_id = #{tenantId,jdbcType=VARCHAR},
+      shop_id = #{shopId,jdbcType=VARCHAR}
+    where login_account = #{loginAccount,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from b_account
+    <where>
+      <if test="isHistory != null and isHistory != ''" >
+        is_history = #{isHistory,jdbcType=INTEGER}
+      </if>
+      <if test="tenantId != null and tenantId != ''" >
+        AND tenant_id = #{tenantId,jdbcType=VARCHAR}
+      </if>
+      <if test="shopId != null and shopId != ''" >
+        AND shop_id = #{shopId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <!-- 批量删除-->
+  <delete id="batchDelete">
+    delete from b_account
+    where login_account IN
+    <foreach collection="list" open="(" close=")" index="index" item="item" separator=",">
+      #{item.loginAccount}
+    </foreach>
+  </delete>
+<!-- 批量插入 -->
+  <insert id="batchInsert" >
+    insert into b_account (login_account, staff_id, name,
+    password, organize_id, telephone,
+    gale, age, email, title,
+    login_fail_count, create_time, update_time,
+    is_history, tenant_id, shop_id
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.loginAccount,jdbcType=VARCHAR}, #{item.staffId,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR},
+      #{item.password,jdbcType=VARCHAR}, #{item.organizeId,jdbcType=VARCHAR}, #{item.telephone,jdbcType=VARCHAR},
+      #{item.gale,jdbcType=INTEGER}, #{item.age,jdbcType=INTEGER}, #{item.email,jdbcType=VARCHAR}, #{item.title,jdbcType=VARCHAR},
+      #{item.loginFailCount,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP},
+      #{item.isHistory,jdbcType=INTEGER}, #{item.tenantId,jdbcType=VARCHAR}, #{item.shopId,jdbcType=VARCHAR}
+      )
+    </foreach>
+
+  </insert>
+</mapper>

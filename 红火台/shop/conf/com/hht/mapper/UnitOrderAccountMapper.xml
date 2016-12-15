@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hht.mapper.UnitOrderAccountMapper">
+    <resultMap id="BaseResultMap" type="com.hht.models.UnitOrderAccount">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="yfkje" jdbcType="VARCHAR" property="yfkje"/>
+        <result column="yddh" jdbcType="VARCHAR" property="yddh"/>
+        <result column="jgxh" jdbcType="VARCHAR" property="jgxh"/>
+        <result column="jzsj" jdbcType="VARCHAR" property="jzsj"/>
+        <result column="zdje" jdbcType="VARCHAR" property="zdje"/>
+        <result column="jzrybh" jdbcType="VARCHAR" property="jzrybh"/>
+        <result column="zdbh" jdbcType="VARCHAR" property="zdbh"/>
+        <result column="jzzt" jdbcType="VARCHAR" property="jzzt"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, yfkje, yddh, jgxh, jzsj, zdje, jzrybh, zdbh, jzzt
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from y_unit_orderaccount
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from y_unit_orderaccount
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.hht.models.UnitOrderAccount" keyProperty="id" useGeneratedKeys="true">
+        <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        insert into y_unit_orderaccount (id, yfkje, yddh,
+        jgxh, jzsj, zdje, jzrybh,
+        zdbh, jzzt)
+        values (#{id,jdbcType=VARCHAR}, #{yfkje,jdbcType=VARCHAR}, #{yddh,jdbcType=VARCHAR},
+        #{jgxh,jdbcType=VARCHAR}, #{jzsj,jdbcType=VARCHAR}, #{zdje,jdbcType=VARCHAR}, #{jzrybh,jdbcType=VARCHAR},
+        #{zdbh,jdbcType=VARCHAR}, #{jzzt,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hht.models.UnitOrderAccount">
+        insert into y_unit_orderaccount
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="yfkje != null">
+                yfkje,
+            </if>
+            <if test="yddh != null">
+                yddh,
+            </if>
+            <if test="jgxh != null">
+                jgxh,
+            </if>
+            <if test="jzsj != null">
+                jzsj,
+            </if>
+            <if test="zdje != null">
+                zdje,
+            </if>
+            <if test="jzrybh != null">
+                jzrybh,
+            </if>
+            <if test="zdbh != null">
+                zdbh,
+            </if>
+            <if test="jzzt != null">
+                jzzt,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="yfkje != null">
+                #{yfkje,jdbcType=VARCHAR},
+            </if>
+            <if test="yddh != null">
+                #{yddh,jdbcType=VARCHAR},
+            </if>
+            <if test="jgxh != null">
+                #{jgxh,jdbcType=VARCHAR},
+            </if>
+            <if test="jzsj != null">
+                #{jzsj,jdbcType=VARCHAR},
+            </if>
+            <if test="zdje != null">
+                #{zdje,jdbcType=VARCHAR},
+            </if>
+            <if test="jzrybh != null">
+                #{jzrybh,jdbcType=VARCHAR},
+            </if>
+            <if test="zdbh != null">
+                #{zdbh,jdbcType=VARCHAR},
+            </if>
+            <if test="jzzt != null">
+                #{jzzt,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hht.models.UnitOrderAccount">
+        update y_unit_orderaccount
+        <set>
+            <if test="yfkje != null">
+                yfkje = #{yfkje,jdbcType=VARCHAR},
+            </if>
+            <if test="yddh != null">
+                yddh = #{yddh,jdbcType=VARCHAR},
+            </if>
+            <if test="jgxh != null">
+                jgxh = #{jgxh,jdbcType=VARCHAR},
+            </if>
+            <if test="jzsj != null">
+                jzsj = #{jzsj,jdbcType=VARCHAR},
+            </if>
+            <if test="zdje != null">
+                zdje = #{zdje,jdbcType=VARCHAR},
+            </if>
+            <if test="jzrybh != null">
+                jzrybh = #{jzrybh,jdbcType=VARCHAR},
+            </if>
+            <if test="zdbh != null">
+                zdbh = #{zdbh,jdbcType=VARCHAR},
+            </if>
+            <if test="jzzt != null">
+                jzzt = #{jzzt,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hht.models.UnitOrderAccount">
+    update y_unit_orderaccount
+    set yfkje = #{yfkje,jdbcType=VARCHAR},
+      yddh = #{yddh,jdbcType=VARCHAR},
+      jgxh = #{jgxh,jdbcType=VARCHAR},
+      jzsj = #{jzsj,jdbcType=VARCHAR},
+      zdje = #{zdje,jdbcType=VARCHAR},
+      jzrybh = #{jzrybh,jdbcType=VARCHAR},
+      zdbh = #{zdbh,jdbcType=VARCHAR},
+      jzzt = #{jzzt,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <select id="selectByBillNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from y_unit_orderaccount
+        where yddh = #{yddh,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

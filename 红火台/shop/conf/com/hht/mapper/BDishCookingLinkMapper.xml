@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hht.mapper.BDishCookingLinkMapper" >
+  <resultMap id="BaseResultMap" type="com.hht.models.BDishCookingLink" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="dish_code" property="dishCode" jdbcType="VARCHAR" />
+    <result column="cooking_code" property="cookingCode" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="tenant_id" property="tenantId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, dish_code, cooking_code, shop_id, tenant_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from b_dish_cooking_link
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from b_dish_cooking_link
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hht.models.BDishCookingLink" >
+    insert into b_dish_cooking_link (id, dish_code, cooking_code,
+    shop_id, tenant_id)
+    values (#{id,jdbcType=CHAR}, #{dishCode,jdbcType=VARCHAR}, #{cookingCode,jdbcType=VARCHAR},
+    #{shopId,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hht.models.BDishCookingLink" >
+    insert into b_dish_cooking_link
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dishCode != null" >
+        dish_code,
+      </if>
+      <if test="cookingCode != null" >
+        cooking_code,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="tenantId != null" >
+        tenant_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="dishCode != null" >
+        #{dishCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cookingCode != null" >
+        #{cookingCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null" >
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hht.models.BDishCookingLink" >
+    update b_dish_cooking_link
+    <set >
+      <if test="dishCode != null" >
+        dish_code = #{dishCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cookingCode != null" >
+        cooking_code = #{cookingCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null" >
+        tenant_id = #{tenantId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hht.models.BDishCookingLink" >
+    update b_dish_cooking_link
+    set dish_code = #{dishCode,jdbcType=VARCHAR},
+    cooking_code = #{cookingCode,jdbcType=VARCHAR},
+    shop_id = #{shopId,jdbcType=VARCHAR},
+    tenant_id = #{tenantId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from b_dish_cooking_link
+    <where>
+      <if test="tenantId != null and tenantId != ''" >
+         tenant_id = #{tenantId,jdbcType=VARCHAR}
+      </if>
+      <if test="shopId != null and shopId != ''" >
+        AND shop_id = #{shopId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+</mapper>

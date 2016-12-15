@@ -1,0 +1,63 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+
+GET         /                              controllers.Application.index
+
+#确认上菜
+POST       /dishService/dishConFirm     controllers.DishController.confirmdish()
+
+POST    /webservice/testStartBill                controllers.BillDishController.billDishOrder
+
+#菜品查询
+POST       /dishService/dishQuery          controllers.BDishQueryController.dishQuery()
+#账单信息查询
+#GET       /billService/getBillInfo/:billNo    controllers.BillController.getBillInfo(billNo:String)
+
+#账单列表查询
+POST       /billService/getBillList       controllers.BillController.getBillList()
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file                  controllers.Assets.versioned(path="/public", file: Asset)
+
+# 开台操作
+POST         /webService/openDesk    controllers.DeskController.openDesk()
+
+# 确认账单操作
+POST         /webService/ConfirmBill    controllers.DeskController.ConfirmBill()
+# 账单解锁
+POST         /webService/unLockBill    controllers.DeskController.unLockBill()
+#确认结账
+POST   /webService/confirmBillCheckOut   controllers.BillController.confirmBillCheckOut
+
+#清台
+GET       /webService/order/doClearTable/:tableCode/:Operator   controllers.BTableDynamicController.doClearTable(tableCode:String,Operator:String)
+#统一订餐结账通知接口 add by Tony Hu
+POST        /unitOrderAccount           controllers.AccountsController.unitOrderAccount()
+#U鼎点菜结账指令 add by Tony Hu
+POST        /udAccountOrder           controllers.AccountsController.udAccountOrder()
+
+
+
+
+#查询支付方式列表
+POST         /payType/list    controllers.PayTypeController.list
+
+#支付宝退款回调
+POST   /alipay/refund                       controllers.ReceiveAlipayNotifyController.refundNotify()
+
+#支付宝支付回调
+POST /alipay_notify/reciveNotify      controllers.ReceiveAlipayNotifyController.reciveNotify()
+
+#微信支付回调
+POST /weixinpay_notify/reciveNotify      controllers.ReceiveWeixinNotifyController.reciveNotify()
+
+#查询折扣信息
+POST    /testGetBillDiscount/selectById       controllers.BAccountDiscountController.selectById()
+
+#设置折扣信息
+POST   /testSetOperator/updateById   controllers.BAccountDiscountController.updateById()
+POST  /billService/testUUId controllers.BillController.testUUID()
+

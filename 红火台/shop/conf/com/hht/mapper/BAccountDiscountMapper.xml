@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hht.mapper.BAccountDiscountMapper" >
+  <resultMap id="BaseResultMap" type="com.hht.models.BAccountDiscount" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="discount_name" property="discountName" jdbcType="VARCHAR" />
+    <result column="discount" property="discount" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_staff_id" property="createStaffId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, discount_name, discount, status, create_staff_id, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from b_account_discount
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+
+    delete from b_account_discount
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hht.models.BAccountDiscount" >
+    insert into b_account_discount (id, discount_name, discount,
+    status, create_staff_id, create_time,
+    update_time)
+    values (#{id,jdbcType=CHAR}, #{discountName,jdbcType=VARCHAR}, #{discount,jdbcType=DECIMAL},
+    #{status,jdbcType=INTEGER}, #{createStaffId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+    #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hht.models.BAccountDiscount" >
+    insert into b_account_discount
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="discountName != null" >
+        discount_name,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createStaffId != null" >
+        create_staff_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="discountName != null" >
+        #{discountName,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createStaffId != null" >
+        #{createStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hht.models.BAccountDiscount" >
+    update b_account_discount
+    <set >
+      <if test="discountName != null" >
+        discount_name = #{discountName,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createStaffId != null" >
+        create_staff_id = #{createStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hht.models.BAccountDiscount" >
+    update b_account_discount
+    set discount_name = #{discountName,jdbcType=VARCHAR},
+      discount = #{discount,jdbcType=DECIMAL},
+      status = #{status,jdbcType=INTEGER},
+      create_staff_id = #{createStaffId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

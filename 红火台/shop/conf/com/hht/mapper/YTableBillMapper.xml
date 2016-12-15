@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hht.mapper.YTableBillMapper" >
+  <resultMap id="BaseResultMap" type="com.hht.models.YTableBill" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="table_code" property="tableCode" jdbcType="VARCHAR" />
+    <result column="table_name" property="tableName" jdbcType="VARCHAR" />
+    <result column="operator_id" property="operatorId" jdbcType="VARCHAR" />
+    <result column="person_num" property="personNum" jdbcType="INTEGER" />
+    <result column="bill_amount" property="billAmount" jdbcType="DECIMAL" />
+    <result column="dish_amount" property="dishAmount" jdbcType="DECIMAL" />
+    <result column="server_amount" property="serverAmount" jdbcType="DECIMAL" />
+    <result column="discount_amount" property="discountAmount" jdbcType="DECIMAL" />
+    <result column="allowance_amount" property="allowanceAmount" jdbcType="DECIMAL" />
+    <result column="dish_list_code" property="dishListCode" jdbcType="VARCHAR" />
+    <result column="bill_no" property="billNo" jdbcType="VARCHAR" />
+    <association property="yAccountDiscountInfo" column="bill_no" javaType="com.hht.models.YAccountDiscountInfo">
+      <id column="discountId" property="id" jdbcType="CHAR"/>
+      <result column="bill_no" property="billNo" jdbcType="VARCHAR"/>
+      <result column="discount" property="discount" jdbcType="DECIMAL"/>
+      <result column="discountReason" property="reason" jdbcType="VARCHAR"/>
+      <result column="createStaffId" property="createStaffId" jdbcType="VARCHAR"/>
+      <result column="discountCreateTime" property="createTime" jdbcType="TIMESTAMP"/>
+      <result column="discountStatus" property="status" jdbcType="INTEGER"/>
+      <result column="accountDiscountId" property="discountId" jdbcType="CHAR"/>
+    </association>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, table_code, table_name, operator_id, person_num, bill_amount, dish_amount, server_amount, 
+    discount_amount, allowance_amount, dish_list_code, bill_no
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from y_table_bill
+    where id = #{id,jdbcType=CHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from y_table_bill
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.hht.models.YTableBill" >
+    insert into y_table_bill (id, table_code, table_name, 
+      operator_id, person_num, bill_amount, 
+      dish_amount, server_amount, discount_amount, 
+      allowance_amount, dish_list_code, bill_no
+      )
+    values (#{id,jdbcType=CHAR}, #{tableCode,jdbcType=VARCHAR}, #{tableName,jdbcType=VARCHAR}, 
+      #{operatorId,jdbcType=VARCHAR}, #{personNum,jdbcType=INTEGER}, #{billAmount,jdbcType=DECIMAL}, 
+      #{dishAmount,jdbcType=DECIMAL}, #{serverAmount,jdbcType=DECIMAL}, #{discountAmount,jdbcType=DECIMAL}, 
+      #{allowanceAmount,jdbcType=DECIMAL}, #{dishListCode,jdbcType=VARCHAR}, #{billNo,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hht.models.YTableBill" >
+    insert into y_table_bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tableCode != null" >
+        table_code,
+      </if>
+      <if test="tableName != null" >
+        table_name,
+      </if>
+      <if test="operatorId != null" >
+        operator_id,
+      </if>
+      <if test="personNum != null" >
+        person_num,
+      </if>
+      <if test="billAmount != null" >
+        bill_amount,
+      </if>
+      <if test="dishAmount != null" >
+        dish_amount,
+      </if>
+      <if test="serverAmount != null" >
+        server_amount,
+      </if>
+      <if test="discountAmount != null" >
+        discount_amount,
+      </if>
+      <if test="allowanceAmount != null" >
+        allowance_amount,
+      </if>
+      <if test="dishListCode != null" >
+        dish_list_code,
+      </if>
+      <if test="billNo != null" >
+        bill_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="tableCode != null" >
+        #{tableCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tableName != null" >
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="personNum != null" >
+        #{personNum,jdbcType=INTEGER},
+      </if>
+      <if test="billAmount != null" >
+        #{billAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="dishAmount != null" >
+        #{dishAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="serverAmount != null" >
+        #{serverAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="discountAmount != null" >
+        #{discountAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="allowanceAmount != null" >
+        #{allowanceAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="dishListCode != null" >
+        #{dishListCode,jdbcType=VARCHAR},
+      </if>
+      <if test="billNo != null" >
+        #{billNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hht.models.YTableBill" >
+    update y_table_bill
+    <set >
+      <if test="tableCode != null" >
+        table_code = #{tableCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tableName != null" >
+        table_name = #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null" >
+        operator_id = #{operatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="personNum != null" >
+        person_num = #{personNum,jdbcType=INTEGER},
+      </if>
+      <if test="billAmount != null" >
+        bill_amount = #{billAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="dishAmount != null" >
+        dish_amount = #{dishAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="serverAmount != null" >
+        server_amount = #{serverAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="discountAmount != null" >
+        discount_amount = #{discountAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="allowanceAmount != null" >
+        allowance_amount = #{allowanceAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="dishListCode != null" >
+        dish_list_code = #{dishListCode,jdbcType=VARCHAR},
+      </if>
+      <if test="billNo != null" >
+        bill_no = #{billNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hht.models.YTableBill" >
+    update y_table_bill
+    set table_code = #{tableCode,jdbcType=VARCHAR},
+      table_name = #{tableName,jdbcType=VARCHAR},
+      operator_id = #{operatorId,jdbcType=VARCHAR},
+      person_num = #{personNum,jdbcType=INTEGER},
+      bill_amount = #{billAmount,jdbcType=DECIMAL},
+      dish_amount = #{dishAmount,jdbcType=DECIMAL},
+      server_amount = #{serverAmount,jdbcType=DECIMAL},
+      discount_amount = #{discountAmount,jdbcType=DECIMAL},
+      allowance_amount = #{allowanceAmount,jdbcType=DECIMAL},
+      dish_list_code = #{dishListCode,jdbcType=VARCHAR},
+      bill_no = #{billNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+  <!-- 根据账单编号查询账单信息 -->
+  <select id="selectByBillNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+      ytb.id AS id,
+      ytb.table_code,
+      ytb.table_name,
+      ytb.operator_id,
+      IFNULL(ytb.person_num,0) AS person_num,
+      IFNULL(ytb.bill_amount,0) AS bill_amount,
+      IFNULL(ytb.dish_amount,0) AS dish_amount,
+      IFNULL(ytb.server_amount,0) AS server_amount,
+      IFNULL(ytb.discount_amount,0) AS discount_amount,
+      IFNULL(ytb.allowance_amount,0) AS allowance_amount,
+      ytb.dish_list_code,
+      ytb.bill_no,
+      yadi.id AS discountId,
+      yadi.discount,
+      yadi.reason AS discountReason,
+      yadi.create_staff_id AS createStaffId,
+      yadi.create_time AS discountCreateTime,
+      yadi.status AS discountStatus,
+      yadi.discount_id AS accountDiscountId
+    from y_table_bill ytb
+    LEFT JOIN y_account_discount_info yadi ON ytb.bill_no = yadi.bill_no
+    where ytb.bill_no = #{billNo,jdbcType=CHAR}
+  </select>
+
+
+  <resultMap id="BillListInfo" type="com.hht.models.YTableBill" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="table_code" property="tableCode" jdbcType="VARCHAR" />
+    <result column="table_name" property="tableName" jdbcType="VARCHAR" />
+    <result column="operator_id" property="operatorId" jdbcType="VARCHAR" />
+    <result column="person_num" property="personNum" jdbcType="INTEGER" />
+    <result column="bill_amount" property="billAmount" jdbcType="DECIMAL" />
+    <result column="dish_amount" property="dishAmount" jdbcType="DECIMAL" />
+    <result column="server_amount" property="serverAmount" jdbcType="DECIMAL" />
+    <result column="discount_amount" property="discountAmount" jdbcType="DECIMAL" />
+    <result column="allowance_amount" property="allowanceAmount" jdbcType="DECIMAL" />
+    <result column="dish_list_code" property="dishListCode" jdbcType="VARCHAR" />
+    <result column="bill_no" property="billNo" jdbcType="VARCHAR" />
+    <association property="yBillAccount" column="bill_no" javaType="com.hht.models.YBillAccount">
+      <id column="accountId" property="id" jdbcType="CHAR"/>
+      <result column="bill_no" property="billNo" jdbcType="VARCHAR"/>
+      <result column="total" property="total" jdbcType="DECIMAL" />
+      <result column="pay_amount" property="payAmount" jdbcType="DECIMAL" />
+      <result column="status" property="status" jdbcType="INTEGER" />
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    </association>
+  </resultMap>
+
+  <!-- 根据账单编号查询账单信息 -->
+  <select id="getBillListPage" resultMap="BillListInfo" parameterType="com.hht.interceptor.Page" >
+    select
+      ytb.id AS id,
+      ytb.table_code,
+      ytb.table_name,
+      ytb.operator_id,
+      IFNULL(ytb.person_num,0) AS person_num,
+      IFNULL(ytb.bill_amount,0) AS bill_amount,
+      IFNULL(ytb.dish_amount,0) AS dish_amount,
+      IFNULL(ytb.server_amount,0) AS server_amount,
+      IFNULL(ytb.discount_amount,0) AS discount_amount,
+      IFNULL(ytb.allowance_amount,0) AS allowance_amount,
+      ytb.dish_list_code,
+      ytb.bill_no,
+      yba.id AS accountId,
+      IFNULL(yba.total,0) AS total,
+      IFNULL(yba.pay_amount,0) AS pay_amount,
+      yba.status,
+      yba.create_time,
+      yba.remark
+    from y_table_bill ytb
+    LEFT JOIN y_bill_account yba ON ytb.bill_no = yba.bill_no
+    <where>
+      <if test="params.status != null and params.status != ''">
+        yba.status = #{params.status,jdbcType=INTEGER}
+      </if>
+      <if test="params.billNo != null and params.billNo != ''">
+        AND ytb.bill_no LIKE CONCAT('%',#{params.billNo},'%' )
+      </if>
+      <if test="params.tableCode != null and params.tableCode != ''">
+        AND ytb.table_code LIKE CONCAT('%',#{params.tableCode},'%' )
+      </if>
+      <if test="params.startTime != null and params.startTime != ''">
+        AND yba.create_time >= #{params.startTime}
+      </if>
+      <if test="params.endTime != null and params.endTime != ''">
+        AND #{params.endTime} >= yba.create_time
+      </if>
+    </where>
+  </select>
+</mapper>

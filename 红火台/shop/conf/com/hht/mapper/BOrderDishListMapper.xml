@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hht.mapper.BOrderDishListMapper">
+    <resultMap id="BaseResultMap" type="com.hht.models.BOrderDishList">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="parentid" jdbcType="VARCHAR" property="parentid"/>
+        <result column="billno" jdbcType="VARCHAR" property="billno"/>
+        <result column="itemno" jdbcType="VARCHAR" property="itemno"/>
+        <result column="itemnum" jdbcType="VARCHAR" property="itemnum"/>
+        <result column="itemmethod" jdbcType="VARCHAR" property="itemmethod"/>
+        <result column="waiterno" jdbcType="VARCHAR" property="waiterno"/>
+        <result column="packageno" jdbcType="VARCHAR" property="packageno"/>
+        <result column="itemattribute" jdbcType="VARCHAR" property="itemattribute"/>
+        <result column="printerparm" jdbcType="VARCHAR" property="printerparm"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="devsource" jdbcType="VARCHAR" property="devsource"/>
+        <result column="prefsource" jdbcType="VARCHAR" property="prefsource"/>
+        <result column="prefsourcedetail" jdbcType="VARCHAR" property="prefsourcedetail"/>
+        <result column="itemname" jdbcType="VARCHAR" property="itemname"/>
+        <result column="itemprice" jdbcType="VARCHAR" property="itemprice"/>
+        <result column="batchno" jdbcType="VARCHAR" property="batchno"/>
+        <result column="dishkey" jdbcType="VARCHAR" property="dishkey"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, parentid, billno, itemno, itemnum, itemmethod, waiterno, packageno, itemattribute, 
+    printerparm, remark, devsource, prefsource, prefsourcedetail, itemname, itemprice, 
+    batchno, dishkey
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from b_orderdishlist
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from b_orderdishlist
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.hht.models.BOrderDishList" keyProperty="id" useGeneratedKeys="true">
+        <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        insert into b_orderdishlist (id, parentid, billno,
+        itemno, itemnum, itemmethod,
+        waiterno, packageno, itemattribute,
+        printerparm, remark, devsource,
+        prefsource, prefsourcedetail, itemname,
+        itemprice, batchno, dishkey
+        )
+        values (#{id,jdbcType=VARCHAR}, #{parentid,jdbcType=VARCHAR}, #{billno,jdbcType=VARCHAR},
+        #{itemno,jdbcType=VARCHAR}, #{itemnum,jdbcType=VARCHAR}, #{itemmethod,jdbcType=VARCHAR},
+        #{waiterno,jdbcType=VARCHAR}, #{packageno,jdbcType=VARCHAR}, #{itemattribute,jdbcType=VARCHAR},
+        #{printerparm,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{devsource,jdbcType=VARCHAR},
+        #{prefsource,jdbcType=VARCHAR}, #{prefsourcedetail,jdbcType=VARCHAR}, #{itemname,jdbcType=VARCHAR},
+        #{itemprice,jdbcType=VARCHAR}, #{batchno,jdbcType=VARCHAR}, #{dishkey,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.hht.models.BOrderDishList">
+        insert into b_orderdishlist
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="parentid != null">
+                parentid,
+            </if>
+            <if test="billno != null">
+                billno,
+            </if>
+            <if test="itemno != null">
+                itemno,
+            </if>
+            <if test="itemnum != null">
+                itemnum,
+            </if>
+            <if test="itemmethod != null">
+                itemmethod,
+            </if>
+            <if test="waiterno != null">
+                waiterno,
+            </if>
+            <if test="packageno != null">
+                packageno,
+            </if>
+            <if test="itemattribute != null">
+                itemattribute,
+            </if>
+            <if test="printerparm != null">
+                printerparm,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="devsource != null">
+                devsource,
+            </if>
+            <if test="prefsource != null">
+                prefsource,
+            </if>
+            <if test="prefsourcedetail != null">
+                prefsourcedetail,
+            </if>
+            <if test="itemname != null">
+                itemname,
+            </if>
+            <if test="itemprice != null">
+                itemprice,
+            </if>
+            <if test="batchno != null">
+                batchno,
+            </if>
+            <if test="dishkey != null">
+                dishkey,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="parentid != null">
+                #{parentid,jdbcType=VARCHAR},
+            </if>
+            <if test="billno != null">
+                #{billno,jdbcType=VARCHAR},
+            </if>
+            <if test="itemno != null">
+                #{itemno,jdbcType=VARCHAR},
+            </if>
+            <if test="itemnum != null">
+                #{itemnum,jdbcType=VARCHAR},
+            </if>
+            <if test="itemmethod != null">
+                #{itemmethod,jdbcType=VARCHAR},
+            </if>
+            <if test="waiterno != null">
+                #{waiterno,jdbcType=VARCHAR},
+            </if>
+            <if test="packageno != null">
+                #{packageno,jdbcType=VARCHAR},
+            </if>
+            <if test="itemattribute != null">
+                #{itemattribute,jdbcType=VARCHAR},
+            </if>
+            <if test="printerparm != null">
+                #{printerparm,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="devsource != null">
+                #{devsource,jdbcType=VARCHAR},
+            </if>
+            <if test="prefsource != null">
+                #{prefsource,jdbcType=VARCHAR},
+            </if>
+            <if test="prefsourcedetail != null">
+                #{prefsourcedetail,jdbcType=VARCHAR},
+            </if>
+            <if test="itemname != null">
+                #{itemname,jdbcType=VARCHAR},
+            </if>
+            <if test="itemprice != null">
+                #{itemprice,jdbcType=VARCHAR},
+            </if>
+            <if test="batchno != null">
+                #{batchno,jdbcType=VARCHAR},
+            </if>
+            <if test="dishkey != null">
+                #{dishkey,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hht.models.BOrderDishList">
+        update b_orderdishlist
+        <set>
+            <if test="parentid != null">
+                parentid = #{parentid,jdbcType=VARCHAR},
+            </if>
+            <if test="billno != null">
+                billno = #{billno,jdbcType=VARCHAR},
+            </if>
+            <if test="itemno != null">
+                itemno = #{itemno,jdbcType=VARCHAR},
+            </if>
+            <if test="itemnum != null">
+                itemnum = #{itemnum,jdbcType=VARCHAR},
+            </if>
+            <if test="itemmethod != null">
+                itemmethod = #{itemmethod,jdbcType=VARCHAR},
+            </if>
+            <if test="waiterno != null">
+                waiterno = #{waiterno,jdbcType=VARCHAR},
+            </if>
+            <if test="packageno != null">
+                packageno = #{packageno,jdbcType=VARCHAR},
+            </if>
+            <if test="itemattribute != null">
+                itemattribute = #{itemattribute,jdbcType=VARCHAR},
+            </if>
+            <if test="printerparm != null">
+                printerparm = #{printerparm,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="devsource != null">
+                devsource = #{devsource,jdbcType=VARCHAR},
+            </if>
+            <if test="prefsource != null">
+                prefsource = #{prefsource,jdbcType=VARCHAR},
+            </if>
+            <if test="prefsourcedetail != null">
+                prefsourcedetail = #{prefsourcedetail,jdbcType=VARCHAR},
+            </if>
+            <if test="itemname != null">
+                itemname = #{itemname,jdbcType=VARCHAR},
+            </if>
+            <if test="itemprice != null">
+                itemprice = #{itemprice,jdbcType=VARCHAR},
+            </if>
+            <if test="batchno != null">
+                batchno = #{batchno,jdbcType=VARCHAR},
+            </if>
+            <if test="dishkey != null">
+                dishkey = #{dishkey,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hht.models.BOrderDishList">
+    update b_orderdishlist
+    set parentid = #{parentid,jdbcType=VARCHAR},
+      billno = #{billno,jdbcType=VARCHAR},
+      itemno = #{itemno,jdbcType=VARCHAR},
+      itemnum = #{itemnum,jdbcType=VARCHAR},
+      itemmethod = #{itemmethod,jdbcType=VARCHAR},
+      waiterno = #{waiterno,jdbcType=VARCHAR},
+      packageno = #{packageno,jdbcType=VARCHAR},
+      itemattribute = #{itemattribute,jdbcType=VARCHAR},
+      printerparm = #{printerparm,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      devsource = #{devsource,jdbcType=VARCHAR},
+      prefsource = #{prefsource,jdbcType=VARCHAR},
+      prefsourcedetail = #{prefsourcedetail,jdbcType=VARCHAR},
+      itemname = #{itemname,jdbcType=VARCHAR},
+      itemprice = #{itemprice,jdbcType=VARCHAR},
+      batchno = #{batchno,jdbcType=VARCHAR},
+      dishkey = #{dishkey,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

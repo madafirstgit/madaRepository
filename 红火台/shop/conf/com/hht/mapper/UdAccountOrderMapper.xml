@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hht.mapper.UdAccountOrderMapper">
+  <resultMap id="BaseResultMap" type="com.hht.models.UdAccountOrder">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="customernum" jdbcType="VARCHAR" property="customernum" />
+    <result column="discountid" jdbcType="VARCHAR" property="discountid" />
+    <result column="discountrate" jdbcType="VARCHAR" property="discountrate" />
+    <result column="allowanceamount" jdbcType="VARCHAR" property="allowanceamount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, customernum, discountid, discountrate, allowanceamount
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from y_table_udaccountorder
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from y_table_udaccountorder
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hht.models.UdAccountOrder" useGeneratedKeys="true" keyProperty="id">
+    <selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+      select replace(uuid(),'-','') from dual
+    </selectKey>
+    insert into y_table_udaccountorder (id, customernum, discountid, 
+      discountrate, allowanceamount)
+    values (#{id,jdbcType=VARCHAR}, #{customernum,jdbcType=VARCHAR}, #{discountid,jdbcType=VARCHAR}, 
+      #{discountrate,jdbcType=VARCHAR}, #{allowanceamount,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hht.models.UdAccountOrder">
+    insert into y_table_udaccountorder
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="customernum != null">
+        customernum,
+      </if>
+      <if test="discountid != null">
+        discountid,
+      </if>
+      <if test="discountrate != null">
+        discountrate,
+      </if>
+      <if test="allowanceamount != null">
+        allowanceamount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="customernum != null">
+        #{customernum,jdbcType=VARCHAR},
+      </if>
+      <if test="discountid != null">
+        #{discountid,jdbcType=VARCHAR},
+      </if>
+      <if test="discountrate != null">
+        #{discountrate,jdbcType=VARCHAR},
+      </if>
+      <if test="allowanceamount != null">
+        #{allowanceamount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hht.models.UdAccountOrder">
+    update y_table_udaccountorder
+    <set>
+      <if test="customernum != null">
+        customernum = #{customernum,jdbcType=VARCHAR},
+      </if>
+      <if test="discountid != null">
+        discountid = #{discountid,jdbcType=VARCHAR},
+      </if>
+      <if test="discountrate != null">
+        discountrate = #{discountrate,jdbcType=VARCHAR},
+      </if>
+      <if test="allowanceamount != null">
+        allowanceamount = #{allowanceamount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hht.models.UdAccountOrder">
+    update y_table_udaccountorder
+    set customernum = #{customernum,jdbcType=VARCHAR},
+      discountid = #{discountid,jdbcType=VARCHAR},
+      discountrate = #{discountrate,jdbcType=VARCHAR},
+      allowanceamount = #{allowanceamount,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

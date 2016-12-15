@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hht.mapper.BDishQueryMapper" >
+    <select id="getDishInfoListPage" parameterType="com.hht.interceptor.Page" resultType="com.hht.models.ebeans.BDishEntity">
+       select
+         bdc.parent_code
+        ,bdc.class_code
+        ,bdc.class_name
+        ,bdc.class_type
+        ,bd.id
+        ,bd.dish_code
+        ,bd.`name`
+        ,bd.dish_py
+        ,bd.unit
+        ,bd.dish_class
+        ,bd.Inner_class
+        ,bd.guide_price
+        ,bd.description
+        ,bd.hot_rate
+        ,bd.is_free
+        ,bd.is_stopped
+        ,bd.health_index
+        ,bd.discount_flag
+        ,bd.update_time
+        ,bd.source_info
+        ,bd.bigImageUrl
+        ,bd.MediumImageUrl
+        ,bd.SmallImageUrl
+        ,bd.link_store_dishId
+        ,bd.amount
+        ,bd.type
+        ,bd.producing_area
+        ,bd.provider
+        ,bd.food_safety
+        ,bd.Yyzs
+        ,bd.Shrq
+        ,bd.BShrq
+        ,bd.Jggy
+        ,bcl.cooking_id
+        ,bcl.cooking_name
+        from b_dish bd  LEFT JOIN b_dish_type bdt on
+        bd.dish_code = bdt.dish_code LEFT JOIN b_dish_class bdc
+        on bdc.class_code = bdt.dish_class LEFT JOIN b_dish_cooking bdcc
+        on bd.dish_code = bdcc.dish_code LEFT JOIN b_cooking_label bcl ON
+        bcl.cooking_id = bdcc.cooking_id
+        <if test="params.id != null and params.id !=''" >
+            where  bd.id = #{params.id,jdbcType=VARCHAR}
+        </if>
+    </select>
+</mapper>

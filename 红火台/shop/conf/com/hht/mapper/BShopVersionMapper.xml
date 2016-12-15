@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hht.mapper.BShopVersionMapper" >
+  <resultMap id="BaseResultMap" type="com.hht.models.BShopVersion" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="tenant_id" property="tenantId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="business_version" property="businessVersion" jdbcType="VARCHAR" />
+    <result column="dish_version" property="dishVersion" jdbcType="INTEGER" />
+    <result column="taste_version" property="tasteVersion" jdbcType="INTEGER" />
+    <result column="cook_version" property="cookVersion" jdbcType="INTEGER" />
+    <result column="discount_version" property="discountVersion" jdbcType="INTEGER" />
+    <result column="pay_type_version" property="payTypeVersion" jdbcType="INTEGER" />
+    <result column="table_version" property="tableVersion" jdbcType="INTEGER" />
+    <result column="account_version" property="accountVersion" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, tenant_id, shop_id, business_version, dish_version, taste_version, cook_version, 
+    discount_version, pay_type_version, table_version, account_version, create_time, 
+    update_time
+  </sql>
+  <select id="selectByTenantIdAndShopId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from b_shop_version
+    where tenant_id=#{tenantId} and shop_id=#{shopId}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from b_shop_version
+    where id = #{id,jdbcType=CHAR}
+  </select>
+
+  <select id="selectAllVersion" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from b_shop_version
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from b_shop_version
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hht.models.BShopVersion" >
+    insert into b_shop_version (id, tenant_id, shop_id, 
+      business_version, dish_version, taste_version, 
+      cook_version, discount_version, pay_type_version, 
+      table_version, account_version, create_time, 
+      update_time)
+    values (#{id,jdbcType=CHAR}, #{tenantId,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}, 
+      #{businessVersion,jdbcType=VARCHAR}, #{dishVersion,jdbcType=INTEGER}, #{tasteVersion,jdbcType=INTEGER}, 
+      #{cookVersion,jdbcType=INTEGER}, #{discountVersion,jdbcType=INTEGER}, #{payTypeVersion,jdbcType=INTEGER}, 
+      #{tableVersion,jdbcType=INTEGER}, #{accountVersion,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hht.models.BShopVersion" >
+    insert into b_shop_version
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tenantId != null" >
+        tenant_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="businessVersion != null" >
+        business_version,
+      </if>
+      <if test="dishVersion != null" >
+        dish_version,
+      </if>
+      <if test="tasteVersion != null" >
+        taste_version,
+      </if>
+      <if test="cookVersion != null" >
+        cook_version,
+      </if>
+      <if test="discountVersion != null" >
+        discount_version,
+      </if>
+      <if test="payTypeVersion != null" >
+        pay_type_version,
+      </if>
+      <if test="tableVersion != null" >
+        table_version,
+      </if>
+      <if test="accountVersion != null" >
+        account_version,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="tenantId != null" >
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="businessVersion != null" >
+        #{businessVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="dishVersion != null" >
+        #{dishVersion,jdbcType=INTEGER},
+      </if>
+      <if test="tasteVersion != null" >
+        #{tasteVersion,jdbcType=INTEGER},
+      </if>
+      <if test="cookVersion != null" >
+        #{cookVersion,jdbcType=INTEGER},
+      </if>
+      <if test="discountVersion != null" >
+        #{discountVersion,jdbcType=INTEGER},
+      </if>
+      <if test="payTypeVersion != null" >
+        #{payTypeVersion,jdbcType=INTEGER},
+      </if>
+      <if test="tableVersion != null" >
+        #{tableVersion,jdbcType=INTEGER},
+      </if>
+      <if test="accountVersion != null" >
+        #{accountVersion,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hht.models.BShopVersion" >
+    update b_shop_version
+    <set >
+      <if test="tenantId != null" >
+        tenant_id = #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="businessVersion != null" >
+        business_version = #{businessVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="dishVersion != null" >
+        dish_version = #{dishVersion,jdbcType=INTEGER},
+      </if>
+      <if test="tasteVersion != null" >
+        taste_version = #{tasteVersion,jdbcType=INTEGER},
+      </if>
+      <if test="cookVersion != null" >
+        cook_version = #{cookVersion,jdbcType=INTEGER},
+      </if>
+      <if test="discountVersion != null" >
+        discount_version = #{discountVersion,jdbcType=INTEGER},
+      </if>
+      <if test="payTypeVersion != null" >
+        pay_type_version = #{payTypeVersion,jdbcType=INTEGER},
+      </if>
+      <if test="tableVersion != null" >
+        table_version = #{tableVersion,jdbcType=INTEGER},
+      </if>
+      <if test="accountVersion != null" >
+        account_version = #{accountVersion,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hht.models.BShopVersion" >
+    update b_shop_version
+    set tenant_id = #{tenantId,jdbcType=VARCHAR},
+      shop_id = #{shopId,jdbcType=VARCHAR},
+      business_version = #{businessVersion,jdbcType=VARCHAR},
+      dish_version = #{dishVersion,jdbcType=INTEGER},
+      taste_version = #{tasteVersion,jdbcType=INTEGER},
+      cook_version = #{cookVersion,jdbcType=INTEGER},
+      discount_version = #{discountVersion,jdbcType=INTEGER},
+      pay_type_version = #{payTypeVersion,jdbcType=INTEGER},
+      table_version = #{tableVersion,jdbcType=INTEGER},
+      account_version = #{accountVersion,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

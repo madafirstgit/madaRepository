@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hht.mapper.BDishMapper" >
+  <resultMap id="BaseResultMap" type="com.hht.models.BDish" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="dish_code" property="dishCode" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="dish_py" property="dishPy" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="guide_price" property="guidePrice" jdbcType="DECIMAL" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="hot_rate" property="hotRate" jdbcType="VARCHAR" />
+    <result column="is_free" property="isFree" jdbcType="VARCHAR" />
+    <result column="is_stopped" property="isStopped" jdbcType="VARCHAR" />
+    <result column="health_index" property="healthIndex" jdbcType="VARCHAR" />
+    <result column="discount_flag" property="discountFlag" jdbcType="VARCHAR" />
+    <result column="source_info" property="sourceInfo" jdbcType="VARCHAR" />
+    <result column="dish_class" property="dishClass" jdbcType="CHAR" />
+    <result column="Inner_class" property="innerClass" jdbcType="CHAR" />
+    <result column="link_store_dishId" property="linkStoreDishid" jdbcType="BIGINT" />
+    <result column="amount" property="amount" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="producing_area" property="producingArea" jdbcType="VARCHAR" />
+    <result column="provider" property="provider" jdbcType="VARCHAR" />
+    <result column="food_safety" property="foodSafety" jdbcType="VARCHAR" />
+    <result column="Yyzs" property="yyzs" jdbcType="VARCHAR" />
+    <result column="Shrq" property="shrq" jdbcType="VARCHAR" />
+    <result column="BShrq" property="bshrq" jdbcType="VARCHAR" />
+    <result column="Jggy" property="jggy" jdbcType="VARCHAR" />
+    <result column="BigImageUrl" property="bigimageurl" jdbcType="VARCHAR" />
+    <result column="MediumImageUrl" property="mediumimageurl" jdbcType="VARCHAR" />
+    <result column="SmallImageUrl" property="smallimageurl" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, dish_code, name, dish_py, price, unit, guide_price, description, hot_rate, is_free,
+    is_stopped, health_index, discount_flag, source_info, dish_class, Inner_class, link_store_dishId, 
+    amount, type, producing_area, provider, food_safety, Yyzs, Shrq, BShrq, Jggy, BigImageUrl, 
+    MediumImageUrl, SmallImageUrl, status, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from b_dish
+    where id = #{id,jdbcType=CHAR}
+  </select>
+<!-- 根据菜单编号查询菜品 -->
+  <select id="selectByDishCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from b_dish
+    where dish_code = #{dishCode,jdbcType=CHAR}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from b_dish
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hht.models.BDish" >
+    insert into b_dish (id, dish_code, name,
+      dish_py, price, unit, 
+      guide_price, description, hot_rate, 
+      is_free, is_stopped, health_index, 
+      discount_flag, source_info, dish_class, 
+      Inner_class, link_store_dishId, amount, 
+      type, producing_area, provider, 
+      food_safety, Yyzs, Shrq, 
+      BShrq, Jggy, BigImageUrl, 
+      MediumImageUrl, SmallImageUrl, status, 
+      create_time, update_time)
+    values (#{id,jdbcType=CHAR}, #{dishCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{dishPy,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{unit,jdbcType=VARCHAR}, 
+      #{guidePrice,jdbcType=DECIMAL}, #{description,jdbcType=VARCHAR}, #{hotRate,jdbcType=VARCHAR}, 
+      #{isFree,jdbcType=VARCHAR}, #{isStopped,jdbcType=VARCHAR}, #{healthIndex,jdbcType=VARCHAR}, 
+      #{discountFlag,jdbcType=VARCHAR}, #{sourceInfo,jdbcType=VARCHAR}, #{dishClass,jdbcType=CHAR}, 
+      #{innerClass,jdbcType=CHAR}, #{linkStoreDishid,jdbcType=BIGINT}, #{amount,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{producingArea,jdbcType=VARCHAR}, #{provider,jdbcType=VARCHAR}, 
+      #{foodSafety,jdbcType=VARCHAR}, #{yyzs,jdbcType=VARCHAR}, #{shrq,jdbcType=VARCHAR}, 
+      #{bshrq,jdbcType=VARCHAR}, #{jggy,jdbcType=VARCHAR}, #{bigimageurl,jdbcType=VARCHAR}, 
+      #{mediumimageurl,jdbcType=VARCHAR}, #{smallimageurl,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hht.models.BDish" >
+    insert into b_dish
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dishCode != null" >
+        dish_code,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="dishPy != null" >
+        dish_py,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="guidePrice != null" >
+        guide_price,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="hotRate != null" >
+        hot_rate,
+      </if>
+      <if test="isFree != null" >
+        is_free,
+      </if>
+      <if test="isStopped != null" >
+        is_stopped,
+      </if>
+      <if test="healthIndex != null" >
+        health_index,
+      </if>
+      <if test="discountFlag != null" >
+        discount_flag,
+      </if>
+      <if test="sourceInfo != null" >
+        source_info,
+      </if>
+      <if test="dishClass != null" >
+        dish_class,
+      </if>
+      <if test="innerClass != null" >
+        Inner_class,
+      </if>
+      <if test="linkStoreDishid != null" >
+        link_store_dishId,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="producingArea != null" >
+        producing_area,
+      </if>
+      <if test="provider != null" >
+        provider,
+      </if>
+      <if test="foodSafety != null" >
+        food_safety,
+      </if>
+      <if test="yyzs != null" >
+        Yyzs,
+      </if>
+      <if test="shrq != null" >
+        Shrq,
+      </if>
+      <if test="bshrq != null" >
+        BShrq,
+      </if>
+      <if test="jggy != null" >
+        Jggy,
+      </if>
+      <if test="bigimageurl != null" >
+        BigImageUrl,
+      </if>
+      <if test="mediumimageurl != null" >
+        MediumImageUrl,
+      </if>
+      <if test="smallimageurl != null" >
+        SmallImageUrl,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="dishCode != null" >
+        #{dishCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="dishPy != null" >
+        #{dishPy,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="guidePrice != null" >
+        #{guidePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="hotRate != null" >
+        #{hotRate,jdbcType=VARCHAR},
+      </if>
+      <if test="isFree != null" >
+        #{isFree,jdbcType=VARCHAR},
+      </if>
+      <if test="isStopped != null" >
+        #{isStopped,jdbcType=VARCHAR},
+      </if>
+      <if test="healthIndex != null" >
+        #{healthIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="discountFlag != null" >
+        #{discountFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceInfo != null" >
+        #{sourceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="dishClass != null" >
+        #{dishClass,jdbcType=CHAR},
+      </if>
+      <if test="innerClass != null" >
+        #{innerClass,jdbcType=CHAR},
+      </if>
+      <if test="linkStoreDishid != null" >
+        #{linkStoreDishid,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="producingArea != null" >
+        #{producingArea,jdbcType=VARCHAR},
+      </if>
+      <if test="provider != null" >
+        #{provider,jdbcType=VARCHAR},
+      </if>
+      <if test="foodSafety != null" >
+        #{foodSafety,jdbcType=VARCHAR},
+      </if>
+      <if test="yyzs != null" >
+        #{yyzs,jdbcType=VARCHAR},
+      </if>
+      <if test="shrq != null" >
+        #{shrq,jdbcType=VARCHAR},
+      </if>
+      <if test="bshrq != null" >
+        #{bshrq,jdbcType=VARCHAR},
+      </if>
+      <if test="jggy != null" >
+        #{jggy,jdbcType=VARCHAR},
+      </if>
+      <if test="bigimageurl != null" >
+        #{bigimageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="mediumimageurl != null" >
+        #{mediumimageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="smallimageurl != null" >
+        #{smallimageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hht.models.BDish" >
+    update b_dish
+    <set >
+      <if test="dishCode != null" >
+        dish_code = #{dishCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="dishPy != null" >
+        dish_py = #{dishPy,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="guidePrice != null" >
+        guide_price = #{guidePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="hotRate != null" >
+        hot_rate = #{hotRate,jdbcType=VARCHAR},
+      </if>
+      <if test="isFree != null" >
+        is_free = #{isFree,jdbcType=VARCHAR},
+      </if>
+      <if test="isStopped != null" >
+        is_stopped = #{isStopped,jdbcType=VARCHAR},
+      </if>
+      <if test="healthIndex != null" >
+        health_index = #{healthIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="discountFlag != null" >
+        discount_flag = #{discountFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceInfo != null" >
+        source_info = #{sourceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="dishClass != null" >
+        dish_class = #{dishClass,jdbcType=CHAR},
+      </if>
+      <if test="innerClass != null" >
+        Inner_class = #{innerClass,jdbcType=CHAR},
+      </if>
+      <if test="linkStoreDishid != null" >
+        link_store_dishId = #{linkStoreDishid,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="producingArea != null" >
+        producing_area = #{producingArea,jdbcType=VARCHAR},
+      </if>
+      <if test="provider != null" >
+        provider = #{provider,jdbcType=VARCHAR},
+      </if>
+      <if test="foodSafety != null" >
+        food_safety = #{foodSafety,jdbcType=VARCHAR},
+      </if>
+      <if test="yyzs != null" >
+        Yyzs = #{yyzs,jdbcType=VARCHAR},
+      </if>
+      <if test="shrq != null" >
+        Shrq = #{shrq,jdbcType=VARCHAR},
+      </if>
+      <if test="bshrq != null" >
+        BShrq = #{bshrq,jdbcType=VARCHAR},
+      </if>
+      <if test="jggy != null" >
+        Jggy = #{jggy,jdbcType=VARCHAR},
+      </if>
+      <if test="bigimageurl != null" >
+        BigImageUrl = #{bigimageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="mediumimageurl != null" >
+        MediumImageUrl = #{mediumimageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="smallimageurl != null" >
+        SmallImageUrl = #{smallimageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hht.models.BDish" >
+    update b_dish
+    set dish_code = #{dishCode,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      dish_py = #{dishPy,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      unit = #{unit,jdbcType=VARCHAR},
+      guide_price = #{guidePrice,jdbcType=DECIMAL},
+      description = #{description,jdbcType=VARCHAR},
+      hot_rate = #{hotRate,jdbcType=VARCHAR},
+      is_free = #{isFree,jdbcType=VARCHAR},
+      is_stopped = #{isStopped,jdbcType=VARCHAR},
+      health_index = #{healthIndex,jdbcType=VARCHAR},
+      discount_flag = #{discountFlag,jdbcType=VARCHAR},
+      source_info = #{sourceInfo,jdbcType=VARCHAR},
+      dish_class = #{dishClass,jdbcType=CHAR},
+      Inner_class = #{innerClass,jdbcType=CHAR},
+      link_store_dishId = #{linkStoreDishid,jdbcType=BIGINT},
+      amount = #{amount,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      producing_area = #{producingArea,jdbcType=VARCHAR},
+      provider = #{provider,jdbcType=VARCHAR},
+      food_safety = #{foodSafety,jdbcType=VARCHAR},
+      Yyzs = #{yyzs,jdbcType=VARCHAR},
+      Shrq = #{shrq,jdbcType=VARCHAR},
+      BShrq = #{bshrq,jdbcType=VARCHAR},
+      Jggy = #{jggy,jdbcType=VARCHAR},
+      BigImageUrl = #{bigimageurl,jdbcType=VARCHAR},
+      MediumImageUrl = #{mediumimageurl,jdbcType=VARCHAR},
+      SmallImageUrl = #{smallimageurl,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hht.mapper.BDishTasteMapper" >
+  <resultMap id="BaseResultMap" type="com.hht.models.BDishTaste" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="taste_code" property="tasteCode" jdbcType="VARCHAR" />
+    <result column="taste_name" property="tasteName" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="is_history" property="isHistory" jdbcType="INTEGER" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="tenant_id" property="tenantId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, taste_code, taste_name, sort, update_time, create_time, is_history, shop_id, 
+    tenant_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from b_dish_taste
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from b_dish_taste
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hht.models.BDishTaste" >
+    insert into b_dish_taste (id, taste_code, taste_name, 
+      sort, update_time, create_time, 
+      is_history, shop_id, tenant_id
+      )
+    values (#{id,jdbcType=CHAR}, #{tasteCode,jdbcType=VARCHAR}, #{tasteName,jdbcType=VARCHAR}, 
+      #{sort,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{isHistory,jdbcType=INTEGER}, #{shopId,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hht.models.BDishTaste" >
+    insert into b_dish_taste
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tasteCode != null" >
+        taste_code,
+      </if>
+      <if test="tasteName != null" >
+        taste_name,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="isHistory != null" >
+        is_history,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="tenantId != null" >
+        tenant_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="tasteCode != null" >
+        #{tasteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tasteName != null" >
+        #{tasteName,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isHistory != null" >
+        #{isHistory,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null" >
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hht.models.BDishTaste" >
+    update b_dish_taste
+    <set >
+      <if test="tasteCode != null" >
+        taste_code = #{tasteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tasteName != null" >
+        taste_name = #{tasteName,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isHistory != null" >
+        is_history = #{isHistory,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null" >
+        tenant_id = #{tenantId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hht.models.BDishTaste" >
+    update b_dish_taste
+    set taste_code = #{tasteCode,jdbcType=VARCHAR},
+      taste_name = #{tasteName,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      is_history = #{isHistory,jdbcType=INTEGER},
+      shop_id = #{shopId,jdbcType=VARCHAR},
+      tenant_id = #{tenantId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from b_dish_taste
+    <where>
+      <if test="isHistory != null and isHistory != ''" >
+        is_history = #{isHistory,jdbcType=INTEGER}
+      </if>
+      <if test="tenantId != null and tenantId != ''" >
+        AND tenant_id = #{tenantId,jdbcType=VARCHAR}
+      </if>
+      <if test="shopId != null and shopId != ''" >
+        AND shop_id = #{shopId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+</mapper>

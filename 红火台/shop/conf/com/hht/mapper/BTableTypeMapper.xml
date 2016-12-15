@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hht.mapper.BTableTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.hht.models.BTableType" >
+	<id column="id" property="id" jdbcType="CHAR" />
+    <result column="table_type_code" property="tableTypeCode" jdbcType="VARCHAR" />
+    <result column="table_type_name" property="tableTypeName" jdbcType="VARCHAR" />
+    <result column="max_size" property="maxSize" jdbcType="INTEGER" />
+    <result column="min_size" property="minSize" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="is_history" property="isHistory" jdbcType="INTEGER" />
+    <result column="tenant_id" property="tenantId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, table_type_code, table_type_name, max_size, min_size, create_time, update_time,
+    status, is_history, tenant_id, shop_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from b_table_type
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from b_table_type
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hht.models.BTableType" >
+    insert into b_table_type (id, table_type_code, table_type_name,
+      max_size, min_size, create_time, 
+      update_time, status, is_history, 
+      tenant_id, shop_id)
+    values (#{id,jdbcType=CHAR}, #{tableTypeCode,jdbcType=VARCHAR}, #{tableTypeName,jdbcType=VARCHAR}, 
+      #{maxSize,jdbcType=INTEGER}, #{minSize,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{isHistory,jdbcType=INTEGER}, 
+      #{tenantId,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hht.models.BTableType" >
+    insert into b_table_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tableTypeCode != null" >
+        table_type_code,
+      </if>
+      <if test="tableTypeName != null" >
+        table_type_name,
+      </if>
+      <if test="maxSize != null" >
+        max_size,
+      </if>
+      <if test="minSize != null" >
+        min_size,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="isHistory != null" >
+        is_history,
+      </if>
+      <if test="tenantId != null" >
+        tenant_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="tableTypeCode != null" >
+        #{tableTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tableTypeName != null" >
+        #{tableTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="maxSize != null" >
+        #{maxSize,jdbcType=INTEGER},
+      </if>
+      <if test="minSize != null" >
+        #{minSize,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isHistory != null" >
+        #{isHistory,jdbcType=INTEGER},
+      </if>
+      <if test="tenantId != null" >
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hht.models.BTableType" >
+    update b_table_type
+    <set >
+      <if test="tableTypeCode != null" >
+        table_type_code = #{tableTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tableTypeName != null" >
+        table_type_name = #{tableTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="maxSize != null" >
+        max_size = #{maxSize,jdbcType=INTEGER},
+      </if>
+      <if test="minSize != null" >
+        min_size = #{minSize,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isHistory != null" >
+        is_history = #{isHistory,jdbcType=INTEGER},
+      </if>
+      <if test="tenantId != null" >
+        tenant_id = #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hht.models.BTableType" >
+    update b_table_type
+    set table_type_code = #{tableTypeCode,jdbcType=VARCHAR},
+      table_type_name = #{tableTypeName,jdbcType=VARCHAR},
+      max_size = #{maxSize,jdbcType=INTEGER},
+      min_size = #{minSize,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      is_history = #{isHistory,jdbcType=INTEGER},
+      tenant_id = #{tenantId,jdbcType=VARCHAR},
+      shop_id = #{shopId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from b_table_type
+    <where>
+      <if test="isHistory != null and isHistory != ''" >
+        is_history = #{isHistory,jdbcType=INTEGER}
+      </if>
+      <if test="tenantId != null and tenantId != ''" >
+        AND tenant_id = #{tenantId,jdbcType=VARCHAR}
+      </if>
+      <if test="shopId != null and shopId != ''" >
+        AND shop_id = #{shopId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>
